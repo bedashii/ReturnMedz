@@ -54,9 +54,6 @@
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="PropertiesGenerator\BaseProperties.cs" />
-    <Compile Include="PropertiesGenerator\DataProperties.cs" />
-    <Compile Include="PropertiesGenerator\PropertiesProperties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
@@ -83,7 +80,24 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\CreateClass\CreateClass.csproj">
+      <Project>{1DC41EB2-C130-4B98-B272-126FC506C82E}</Project>
+      <Name>CreateClass</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataHelper\DataHelper.csproj">
+      <Project>{5ED9B1DC-16C0-4287-9574-74DD21A2636B}</Project>
+      <Name>DataHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImportDB\ImportDB.csproj">
+      <Project>{F5FD4BF6-04D3-433A-854A-F62707D297D3}</Project>
+      <Name>ImportDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Variables\Variable.csproj">
+      <Project>{664D3D9C-26F1-404D-8622-8984E9A11D87}</Project>
+      <Name>Variable</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
