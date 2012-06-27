@@ -1,0 +1,2 @@
+﻿2) - Creating Movie Add Control
+   - Checking if it's possible to somehow retrieve the extension from the internet automatically in the base class of the formats
