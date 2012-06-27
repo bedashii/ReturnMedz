@@ -36,7 +36,10 @@ namespace PropertiesGenerator
                 Variables v = new Variables();
                 v.Name =  DGVProperties.Rows[i].Cells[0].Value.ToString();
                 v.Type = DGVProperties.Rows[i].Cells[1].Value.ToString();
-                v.VariableSize = Convert.ToInt32(DGVProperties.Rows[i].Cells[2].Value.ToString());
+                if (DGVProperties.Rows[i].Cells[2].Value != null && DGVProperties.Rows[i].Cells[2].Value.ToString() != "")
+                    v.VariableSize = Convert.ToInt32(DGVProperties.Rows[i].Cells[2].Value.ToString());
+                else
+                    v.VariableSize = 0;
                 v.AllowNulls = Convert.ToBoolean(DGVProperties.Rows[i].Cells[3].Value);
                 vList.Add(v);
             }
