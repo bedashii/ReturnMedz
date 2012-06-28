@@ -32,13 +32,13 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.listBoxClasses = new System.Windows.Forms.ListBox();
             this.dataGridViewVariables = new System.Windows.Forms.DataGridView();
-            this.buttonBuild = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.variableSizeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.allowNullsDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.bindingSourceVariables = new System.Windows.Forms.BindingSource(this.components);
+            this.buttonBuild = new System.Windows.Forms.Button();
+            this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOpenDirectory = new System.Windows.Forms.Button();
             this.textBoxPath = new System.Windows.Forms.TextBox();
             this.labelPath = new System.Windows.Forms.Label();
@@ -100,6 +100,38 @@
             this.dataGridViewVariables.Size = new System.Drawing.Size(437, 399);
             this.dataGridViewVariables.TabIndex = 1;
             // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // typeDataGridViewTextBoxColumn
+            // 
+            this.typeDataGridViewTextBoxColumn.DataPropertyName = "Type";
+            this.typeDataGridViewTextBoxColumn.HeaderText = "Type";
+            this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
+            this.typeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // variableSizeDataGridViewTextBoxColumn
+            // 
+            this.variableSizeDataGridViewTextBoxColumn.DataPropertyName = "VariableSize";
+            this.variableSizeDataGridViewTextBoxColumn.HeaderText = "VariableSize";
+            this.variableSizeDataGridViewTextBoxColumn.Name = "variableSizeDataGridViewTextBoxColumn";
+            this.variableSizeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // allowNullsDataGridViewCheckBoxColumn
+            // 
+            this.allowNullsDataGridViewCheckBoxColumn.DataPropertyName = "AllowNulls";
+            this.allowNullsDataGridViewCheckBoxColumn.HeaderText = "AllowNulls";
+            this.allowNullsDataGridViewCheckBoxColumn.Name = "allowNullsDataGridViewCheckBoxColumn";
+            this.allowNullsDataGridViewCheckBoxColumn.ReadOnly = true;
+            // 
+            // bindingSourceVariables
+            // 
+            this.bindingSourceVariables.DataSource = typeof(Variable.Variables);
+            // 
             // buttonBuild
             // 
             this.buttonBuild.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -122,37 +154,9 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            // 
-            // typeDataGridViewTextBoxColumn
-            // 
-            this.typeDataGridViewTextBoxColumn.DataPropertyName = "Type";
-            this.typeDataGridViewTextBoxColumn.HeaderText = "Type";
-            this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
-            // 
-            // variableSizeDataGridViewTextBoxColumn
-            // 
-            this.variableSizeDataGridViewTextBoxColumn.DataPropertyName = "VariableSize";
-            this.variableSizeDataGridViewTextBoxColumn.HeaderText = "VariableSize";
-            this.variableSizeDataGridViewTextBoxColumn.Name = "variableSizeDataGridViewTextBoxColumn";
-            // 
-            // allowNullsDataGridViewCheckBoxColumn
-            // 
-            this.allowNullsDataGridViewCheckBoxColumn.DataPropertyName = "AllowNulls";
-            this.allowNullsDataGridViewCheckBoxColumn.HeaderText = "AllowNulls";
-            this.allowNullsDataGridViewCheckBoxColumn.Name = "allowNullsDataGridViewCheckBoxColumn";
-            // 
-            // bindingSourceVariables
-            // 
-            this.bindingSourceVariables.DataSource = typeof(Variable.Variables);
-            // 
             // buttonOpenDirectory
             // 
-            this.buttonOpenDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonOpenDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOpenDirectory.Location = new System.Drawing.Point(487, 417);
             this.buttonOpenDirectory.Name = "buttonOpenDirectory";
             this.buttonOpenDirectory.Size = new System.Drawing.Size(24, 23);
@@ -163,7 +167,7 @@
             // 
             // textBoxPath
             // 
-            this.textBoxPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.textBoxPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxPath.Location = new System.Drawing.Point(47, 419);
             this.textBoxPath.Name = "textBoxPath";
@@ -172,6 +176,7 @@
             // 
             // labelPath
             // 
+            this.labelPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelPath.AutoSize = true;
             this.labelPath.Location = new System.Drawing.Point(12, 422);
             this.labelPath.Name = "labelPath";

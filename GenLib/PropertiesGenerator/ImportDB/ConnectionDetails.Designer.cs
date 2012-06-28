@@ -38,6 +38,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.textBoxDatabaseName = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.checkBoxRememberPassword = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -135,11 +136,23 @@
             this.label4.TabIndex = 8;
             this.label4.Text = "Database name";
             // 
+            // checkBoxRememberPassword
+            // 
+            this.checkBoxRememberPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxRememberPassword.AutoSize = true;
+            this.checkBoxRememberPassword.Location = new System.Drawing.Point(15, 120);
+            this.checkBoxRememberPassword.Name = "checkBoxRememberPassword";
+            this.checkBoxRememberPassword.Size = new System.Drawing.Size(118, 17);
+            this.checkBoxRememberPassword.TabIndex = 9;
+            this.checkBoxRememberPassword.Text = "Remeber Password";
+            this.checkBoxRememberPassword.UseVisualStyleBackColor = true;
+            // 
             // ConnectionDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(303, 144);
+            this.Controls.Add(this.checkBoxRememberPassword);
             this.Controls.Add(this.textBoxDatabaseName);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.buttonCancel);
@@ -169,5 +182,6 @@
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.TextBox textBoxDatabaseName;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox checkBoxRememberPassword;
     }
 }

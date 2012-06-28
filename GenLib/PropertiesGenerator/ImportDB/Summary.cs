@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Author: Rian Mostert
+// Date: 28 May 2012
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -87,16 +90,43 @@ namespace ImportDB
             }
         }
 
+        private List<string> _unknownTypes;
+
         private void SelectCSharpType(ref string type)
         {
+            if (_unknownTypes == null)
+                _unknownTypes = new List<string>();
+            
+            //image
+
             if (type == "bit") type = "bool";
             else if (type == "datetime") type = "bool";
             else if (type == "varchar") type = "string";
             else if (type == "nvarchar") type = "string";
             else if (type == "varbinary") type = "string";
             else if (type == "int") { }
-            else
+
+            else if (type == "xml") type = "string";
+            else if (type == "money") type = "decimal";
+            else if (type == "decimal") type = "decimal";
+            else if (type == "timestamp") type = "DateTime";
+            else if (type == "datetime") type = "DateTime";
+            else if (type == "tinyint") type = "byte";
+            else if (type == "nchar") type = "string";
+            else if (type == "text") type = "string";
+            else if (type == "smallint") type = "short";
+            else if (type == "smalldatetime") type = "DateTime";
+            else if (type == "float") { }
+            else if (type == "char") type = "string";
+            else if (type == "real") type = "float";
+            else if (type == "bigint") type = "long";
+            else if (type == "smallmoney") type = "decimal";
+
+            else if (!_unknownTypes.Contains(type))
+            {
+                _unknownTypes.Add(type);
                 MessageBox.Show("Unknown Type: " + type);
+            }
         }
 
         private void buttonBuild_Click(object sender, EventArgs e)

@@ -11,12 +11,45 @@ namespace ImportDB
 {
     public partial class ConnectionDetails : Form
     {
+        public DataHelper.DataHelper Connect { get; set; }
+        
         public ConnectionDetails()
         {
             InitializeComponent();
+
+            SetConnectioDetails();
         }
 
-        public DataHelper.DataHelper Connect { get; set; }
+        private void SetConnectioDetails()
+        {
+            textBoxServerName.Text = System.Configuration.ConfigurationManager.AppSettings["LCDServer"].ToString();
+            textBoxDatabaseName.Text = System.Configuration.ConfigurationManager.AppSettings["LCDDatabase"].ToString();
+            textBoxLogin.Text = System.Configuration.ConfigurationManager.AppSettings["LCDLogin"].ToString();
+
+            string rp = System.Configuration.ConfigurationManager.AppSettings["LCDStorePassword"].ToString();
+
+            if (rp == "" || rp == "False")
+                checkBoxRememberPassword.Checked = false;
+            else
+            {
+                checkBoxRememberPassword.Checked = true;
+                textBoxPassword.Text = System.Configuration.ConfigurationManager.AppSettings["LCDPassword"].ToString();
+            }
+        }
+
+        private void SaveConnectionDetails()
+        {
+            System.Configuration.Configuration config =
+          System.Configuration.ConfigurationManager.OpenExeConfiguration(System.Configuration.ConfigurationUserLevel.None);
+
+            config.AppSettings.Settings["LCDServer"].Value = textBoxServerName.Text;
+            config.AppSettings.Settings["LCDDatabase"].Value = textBoxDatabaseName.Text;
+            config.AppSettings.Settings["LCDLogin"].Value = textBoxLogin.Text;
+            config.AppSettings.Settings["LCDStorePassword"].Value = checkBoxRememberPassword.Checked.ToString();
+            config.AppSettings.Settings["LCDPassword"].Value = checkBoxRememberPassword.Checked ? textBoxPassword.Text : "";
+
+            config.Save(System.Configuration.ConfigurationSaveMode.Full, true);
+        }
 
         private void buttonConnect_Click(object sender, EventArgs e)
         {
@@ -28,7 +61,12 @@ namespace ImportDB
 
             Connect = new DataHelper.DataHelper(connectionString);
             if (Connect.CanConnect)
+            {
+                // This Shit doesn't work.
+                SaveConnectionDetails();
+
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            }
             else
                 MessageBox.Show("Connection failed\nPlease make sure that your connection details are correct.");
         }
@@ -36,6 +74,8 @@ namespace ImportDB
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+
+            // If you click cancel it removes the LCD app settings... WHY?!?
         }
     }
 }
