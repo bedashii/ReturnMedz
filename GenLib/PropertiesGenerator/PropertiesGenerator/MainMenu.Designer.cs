@@ -1,4 +1,4 @@
-﻿namespace PropertiesGenerator
+﻿namespace CreateClass
 {
     partial class MainMenu
     {

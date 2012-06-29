@@ -10,7 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-using PropertiesGenerator;
+using CreateClass;
+using CreateClass.PropertiesGenerator;
 
 namespace ImportDB
 {
@@ -136,8 +137,10 @@ namespace ImportDB
 
             _customClassesList.ForEach(x =>
                 {
-                    CreateClass.WriteProperties(x.Variables, x.Name, textBoxPath.Text);
-                    CreateClass.WriteData(x.Variables, x.Name, textBoxPath.Text);
+                    CreateClass.CreateClass.WriteProperties(x.Variables, x.Name, textBoxPath.Text);
+                    CreateClass.CreateClass.WriteData(x.Variables, x.Name, textBoxPath.Text);
+                    CreateClass.CreateClass.WriteBusiness(x.Variables, x.Name, textBoxPath.Text);
+                    CreateClass.CreateClass.WriteList(x.Variables, x.Name, textBoxPath.Text);
                 });
         }
 
@@ -148,7 +151,7 @@ namespace ImportDB
 
         private void listBoxClasses_SelectedIndexChanged(object sender, EventArgs e)
         {
-            bindingSourceVariables.DataSource = _customClassesList.Find(x => x.Name == listBoxClasses.SelectedItem).Variables;
+            bindingSourceVariables.DataSource = _customClassesList.Find(x => x.Name == listBoxClasses.SelectedItem.ToString()).Variables;
         }
 
         private void buttonOpenDirectory_Click(object sender, EventArgs e)

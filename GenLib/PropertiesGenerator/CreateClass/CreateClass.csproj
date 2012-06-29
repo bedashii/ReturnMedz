@@ -43,7 +43,9 @@
   <ItemGroup>
     <Compile Include="CreateClass.cs" />
     <Compile Include="PropertiesGenerator\BaseProperties.cs" />
+    <Compile Include="PropertiesGenerator\BusinessProperties.cs" />
     <Compile Include="PropertiesGenerator\DataProperties.cs" />
+    <Compile Include="PropertiesGenerator\ListProperties.cs" />
     <Compile Include="PropertiesGenerator\PropertiesProperties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

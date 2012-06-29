@@ -95,9 +95,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RetMovManLib\RetMovManLib.csproj">
+    <ProjectReference Include="..\..\..\RetLib\MovieManagerLib\MovieManagerLib.csproj">
       <Project>{ED325B59-305F-4B66-B2E8-C1BFD2B42AF7}</Project>
-      <Name>RetMovManLib</Name>
+      <Name>MovieManagerLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

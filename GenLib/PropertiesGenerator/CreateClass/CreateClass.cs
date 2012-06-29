@@ -5,7 +5,7 @@ using System.Text;
 using Variable;
 using System.IO;
 
-namespace PropertiesGenerator
+namespace CreateClass
 {
     public class CreateClass
     {
@@ -43,6 +43,36 @@ namespace PropertiesGenerator
             Directory.CreateDirectory(path == "" ? "\\Properties" : path + "\\Properties");
             StreamWriter sw = new StreamWriter(path == "" ? "\\Properties\\" + pp.FileName : path + "\\Properties\\" + pp.FileName);
             sw.Write(pp.GetAll);
+            sw.Close();
+        }
+
+        public static void WriteBusiness(List<Variables> vList, string className, string path)
+        {
+            PropertiesGenerator.BusinessProperties bp = new PropertiesGenerator.BusinessProperties(System.Configuration.ConfigurationManager.AppSettings["BusinessNamespace"].ToString(), className);
+            foreach (Variables v in vList)
+            {
+                PropertiesGenerator.BusinessProps pProps = new PropertiesGenerator.BusinessProps();
+                pProps.BName = v.Name;
+                bp.Prop.Add(pProps);
+            }
+            Directory.CreateDirectory(path == "" ? "\\Business" : path + "\\Business");
+            StreamWriter sw = new StreamWriter(path == "" ? "\\Business\\" + bp.FileName : path + "\\Business\\" + bp.FileName);
+            sw.Write(bp.GetAll);
+            sw.Close();
+        }
+
+        public static void WriteList(List<Variables> vList, string className, string path)
+        {
+            PropertiesGenerator.ListProperties lp = new PropertiesGenerator.ListProperties(System.Configuration.ConfigurationManager.AppSettings["ListNamespace"].ToString(), className);
+            foreach (Variables v in vList)
+            {
+                PropertiesGenerator.ListProps pProps = new PropertiesGenerator.ListProps();
+                pProps.LName = v.Name;
+                lp.Prop.Add(pProps);
+            }
+            Directory.CreateDirectory(path == "" ? "\\List" : path + "\\List");
+            StreamWriter sw = new StreamWriter(path == "" ? "\\List\\" + lp.FileName : path + "\\List\\" + lp.FileName);
+            sw.Write(lp.GetAll);
             sw.Close();
         }
     }

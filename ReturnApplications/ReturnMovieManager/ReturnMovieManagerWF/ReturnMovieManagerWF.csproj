@@ -88,13 +88,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RetMovManLib\RetMovManLib.csproj">
-      <Project>{ED325B59-305F-4B66-B2E8-C1BFD2B42AF7}</Project>
-      <Name>RetMovManLib</Name>
-    </ProjectReference>
+    <Content Include="Notes\WhereWasI.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Notes\WhereWasI.txt" />
+    <ProjectReference Include="..\..\..\RetLib\MovieManagerLib\MovieManagerLib.csproj">
+      <Project>{ED325B59-305F-4B66-B2E8-C1BFD2B42AF7}</Project>
+      <Name>MovieManagerLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

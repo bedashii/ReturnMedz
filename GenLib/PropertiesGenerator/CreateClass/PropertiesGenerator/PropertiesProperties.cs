@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PropertiesGenerator.PropertiesGenerator
+namespace CreateClass.PropertiesGenerator
 {
     public class PropertiesProperties : BaseProperties
     {
@@ -19,9 +19,10 @@ namespace PropertiesGenerator.PropertiesGenerator
         {
             get
             {
-                string s = "        ";
-                s += "public " + ClassNameFull + "()" + NL;
-                s += "      {" + NL + "     }" + NL;
+                string s = NS;
+                s += "        public " + ClassNameFull + "()" + NL;
+                s += "        {" + NL;
+                s += "        }" + NL;
                 return s;
             }
         }
@@ -37,47 +38,53 @@ namespace PropertiesGenerator.PropertiesGenerator
                 Prop.ForEach(x =>
                     {
                         string s = NL;
-                        s += "      partial void On" + x.PName + "Changing();" + NL;
-                        s += "      partial void On" + x.PName + "Changed();" + NL;
+                        s += "        partial void On" + x.PName + "Changing();" + NL;
+                        s += "        partial void On" + x.PName + "Changed();" + NL;
 
                         if (x.PName.ToLower() == "id")
                         {
-                            s += "      private " + x.PDataType + " _id;" + NL;
-                            s += "      public " + x.PDataType + " ID" + NL;
-                            s += "      {" + NL;
-                            s += "          get {return _id; }" + NL;
-                            s += "          set" + NL + "          " + "{" + NL;
-                            s += "              On" + x.PName + "Changing();" + NL;
-                            s += "              _id = value;" + NL;
-                            s += "              base.HasChanged = true;" + NL;
-                            s += "              On" + x.PName + "Changed();" + NL;
-                            s += "          }" + NL + "     }" + NL;
+                            s += "        private " + x.PDataType + " _id;" + NL;
+                            s += "        public " + x.PDataType + " ID" + NL;
+                            s += "        {" + NL;
+                            s += "            get { return _id; }" + NL;
+                            s += "            set" + NL;
+                            s += "            {" + NL;
+                            s += "                On" + x.PName + "Changing();" + NL;
+                            s += "                _id = value;" + NL;
+                            s += "                base.HasChanged = true;" + NL;
+                            s += "                On" + x.PName + "Changed();" + NL;
+                            s += "            }" + NL;
+                            s += "        }" + NL;
                         }
                         else if (x.AllowNulls)
                         {
-                            s += "      private " + x.PDataType + "? " + GetVariable(x.PName) + ";" + NL;
-                            s += "      public " + x.PDataType + "? " + x.PName + NL;
-                            s += "      {" + NL;
-                            s += "          get {return " + GetVariable(x.PName) + "; }" + NL;
-                            s += "          set" + NL + "          " + "{" + NL;
-                            s += "              On" + x.PName + "Changing();" + NL;
-                            s += "              " + GetVariable(x.PName) + " = value;" + NL;
-                            s += "              base.HasChanged = true;" + NL;
-                            s += "              On" + x.PName + "Changed();" + NL;
-                            s += "          }" + NL + "     }" + NL;
+                            s += "        private " + x.PDataType + "? " + GetVariable(x.PName) + ";" + NL;
+                            s += "        public " + x.PDataType + "? " + x.PName + NL;
+                            s += "        {" + NL;
+                            s += "            get { return " + GetVariable(x.PName) + "; }" + NL;
+                            s += "            set" + NL;
+                            s += "            {" + NL;
+                            s += "                On" + x.PName + "Changing();" + NL;
+                            s += "                " + GetVariable(x.PName) + " = value;" + NL;
+                            s += "                base.HasChanged = true;" + NL;
+                            s += "                On" + x.PName + "Changed();" + NL;
+                            s += "            }" + NL;
+                            s += "        }" + NL;
                         }
                         else
                         {
-                            s += "      private " + x.PDataType + " " + GetVariable(x.PName) + ";" + NL;
-                            s += "      public " + x.PDataType + " " + x.PName + NL;
-                            s += "      {" + NL;
-                            s += "          get {return " + GetVariable(x.PName) + "; }" + NL;
-                            s += "          set" + NL + "          " + "{" + NL;
-                            s += "              On" + x.PName + "Changing();" + NL;
-                            s += "              " + GetVariable(x.PName) + " = value;" + NL;
-                            s += "              base.HasChanged = true;" + NL;
-                            s += "              On" + x.PName + "Changed();" + NL;
-                            s += "          }" + NL + "     }" + NL;
+                            s += "        private " + x.PDataType + " " + GetVariable(x.PName) + ";" + NL;
+                            s += "        public " + x.PDataType + " " + x.PName + NL;
+                            s += "        {" + NL;
+                            s += "            get { return " + GetVariable(x.PName) + "; }" + NL;
+                            s += "            set" + NL;
+                            s += "            {" + NL;
+                            s += "                On" + x.PName + "Changing();" + NL;
+                            s += "                " + GetVariable(x.PName) + " = value;" + NL;
+                            s += "                base.HasChanged = true;" + NL;
+                            s += "                On" + x.PName + "Changed();" + NL;
+                            s += "            }" + NL; 
+                            s += "        }" + NL;
                         }
 
                         sList.Add(s);
@@ -93,12 +100,28 @@ namespace PropertiesGenerator.PropertiesGenerator
             {
                 string s = "";
 
-                s += Imports;
-                s += Namespace;
-                s += ClassHeader;
-                s += Constructor;
-                PropsAll.ForEach(x => s += x);
-                s += Footer;
+                try
+                {
+                    if (this.Prop.Count > 0)
+                    {
+                        s += Imports;
+                        s += Namespace;
+                        s += ClassHeader;
+                        s += Constructor;
+                        PropsAll.ForEach(x => s += x);
+                        s += Footer;
+                    }
+
+                    this.ErrWhileGenerating = false;
+                }
+                catch (Exception)
+                {
+                    this.ErrWhileGenerating = true;
+                }
+                finally
+                {
+
+                }
 
                 return s;
             }

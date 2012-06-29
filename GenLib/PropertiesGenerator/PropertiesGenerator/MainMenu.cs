@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using ImportDB;
 using Variable;
 
-namespace PropertiesGenerator
+namespace CreateClass
 {
     public partial class MainMenu : Form
     {
@@ -43,6 +43,8 @@ namespace PropertiesGenerator
 
             CreateClass.WriteProperties(vList,_className, textBoxPath.Text);
             CreateClass.WriteData(vList,_className, textBoxPath.Text);
+            CreateClass.WriteBusiness(vList, _className, textBoxPath.Text);
+            CreateClass.WriteList(vList, _className, textBoxPath.Text);
         }
 
         private void TBoxClassName_Validating(object sender, CancelEventArgs e)

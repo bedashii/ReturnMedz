@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PropertiesGenerator.PropertiesGenerator
+namespace CreateClass.PropertiesGenerator
 {
     public class DataProperties : BaseProperties
     {
@@ -19,7 +19,6 @@ namespace PropertiesGenerator.PropertiesGenerator
         {
             get { return this.ClassName.Substring(0, 1).ToUpper(); }
         }
-
 
         private string ColumnNames
         {
@@ -336,21 +335,39 @@ namespace PropertiesGenerator.PropertiesGenerator
             get
             {
                 string s = "";
-                s += Imports;
-                s += Namespace;
-                s += ClassHeader;
-                s += ColumnNames;
-                s += DataHelper;
-                s += Constructor;
-                s += SetRowProperties;
-                s += GetData;
-                s += UpdateData;
-                s += InsertData;
-                s += DeleteItem;
-                s += LoadItemData;
-                s += PopulateList;
-                s += LoadAll;
-                s += Footer;
+
+                try
+                {
+                    if (this.Prop.Count > 0)
+                    {
+                        s += Imports;
+                        s += Namespace;
+                        s += ClassHeader;
+                        s += ColumnNames;
+                        s += DataHelper;
+                        s += Constructor;
+                        s += SetRowProperties;
+                        s += GetData;
+                        s += UpdateData;
+                        s += InsertData;
+                        s += DeleteItem;
+                        s += LoadItemData;
+                        s += PopulateList;
+                        s += LoadAll;
+                        s += Footer;
+                    }
+
+                    this.ErrWhileGenerating = false;
+                }
+                catch (Exception)
+                {
+                    this.ErrWhileGenerating = true;
+                }
+                finally
+                {
+
+                }
+
                 return s;
             }
         }

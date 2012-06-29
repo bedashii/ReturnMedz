@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PropertiesGenerator.PropertiesGenerator
+namespace CreateClass.PropertiesGenerator
 {
     public partial class BaseProperties
     {
@@ -140,6 +140,13 @@ namespace PropertiesGenerator.PropertiesGenerator
         protected string Footer
         {
             get { return "   }" + NL + "}"; }
+        }
+
+        private bool _errWhileGenerating = false;
+        public bool ErrWhileGenerating 
+        {
+            get { return _errWhileGenerating; }
+            set { _errWhileGenerating = value; }
         }
     }
 }
