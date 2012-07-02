@@ -32,17 +32,18 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.listBoxClasses = new System.Windows.Forms.ListBox();
             this.dataGridViewVariables = new System.Windows.Forms.DataGridView();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.variableSizeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.allowNullsDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.bindingSourceVariables = new System.Windows.Forms.BindingSource(this.components);
             this.buttonBuild = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOpenDirectory = new System.Windows.Forms.Button();
             this.textBoxPath = new System.Windows.Forms.TextBox();
             this.labelPath = new System.Windows.Forms.Label();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.bindingSourceVariables = new System.Windows.Forms.BindingSource(this.components);
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SQLType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CSharpType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.variableSizeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.allowNullsDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -53,9 +54,9 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.Location = new System.Drawing.Point(12, 12);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -90,7 +91,8 @@
             this.dataGridViewVariables.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewVariables.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nameDataGridViewTextBoxColumn,
-            this.typeDataGridViewTextBoxColumn,
+            this.SQLType,
+            this.CSharpType,
             this.variableSizeDataGridViewTextBoxColumn,
             this.allowNullsDataGridViewCheckBoxColumn});
             this.dataGridViewVariables.DataSource = this.bindingSourceVariables;
@@ -100,38 +102,6 @@
             this.dataGridViewVariables.ReadOnly = true;
             this.dataGridViewVariables.Size = new System.Drawing.Size(437, 399);
             this.dataGridViewVariables.TabIndex = 1;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // typeDataGridViewTextBoxColumn
-            // 
-            this.typeDataGridViewTextBoxColumn.DataPropertyName = "Type";
-            this.typeDataGridViewTextBoxColumn.HeaderText = "Type";
-            this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
-            this.typeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // variableSizeDataGridViewTextBoxColumn
-            // 
-            this.variableSizeDataGridViewTextBoxColumn.DataPropertyName = "VariableSize";
-            this.variableSizeDataGridViewTextBoxColumn.HeaderText = "VariableSize";
-            this.variableSizeDataGridViewTextBoxColumn.Name = "variableSizeDataGridViewTextBoxColumn";
-            this.variableSizeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // allowNullsDataGridViewCheckBoxColumn
-            // 
-            this.allowNullsDataGridViewCheckBoxColumn.DataPropertyName = "AllowNulls";
-            this.allowNullsDataGridViewCheckBoxColumn.HeaderText = "AllowNulls";
-            this.allowNullsDataGridViewCheckBoxColumn.Name = "allowNullsDataGridViewCheckBoxColumn";
-            this.allowNullsDataGridViewCheckBoxColumn.ReadOnly = true;
-            // 
-            // bindingSourceVariables
-            // 
-            this.bindingSourceVariables.DataSource = typeof(Variable.Variables);
             // 
             // buttonBuild
             // 
@@ -168,8 +138,8 @@
             // 
             // textBoxPath
             // 
-            this.textBoxPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxPath.Location = new System.Drawing.Point(47, 419);
             this.textBoxPath.Name = "textBoxPath";
             this.textBoxPath.Size = new System.Drawing.Size(434, 20);
@@ -184,6 +154,45 @@
             this.labelPath.Size = new System.Drawing.Size(29, 13);
             this.labelPath.TabIndex = 8;
             this.labelPath.Text = "Path";
+            // 
+            // bindingSourceVariables
+            // 
+            this.bindingSourceVariables.DataSource = typeof(Variable.Variables);
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // SQLType
+            // 
+            this.SQLType.DataPropertyName = "SQLType";
+            this.SQLType.HeaderText = "SQL Type";
+            this.SQLType.Name = "SQLType";
+            this.SQLType.ReadOnly = true;
+            // 
+            // CSharpType
+            // 
+            this.CSharpType.DataPropertyName = "CSharpType";
+            this.CSharpType.HeaderText = "CSharp Type";
+            this.CSharpType.Name = "CSharpType";
+            this.CSharpType.ReadOnly = true;
+            // 
+            // variableSizeDataGridViewTextBoxColumn
+            // 
+            this.variableSizeDataGridViewTextBoxColumn.DataPropertyName = "VariableSize";
+            this.variableSizeDataGridViewTextBoxColumn.HeaderText = "VariableSize";
+            this.variableSizeDataGridViewTextBoxColumn.Name = "variableSizeDataGridViewTextBoxColumn";
+            this.variableSizeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // allowNullsDataGridViewCheckBoxColumn
+            // 
+            this.allowNullsDataGridViewCheckBoxColumn.DataPropertyName = "AllowNulls";
+            this.allowNullsDataGridViewCheckBoxColumn.HeaderText = "AllowNulls";
+            this.allowNullsDataGridViewCheckBoxColumn.Name = "allowNullsDataGridViewCheckBoxColumn";
+            this.allowNullsDataGridViewCheckBoxColumn.ReadOnly = true;
             // 
             // Summary
             // 
@@ -216,14 +225,16 @@
         private System.Windows.Forms.DataGridView dataGridViewVariables;
         private System.Windows.Forms.Button buttonBuild;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn typeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn variableSizeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn allowNullsDataGridViewCheckBoxColumn;
         private System.Windows.Forms.BindingSource bindingSourceVariables;
         private System.Windows.Forms.Button buttonOpenDirectory;
         private System.Windows.Forms.TextBox textBoxPath;
         private System.Windows.Forms.Label labelPath;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SQLType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CSharpType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn variableSizeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn allowNullsDataGridViewCheckBoxColumn;
     }
 }

@@ -275,122 +275,61 @@ namespace CreateClass.PropertiesGenerator
         {
             string s = " = Convert.To";
 
-            if (dataType.Equals("int"))
-                return s += "Int32";
-            else if (dataType.Equals("decimal"))
-                return s += "Decimal";
-            else if (dataType.Equals("long"))
-                return s += "Long";
-            else if (dataType.Equals("DateTime"))
+            switch (dataType)
+            {
+                case "int":
+                    return s += "Int32";
+                case "bool":
+                return s += "ToBoolean";
+                case "DateTime":
                 return s += "DateTime";
-            else if (dataType.Equals("string"))
-                return s += "String";
-            else
-                return s;
-        }
-
-        private string GetSQLDataType(string dataType)
-        {
-            string s = "SqlDbType.";
-
-            if (dataType.Equals("bool"))
-                return s += "Bit";
-            else if (dataType.Equals("DateTime"))
-                return s += "DateTime";
-            else if (dataType.Equals("string"))
-                return s += "varchar";
-            else if (dataType.Equals("int"))
-                return s += "Int";
-            else if (dataType.Equals("decimal"))
+                case "decimal":
                 return s += "Decimal";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
-            else if (dataType.Equals(""))
-                return s += "";
+                case "float":
+                return s += "Double";
+                case "long":
+                    return s += "Int64";
+                case "short":
+                    return s += "Int16";
+                case "byte":
+                    return s += "Byte";
+                case "string":
+                case "Guid":
+                    return s += "String";
+                default:
+                    return "";
+            }
             
-            if (dataType.Equals("int"))
-                return s += "Int";
-            else if (dataType.Equals("decimal"))
-                return s += "Decimal";
-            else if (dataType.Equals("long"))
-                return s += "Long";
-            else if (dataType.Equals("DateTime"))
-                return s += "DateTime";
-            else if (dataType.Equals("string"))
-                return s += "VarChar";
-            else
-                return s;
         }
+
+        //private string GetSQLDataType(string dataType)
+        //{
+        //    string s = "SqlDbType.";
+
+        //    if (dataType.Equals("bool"))
+        //        return s += "Bit";
+        //    else if (dataType.Equals("DateTime"))
+        //        return s += "DateTime";
+        //    else if (dataType.Equals("string"))
+        //        return s += "varchar";
+        //    else if (dataType.Equals("int"))
+        //        return s += "Int";
+        //    else if (dataType.Equals("decimal"))
+        //        return s += "Decimal";
+            
+        //    if (dataType.Equals("int"))
+        //        return s += "Int";
+        //    else if (dataType.Equals("decimal"))
+        //        return s += "Decimal";
+        //    else if (dataType.Equals("long"))
+        //        return s += "Long";
+        //    else if (dataType.Equals("DateTime"))
+        //        return s += "DateTime";
+        //    else if (dataType.Equals("string"))
+        //        return s += "VarChar";
+        //    else
+        //        return s;
+        //}
 
         private string ICantThinkOfANameForThisMethodRightNowBecauseItDoesSoMuchShit(string s)
         {
@@ -399,21 +338,21 @@ namespace CreateClass.PropertiesGenerator
                 if (x.CanBeNull && x.Size == 0)
                 {
                     s += NL + "             if (" + x.PName + " == null)" + NL;
-                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + GetSQLDataType(x.PSQLType) + ").Value = DBNull.Value;" + NL;
+                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + x.PSQLType + ").Value = DBNull.Value;" + NL;
                     s += @"             else" + NL;
-                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + GetSQLDataType(x.PSQLType) + ").Value = " + x.PName + ";" + NL + NL;
+                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + x.PSQLType + ").Value = " + x.PName + ";" + NL + NL;
                 }
                 else if (x.CanBeNull == false && x.Size == 0)
-                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + GetSQLDataType(x.PSQLType) + ").Value = " + x.PName + ";" + NL;
+                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + x.PSQLType + ").Value = " + x.PName + ";" + NL;
                 else if (x.CanBeNull && x.Size > 0)
                 {
                     s += NL + "             if (" + x.PName + " == null)" + NL;
-                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + GetSQLDataType(x.PSQLType) + ", " + x.Size.ToString() + " ).Value = DBNull.Value;" + NL;
+                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + x.PSQLType + ", " + x.Size.ToString() + " ).Value = DBNull.Value;" + NL;
                     s += @"             else" + NL;
-                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + GetSQLDataType(x.PSQLType) + ", " + x.Size.ToString() + " ).Value = " + x.PName + ";" + NL;
+                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + x.PSQLType + ", " + x.Size.ToString() + " ).Value = " + x.PName + ";" + NL;
                 }
                 else if (x.CanBeNull == false && x.Size > 0)
-                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + GetSQLDataType(x.PSQLType) + ", " + x.Size.ToString() + " ).Value = " + x.PName + ";" + NL + NL;
+                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + x.PSQLType + ", " + x.Size.ToString() + " ).Value = " + x.PName + ";" + NL + NL;
             });
             return s;
         }
@@ -466,6 +405,12 @@ namespace CreateClass.PropertiesGenerator
 
     public class DataProps
     {
+        public DataProps()
+        {
+            SetCSharpDictionary();
+            SetSQLDictionary();
+        }
+        
         public string PName { get; set; }
         public string PSQLType { get; set; }
         public string PCSharpType { get; set; }
@@ -479,5 +424,54 @@ namespace CreateClass.PropertiesGenerator
         }
 
         public bool CanBeNull { get; set; }
+
+        public Dictionary<string, string> CSharpDictionary { get; set; }
+        public Dictionary<string, string> SQLDictionary { get; set; }
+
+        private void SetCSharpDictionary()
+        {
+            CSharpDictionary.Add("int", "Int");
+            CSharpDictionary.Add("string", "VarChar");
+            CSharpDictionary.Add("bool", "Bit");
+            CSharpDictionary.Add("DateTime", "DateTime");
+            CSharpDictionary.Add("decimal", "Decimal");
+            CSharpDictionary.Add("float", "Float");
+            CSharpDictionary.Add("Guid", "UniqueIdentifier");
+            CSharpDictionary.Add("short", "Short");
+            CSharpDictionary.Add("byte", "TinyInt");
+            CSharpDictionary.Add("object", "Variant");
+        }
+
+        private void SetSQLDictionary()
+        {
+            SQLDictionary.Add("BigInt", "int");
+            SQLDictionary.Add("Binary", "string");
+            SQLDictionary.Add("Bit", "bool");
+            SQLDictionary.Add("Char", "string");
+            SQLDictionary.Add("DateTime", "DateTime");
+            SQLDictionary.Add("Decimal", "decimal");
+            SQLDictionary.Add("Float", "float");
+            SQLDictionary.Add("Int", "int");
+            SQLDictionary.Add("Money", "decimal");
+            SQLDictionary.Add("NChar", "string");
+            SQLDictionary.Add("NText", "string");
+            SQLDictionary.Add("NVarChar", "string");
+            SQLDictionary.Add("Real", "float");
+            SQLDictionary.Add("UniqueIdentifier", "Guid");
+            SQLDictionary.Add("SmallDateTime", "DateTime");
+            SQLDictionary.Add("SmallInt", "short");
+            SQLDictionary.Add("SmallMoney", "decimal");
+            SQLDictionary.Add("Text", "string");
+            SQLDictionary.Add("Timestamp", "DateTime");
+            SQLDictionary.Add("TinyInt", "byte");
+            SQLDictionary.Add("VarBinary", "string");
+            SQLDictionary.Add("VarChar", "string");
+            SQLDictionary.Add("Variant", "object");
+            SQLDictionary.Add("Xml", "string");
+            SQLDictionary.Add("Date", "DateTime");
+            SQLDictionary.Add("Time", "DateTime");
+            SQLDictionary.Add("DateTime2", "DateTime");
+            SQLDictionary.Add("DateTimeOffset", "DateTime");
+        }
     }
 }

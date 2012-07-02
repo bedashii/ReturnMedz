@@ -34,15 +34,18 @@ namespace Variable
         {
             Name = name;
             SQLType = sqlType;
-            CShartType = cSharpType;
+            CSharpType = cSharpType;
             VariableSize = variableSize;
             AllowNulls = allowNulls;
         }
 
+
+
         public string Name { get; set; }
         public string SQLType { get; set; }
-        public string CShartType { get; set; }
+        public string CSharpType { get; set; }
         public int VariableSize { get; set; }
         public bool AllowNulls { get; set; }
+
     }
 }

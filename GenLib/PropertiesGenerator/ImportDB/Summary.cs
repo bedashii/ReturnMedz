@@ -95,35 +95,84 @@ namespace ImportDB
 
         private List<string> _unknownTypes;
 
+        private string SelectSQLType(string type)
+        {
+            if (_unknownTypes == null)
+                _unknownTypes = new List<string>();
+
+            if (type == "BigInt") type = "in";
+            else if (type == "Binary") type = "string[]";
+            else if (type == "Bit") type = "bool";
+            else if (type == "Char") type = "string";
+            else if (type == "DateTime") type = "DateTime";
+            else if (type == "Decimal") type = "decimal";
+            else if (type == "Float") type = "float";
+            //else if (type == "Image") type = "?";
+            else if (type == "Int") type = "int";
+            else if (type == "Money") type = "decimal";
+            else if (type == "NChar") type = "string";
+            else if (type == "NText") type = "string";
+            else if (type == "NVarChar") type = "string";
+            else if (type == "Real") type = "float";
+            else if (type == "UniqueIdentifier") type = "Guid";
+            else if (type == "SmallDateTime") type = "DateTime";
+            else if (type == "SmallInt") type = "short";
+            else if (type == "SmallMoney") type = "decimal";
+            else if (type == "Text") type = "string";
+            else if (type == "Timestamp") type = "DateTime";
+            else if (type == "TinyInt") type = "byte";
+            else if (type == "VarBinary") type = "string";
+            else if (type == "VarChar") type = "string";
+            else if (type == "Variant") type = "object";
+            else if (type == "Xml") type = "string";
+            else if (type == "Date") type = "DateTime";
+            else if (type == "Time") type = "DateTime";
+            else if (type == "DateTime2") type = "DateTime";
+            else if (type == "DateTimeOffset") type = "DateTime";
+
+            else if (!_unknownTypes.Contains(type))
+            {
+                _unknownTypes.Add(type);
+                MessageBox.Show("Unknown Type: " + type);
+            }
+
+            return type;
+        }
+
         private string SelectCSharpType(string type)
         {
             if (_unknownTypes == null)
                 _unknownTypes = new List<string>();
-            
-            //image
 
-            if (type == "bit") type = "bool";
-            else if (type == "datetime") type = "bool";
-            else if (type == "varchar") type = "string";
-            else if (type == "nvarchar") type = "string";
-            else if (type == "varbinary") type = "string";
-            else if (type == "int") { }
-
-            else if (type == "xml") type = "string";
-            else if (type == "money") type = "decimal";
-            else if (type == "decimal") type = "decimal";
-            else if (type == "timestamp") type = "DateTime";
-            else if (type == "datetime") type = "DateTime";
-            else if (type == "tinyint") type = "byte";
-            else if (type == "nchar") type = "string";
-            else if (type == "text") type = "string";
-            else if (type == "smallint") type = "short";
-            else if (type == "smalldatetime") type = "DateTime";
-            else if (type == "float") { }
-            else if (type == "char") type = "string";
-            else if (type == "real") type = "float";
-            else if (type == "bigint") type = "long";
-            else if (type == "smallmoney") type = "decimal";
+            if (type == "BitInt") type = "int";
+            else if (type == "Binary") type = "string[]";
+            else if (type == "Bit") type = "bool";
+            else if (type == "Char") type = "string";
+            else if (type == "DateTime") type = "DateTime";
+            else if (type == "Decimal") type = "decimal";
+            else if (type == "Float") type = "float";
+            //else if (type == "Image") type = "?";
+            else if (type == "Int") type = "int";
+            else if (type == "Money") type = "decimal";
+            else if (type == "NChar") type = "string";
+            else if (type == "NText") type = "string";
+            else if (type == "NVarChar") type = "string";
+            else if (type == "Real") type = "float";
+            else if (type == "UniqueIdentifier") type = "Guid";
+            else if (type == "SmallDateTime") type = "DateTime";
+            else if (type == "SmallInt") type = "short";
+            else if (type == "SmallMoney") type = "decimal";
+            else if (type == "Text") type = "string";
+            else if (type == "Timestamp") type = "DateTime";
+            else if (type == "TinyInt") type = "byte";
+            else if (type == "VarBinary") type = "string";
+            else if (type == "VarChar") type = "string";
+            else if (type == "Variant") type = "object";
+            else if (type == "Xml") type = "string";
+            else if (type == "Date") type = "DateTime";
+            else if (type == "Time") type = "DateTime";
+            else if (type == "DateTime2") type = "DateTime";
+            else if (type == "DateTimeOffset") type = "DateTime";
 
             else if (!_unknownTypes.Contains(type))
             {
