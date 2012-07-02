@@ -43,7 +43,7 @@ namespace CreateClass.PropertiesGenerator
                     case 3:
                         return this.ClassName;
                     case 4:
-                        return this.ClassName + "List.cs";
+                        return this.ClassName + "List";
                     default:
                         return null;
                 }
@@ -120,26 +120,27 @@ namespace CreateClass.PropertiesGenerator
                 switch (this.ClassType)
                 {
                     case 1:
-                        s += " : PropertiesBase" + NL + "   {" + NL;
-                        return s;
+                        s += " : PropertiesBase" + NL + "    {";
+                        break;
                     case 2:
-                        s += " : Properties." + this.ClassName + "Properties" + NL + "   {" + NL;
-                        return s;
+                        s += " : Properties." + this.ClassName + "Properties";
+                        break;
                     case 3:
-                        s += " : Data." + this.ClassName + "Data" + NL + "   {" + NL;
-                        return s;
+                        s += " : Data." + this.ClassName + "Data";
+                        break;
                     case 4:
-                        s += " : Business." + this.ClassName + NL + "   {" + NL;
-                        return s;
-                    default:
-                        return s;
+                        s += " : List<Business>." + this.ClassName;
+                        break;
                 }
+
+                s += NL + "    {" + NL;
+                return s;
             }
         }
 
         protected string Footer
         {
-            get { return "   }" + NL + "}"; }
+            get { return "    }" + NL + "}"; }
         }
 
         private bool _errWhileGenerating = false;

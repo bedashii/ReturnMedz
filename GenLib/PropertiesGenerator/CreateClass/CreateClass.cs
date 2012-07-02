@@ -17,7 +17,7 @@ namespace CreateClass
             {
                 PropertiesGenerator.DataProps dProps = new PropertiesGenerator.DataProps();
                 dProps.PName = v.Name;
-                dProps.PDataType = v.Type;
+                dProps.PSQLType = v.SQLType;
                 dProps.CanBeNull = v.AllowNulls;
                 dProps.Size = v.VariableSize;
                 dp.Prop.Add(dProps);
@@ -36,7 +36,7 @@ namespace CreateClass
             {
                 PropertiesGenerator.PropertiesProps pProps = new PropertiesGenerator.PropertiesProps();
                 pProps.PName = v.Name;
-                pProps.PDataType = v.Type;
+                pProps.PDataType = v.SQLType;
                 pProps.AllowNulls = v.AllowNulls;
                 pp.Prop.Add(pProps);
             }

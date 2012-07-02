@@ -57,7 +57,8 @@ namespace ImportDB
 
             string tableName;
             string columnName;
-            string type;
+            string sqlType;
+            string cSharpType;
             int length;
             bool allowNulls;
             CustomClasses cc;
@@ -66,8 +67,8 @@ namespace ImportDB
             {
                 tableName = dr["TABLE_NAME"].ToString();
                 columnName = dr["COLUMN_NAME"].ToString();
-                type = dr["DATA_TYPE"].ToString();
-                SelectCSharpType(ref type);
+                sqlType = dr["DATA_TYPE"].ToString();
+                cSharpType = SelectCSharpType(sqlType);
                 length = Convert.ToInt32(dr["CHARACTER_MAXIMUM_LENGTH"]);
                 allowNulls = dr["IS_NULLABLE"].ToString() == "NO" ? false : true;
 
@@ -75,16 +76,17 @@ namespace ImportDB
 
                 if (cc == null)
                 {
-                    _customClassesList.Add(new CustomClasses(tableName, columnName, type, length, allowNulls));
+                    _customClassesList.Add(new CustomClasses(tableName, columnName, sqlType, cSharpType , length, allowNulls));
                 }
                 else
                 {
-                    cc.Variables.Add(new Variable.Variables(columnName, type, length, allowNulls));
+                    cc.Variables.Add(new Variable.Variables(columnName, sqlType, cSharpType, length, allowNulls));
                 }
 
                 tableName = "";
                 columnName = "";
-                type = "";
+                sqlType = "";
+                cSharpType = "";
                 length = 0;
                 allowNulls = true;
                 cc = null;
@@ -93,7 +95,7 @@ namespace ImportDB
 
         private List<string> _unknownTypes;
 
-        private void SelectCSharpType(ref string type)
+        private string SelectCSharpType(string type)
         {
             if (_unknownTypes == null)
                 _unknownTypes = new List<string>();
@@ -128,6 +130,8 @@ namespace ImportDB
                 _unknownTypes.Add(type);
                 MessageBox.Show("Unknown Type: " + type);
             }
+
+            return type;
         }
 
         private void buttonBuild_Click(object sender, EventArgs e)
@@ -173,10 +177,10 @@ namespace ImportDB
 
         }
 
-        public CustomClasses(string tableName, string columnName, string type, int length, bool allowNulls)
+        public CustomClasses(string tableName, string columnName, string sqlType, string cSharpType, int length, bool allowNulls)
         {
             Name = tableName;
-            Variables.Add(new Variable.Variables(columnName, type, length, allowNulls));
+            Variables.Add(new Variable.Variables(columnName, sqlType, cSharpType, length, allowNulls));
         }
 
         public string Name { get; set; }

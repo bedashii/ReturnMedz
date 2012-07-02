@@ -49,9 +49,9 @@ namespace CreateClass.PropertiesGenerator
             {
                 string s = NL + "        ";
                 s += "public " + ClassNameFull + "()" + NL;
-                s += "      {" + NL;
-                s += "          dataHelper = new DataHelper();" + NL;
-                s += "      }" + NL;
+                s += "        {" + NL;
+                s += "            dataHelper = new DataHelper();" + NL;
+                s += "        }" + NL;
                 return s;
             }
         }
@@ -62,25 +62,28 @@ namespace CreateClass.PropertiesGenerator
             {
                 string s = NL + "        ";
                 s += "internal void SetRowProperties(DataRow dr, Properties." + this.ClassName + "Properties row)" + NL;
-                s += "      {" + NL;
+                s += "        {";
 
                 Prop.ForEach(x =>
                     {
                         if (x.CanBeNull)
                         {
-                            s += NL + "          " + NL;
-                            s += "if ((" + GetRow(x.PName) + ") == DBNull.Value)" + NL;
-                            s += "              row." + x.PName + " = null;" + NL;
-                            s += "else" + NL;
-                            s += "              row." + x.PName + GetConversion(x.PDataType) + "(" + GetRow(x.PName) + ");" + NL + NL;
+                            s += NL;
+                            s += "            if ((" + GetRow(x.PName) + ") == DBNull.Value)" + NL;
+                            s += "                row." + x.PName + " = null;" + NL;
+                            s += "            else" + NL;
+                            s += "                row." + x.PName + GetConversion(x.PCSharpType) + "(" + GetRow(x.PName) + ");" + NL;
                         }
                         else
-                            s += "              row." + x.PName + GetConversion(x.PDataType) + "(" + GetRow(x.PName) + ");" + NL;
+                        {
+                            s += NL;
+                            s += "            row." + x.PName + GetConversion(x.PCSharpType) + "(" + GetRow(x.PName) + ");";
+                        }
                     });
 
-                s += "          row.Exists = true;" + NL;
-                s += "          row.HasChanged = false;" + NL;
-                s += "      }" + NL;
+                s += "            row.Exists = true;" + NL;
+                s += "            row.HasChanged = false;" + NL;
+                s += "        }" + NL;
 
                 return s;
             }
@@ -92,16 +95,16 @@ namespace CreateClass.PropertiesGenerator
             {
                 string s = NL + "        ";
                 s += "internal DataTable GetData(string orderBy)" + NL;
-                s += "      {" + NL;
-                s += @"         string q = ""SELECT "";" + NL;
-                s += @"         if (dataHelper.MaxRows != 0)" + NL;
-                s += @"             q += "" TOP "" + dataHelper.MaxRows.ToString() + "" "";" + NL;
-                s += @"         q += _selectColumnNames + ""\n"";" + NL;
-                s += @"         q += ""FROM dbo." + this.ClassName + " AS " + TH + @"\n"";" + NL;
-                s += @"         if (orderBy != """")" + NL;
-                s += @"q += ""ORDER BY "" + orderBy;" + NL + NL;
-                s += @"return dataHelper.ExecuteQuery(dataHelper.CreateCommand(q));" + NL;
-                s += "      }" + NL;
+                s += "        {" + NL;
+                s += @"            string q = ""SELECT "";" + NL;
+                s += @"            if (dataHelper.MaxRows != 0)" + NL;
+                s += @"                q += "" TOP "" + dataHelper.MaxRows.ToString() + "" "";" + NL;
+                s += @"            q += _selectColumnNames + ""\n"";" + NL;
+                s += @"            q += ""FROM dbo." + this.ClassName + " AS " + TH + @"\n"";" + NL;
+                s += @"            if (orderBy != """")" + NL;
+                s += @"                q += ""ORDER BY "" + orderBy;" + NL + NL;
+                s += @"            return dataHelper.ExecuteQuery(dataHelper.CreateCommand(q));" + NL;
+                s += "        }" + NL;
                 return s;
             }
         }
@@ -112,7 +115,7 @@ namespace CreateClass.PropertiesGenerator
             {
                 string s = NL + "        ";
                 s += "private UpdateProperties UpdateData()" + NL;
-                s += "      {" + NL;
+                s += "        {" + NL;
                 s += @"string q = ""UPDATE dbo." + this.ClassName + " SET";
 
                 Prop.ForEach(x =>
@@ -133,7 +136,7 @@ namespace CreateClass.PropertiesGenerator
                 s += "          UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);" + NL;
                 s += "          base.HasChanged = false;" + NL;
                 s += "          return up;" + NL;
-                s += "      }" + NL;
+                s += "        }" + NL;
 
                 return s;
             }
@@ -145,7 +148,7 @@ namespace CreateClass.PropertiesGenerator
             {
                 string s = NL + "        ";
                 s += "private UpdateProperties InsertData()" + NL;
-                s += "      {" + NL;
+                s += "        {" + NL;
                 s += @"              string q = ""INSERT INTO dbo." + this.ClassName + " ( ";
 
                 Prop.ForEach(x =>
@@ -176,7 +179,7 @@ namespace CreateClass.PropertiesGenerator
                 s += "            base.Exists = true; //After instert Exist must be true" + NL;
                 s += "            base.HasChanged = false; //After instert Change is false since it is a new record" + NL + NL;
                 s += "            return up;" + NL;
-                s += "      }" + NL;
+                s += "        }" + NL;
 
                 return s;
             }
@@ -290,6 +293,91 @@ namespace CreateClass.PropertiesGenerator
         {
             string s = "SqlDbType.";
 
+            if (dataType.Equals("bool"))
+                return s += "Bit";
+            else if (dataType.Equals("DateTime"))
+                return s += "DateTime";
+            else if (dataType.Equals("string"))
+                return s += "varchar";
+            else if (dataType.Equals("int"))
+                return s += "Int";
+            else if (dataType.Equals("decimal"))
+                return s += "Decimal";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            else if (dataType.Equals(""))
+                return s += "";
+            
             if (dataType.Equals("int"))
                 return s += "Int";
             else if (dataType.Equals("decimal"))
@@ -311,21 +399,21 @@ namespace CreateClass.PropertiesGenerator
                 if (x.CanBeNull && x.Size == 0)
                 {
                     s += NL + "             if (" + x.PName + " == null)" + NL;
-                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + GetSQLDataType(x.PDataType) + ").Value = DBNull.Value;" + NL;
+                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + GetSQLDataType(x.PSQLType) + ").Value = DBNull.Value;" + NL;
                     s += @"             else" + NL;
-                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + GetSQLDataType(x.PDataType) + ").Value = " + x.PName + ";" + NL + NL;
+                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + GetSQLDataType(x.PSQLType) + ").Value = " + x.PName + ";" + NL + NL;
                 }
                 else if (x.CanBeNull == false && x.Size == 0)
-                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + GetSQLDataType(x.PDataType) + ").Value = " + x.PName + ";" + NL;
+                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + GetSQLDataType(x.PSQLType) + ").Value = " + x.PName + ";" + NL;
                 else if (x.CanBeNull && x.Size > 0)
                 {
                     s += NL + "             if (" + x.PName + " == null)" + NL;
-                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + GetSQLDataType(x.PDataType) + ", " + x.Size.ToString() + " ).Value = DBNull.Value;" + NL;
+                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + GetSQLDataType(x.PSQLType) + ", " + x.Size.ToString() + " ).Value = DBNull.Value;" + NL;
                     s += @"             else" + NL;
-                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + GetSQLDataType(x.PDataType) + ", " + x.Size.ToString() + " ).Value = " + x.PName + ";" + NL;
+                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + GetSQLDataType(x.PSQLType) + ", " + x.Size.ToString() + " ).Value = " + x.PName + ";" + NL;
                 }
                 else if (x.CanBeNull == false && x.Size > 0)
-                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + GetSQLDataType(x.PDataType) + ", " + x.Size.ToString() + " ).Value = " + x.PName + ";" + NL + NL;
+                    s += @"                 cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + GetSQLDataType(x.PSQLType) + ", " + x.Size.ToString() + " ).Value = " + x.PName + ";" + NL + NL;
             });
             return s;
         }
@@ -379,7 +467,8 @@ namespace CreateClass.PropertiesGenerator
     public class DataProps
     {
         public string PName { get; set; }
-        public string PDataType { get; set; }
+        public string PSQLType { get; set; }
+        public string PCSharpType { get; set; }
 
         private int _size = 0;
         public int Size

@@ -12,12 +12,12 @@ namespace CreateClass.PropertiesGenerator
         {
             this.NS = ns;
             Prop = new List<ListProps>();
-            this.ClassName = ClassName;
+            this.ClassName = className;
         }
 
         private string Data
         {
-            get { return "Data." + this.ClassName + "Data _data = new Data." + this.ClassName + "Data();" + NL + NL; }
+            get { return "        Data." + this.ClassName + "Data _data = new Data." + this.ClassName + "Data();" + NL; }
         }
 
         private string Constructor
