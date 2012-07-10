@@ -18,6 +18,7 @@ namespace CreateClass
                 PropertiesGenerator.DataProps dProps = new PropertiesGenerator.DataProps();
                 dProps.PName = v.Name;
                 dProps.PSQLType = v.SQLType;
+                dProps.PCSharpType = v.CSharpType;
                 dProps.CanBeNull = v.AllowNulls;
                 dProps.Size = v.VariableSize;
                 dp.Prop.Add(dProps);
@@ -32,11 +33,12 @@ namespace CreateClass
         public static void WriteProperties(List<Variables> vList,string className, string path)
         {
             PropertiesGenerator.PropertiesProperties pp = new PropertiesGenerator.PropertiesProperties(System.Configuration.ConfigurationManager.AppSettings["PropertiesNamespace"].ToString(), className);
+            
             foreach (Variables v in vList)
             {
                 PropertiesGenerator.PropertiesProps pProps = new PropertiesGenerator.PropertiesProps();
                 pProps.PName = v.Name;
-                pProps.PDataType = v.SQLType;
+                pProps.PDataType = v.CSharpType;
                 pProps.AllowNulls = v.AllowNulls;
                 pp.Prop.Add(pProps);
             }
@@ -49,6 +51,7 @@ namespace CreateClass
         public static void WriteBusiness(List<Variables> vList, string className, string path)
         {
             PropertiesGenerator.BusinessProperties bp = new PropertiesGenerator.BusinessProperties(System.Configuration.ConfigurationManager.AppSettings["BusinessNamespace"].ToString(), className);
+            
             foreach (Variables v in vList)
             {
                 PropertiesGenerator.BusinessProps pProps = new PropertiesGenerator.BusinessProps();

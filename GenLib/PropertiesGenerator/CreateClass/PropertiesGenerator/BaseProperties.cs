@@ -120,7 +120,7 @@ namespace CreateClass.PropertiesGenerator
                 switch (this.ClassType)
                 {
                     case 1:
-                        s += " : PropertiesBase" + NL + "    {";
+                        s += " : PropertiesBase";
                         break;
                     case 2:
                         s += " : Properties." + this.ClassName + "Properties";

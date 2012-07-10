@@ -19,8 +19,8 @@ namespace CreateClass.PropertiesGenerator
         {
             get
             {
-                string s = NS;
-                s += "        public " + ClassNameFull + "()" + NL;
+                string s = NL + "        ";
+                s += "public " + ClassNameFull + "()" + NL;
                 s += "        {" + NL;
                 s += "        }" + NL;
                 return s;

@@ -68,7 +68,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\DataSources\PropertiesGenerator.PropertiesGenerator.PropertiesControl.datasource" />
     <None Include="Properties\DataSources\PropertiesGenerator.PropertiesGenerator.PropertiesProperties.datasource" />
     <None Include="Properties\Settings.settings">

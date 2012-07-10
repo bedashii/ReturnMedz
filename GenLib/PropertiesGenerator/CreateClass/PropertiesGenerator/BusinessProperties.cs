@@ -147,6 +147,7 @@ namespace CreateClass.PropertiesGenerator
             }
         }
 
+        public string PK { get; set; }
         public List<BusinessProps> Prop { get; set; }
     }
 
