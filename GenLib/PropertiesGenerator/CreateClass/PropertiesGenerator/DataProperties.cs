@@ -339,21 +339,21 @@ namespace CreateClass.PropertiesGenerator
                 if (x.CanBeNull && x.Size == 0)
                 {
                     s += NL + "            if (" + x.PName + " == null)" + NL;
-                    s += @"                cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + x.PSQLType + ").Value = DBNull.Value;" + NL;
+                    s += @"                cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", SqlDbType." + x.PSQLType + ").Value = DBNull.Value;" + NL;
                     s += @"            else" + NL;
-                    s += @"                cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + x.PSQLType + ").Value = " + x.PName + ";" + NL + NL;
+                    s += @"                cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", SqlDbType." + x.PSQLType + ").Value = " + x.PName + ";" + NL + NL;
                 }
                 else if (x.CanBeNull == false && x.Size == 0)
-                    s += @"            cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + x.PSQLType + ").Value = " + x.PName + ";" + NL;
+                    s += @"            cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", SqlDbType." + x.PSQLType + ").Value = " + x.PName + ";" + NL;
                 else if (x.CanBeNull && x.Size > 0)
                 {
                     s += NL + "            if (" + x.PName + " == null)" + NL;
-                    s += @"                cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + x.PSQLType + ", " + x.Size.ToString() + ").Value = DBNull.Value;" + NL;
+                    s += @"                cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", SqlDbType." + x.PSQLType + ", " + x.Size.ToString() + ").Value = DBNull.Value;" + NL;
                     s += @"            else" + NL;
-                    s += @"                cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + x.PSQLType + ", " + x.Size.ToString() + ").Value = " + x.PName + ";" + NL;
+                    s += @"                cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", SqlDbType." + x.PSQLType + ", " + x.Size.ToString() + ").Value = " + x.PName + ";" + NL;
                 }
                 else if (x.CanBeNull == false && x.Size > 0)
-                    s += @"            cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", " + x.PSQLType + ", " + x.Size.ToString() + ").Value = " + x.PName + ";" + NL + NL;
+                    s += @"            cmd.Parameters.Add(""" + GetCSPlaceHolder(x.PName) + @""", SqlDbType." + x.PSQLType + ", " + x.Size.ToString() + ").Value = " + x.PName + ";" + NL + NL;
             });
             return s;
         }

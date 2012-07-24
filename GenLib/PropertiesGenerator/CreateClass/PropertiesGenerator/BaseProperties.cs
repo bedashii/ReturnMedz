@@ -129,7 +129,7 @@ namespace CreateClass.PropertiesGenerator
                         s += " : Data." + this.ClassName + "Data";
                         break;
                     case 4:
-                        s += " : List<Business>." + this.ClassName;
+                        s += " : List<Business." + this.ClassName + ">";
                         break;
                 }
 

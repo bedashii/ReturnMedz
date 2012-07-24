@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MovieLib;
+using MovieLib.Business;
+using MovieLib.List;
 
-namespace ReturnMovieManagerWF
+
+namespace ReturnMovieManagerWF.Movies
 {
-    public partial class MainMenu : Form
+    public partial class MovieAddControl : UserControl
     {
-        public MainMenu()
+        public MovieAddControl()
         {
             InitializeComponent();
         }

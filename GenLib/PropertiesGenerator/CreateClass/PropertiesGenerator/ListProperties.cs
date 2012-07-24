@@ -5,6 +5,14 @@ using System.Text;
 
 namespace CreateClass.PropertiesGenerator
 {
+    /* <Add>
+     * public void Refresh()
+        {
+            _data.PopulateList(this, _data.GetData(""));
+        }
+     * </Add>
+     */ 
+
     public class ListProperties : BaseProperties
     {
         public ListProperties(string ns, string className)

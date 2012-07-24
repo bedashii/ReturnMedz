@@ -78,7 +78,7 @@ namespace CreateClass.PropertiesGenerator
                 s += "        {" + NL;
 
                 foreach (BusinessProps bp in Prop)
-                    s += "            this." + bp + " = properties." + bp + ";" + NL;
+                    s += "            this." + bp.BName + " = properties." + bp.BName + ";" + NL;
 
                 s += "        }" + NL;
                 return s;
@@ -102,7 +102,7 @@ namespace CreateClass.PropertiesGenerator
             get
             {
                 string s = NL;
-                s += "        internal virtual void PreConstructionTasks()" + NL;
+                s += "        internal virtual void PostConstructionTasks()" + NL;
                 s += "        {" + NL;
                 s += "        }" + NL;
                 return s;
