@@ -50,5 +50,10 @@ namespace MovieLib.List
         {
             audioQualityType.Insert();
         }
+
+        public void DeleteItem(int id)
+        {
+            _data.DeleteItem(id);
+        }
     }
 }

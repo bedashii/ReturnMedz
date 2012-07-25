@@ -101,7 +101,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\DataSources\MovieLib.Business.AgeRatingType.datasource" />
     <None Include="Properties\DataSources\MovieLib.Business.AudioQualityType.datasource" />
     <None Include="Properties\DataSources\MovieLib.Business.ExtensionType.datasource" />

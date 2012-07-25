@@ -31,18 +31,19 @@
             this.components = new System.ComponentModel.Container();
             this.SplitContainer11 = new System.Windows.Forms.SplitContainer();
             this.SplitContainer21 = new System.Windows.Forms.SplitContainer();
+            this.ButtonRefresh = new System.Windows.Forms.Button();
             this.PanelAgeRating = new System.Windows.Forms.Panel();
+            this.ButtonAgeRatingDelete = new System.Windows.Forms.Button();
             this.ButtonAgeRatingSave = new System.Windows.Forms.Button();
             this.ButtonAgeRatingCancel = new System.Windows.Forms.Button();
             this.ButtonAgeRatingEdit = new System.Windows.Forms.Button();
             this.LabelAgeRatingType = new System.Windows.Forms.Label();
             this.DGVAgeRatingType = new System.Windows.Forms.DataGridView();
-            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ageRatingTypeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.SplitContainer12 = new System.Windows.Forms.SplitContainer();
             this.SplitContainer22 = new System.Windows.Forms.SplitContainer();
             this.PanelAudioQuality = new System.Windows.Forms.Panel();
+            this.ButtonAudioQualityDelete = new System.Windows.Forms.Button();
             this.ButtonAudioQualitySave = new System.Windows.Forms.Button();
             this.ButtonAudioQualityCancel = new System.Windows.Forms.Button();
             this.ButtonAudioQualityEdit = new System.Windows.Forms.Button();
@@ -54,6 +55,7 @@
             this.SplitContainer13 = new System.Windows.Forms.SplitContainer();
             this.SplitContainer23 = new System.Windows.Forms.SplitContainer();
             this.PanelExtension = new System.Windows.Forms.Panel();
+            this.ButtonExtensionDelete = new System.Windows.Forms.Button();
             this.ButtonExtensionSave = new System.Windows.Forms.Button();
             this.ButtonExtensionCancel = new System.Windows.Forms.Button();
             this.ButtonExtensionEdit = new System.Windows.Forms.Button();
@@ -66,6 +68,7 @@
             this.SplitContainer14 = new System.Windows.Forms.SplitContainer();
             this.SplitContainer24 = new System.Windows.Forms.SplitContainer();
             this.PanelGenre = new System.Windows.Forms.Panel();
+            this.ButtonGenreDelete = new System.Windows.Forms.Button();
             this.ButtonGenreSave = new System.Windows.Forms.Button();
             this.ButtonGenreCancel = new System.Windows.Forms.Button();
             this.ButtonGenreEdit = new System.Windows.Forms.Button();
@@ -76,6 +79,7 @@
             this.genreTypesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.SplitContainer25 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ButtonVideoQualityDelete = new System.Windows.Forms.Button();
             this.ButtonVideoQualitySave = new System.Windows.Forms.Button();
             this.ButtonVideoQualityCancel = new System.Windows.Forms.Button();
             this.ButtonVideoQualityEdit = new System.Windows.Forms.Button();
@@ -84,7 +88,8 @@
             this.iDDataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descriptionDataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.videoQualityTypeBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.ButtonRefresh = new System.Windows.Forms.Button();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer11)).BeginInit();
             this.SplitContainer11.Panel1.SuspendLayout();
             this.SplitContainer11.Panel2.SuspendLayout();
@@ -140,7 +145,9 @@
             // 
             // SplitContainer11
             // 
-            this.SplitContainer11.Location = new System.Drawing.Point(0, 32);
+            this.SplitContainer11.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.SplitContainer11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SplitContainer11.Location = new System.Drawing.Point(0, 0);
             this.SplitContainer11.Name = "SplitContainer11";
             this.SplitContainer11.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -151,8 +158,8 @@
             // SplitContainer11.Panel2
             // 
             this.SplitContainer11.Panel2.Controls.Add(this.SplitContainer12);
-            this.SplitContainer11.Size = new System.Drawing.Size(800, 575);
-            this.SplitContainer11.SplitterDistance = 89;
+            this.SplitContainer11.Size = new System.Drawing.Size(800, 467);
+            this.SplitContainer11.SplitterDistance = 98;
             this.SplitContainer11.TabIndex = 0;
             // 
             // SplitContainer21
@@ -163,31 +170,54 @@
             // 
             // SplitContainer21.Panel1
             // 
+            this.SplitContainer21.Panel1.Controls.Add(this.ButtonRefresh);
             this.SplitContainer21.Panel1.Controls.Add(this.PanelAgeRating);
             this.SplitContainer21.Panel1.Controls.Add(this.LabelAgeRatingType);
             // 
             // SplitContainer21.Panel2
             // 
             this.SplitContainer21.Panel2.Controls.Add(this.DGVAgeRatingType);
-            this.SplitContainer21.Size = new System.Drawing.Size(800, 89);
-            this.SplitContainer21.SplitterDistance = 266;
+            this.SplitContainer21.Size = new System.Drawing.Size(796, 94);
+            this.SplitContainer21.SplitterDistance = 346;
             this.SplitContainer21.TabIndex = 0;
+            // 
+            // ButtonRefresh
+            // 
+            this.ButtonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonRefresh.Location = new System.Drawing.Point(269, 3);
+            this.ButtonRefresh.Name = "ButtonRefresh";
+            this.ButtonRefresh.Size = new System.Drawing.Size(75, 23);
+            this.ButtonRefresh.TabIndex = 1;
+            this.ButtonRefresh.Text = "Refresh";
+            this.ButtonRefresh.UseVisualStyleBackColor = true;
+            this.ButtonRefresh.Click += new System.EventHandler(this.ButtonRefresh_Click);
             // 
             // PanelAgeRating
             // 
+            this.PanelAgeRating.Controls.Add(this.ButtonAgeRatingDelete);
             this.PanelAgeRating.Controls.Add(this.ButtonAgeRatingSave);
             this.PanelAgeRating.Controls.Add(this.ButtonAgeRatingCancel);
             this.PanelAgeRating.Controls.Add(this.ButtonAgeRatingEdit);
             this.PanelAgeRating.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.PanelAgeRating.Location = new System.Drawing.Point(0, 60);
+            this.PanelAgeRating.Location = new System.Drawing.Point(0, 65);
             this.PanelAgeRating.Name = "PanelAgeRating";
-            this.PanelAgeRating.Size = new System.Drawing.Size(266, 29);
+            this.PanelAgeRating.Size = new System.Drawing.Size(346, 29);
             this.PanelAgeRating.TabIndex = 3;
+            // 
+            // ButtonAgeRatingDelete
+            // 
+            this.ButtonAgeRatingDelete.Location = new System.Drawing.Point(186, 3);
+            this.ButtonAgeRatingDelete.Name = "ButtonAgeRatingDelete";
+            this.ButtonAgeRatingDelete.Size = new System.Drawing.Size(75, 23);
+            this.ButtonAgeRatingDelete.TabIndex = 4;
+            this.ButtonAgeRatingDelete.Text = "Delete";
+            this.ButtonAgeRatingDelete.UseVisualStyleBackColor = true;
+            this.ButtonAgeRatingDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
             // 
             // ButtonAgeRatingSave
             // 
             this.ButtonAgeRatingSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.ButtonAgeRatingSave.Location = new System.Drawing.Point(186, 3);
+            this.ButtonAgeRatingSave.Location = new System.Drawing.Point(267, 3);
             this.ButtonAgeRatingSave.Name = "ButtonAgeRatingSave";
             this.ButtonAgeRatingSave.Size = new System.Drawing.Size(75, 23);
             this.ButtonAgeRatingSave.TabIndex = 2;
@@ -233,26 +263,14 @@
             this.DGVAgeRatingType.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVAgeRatingType.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVAgeRatingType.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.iDDataGridViewTextBoxColumn,
+            this.ID,
             this.descriptionDataGridViewTextBoxColumn});
             this.DGVAgeRatingType.DataSource = this.ageRatingTypeBindingSource;
             this.DGVAgeRatingType.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DGVAgeRatingType.Location = new System.Drawing.Point(0, 0);
             this.DGVAgeRatingType.Name = "DGVAgeRatingType";
-            this.DGVAgeRatingType.Size = new System.Drawing.Size(530, 89);
+            this.DGVAgeRatingType.Size = new System.Drawing.Size(446, 94);
             this.DGVAgeRatingType.TabIndex = 0;
-            // 
-            // iDDataGridViewTextBoxColumn
-            // 
-            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
-            this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
-            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
-            // 
-            // descriptionDataGridViewTextBoxColumn
-            // 
-            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
-            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
-            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
             // 
             // ageRatingTypeBindingSource
             // 
@@ -260,6 +278,7 @@
             // 
             // SplitContainer12
             // 
+            this.SplitContainer12.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.SplitContainer12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SplitContainer12.Location = new System.Drawing.Point(0, 0);
             this.SplitContainer12.Name = "SplitContainer12";
@@ -272,8 +291,8 @@
             // SplitContainer12.Panel2
             // 
             this.SplitContainer12.Panel2.Controls.Add(this.SplitContainer13);
-            this.SplitContainer12.Size = new System.Drawing.Size(800, 482);
-            this.SplitContainer12.SplitterDistance = 84;
+            this.SplitContainer12.Size = new System.Drawing.Size(800, 365);
+            this.SplitContainer12.SplitterDistance = 99;
             this.SplitContainer12.TabIndex = 0;
             // 
             // SplitContainer22
@@ -290,25 +309,36 @@
             // SplitContainer22.Panel2
             // 
             this.SplitContainer22.Panel2.Controls.Add(this.DGVAudoQualityType);
-            this.SplitContainer22.Size = new System.Drawing.Size(800, 84);
-            this.SplitContainer22.SplitterDistance = 266;
+            this.SplitContainer22.Size = new System.Drawing.Size(796, 95);
+            this.SplitContainer22.SplitterDistance = 346;
             this.SplitContainer22.TabIndex = 0;
             // 
             // PanelAudioQuality
             // 
+            this.PanelAudioQuality.Controls.Add(this.ButtonAudioQualityDelete);
             this.PanelAudioQuality.Controls.Add(this.ButtonAudioQualitySave);
             this.PanelAudioQuality.Controls.Add(this.ButtonAudioQualityCancel);
             this.PanelAudioQuality.Controls.Add(this.ButtonAudioQualityEdit);
             this.PanelAudioQuality.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.PanelAudioQuality.Location = new System.Drawing.Point(0, 55);
+            this.PanelAudioQuality.Location = new System.Drawing.Point(0, 66);
             this.PanelAudioQuality.Name = "PanelAudioQuality";
-            this.PanelAudioQuality.Size = new System.Drawing.Size(266, 29);
+            this.PanelAudioQuality.Size = new System.Drawing.Size(346, 29);
             this.PanelAudioQuality.TabIndex = 2;
+            // 
+            // ButtonAudioQualityDelete
+            // 
+            this.ButtonAudioQualityDelete.Location = new System.Drawing.Point(186, 3);
+            this.ButtonAudioQualityDelete.Name = "ButtonAudioQualityDelete";
+            this.ButtonAudioQualityDelete.Size = new System.Drawing.Size(75, 23);
+            this.ButtonAudioQualityDelete.TabIndex = 5;
+            this.ButtonAudioQualityDelete.Text = "Delete";
+            this.ButtonAudioQualityDelete.UseVisualStyleBackColor = true;
+            this.ButtonAudioQualityDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
             // 
             // ButtonAudioQualitySave
             // 
             this.ButtonAudioQualitySave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.ButtonAudioQualitySave.Location = new System.Drawing.Point(186, 3);
+            this.ButtonAudioQualitySave.Location = new System.Drawing.Point(267, 3);
             this.ButtonAudioQualitySave.Name = "ButtonAudioQualitySave";
             this.ButtonAudioQualitySave.Size = new System.Drawing.Size(75, 23);
             this.ButtonAudioQualitySave.TabIndex = 2;
@@ -360,7 +390,7 @@
             this.DGVAudoQualityType.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DGVAudoQualityType.Location = new System.Drawing.Point(0, 0);
             this.DGVAudoQualityType.Name = "DGVAudoQualityType";
-            this.DGVAudoQualityType.Size = new System.Drawing.Size(530, 84);
+            this.DGVAudoQualityType.Size = new System.Drawing.Size(446, 95);
             this.DGVAudoQualityType.TabIndex = 0;
             // 
             // iDDataGridViewTextBoxColumn1
@@ -381,6 +411,7 @@
             // 
             // SplitContainer13
             // 
+            this.SplitContainer13.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.SplitContainer13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SplitContainer13.Location = new System.Drawing.Point(0, 0);
             this.SplitContainer13.Name = "SplitContainer13";
@@ -393,8 +424,8 @@
             // SplitContainer13.Panel2
             // 
             this.SplitContainer13.Panel2.Controls.Add(this.SplitContainer14);
-            this.SplitContainer13.Size = new System.Drawing.Size(800, 394);
-            this.SplitContainer13.SplitterDistance = 136;
+            this.SplitContainer13.Size = new System.Drawing.Size(800, 262);
+            this.SplitContainer13.SplitterDistance = 88;
             this.SplitContainer13.TabIndex = 0;
             // 
             // SplitContainer23
@@ -411,25 +442,36 @@
             // SplitContainer23.Panel2
             // 
             this.SplitContainer23.Panel2.Controls.Add(this.DGVExtensionType);
-            this.SplitContainer23.Size = new System.Drawing.Size(800, 136);
-            this.SplitContainer23.SplitterDistance = 266;
+            this.SplitContainer23.Size = new System.Drawing.Size(796, 84);
+            this.SplitContainer23.SplitterDistance = 346;
             this.SplitContainer23.TabIndex = 0;
             // 
             // PanelExtension
             // 
+            this.PanelExtension.Controls.Add(this.ButtonExtensionDelete);
             this.PanelExtension.Controls.Add(this.ButtonExtensionSave);
             this.PanelExtension.Controls.Add(this.ButtonExtensionCancel);
             this.PanelExtension.Controls.Add(this.ButtonExtensionEdit);
             this.PanelExtension.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.PanelExtension.Location = new System.Drawing.Point(0, 107);
+            this.PanelExtension.Location = new System.Drawing.Point(0, 55);
             this.PanelExtension.Name = "PanelExtension";
-            this.PanelExtension.Size = new System.Drawing.Size(266, 29);
+            this.PanelExtension.Size = new System.Drawing.Size(346, 29);
             this.PanelExtension.TabIndex = 3;
+            // 
+            // ButtonExtensionDelete
+            // 
+            this.ButtonExtensionDelete.Location = new System.Drawing.Point(186, 3);
+            this.ButtonExtensionDelete.Name = "ButtonExtensionDelete";
+            this.ButtonExtensionDelete.Size = new System.Drawing.Size(75, 23);
+            this.ButtonExtensionDelete.TabIndex = 5;
+            this.ButtonExtensionDelete.Text = "Delete";
+            this.ButtonExtensionDelete.UseVisualStyleBackColor = true;
+            this.ButtonExtensionDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
             // 
             // ButtonExtensionSave
             // 
             this.ButtonExtensionSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.ButtonExtensionSave.Location = new System.Drawing.Point(186, 3);
+            this.ButtonExtensionSave.Location = new System.Drawing.Point(267, 3);
             this.ButtonExtensionSave.Name = "ButtonExtensionSave";
             this.ButtonExtensionSave.Size = new System.Drawing.Size(75, 23);
             this.ButtonExtensionSave.TabIndex = 2;
@@ -482,7 +524,7 @@
             this.DGVExtensionType.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DGVExtensionType.Location = new System.Drawing.Point(0, 0);
             this.DGVExtensionType.Name = "DGVExtensionType";
-            this.DGVExtensionType.Size = new System.Drawing.Size(530, 136);
+            this.DGVExtensionType.Size = new System.Drawing.Size(446, 84);
             this.DGVExtensionType.TabIndex = 0;
             // 
             // iDDataGridViewTextBoxColumn3
@@ -509,6 +551,7 @@
             // 
             // SplitContainer14
             // 
+            this.SplitContainer14.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.SplitContainer14.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SplitContainer14.Location = new System.Drawing.Point(0, 0);
             this.SplitContainer14.Name = "SplitContainer14";
@@ -521,8 +564,8 @@
             // SplitContainer14.Panel2
             // 
             this.SplitContainer14.Panel2.Controls.Add(this.SplitContainer25);
-            this.SplitContainer14.Size = new System.Drawing.Size(800, 254);
-            this.SplitContainer14.SplitterDistance = 103;
+            this.SplitContainer14.Size = new System.Drawing.Size(800, 170);
+            this.SplitContainer14.SplitterDistance = 73;
             this.SplitContainer14.TabIndex = 0;
             // 
             // SplitContainer24
@@ -539,25 +582,36 @@
             // SplitContainer24.Panel2
             // 
             this.SplitContainer24.Panel2.Controls.Add(this.DGVGenreType);
-            this.SplitContainer24.Size = new System.Drawing.Size(800, 103);
-            this.SplitContainer24.SplitterDistance = 266;
+            this.SplitContainer24.Size = new System.Drawing.Size(796, 69);
+            this.SplitContainer24.SplitterDistance = 346;
             this.SplitContainer24.TabIndex = 0;
             // 
             // PanelGenre
             // 
+            this.PanelGenre.Controls.Add(this.ButtonGenreDelete);
             this.PanelGenre.Controls.Add(this.ButtonGenreSave);
             this.PanelGenre.Controls.Add(this.ButtonGenreCancel);
             this.PanelGenre.Controls.Add(this.ButtonGenreEdit);
             this.PanelGenre.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.PanelGenre.Location = new System.Drawing.Point(0, 74);
+            this.PanelGenre.Location = new System.Drawing.Point(0, 40);
             this.PanelGenre.Name = "PanelGenre";
-            this.PanelGenre.Size = new System.Drawing.Size(266, 29);
+            this.PanelGenre.Size = new System.Drawing.Size(346, 29);
             this.PanelGenre.TabIndex = 4;
+            // 
+            // ButtonGenreDelete
+            // 
+            this.ButtonGenreDelete.Location = new System.Drawing.Point(186, 3);
+            this.ButtonGenreDelete.Name = "ButtonGenreDelete";
+            this.ButtonGenreDelete.Size = new System.Drawing.Size(75, 23);
+            this.ButtonGenreDelete.TabIndex = 5;
+            this.ButtonGenreDelete.Text = "Delete";
+            this.ButtonGenreDelete.UseVisualStyleBackColor = true;
+            this.ButtonGenreDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
             // 
             // ButtonGenreSave
             // 
             this.ButtonGenreSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.ButtonGenreSave.Location = new System.Drawing.Point(186, 3);
+            this.ButtonGenreSave.Location = new System.Drawing.Point(267, 3);
             this.ButtonGenreSave.Name = "ButtonGenreSave";
             this.ButtonGenreSave.Size = new System.Drawing.Size(75, 23);
             this.ButtonGenreSave.TabIndex = 2;
@@ -609,7 +663,7 @@
             this.DGVGenreType.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DGVGenreType.Location = new System.Drawing.Point(0, 0);
             this.DGVGenreType.Name = "DGVGenreType";
-            this.DGVGenreType.Size = new System.Drawing.Size(530, 103);
+            this.DGVGenreType.Size = new System.Drawing.Size(446, 69);
             this.DGVGenreType.TabIndex = 0;
             // 
             // iDDataGridViewTextBoxColumn2
@@ -642,25 +696,36 @@
             // SplitContainer25.Panel2
             // 
             this.SplitContainer25.Panel2.Controls.Add(this.DGVVideoQualityType);
-            this.SplitContainer25.Size = new System.Drawing.Size(800, 147);
-            this.SplitContainer25.SplitterDistance = 266;
+            this.SplitContainer25.Size = new System.Drawing.Size(796, 89);
+            this.SplitContainer25.SplitterDistance = 346;
             this.SplitContainer25.TabIndex = 0;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.ButtonVideoQualityDelete);
             this.panel1.Controls.Add(this.ButtonVideoQualitySave);
             this.panel1.Controls.Add(this.ButtonVideoQualityCancel);
             this.panel1.Controls.Add(this.ButtonVideoQualityEdit);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 118);
+            this.panel1.Location = new System.Drawing.Point(0, 60);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(266, 29);
+            this.panel1.Size = new System.Drawing.Size(346, 29);
             this.panel1.TabIndex = 5;
+            // 
+            // ButtonVideoQualityDelete
+            // 
+            this.ButtonVideoQualityDelete.Location = new System.Drawing.Point(186, 3);
+            this.ButtonVideoQualityDelete.Name = "ButtonVideoQualityDelete";
+            this.ButtonVideoQualityDelete.Size = new System.Drawing.Size(75, 23);
+            this.ButtonVideoQualityDelete.TabIndex = 5;
+            this.ButtonVideoQualityDelete.Text = "Delete";
+            this.ButtonVideoQualityDelete.UseVisualStyleBackColor = true;
+            this.ButtonVideoQualityDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
             // 
             // ButtonVideoQualitySave
             // 
             this.ButtonVideoQualitySave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.ButtonVideoQualitySave.Location = new System.Drawing.Point(186, 3);
+            this.ButtonVideoQualitySave.Location = new System.Drawing.Point(267, 3);
             this.ButtonVideoQualitySave.Name = "ButtonVideoQualitySave";
             this.ButtonVideoQualitySave.Size = new System.Drawing.Size(75, 23);
             this.ButtonVideoQualitySave.TabIndex = 2;
@@ -712,7 +777,7 @@
             this.DGVVideoQualityType.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DGVVideoQualityType.Location = new System.Drawing.Point(0, 0);
             this.DGVVideoQualityType.Name = "DGVVideoQualityType";
-            this.DGVVideoQualityType.Size = new System.Drawing.Size(530, 147);
+            this.DGVVideoQualityType.Size = new System.Drawing.Size(446, 89);
             this.DGVVideoQualityType.TabIndex = 0;
             // 
             // iDDataGridViewTextBoxColumn4
@@ -731,24 +796,26 @@
             // 
             this.videoQualityTypeBindingSource.DataSource = typeof(MovieLib.Business.VideoQualityType);
             // 
-            // ButtonRefresh
+            // ID
             // 
-            this.ButtonRefresh.Location = new System.Drawing.Point(722, 3);
-            this.ButtonRefresh.Name = "ButtonRefresh";
-            this.ButtonRefresh.Size = new System.Drawing.Size(75, 23);
-            this.ButtonRefresh.TabIndex = 1;
-            this.ButtonRefresh.Text = "Refresh";
-            this.ButtonRefresh.UseVisualStyleBackColor = true;
-            this.ButtonRefresh.Click += new System.EventHandler(this.ButtonRefresh_Click);
+            this.ID.DataPropertyName = "ID";
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            // 
+            // descriptionDataGridViewTextBoxColumn
+            // 
+            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
+            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
+            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
             // 
             // PreferencesControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.ButtonRefresh);
             this.Controls.Add(this.SplitContainer11);
             this.Name = "PreferencesControl";
-            this.Size = new System.Drawing.Size(800, 607);
+            this.Size = new System.Drawing.Size(800, 467);
+            this.Load += new System.EventHandler(this.PreferencesControl_Load);
             this.SplitContainer11.Panel1.ResumeLayout(false);
             this.SplitContainer11.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer11)).EndInit();
@@ -817,8 +884,6 @@
         private System.Windows.Forms.SplitContainer SplitContainer13;
         private System.Windows.Forms.Label LabelAgeRatingType;
         private System.Windows.Forms.DataGridView DGVAgeRatingType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource ageRatingTypeBindingSource;
         private System.Windows.Forms.SplitContainer SplitContainer22;
         private System.Windows.Forms.Label LabelAudioQualityType;
@@ -867,5 +932,12 @@
         private System.Windows.Forms.Button ButtonVideoQualitySave;
         private System.Windows.Forms.Button ButtonVideoQualityCancel;
         private System.Windows.Forms.Button ButtonVideoQualityEdit;
+        private System.Windows.Forms.Button ButtonAgeRatingDelete;
+        private System.Windows.Forms.Button ButtonAudioQualityDelete;
+        private System.Windows.Forms.Button ButtonExtensionDelete;
+        private System.Windows.Forms.Button ButtonGenreDelete;
+        private System.Windows.Forms.Button ButtonVideoQualityDelete;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
     }
 }

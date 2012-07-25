@@ -50,5 +50,10 @@ namespace MovieLib.List
         {
             ageRatingType.Insert();
         }
+
+        public void DeleteItem(int id)
+        {
+            _data.DeleteItem(id);
+        }
     }
 }

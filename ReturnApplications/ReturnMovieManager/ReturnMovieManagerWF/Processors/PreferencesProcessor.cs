@@ -10,7 +10,7 @@ namespace ReturnMovieManagerWF.Processors
 {
     public class PreferencesProcessor
     {
-        private UniList UniList;
+        private UniversalList UniList;
         public AgeRatingTypeList AgeRatingTypeList;
         public AudioQualityTypeList AudioQualityTypeList;
         public ExtensionTypeList ExtensionTypeList;
@@ -29,7 +29,7 @@ namespace ReturnMovieManagerWF.Processors
 
         private void SetDictionary()
         {
-            UniList = new UniList();
+            UniList = new UniversalList();
             UniList.UniDictionary.Add("AgeRating", AgeRatingTypeList);
             UniList.UniDictionary.Add("AudioQuality", AudioQualityTypeList);
             UniList.UniDictionary.Add("Extension", ExtensionTypeList);
@@ -44,64 +44,43 @@ namespace ReturnMovieManagerWF.Processors
             UniList.UpdateList(UniList.UniDictionary[whichList]);
         }
 
-        #region GetListMethods
+        public void DeleteItem(string whichList, int id)
+        {
+            whichList = whichList.Replace("Delete", "");
+            whichList = whichList.Replace("Button", "");
+            UniList.DeleteItem(UniList.UniDictionary[whichList], id);
+        }
 
         public void RefreshAllLists()
         {
             foreach (KeyValuePair<string, object> kvp in UniList.UniDictionary)
                 UniList.RefreshList(kvp.Value);
         }
-
-        public void RefreshAgeRatingTypeList()
-        {
-            if (AgeRatingTypeList.Count == 0)
-                AgeRatingTypeList.GetAll();
-            else
-                AudioQualityTypeList.Refresh();
-        }
-
-        public void RefreshAudioQualityList()
-        {
-            if (AudioQualityTypeList.Count == 0)
-                AudioQualityTypeList.GetAll();
-            else
-                AudioQualityTypeList.Refresh();
-        }
-
-        public void RefreshExtensionTypeList()
-        {
-            if (ExtensionTypeList.Count == 0)
-                ExtensionTypeList.GetAll();
-            else
-                ExtensionTypeList.Refresh();
-        }
-
-        public void RefreshGenreTypeList()
-        {
-            if (GenreTypesList.Count == 0)
-                GenreTypesList.GetAll();
-            else
-                GenreTypesList.Refresh();
-        }
-
-        public void RefreshVideoTypeList()
-        {
-            if (VideoQualityTypeList.Count == 0)
-                VideoQualityTypeList.GetAll();
-            else
-                VideoQualityTypeList.Refresh();
-        }
-
-        #endregion GetListMethods
     }
 
-    public class UniList
+    public class UniversalList
     {
         public Dictionary<string, object> UniDictionary { get; set; }
 
-        public UniList()
+        public UniversalList()
         {
             UniDictionary = new Dictionary<string, object>();
+        }
+
+        internal void DeleteItem(object obj, int id)
+        {
+            if (obj.GetType() == typeof(AgeRatingTypeList))
+                (obj as AgeRatingTypeList).DeleteItem(id);
+            else if (obj.GetType() == typeof(AudioQualityTypeList))
+                (obj as AudioQualityTypeList).DeleteItem(id);
+            else if (obj.GetType() == typeof(ExtensionTypeList))
+                (obj as ExtensionTypeList).DeleteItem(id);
+            else if (obj.GetType() == typeof(GenreTypesList))
+                (obj as GenreTypesList).DeleteItem(id);
+            else if (obj.GetType() == typeof(VideoQualityTypeList))
+                (obj as VideoQualityTypeList).DeleteItem(id);
+
+            RefreshList(obj);
         }
 
         internal void UpdateList(object obj)

@@ -1,4 +1,10 @@
-﻿using System;
+﻿/* Another column needs to be added to age restriction (A something like they way there's an ExtensionType and then ExtensionDescription.
+ * Before, that can be completed however PropGen needs to fixed as this is a great opportunity to see if it works 100%.
+ * Build a stand-alone control for searching for a movie and displaying the results.
+ * Once ^^ is built, the movie add control can be started using the result set of ^^ control.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -28,11 +34,11 @@ namespace ReturnMovieManagerWF.Controls
 
         private void SetButtonPanelObjects()
         {
-            BPOAgeRating = new ButtonPanelObject(ButtonAgeRatingEdit, ButtonAgeRatingCancel, ButtonAgeRatingSave, DGVAgeRatingType);
-            BPOAudioQuality = new ButtonPanelObject(ButtonAudioQualityEdit, ButtonAudioQualityCancel, ButtonAudioQualitySave, DGVAudoQualityType);
-            BPOExtension = new ButtonPanelObject(ButtonExtensionEdit, ButtonExtensionCancel, ButtonExtensionSave, DGVExtensionType);
-            BPOGenre = new ButtonPanelObject(ButtonGenreEdit, ButtonGenreCancel, ButtonGenreSave, DGVGenreType);
-            BPOVideoQuality = new ButtonPanelObject(ButtonVideoQualityEdit, ButtonVideoQualityCancel, ButtonVideoQualitySave, DGVVideoQualityType);
+            BPOAgeRating = new ButtonPanelObject(ButtonAgeRatingEdit, ButtonAgeRatingCancel, ButtonAgeRatingDelete,ButtonAgeRatingSave, DGVAgeRatingType);
+            BPOAudioQuality = new ButtonPanelObject(ButtonAudioQualityEdit, ButtonAudioQualityCancel, ButtonAudioQualityDelete, ButtonAudioQualitySave, DGVAudoQualityType);
+            BPOExtension = new ButtonPanelObject(ButtonExtensionEdit, ButtonExtensionCancel, ButtonExtensionDelete, ButtonExtensionSave, DGVExtensionType);
+            BPOGenre = new ButtonPanelObject(ButtonGenreEdit, ButtonGenreCancel, ButtonGenreDelete, ButtonGenreSave, DGVGenreType);
+            BPOVideoQuality = new ButtonPanelObject(ButtonVideoQualityEdit, ButtonVideoQualityCancel, ButtonVideoQualityDelete, ButtonVideoQualitySave, DGVVideoQualityType);
 
             BPOList = new List<ButtonPanelObject>();
             BPOList.Add(BPOAgeRating);
@@ -115,24 +121,48 @@ namespace ReturnMovieManagerWF.Controls
                 SetEditMode(false, BPOVideoQuality);
         }
 
+        private void ButtonDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("Really?", "Sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (dr == DialogResult.Yes)
+            {
+                Button b = (Button)sender;
+                DataGridView dgv = BPOList.Find(x => x.ButtonDelete.Name == b.Name).DataGridView;
+
+                _processor.DeleteItem(b.Name, Convert.ToInt32(dgv[0, dgv.SelectedRows[0].Index].Value));
+
+                LoadDataSources();
+            }
+        }
+
         private void ButtonRefresh_Click(object sender, EventArgs e)
         {
             LoadDataSources();
+        }
+
+        private void PreferencesControl_Load(object sender, EventArgs e)
+        {
+            //_processor = new Processors.PreferencesProcessor();
+            //SetButtonPanelObjects();
+            //LoadDataSources();
         }
     }
 
     public class ButtonPanelObject
     {
-        public ButtonPanelObject(Button buttonEdit, Button buttonCancel, Button buttonSave, DataGridView dataGridView)
+        public ButtonPanelObject(Button buttonEdit, Button buttonCancel, Button buttonDelete, Button buttonSave, DataGridView dataGridView)
         {
             ButtonEdit = buttonEdit;
             ButtonCancel = buttonCancel;
+            ButtonDelete = buttonDelete;
             ButtonSave = buttonSave;
             DataGridView = dataGridView;
         }
 
         public Button ButtonEdit { get; set; }
         public Button ButtonCancel { get; set; }
+        public Button ButtonDelete { get; set; }
         public Button ButtonSave { get; set; }
         public DataGridView DataGridView { get; set; }
     }
