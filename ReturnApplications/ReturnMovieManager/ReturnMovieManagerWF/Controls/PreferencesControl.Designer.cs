@@ -89,7 +89,8 @@
             this.descriptionDataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.videoQualityTypeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AgeRating = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AgeRatingDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer11)).BeginInit();
             this.SplitContainer11.Panel1.SuspendLayout();
             this.SplitContainer11.Panel2.SuspendLayout();
@@ -264,7 +265,8 @@
             this.DGVAgeRatingType.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVAgeRatingType.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
-            this.descriptionDataGridViewTextBoxColumn});
+            this.AgeRating,
+            this.AgeRatingDescription});
             this.DGVAgeRatingType.DataSource = this.ageRatingTypeBindingSource;
             this.DGVAgeRatingType.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DGVAgeRatingType.Location = new System.Drawing.Point(0, 0);
@@ -802,11 +804,17 @@
             this.ID.HeaderText = "ID";
             this.ID.Name = "ID";
             // 
-            // descriptionDataGridViewTextBoxColumn
+            // AgeRating
             // 
-            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
-            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
-            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
+            this.AgeRating.DataPropertyName = "AgeRating";
+            this.AgeRating.HeaderText = "AgeRating";
+            this.AgeRating.Name = "AgeRating";
+            // 
+            // AgeRatingDescription
+            // 
+            this.AgeRatingDescription.DataPropertyName = "AgeRatingDescription";
+            this.AgeRatingDescription.HeaderText = "AgeRatingDescription";
+            this.AgeRatingDescription.Name = "AgeRatingDescription";
             // 
             // PreferencesControl
             // 
@@ -938,6 +946,7 @@
         private System.Windows.Forms.Button ButtonGenreDelete;
         private System.Windows.Forms.Button ButtonVideoQualityDelete;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AgeRating;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AgeRatingDescription;
     }
 }

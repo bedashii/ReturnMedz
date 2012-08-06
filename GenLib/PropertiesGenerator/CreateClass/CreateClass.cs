@@ -12,6 +12,9 @@ namespace CreateClass
         public static void WriteData(List<Variables> vList,string className, string path)
         {
             PropertiesGenerator.DataProperties dp = new PropertiesGenerator.DataProperties(System.Configuration.ConfigurationManager.AppSettings["DataNamespace"].ToString(), className);
+            dp.PrimaryKeyName = vList[0].PrimaryKeyName;
+            dp.PrimaryKeySQLType = vList[0].PrimaryKeySQLType;
+            dp.PrimaryKeyCSharpType = vList[0].PrimaryKeyCSharpType;
 
             foreach (Variables v in vList)
             {
@@ -33,7 +36,10 @@ namespace CreateClass
         public static void WriteProperties(List<Variables> vList,string className, string path)
         {
             PropertiesGenerator.PropertiesProperties pp = new PropertiesGenerator.PropertiesProperties(System.Configuration.ConfigurationManager.AppSettings["PropertiesNamespace"].ToString(), className);
-            
+            pp.PrimaryKeyName = vList[0].PrimaryKeyName;
+            pp.PrimaryKeySQLType = vList[0].PrimaryKeySQLType;
+            pp.PrimaryKeyCSharpType = vList[0].PrimaryKeyCSharpType;
+
             foreach (Variables v in vList)
             {
                 PropertiesGenerator.PropertiesProps pProps = new PropertiesGenerator.PropertiesProps();
@@ -51,6 +57,10 @@ namespace CreateClass
         public static void WriteBusiness(List<Variables> vList, string className, string path)
         {
             PropertiesGenerator.BusinessProperties bp = new PropertiesGenerator.BusinessProperties(System.Configuration.ConfigurationManager.AppSettings["BusinessNamespace"].ToString(), className);
+            bp.PrimaryKeyName = vList[0].PrimaryKeyName;
+            bp.PrimaryKeySQLType = vList[0].PrimaryKeySQLType;
+            bp.PrimaryKeyCSharpType = vList[0].PrimaryKeyCSharpType;
+
             
             foreach (Variables v in vList)
             {
@@ -67,6 +77,10 @@ namespace CreateClass
         public static void WriteList(List<Variables> vList, string className, string path)
         {
             PropertiesGenerator.ListProperties lp = new PropertiesGenerator.ListProperties(System.Configuration.ConfigurationManager.AppSettings["ListNamespace"].ToString(), className);
+            lp.PrimaryKeyName = vList[0].PrimaryKeyName;
+            lp.PrimaryKeySQLType = vList[0].PrimaryKeySQLType;
+            lp.PrimaryKeyCSharpType = vList[0].PrimaryKeyCSharpType;
+
             foreach (Variables v in vList)
             {
                 PropertiesGenerator.ListProps pProps = new PropertiesGenerator.ListProps();

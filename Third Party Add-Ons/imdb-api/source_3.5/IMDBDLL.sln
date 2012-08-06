@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{87DD77D4-D741-4F97-8869-1D6F06A99C76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMDBDLL", "IMDBDLL\IMDBDLL.csproj", "{1355ED88-A76A-4FC7-9AB9-B349D8CB8479}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{C69D200C-7744-4F3D-97EE-7F7937DB6530}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1355ED88-A76A-4FC7-9AB9-B349D8CB8479} = {1355ED88-A76A-4FC7-9AB9-B349D8CB8479}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1355ED88-A76A-4FC7-9AB9-B349D8CB8479}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1355ED88-A76A-4FC7-9AB9-B349D8CB8479}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1355ED88-A76A-4FC7-9AB9-B349D8CB8479}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1355ED88-A76A-4FC7-9AB9-B349D8CB8479}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C69D200C-7744-4F3D-97EE-7F7937DB6530}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C69D200C-7744-4F3D-97EE-7F7937DB6530}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C69D200C-7744-4F3D-97EE-7F7937DB6530}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C69D200C-7744-4F3D-97EE-7F7937DB6530}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+EndGlobal

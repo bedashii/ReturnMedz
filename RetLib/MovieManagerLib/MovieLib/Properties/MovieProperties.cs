@@ -103,8 +103,8 @@ namespace MovieLib.Properties
 
         partial void OnYearOfReleaseChanging();
         partial void OnYearOfReleaseChanged();
-        private DateTime? _yearOfRelease;
-        public DateTime? YearOfRelease
+        private int? _yearOfRelease;
+        public int? YearOfRelease
         {
             get { return _yearOfRelease; }
             set

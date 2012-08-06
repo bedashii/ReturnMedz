@@ -38,18 +38,19 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.TBoxFolderName.Location = new System.Drawing.Point(15, 14);
             this.TBoxFolderName.Name = "TBoxFolderName";
-            this.TBoxFolderName.Size = new System.Drawing.Size(687, 20);
+            this.TBoxFolderName.Size = new System.Drawing.Size(587, 20);
             this.TBoxFolderName.TabIndex = 0;
             // 
             // ButtonSelect
             // 
             this.ButtonSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ButtonSelect.Location = new System.Drawing.Point(719, 12);
+            this.ButtonSelect.Location = new System.Drawing.Point(619, 12);
             this.ButtonSelect.Name = "ButtonSelect";
             this.ButtonSelect.Size = new System.Drawing.Size(75, 23);
             this.ButtonSelect.TabIndex = 1;
             this.ButtonSelect.Text = "&Select";
             this.ButtonSelect.UseVisualStyleBackColor = true;
+            this.ButtonSelect.Click += new System.EventHandler(this.ButtonSelect_Click);
             // 
             // MovieAddControl
             // 
@@ -58,7 +59,7 @@
             this.Controls.Add(this.ButtonSelect);
             this.Controls.Add(this.TBoxFolderName);
             this.Name = "MovieAddControl";
-            this.Size = new System.Drawing.Size(806, 399);
+            this.Size = new System.Drawing.Size(706, 550);
             this.ResumeLayout(false);
             this.PerformLayout();
 

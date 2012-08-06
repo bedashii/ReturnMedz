@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Author: LB
+// Edited: 2012-08-06
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +13,14 @@ namespace CreateClass.PropertiesGenerator
         protected string NL = Environment.NewLine;
         protected string NS;
 
+        internal string InternalItem
+        {
+            get
+            {
+                return this.ClassName.Substring(0, 1).ToLower() + this.ClassName.Substring(1, this.ClassName.Length - 1);
+            }
+        }
+        
         internal string FileName
         {
             get
@@ -149,5 +160,9 @@ namespace CreateClass.PropertiesGenerator
             get { return _errWhileGenerating; }
             set { _errWhileGenerating = value; }
         }
+
+        public string PrimaryKeyName { get; set; }
+        public string PrimaryKeySQLType { get; set; }
+        public string PrimaryKeyCSharpType { get; set; }
     }
 }

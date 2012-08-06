@@ -1,0 +1,853 @@
+﻿/*
+ * This file is part of IMDBDLL.
+ *
+ *  IMDBDLL is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  IMDBDLL is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with IMDBDLL.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System;
+using System.Net;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.Collections;
+using System.Xml;
+
+namespace IMDBDLL
+{
+    /// <summary>
+    /// Main class of the API.
+    /// </summary>
+    public class IMDB
+    {
+        /// <summary>
+        /// String that holds the downloaded page from IMDb.
+        /// </summary>
+        private String page = "";
+        
+        /// <summary>
+        /// String that holds the query.
+        /// </summary> 
+        private String query = "";
+        
+        /// <summary>
+        /// StringBuilder for working on html String
+        /// </summary>
+        private StringBuilder sB;
+
+        /// <summary>
+        /// Delegate that calls the parent error handler.
+        /// </summary>
+        public Delegate parentErrorCaller;
+
+        /// <summary>
+        /// Delegate that calls the parent progress update handler.
+        /// </summary>
+        public Delegate parentProgressCaller;
+
+        /// <summary>
+        /// Function that will download the search result from IMDb.
+        /// </summary>
+        /// <param name="url">The URL of the search result page.</param>
+        /// <returns>The result of the page download. OK if there was no problems; The message error if there was any problem.</returns>
+        public bool getPage(String url)
+        {
+            page = "";
+            try
+            {
+                HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(url);
+                myRequest.Method = "GET";
+                myRequest.Timeout = 6000;
+                WebResponse myResponse = myRequest.GetResponse();
+                StreamReader sr = new StreamReader(myResponse.GetResponseStream(), Encoding.UTF8);
+                page = sr.ReadToEnd();
+                sr.Close();
+                myResponse.Close();
+                return true;
+            }
+            catch(Exception e)
+            {
+                parentErrorCaller.DynamicInvoke(new object[] { e });
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Function that detects if the download page is a result page or if its the page for a specific title.
+        /// </summary>
+        /// <param name="media">Defines if it's to search a movie(0) or a TV serie(1).</param>
+        /// <param name="q">The query inputed by the user.</param>
+        /// <returns>An integer that tells the user if it's a result page or the actual page of the title.</returns>
+        public int getPageType(int media, String q)
+        {
+            query = q;
+            String type = "";
+            String startPat = "<title>", endPat = "</title>";
+            Regex startReg = new Regex(startPat);
+            Match startMatch = startReg.Match(page);
+
+            if (startMatch.Success)
+            {
+                int startInd = startMatch.Index + 7;
+                Regex endReg = new Regex(endPat);
+                Match endMatch = endReg.Match(page, startInd);
+                if (endMatch.Success)
+                {
+                    type = page.Substring(startInd, endMatch.Index - startInd);
+                    String seriePat = "TV series";
+                    Regex serieReg = new Regex(seriePat);
+                    Match serieMatch = serieReg.Match(page, endMatch.Index + 8);
+
+                    sB = new StringBuilder(page);
+                    sB = new StringBuilder(sB.ToString(endMatch.Index + 8, sB.Length - (endMatch.Index + 9)));
+                    
+                    if (type.StartsWith("IMDb"))
+                    {
+                        return 0;
+                    }
+                    else
+                    {
+                        if (media == 0 && !serieMatch.Success && type.ToLower().Contains(query.ToLower()))
+                            return 1;
+                        else if (media == 1 && serieMatch.Success && type.ToLower().Contains(query.ToLower()))
+                            return 1;
+                    }
+                }
+            }
+            return -1;
+        }
+
+        /// <summary>
+        /// This method gets the titles's links in the result page, from the section "Popular Titles" and "Titles (Exact Match)".
+        /// </summary>
+        /// <returns>An ArrayList with Strings that represent the links found in those sections.</returns>
+        public List<String> parseTitleLinks()
+        {
+            List<String> links = new List<String>();
+            String startPat = "<b>Popular Titles</b>";
+            String endPat = "<p><b>";
+            int startInd = 0, endInd = 0;
+            Regex startReg = new Regex(startPat);
+            Match startMatch = startReg.Match(sB.ToString());
+            if (startMatch.Success)
+            {
+                startInd = startMatch.Index + 20;
+                Regex endReg = new Regex(endPat);
+                Match endMatch = endReg.Match(sB.ToString(), startInd);
+                if (endMatch.Success)
+                {
+                    endInd = endMatch.Index;
+                    links = parseLinks(sB.ToString(startInd, endInd-startInd));
+                }
+            }
+
+            startPat = "Titles \\(Exact Matches\\)";
+            endPat = "<p><b>";
+            startReg = new Regex(startPat);
+            startMatch = startReg.Match(sB.ToString(),endInd);
+            if (startMatch.Success)
+            {
+                startInd = startMatch.Index + 20;
+                Regex endReg = new Regex(endPat);
+                Match endMatch = endReg.Match(sB.ToString(), startInd);
+                if (endMatch.Success)
+                {
+                    endInd = endMatch.Index;
+                    if (links.Count == 0)
+                        links = parseLinks(sB.ToString(startInd, endInd - startInd));
+                    else
+                    {
+                        List<String> l = parseLinks(sB.ToString(startInd, endInd - startInd));
+
+                        foreach (String s in l)
+                        {
+                            links.Add(s);
+                        }
+                    }
+                }
+            }
+            return links;
+        }
+
+        /// <summary>
+        /// Parse all the major links found in some piece of String.
+        /// </summary>
+        /// <param name="text">The String in wich links are to be found.</param>
+        /// <returns>An ArrayList with Strings that represent the links found in the String.</returns>
+        private List<String> parseLinks(String text)
+        {
+            String temp3 = text;
+            List<String> links = new List<String>();
+            String link, temp = "";
+            String startPat = "href=\"";
+            String endPat = "\"";
+            Regex startReg = new Regex(startPat);
+            Match startMatch = startReg.Match(text);
+            Regex endReg;
+            Match endMatch;
+            int startInd, endInd = -1;
+            while (text.Length > 10)
+            {
+                if (startMatch.Success)
+                {
+                    startInd = startMatch.Index + 6;
+                    if (endInd != -1)
+                    {
+                        try
+                        {
+                            temp = text.Substring(0, startInd);
+                        }
+                        catch (Exception e)
+                        {
+                            parentErrorCaller.DynamicInvoke(new object[] { e });
+                        }
+                    }
+                    endReg = new Regex(endPat);
+                    endMatch = endReg.Match(text, startInd);
+
+                    if (endMatch.Success)
+                    {
+                        if (!temp.Contains("Season") && !temp.Contains("Episode"))
+                        {
+                            endInd = endMatch.Index;
+                            link = text.Substring(startInd, endInd - startInd);
+                            if (!links.Contains(link))
+                                links.Add(link);
+                            text = text.Substring(endInd);
+                            startMatch = startReg.Match(text);
+                        }
+                        else
+                        {
+                            if (endInd < text.Length)
+                                text = text.Substring(endInd);
+                            else break;
+                        }
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return links;
+        }
+
+        /// <summary>
+        /// Parses an html page with  title information
+        /// </summary>
+        /// <param name="xmlDoc">The XML document that holds the information obtained.</param>
+        /// <param name="fields">The fields allowed to be parsed.</param>
+        /// <param name="media">If it's to parse a movie or a TV Serie.</param>
+        /// <param name="actorN">Number of actors to parse.</param>
+        /// <param name="sSeas">Number of first season to parse.</param>
+        /// <param name="eSeas">Number of last season to parse.</param>
+        /// <returns>A list of Strings with the info from the title.</returns>
+        public void parseTitlePage(XmlDocument xmlDoc, bool[] fields, int media, int actorN, int sSeas, int eSeas)
+        {
+            try
+            {
+                StringBuilder sB = new StringBuilder(page);
+                XmlNode root = xmlDoc.DocumentElement;
+
+                String elemName = "";
+                if (media == 0)
+                    elemName = "movie";
+                else
+                    elemName = "serie";
+                XmlElement titleNode = xmlDoc.CreateElement(elemName);
+                
+                String temp = "";
+                String startPat = "<title>";
+                Regex startReg = new Regex(startPat);
+                Match startMatch = startReg.Match(sB.ToString());
+                String title = "", link = "";
+                int sPos = 0, ePos = 0;
+                if (startMatch.Success)
+                {
+                    sPos = startMatch.Index + 7;
+                    startPat = "</title>";
+                    startReg = new Regex(startPat);
+                    startMatch = startReg.Match(sB.ToString(), sPos);
+                    if (startMatch.Success)
+                    {
+                        ePos = startMatch.Index - sPos;
+                    }
+                }
+                title = sB.ToString(sPos, ePos);
+                bool parse = false;
+                startPat = "<h1>";
+                startReg = new Regex(startPat);
+                startMatch = startReg.Match(sB.ToString(ePos, sB.Length - ePos));
+                if (startMatch.Success)
+                {
+                    ePos = startMatch.Index;
+                }
+
+                startPat = "</h1>";
+                startReg = new Regex(startPat);
+                startMatch = startReg.Match(sB.ToString(), ePos);
+                if (startMatch.Success)
+                {
+                    temp = sB.ToString(ePos, startMatch.Index - ePos);
+                    if ((temp.Contains("TV series") && media == 1) || (!temp.Contains("TV series") && media == 0))
+                    {
+                        parse = true;
+                    }
+                }
+
+                if (parse)
+                {
+                    parentProgressCaller.DynamicInvoke(new object[] { 10 });
+                    XmlText text = xmlDoc.CreateTextNode("");
+                    XmlElement elem = xmlDoc.CreateElement("link");
+                    link = "http://www.imdb.com" + sB.ToString(sB.ToString().IndexOf("/title/"), 16);
+                    text.Value = link;
+                    elem.AppendChild(text);
+                    titleNode.AppendChild(elem);
+
+                    if (fields[0]) //Parse the titles's title
+                    {
+                        text = xmlDoc.CreateTextNode("");
+                        temp = title.Substring(0, title.IndexOf("("));
+                        if (temp.Contains("&#34;"))
+                        {
+                            temp = temp.Substring(5, temp.Length - 11);
+                        }
+                        temp = temp.Replace("&#38;", "").Trim();
+                        elem = xmlDoc.CreateElement("title");
+                        text.Value = temp;
+                        elem.AppendChild(text);
+                        titleNode.AppendChild(elem);
+                    }
+
+                    if (fields[1]) //Parse the titles's year
+                    {
+                        text = xmlDoc.CreateTextNode("");
+                        elem = xmlDoc.CreateElement("year");
+                        temp = title.Substring(title.IndexOf("("));
+                        if (temp.Contains("/"))
+                        {
+                            text.Value = temp.Substring(1, temp.IndexOf("/") - 1);
+                        }
+                        else text.Value = temp.Substring(1, temp.IndexOf(")") - 1);
+                        elem.AppendChild(text);
+                        titleNode.AppendChild(elem);
+                    }
+
+                    parentProgressCaller.DynamicInvoke(new object[] { 10 });
+
+                    if (fields[2]) //Parse the titles's Cover link
+                    {
+                        text = xmlDoc.CreateTextNode("");
+                        elem = xmlDoc.CreateElement("cover");
+                        startPat = "\"poster\"";
+                        startReg = new Regex(startPat);
+                        startMatch = startReg.Match(sB.ToString());
+                        Regex tempReg = new Regex("http://ia.media-imdb.com/media/imdb/01/I/37/89/15/10.gif");
+                        Match tempMatch = tempReg.Match(sB.ToString());
+                        if (startMatch.Success && !tempMatch.Success)
+                        {
+                            sPos = startMatch.Index + 8;
+                            startPat = "</a>";
+                            startReg = new Regex(startPat);
+                            startMatch = startReg.Match(sB.ToString(), sPos);
+                            if (startMatch.Success)
+                            {
+                                ePos = startMatch.Index;
+                                temp = sB.ToString(sPos, ePos - sPos);
+                                temp = temp.Substring(temp.IndexOf("src") + 5);
+                                temp = temp.Substring(0, temp.IndexOf("\""));
+                                text.Value = temp;
+                                elem.AppendChild(text);
+                                titleNode.AppendChild(elem);
+                            }
+
+                        }
+                    }
+
+                    if (fields[3]) //Parse the titles's User Rating
+                    {
+                        text = xmlDoc.CreateTextNode("");
+                        elem = xmlDoc.CreateElement("user_rating");
+                        startPat = "<h5>User Rating";
+                        startReg = new Regex(startPat);
+                        startMatch = startReg.Match(sB.ToString());
+                        if (startMatch.Success)
+                        {
+                            sPos = startMatch.Index + 20;
+                            startPat = "</b>";
+                            startReg = new Regex(startPat);
+                            startMatch = startReg.Match(sB.ToString(), sPos);
+                            if (startMatch.Success)
+                            {
+                                ePos = startMatch.Index;
+                            }
+                            text.Value = sB.ToString(ePos - 6, 6);
+                            elem.AppendChild(text);
+                            titleNode.AppendChild(elem);
+                            sB = new StringBuilder(sB.ToString(ePos, sB.Length - ePos));
+                        }
+                    }
+
+                    parentProgressCaller.DynamicInvoke(new object[] { 10 });
+
+                    if (fields[4]) //Parse the titles's Creator/Director
+                    {
+                        text = xmlDoc.CreateTextNode("");
+                        parse = false;
+                        startPat = "<h5>Director";
+                        startReg = new Regex(startPat);
+                        startMatch = startReg.Match(sB.ToString());
+                        if (startMatch.Success)
+                        {
+                            elem = xmlDoc.CreateElement("director");
+                            sPos = startMatch.Index + 18;
+                            parse = true;
+                        }
+                        else
+                        {
+                            elem = xmlDoc.CreateElement("creator");
+                            startPat = "<h5>Creator";
+                            startReg = new Regex(startPat);
+                            startMatch = startReg.Match(sB.ToString());
+                            if (startMatch.Success)
+                            {
+                                sPos = startMatch.Index + 17;
+                                parse = true;
+                            }
+                        }
+                        if (parse)
+                        {
+                            startPat = "</a><br/>";
+                            startReg = new Regex(startPat);
+                            startMatch = startReg.Match(sB.ToString(), sPos);
+                            if (startMatch.Success)
+                            {
+                                ePos = startMatch.Index;
+                            }
+                            temp = sB.ToString(sPos, ePos - sPos);
+                            startPat = "/\">";
+                            startReg = new Regex(startPat);
+                            startMatch = startReg.Match(temp);
+                            if (startMatch.Success)
+                            {
+                                ePos = startMatch.Index + 3;
+                            }
+                            text.Value = temp.Substring(ePos, temp.Length - ePos);
+                            elem.AppendChild(text);
+                            titleNode.AppendChild(elem);
+                            sB = new StringBuilder(sB.ToString(ePos, sB.Length - ePos));
+                        }
+                    }
+
+                    if (media == 1 && fields[5])
+                    {
+                        startPat = "<h5>Seasons";
+                        startReg = new Regex(startPat);
+                        startMatch = startReg.Match(sB.ToString());
+                        if (startMatch.Success)
+                        {
+                            sPos = startMatch.Index + 18;
+                            startPat = ">more</a>";
+                            startReg = new Regex(startPat);
+                            startMatch = startReg.Match(sB.ToString(), sPos);
+                            if (startMatch.Success)
+                            {
+                                ePos = startMatch.Index;
+                            }
+                            temp = sB.ToString(sPos, ePos - sPos);
+                            if (sSeas != -1)
+                                startPat = "episodes#season-" + sSeas;
+                            else
+                                startPat = "episodes#season-1";
+                            startReg = new Regex(startPat);
+                            startMatch = startReg.Match(temp);
+                            if (startMatch.Success)
+                            {
+                                elem = xmlDoc.CreateElement("seasons");
+                                parseSeason(link + "/" + startPat, eSeas, xmlDoc, elem);
+                            }
+                            titleNode.AppendChild(elem);
+                        }
+                    }
+
+                    parentProgressCaller.DynamicInvoke(new object[] { 10 });
+
+                    if (fields[6]) //Parse the titles's Genres
+                    {
+                        elem = xmlDoc.CreateElement("genres");
+                        startPat = "<h5>Genre";
+                        startReg = new Regex(startPat);
+                        startMatch = startReg.Match(sB.ToString());
+                        if (startMatch.Success)
+                        {
+                            sPos = startMatch.Index + 16;
+                            startPat = "tn15more";
+                            startReg = new Regex(startPat);
+                            startMatch = startReg.Match(sB.ToString(), sPos);
+                            if (startMatch.Success)
+                            {
+                                ePos = startMatch.Index;
+                            }
+                            temp = sB.ToString(sPos, ePos - sPos);
+                            startPat = "/\">";
+                            startReg = new Regex(startPat);
+                            startMatch = startReg.Match(temp);
+                            String tempPat = "</a>";
+                            Regex tempReg = new Regex(tempPat);
+                            Match tempMatch;
+                            while (startMatch.Success)
+                            {
+                                XmlElement elem2 = xmlDoc.CreateElement("genre");
+                                sPos = startMatch.Index + 3;
+                                tempMatch = tempReg.Match(temp, sPos);
+                                if (tempMatch.Success)
+                                {
+                                    text = xmlDoc.CreateTextNode("");
+                                    text.Value = temp.Substring(sPos, tempMatch.Index - sPos);
+                                    elem2.AppendChild(text);
+                                }
+                                elem.AppendChild(elem2);
+                                startMatch = startMatch.NextMatch();
+                            }
+                            titleNode.AppendChild(elem);
+                            sB = new StringBuilder(sB.ToString(ePos, sB.Length - ePos));
+                        }
+                    }
+
+                    if (fields[7]) //Parse the titles's Tagline
+                    {
+                        elem = xmlDoc.CreateElement("tagline");
+                        startPat = "<h5>Tagline";
+                        startReg = new Regex(startPat);
+                        startMatch = startReg.Match(sB.ToString());
+                        if (startMatch.Success)
+                        {
+                            sPos = startMatch.Index + 18;
+                            startPat = "<";
+                            startReg = new Regex(startPat);
+                            startMatch = startReg.Match(sB.ToString(), sPos);
+                            if (startMatch.Success)
+                            {
+                                ePos = startMatch.Index;
+                            }
+                            text = xmlDoc.CreateTextNode("");
+                            text.Value = sB.ToString(sPos, ePos - sPos).Trim();
+                            elem.AppendChild(text);
+                            titleNode.AppendChild(elem);
+                            sB = new StringBuilder(sB.ToString(ePos, sB.Length - ePos));
+                        }
+                    }
+
+                    parentProgressCaller.DynamicInvoke(new object[] { 10 });
+
+                    if (fields[8]) //Parse the titles's Plot
+                    {
+                        elem = xmlDoc.CreateElement("plot");
+                        startPat = "<h5>Plot";
+                        startReg = new Regex(startPat);
+                        startMatch = startReg.Match(sB.ToString());
+                        if (startMatch.Success)
+                        {
+                            sPos = startMatch.Index + 15;
+                            startPat = "<";
+                            startReg = new Regex(startPat);
+                            startMatch = startReg.Match(sB.ToString(), sPos);
+                            if (startMatch.Success)
+                            {
+                                ePos = startMatch.Index;
+                            }
+                            temp = sB.ToString(sPos, ePos - sPos);
+                            temp = temp.Replace("|", "").Trim();
+                            text = xmlDoc.CreateTextNode("");
+                            text.Value = temp;
+                            elem.AppendChild(text);
+                            titleNode.AppendChild(elem);
+                            sB = new StringBuilder(sB.ToString(ePos, sB.Length - ePos));
+                        }
+                    }
+
+                    if (fields[9]) //Parse the titles's Actors
+                    {
+                        elem = xmlDoc.CreateElement("cast");
+                        startPat = "<h3>Cast";
+                        startReg = new Regex(startPat);
+                        startMatch = startReg.Match(sB.ToString());
+                        if (startMatch.Success)
+                        {
+                            sPos = startMatch.Index + 13;
+                            startPat = ">more<";
+                            startReg = new Regex(startPat);
+                            startMatch = startReg.Match(sB.ToString(), sPos);
+                            if (startMatch.Success)
+                            {
+                                ePos = startMatch.Index;
+                            }
+                            temp = sB.ToString(sPos, ePos - sPos);
+                            String temp2 = "";
+
+                            startPat = "<img src=\"";
+                            startReg = new Regex(startPat);
+                            startMatch = startReg.Match(temp);
+                            String tempPat = "</a></td>";
+                            Regex tempReg = new Regex(tempPat);
+                            Match tempMatch;
+                            int count = 0;
+                            while (startMatch.Success && count != actorN)
+                            {
+                                XmlElement elem2 = xmlDoc.CreateElement("actor");
+                                tempMatch = tempReg.Match(temp, startMatch.Index);
+                                sPos = startMatch.Index + 10;
+                                if (tempMatch.Success)
+                                {
+                                    temp2 = temp.Substring(sPos, tempMatch.Index - sPos);
+                                }
+                                int ind = 0;
+                                if (!temp2.Contains("addtiny.gif"))
+                                {
+                                    XmlElement elem3 = xmlDoc.CreateElement("photo");
+                                    ind = temp2.IndexOf(".jpg") + 4;
+                                    text = xmlDoc.CreateTextNode("");
+                                    text.Value = temp2.Substring(0, ind);
+                                    elem3.AppendChild(text);
+                                    elem2.AppendChild(elem3);
+                                }
+                                temp2 = temp2.Substring(temp2.IndexOf("<a href=\"") + 9, temp2.Length - (temp2.IndexOf("<a href=\"") + 9));
+
+                                ind = temp2.IndexOf("\"");
+
+                                XmlElement elem4 = xmlDoc.CreateElement("page");
+                                text = xmlDoc.CreateTextNode("");
+                                text.Value = "http://www.imdb.com" + temp2.Substring(0, ind);
+                                elem4.AppendChild(text);
+                                elem2.AppendChild(elem4);
+
+                                elem4 = xmlDoc.CreateElement("name");
+                                text = xmlDoc.CreateTextNode("");
+                                text.Value = temp2.Substring(ind + 2);
+                                elem4.AppendChild(text);
+                                elem2.AppendChild(elem4);
+
+                                elem.AppendChild(elem2);
+
+
+                                if (actorN != -1)
+                                    count++;
+
+                                startMatch = startMatch.NextMatch();
+                            }
+                            titleNode.AppendChild(elem);
+                            sB = new StringBuilder(sB.ToString(ePos, sB.Length - ePos));
+                        }
+                    }
+
+                    if (fields[10]) //Parse the titles's Runtime
+                    {
+                        elem = xmlDoc.CreateElement("runtime");
+                        startPat = "<h5>Runtime";
+                        startReg = new Regex(startPat);
+                        startMatch = startReg.Match(sB.ToString());
+                        if (startMatch.Success)
+                        {
+                            sPos = startMatch.Index + 18;
+                            startPat = "\n";
+                            startReg = new Regex(startPat);
+                            startMatch = startReg.Match(sB.ToString(), sPos);
+                            if (startMatch.Success)
+                            {
+                                ePos = startMatch.Index;
+                            }
+                            temp = sB.ToString(sPos, ePos - sPos);
+                            temp = temp.Replace(" min", "").Trim();
+                            int ind = temp.IndexOf("|");
+                            if (ind != -1)
+                                temp = temp.Substring(0, ind);
+                            ind = temp.IndexOf("(");
+                            if (ind != -1)
+                                temp = temp.Substring(0, ind);
+                            text = xmlDoc.CreateTextNode("");
+                            text.Value = temp.Trim();
+                            elem.AppendChild(text);
+                            titleNode.AppendChild(elem);
+
+                            sB = new StringBuilder(sB.ToString(ePos, sB.Length - ePos));
+                        }
+                    }
+
+                    root.AppendChild(titleNode);
+
+                    parentProgressCaller.DynamicInvoke(new object[] { 10 });
+                }
+                else
+                {
+                    parentProgressCaller.DynamicInvoke(new object[] { 60 });
+                }
+            }
+            catch (Exception ex)
+            {
+                parentErrorCaller.DynamicInvoke(new object[] { ex });
+            }
+        }
+
+        /// <summary>
+        /// Connects to the seasons's info about a serie and parses the episodes's infos.
+        /// </summary>
+        /// <param name="url">url of the page.</param>
+        /// <param name="eSeas">Parse till this season.</param>
+        /// <param name="xmlDoc">The XML document that holds the information obtained.</param>
+        /// <param name="elem">The root of the XML document that holds the information obtained.</param>
+        /// <returns>A list of strings with the infos.</returns>
+        private void parseSeason(String url, int eSeas, XmlDocument xmlDoc, XmlElement elem)
+        {
+            if (getPage(url))
+            {
+                XmlText text;
+                
+                StringBuilder sB = new StringBuilder(page);
+                String temp = "", epLine = "";
+                String startPat;
+                Regex startReg;
+                Match startMatch;
+
+                int sPos = 0, ePos = 0, season, tPos = 0;
+                if (eSeas!=-1)
+                    season = Int32.Parse(url.Substring(url.Length - 1));
+                else
+                {
+                    season = 1;
+                    eSeas = 0;
+                    startPat = "name=\"season-";
+                    startReg = new Regex(startPat);
+                    startMatch = startReg.Match(sB.ToString());
+                    while (startMatch.Success)
+                    {
+                        eSeas++;
+                        startMatch = startMatch.NextMatch();
+                    }
+                }
+
+                startPat = "name=\"season-" + season;
+                startReg = new Regex(startPat);
+                startMatch = startReg.Match(sB.ToString());
+
+                while (season <= eSeas)
+                {
+                    XmlElement elem2 = xmlDoc.CreateElement("season" + season);
+                    if (startMatch.Success)
+                    {
+                        sPos = startMatch.Index + 26;
+                        startPat = "\n</div>";
+                        startReg = new Regex(startPat);
+                        startMatch = startReg.Match(sB.ToString(), sPos);
+                        if (startMatch.Success)
+                        {
+                            ePos = startMatch.Index - 8;
+                        }
+                        temp = sB.ToString(sPos, ePos - sPos);
+                        startPat = "<h3>";
+                        startReg = new Regex(startPat);
+                        startMatch = startReg.Match(temp);
+                        while (startMatch.Success)
+                        {
+                            XmlElement elem3 = xmlDoc.CreateElement("episode");
+                            sPos = startMatch.Index;
+                            String tempPat = "</table></div>";
+                            Regex tempReg = new Regex(tempPat);
+                            Match tempMatch = tempReg.Match(temp, sPos);
+
+                            if (tempMatch.Success)
+                            {
+                                epLine = temp.Substring(sPos, tempMatch.Index - sPos);
+                            }
+                            if (epLine.Length > 20)
+                            {
+                                tempPat = "Episode ";
+                                tempReg = new Regex(tempPat);
+                                tempMatch = tempReg.Match(epLine);
+                                if (tempMatch.Success)
+                                {
+                                    XmlElement elem4 = xmlDoc.CreateElement("number");
+                                    text = xmlDoc.CreateTextNode("");
+                                    tPos = tempMatch.Index;
+                                    text.Value = epLine.Substring(tPos, epLine.IndexOf(":") - tPos);
+                                    elem4.AppendChild(text);
+                                    elem3.AppendChild(elem4);
+                                }
+                                tempPat = "/\">";
+                                tempReg = new Regex(tempPat);
+                                tempMatch = tempReg.Match(epLine, tPos);
+                                if (tempMatch.Success)
+                                {
+                                    XmlElement elem4 = xmlDoc.CreateElement("title");
+                                    text = xmlDoc.CreateTextNode("");
+                                    tPos = tempMatch.Index + 3;
+                                    text.Value = epLine.Substring(tPos, epLine.IndexOf("</a>") - tPos);
+                                    elem4.AppendChild(text);
+                                    elem3.AppendChild(elem4);
+                                }
+                                tempPat = "<strong>";
+                                tempReg = new Regex(tempPat);
+                                tempMatch = tempReg.Match(epLine, tPos);
+                                int ind = epLine.IndexOf("</strong>");
+                                String tmp = "";
+                                if (tempMatch.Success)
+                                {
+                                    XmlElement elem4 = xmlDoc.CreateElement("airDate");
+                                    text = xmlDoc.CreateTextNode("");
+                                    tPos = tempMatch.Index + 8;
+                                    tmp = epLine.Substring(tPos, ind - tPos);
+                                    if (!tmp.Contains("????"))
+                                    {
+                                        text.Value = tmp;
+                                        elem4.AppendChild(text);
+                                        elem3.AppendChild(elem4);
+                                    }
+                                }
+                                tmp = "";
+                                tempPat = "</td></tr>";
+                                tempReg = new Regex(tempPat);
+                                tempMatch = tempReg.Match(epLine, ind + 20);
+                                if (tempMatch.Success)
+                                {
+                                    XmlElement elem4 = xmlDoc.CreateElement("plot");
+                                    text = xmlDoc.CreateTextNode("");
+                                    tmp = epLine.Substring(ind + 22, tempMatch.Index - (ind + 22));
+                                    tmp = tmp.Replace("&lt;/", "");
+                                    if (tmp.Length > 5 && !tmp.Contains("Next US airings"))
+                                    {
+                                        text.Value = tmp;
+                                        elem4.AppendChild(text);
+                                        elem3.AppendChild(elem4);
+                                    }
+                                }
+                                sPos = startMatch.Index;
+
+                                
+                                epLine = "";
+                            }
+                            elem2.AppendChild(elem3);
+                            startMatch = startMatch.NextMatch();
+                        }
+                    }
+                    elem.AppendChild(elem2);
+                    season++;
+                    startPat = "name=\"season-" + season;
+                    startReg = new Regex(startPat);
+                    startMatch = startReg.Match(sB.ToString(), ePos);
+                }
+            }
+            
+        }
+    }
+}

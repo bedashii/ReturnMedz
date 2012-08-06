@@ -53,7 +53,7 @@ namespace MovieLib.List
 
         public void DeleteItem(int id)
         {
-            _data.DeleteItem(id);
+            _data.DeleteItem(Convert.ToByte(id));
         }
     }
 }

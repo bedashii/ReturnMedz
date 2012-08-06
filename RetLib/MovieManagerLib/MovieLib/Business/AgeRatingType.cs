@@ -33,7 +33,8 @@ namespace MovieLib.Business
         public void SetProperties(MovieLib.Business.AgeRatingType properties)
         {
             this.ID = properties.ID;
-            this.Description = properties.Description;
+            this.AgeRating = properties.AgeRating;
+            this.AgeRatingDescription = properties.AgeRatingDescription;
         }
 
         internal virtual void PreConstructionTasks()

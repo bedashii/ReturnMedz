@@ -1,5 +1,6 @@
 ﻿// Author: Rian Mostert
 // Date: 28 May 2012
+// Edited: [LB] 06 August 9012
 
 using System;
 using System.Collections.Generic;
@@ -55,12 +56,17 @@ namespace ImportDB
 
             DataTable dt = _connect.ExecuteQuery(cmd);
 
+            PrimaryKeys primaryKeys = GetPrimaryKeys();
+
             string tableName;
             string columnName;
             string sqlType;
             string cSharpType;
             int length;
             bool allowNulls;
+            string primaryKeyName;
+            string primaryKeySQLType;
+            string primaryKeyCSharpType;
             CustomClasses cc;
 
             foreach (DataRow dr in dt.Rows)
@@ -73,17 +79,16 @@ namespace ImportDB
                 cSharpType = _customClassesList.SQLDictionary[sqlType];
                 length = Convert.ToInt32(dr["CHARACTER_MAXIMUM_LENGTH"]);
                 allowNulls = dr["IS_NULLABLE"].ToString() == "NO" ? false : true;
+                primaryKeyName = primaryKeys.Find(x => x.Table == tableName).Column;
+                primaryKeySQLType = _customClassesList.SQLThesaurus[primaryKeys.Find(x => x.Table == tableName).DataType];
+                primaryKeyCSharpType = _customClassesList.SQLDictionary[primaryKeySQLType];
 
                 cc = _customClassesList.Find(x => x.Name == tableName);
 
                 if (cc == null)
-                {
-                    _customClassesList.Add(new CustomClasses(tableName, columnName, sqlType, cSharpType , length, allowNulls));
-                }
+                    _customClassesList.Add(new CustomClasses(tableName, columnName, sqlType, cSharpType , length, allowNulls, primaryKeyName, primaryKeySQLType, primaryKeyCSharpType));
                 else
-                {
-                    cc.Variables.Add(new Variable.Variables(columnName, sqlType, cSharpType, length, allowNulls));
-                }
+                    cc.Variables.Add(new Variable.Variables(columnName, sqlType, cSharpType, length, allowNulls, primaryKeyName, primaryKeySQLType, primaryKeyCSharpType));
 
                 tableName = "";
                 columnName = "";
@@ -93,6 +98,22 @@ namespace ImportDB
                 allowNulls = true;
                 cc = null;
             }
+        }
+
+        private PrimaryKeys GetPrimaryKeys()
+        {
+            string query = "";
+            query += "SELECT  pk.TABLE_NAME,\n";
+            query += "        c.COLUMN_NAME,\n";
+            query += "        c.DATA_TYPE\n";
+            query += "FROM    INFORMATION_SCHEMA.TABLE_CONSTRAINTS pk\n";
+            query += "        JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE kcu ON kcu.TABLE_NAME = pk.TABLE_NAME\n";
+            query += "                                                        AND kcu.CONSTRAINT_NAME = pk.CONSTRAINT_NAME\n";
+            query += "        JOIN INFORMATION_SCHEMA.COLUMNS c ON c.TABLE_NAME = pk.TABLE_NAME\n";
+            query += "                                             AND kcu.ORDINAL_POSITION = c.ORDINAL_POSITION\n";
+            query += "WHERE   CONSTRAINT_TYPE = 'PRIMARY KEY'\n";
+
+            return new PrimaryKeys(_connect.ExecuteQuery(query));
         }
 
         private List<string> _unknownTypes;
@@ -336,10 +357,10 @@ namespace ImportDB
 
         }
 
-        public CustomClasses(string tableName, string columnName, string sqlType, string cSharpType, int length, bool allowNulls)
+        public CustomClasses(string tableName, string columnName, string sqlType, string cSharpType, int length, bool allowNulls, string primaryKeyName, string primaryKeySQLType, string primaryKeyCSharpType)
         {
             Name = tableName;
-            Variables.Add(new Variable.Variables(columnName, sqlType, cSharpType, length, allowNulls));
+            Variables.Add(new Variable.Variables(columnName, sqlType, cSharpType, length, allowNulls, primaryKeyName, primaryKeySQLType, primaryKeyCSharpType));
         }
 
         public string Name { get; set; }
@@ -357,5 +378,27 @@ namespace ImportDB
                 _variables = value;
             }
         }
+    }
+
+    public class PrimaryKeys: List<PrimaryKey>
+    {
+        public PrimaryKeys(DataTable dt)
+        {
+            foreach (DataRow dr in dt.Rows)
+            {
+                PrimaryKey pk = new PrimaryKey();
+                pk.Table = dr["TABLE_NAME"].ToString();
+                pk.Column = dr["COLUMN_NAME"].ToString();
+                pk.DataType = dr["DATA_TYPE"].ToString();
+                this.Add(pk);
+            }
+        }
+    }
+
+    public class PrimaryKey
+    {
+        public string Table { get; set; }
+        public string Column { get; set; }
+        public string DataType { get; set; }
     }
 }

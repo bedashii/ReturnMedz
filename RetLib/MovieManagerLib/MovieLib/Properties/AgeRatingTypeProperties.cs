@@ -26,18 +26,33 @@ namespace MovieLib.Properties
             }
         }
 
-        partial void OnDescriptionChanging();
-        partial void OnDescriptionChanged();
-        private string _description;
-        public string Description
+        partial void OnAgeRatingChanging();
+        partial void OnAgeRatingChanged();
+        private string _ageRating;
+        public string AgeRating
         {
-            get { return _description; }
+            get { return _ageRating; }
             set
             {
-                OnDescriptionChanging();
-                _description = value;
+                OnAgeRatingChanging();
+                _ageRating = value;
                 base.HasChanged = true;
-                OnDescriptionChanged();
+                OnAgeRatingChanged();
+            }
+        }
+
+        partial void OnAgeRatingDescriptionChanging();
+        partial void OnAgeRatingDescriptionChanged();
+        private string _ageRatingDescription;
+        public string AgeRatingDescription
+        {
+            get { return _ageRatingDescription; }
+            set
+            {
+                OnAgeRatingDescriptionChanging();
+                _ageRatingDescription = value;
+                base.HasChanged = true;
+                OnAgeRatingDescriptionChanged();
             }
         }
     }

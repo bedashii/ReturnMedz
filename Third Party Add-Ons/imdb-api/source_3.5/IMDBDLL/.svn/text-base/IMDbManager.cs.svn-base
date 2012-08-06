@@ -1,0 +1,215 @@
+﻿/*
+ * This file is part of IMDBDLL.
+ *
+ *  IMDBDLL is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  IMDBDLL is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with IMDBDLL.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Xml;
+using IMDBDLL.MultiThreadEngine;
+
+
+namespace IMDBDLL
+{
+    /// <summary>
+    /// Class that manages the api calls.
+    /// </summary>
+    public class IMDbManager
+    {
+        private const String IMDbURL = "http://www.imdb.com/";
+
+        /// <summary>
+        /// Delegate that handles error calls.
+        /// </summary>
+        /// <param name="exc">Exception that occured.</param>
+        public delegate void errorCall(Exception exc);
+
+        /// <summary>
+        /// Delegate that handles progress update calls.
+        /// </summary>
+        /// <param name="value">value to add to actual progress value.</param>
+        public delegate void progressCall(int value);
+
+        /// <summary>
+        /// Delegate that handles the processing of info call.
+        /// </summary>
+        /// <param name="xmlDoc">The document with the informations.</param>
+        public delegate void functionCall(XmlDocument xmlDoc);
+
+        /// <summary>
+        /// Delegate that handles the setting of progressbar maximum value.
+        /// </summary>
+        /// <param name="value">Value to set the maximum.</param>
+        public delegate void progressConfCall(int value);
+
+        /// <summary>
+        /// Delegate that calls the parent error handler.
+        /// </summary>
+        public Delegate parentErrorCaller;
+
+        /// <summary>
+        /// Delegate that calls the parent info processing handler.
+        /// </summary>
+        public Delegate parentFunctionCaller;
+
+        /// <summary>
+        /// Delegate that calls the parent progress update handler.
+        /// </summary>
+        public Delegate parentProgressUpdaterCaller;
+
+        /// <summary>
+        /// Delegate that calls the parent progress maximum setting handler.
+        /// </summary>
+        public Delegate parentProgressConfCaller;
+
+        /// <summary>
+        /// Event that raises the error caller.
+        /// </summary>
+        private event errorCall errorCaller;
+
+        /// <summary>
+        /// Event that raises the info processing caller.
+        /// </summary>
+        private event functionCall functionCaller;
+
+        /// <summary>
+        /// Event that raises the progress updater caller.
+        /// </summary>
+        private event progressCall progressCaller;
+
+        /// <summary>
+        /// Event that raises the maximum progress setting caller.
+        /// </summary>
+        private event progressConfCall progressConfCaller;
+        
+        /// <summary>
+        /// Document that will hold the informations of the titles.
+        /// </summary>
+        private XmlDocument xmlDoc;
+
+        /// <summary>
+        /// Constructor of the class.
+        /// </summary>
+        public IMDbManager()
+        {
+            // Set the properties of this class
+            errorCaller += new errorCall(errorHandler);
+            functionCaller += new functionCall(processInfo);
+            progressCaller += new progressCall(progressHandler);
+            progressConfCaller += new progressConfCall(progressHandler);
+
+            // Creates the new XML document to hold the informations.
+            xmlDoc = new XmlDocument();
+            xmlDoc.AppendChild(xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", ""));
+            XmlNode root = xmlDoc.CreateElement("search_result");
+            xmlDoc.AppendChild(root);
+        }
+
+        /// <summary>
+        /// The main function, in wich we call the api with the options that we got from the form.
+        /// </summary>
+        /// <param name="searchMode">If it's to search by title or by ID.</param>
+        /// <param name="query">Word(s) that we search.</param>
+        /// <param name="media">If it's to search movies or tv series.</param>
+        /// <param name="nActors">Number of actors to parse in each title.</param>
+        /// <param name="sSeas">Number of the first season we want to parse.</param>
+        /// <param name="eSeas">Number of the last season we want to parse.</param>
+        /// <param name="fields">Fields that we want to parse in each title.</param>
+        public void IMDbSearch(int searchMode, String query, int media, int nActors, int sSeas, int eSeas, bool[] fields)
+        {
+            String url = "";
+            int type = -1;
+            if (searchMode == 0)
+            {
+                url += IMDbURL + "find?s=all&q=" + query;
+            }
+            else if (searchMode == 1)
+            {
+                url += IMDbURL + "title/" + query;
+            }
+
+            IMDB imdb = new IMDB();
+            imdb.parentErrorCaller = errorCaller;
+            imdb.parentProgressCaller = progressCaller;
+
+            bool success = imdb.getPage(url);
+
+            if (success && searchMode == 0)
+            {
+                type = imdb.getPageType(media, query);
+            }
+
+            if (type == 0)
+            {
+                List<String> links = new List<String>();
+                links = imdb.parseTitleLinks(); // Gets the relevant links from that page
+                if (links.Count != 0)
+                {
+                    String l = "http://www.imdb.com";
+
+                    for (int i = 0; i < links.Count; i++)
+                    {
+                        links[i] = l + links[i];
+                    }
+
+                    progressConf(100 + (links.Count * 100));
+                    progressHandler(100);
+
+                    //Here we start the thread manager
+                    MTManager MTM = new MTManager(xmlDoc, links, fields, nActors, media, sSeas, eSeas);
+                    MTM.parentFormCaller = functionCaller;
+                    MTM.parentFormErrorCaller = errorCaller;
+                    MTM.parentProgressCaller = progressCaller;
+                    MTM.startManager();
+                }
+                else
+                {
+                    errorHandler(new Exception("No Results Found!"));
+                }
+            }
+            else
+            {
+                progressConf(200);
+                progressHandler(140);
+                imdb.parseTitlePage(xmlDoc, fields, media, nActors, sSeas, eSeas);
+                processInfo(xmlDoc);
+            }
+            
+            
+        }
+
+        private void errorHandler(Exception exc)
+        {
+            parentErrorCaller.DynamicInvoke(new Object[] { exc });
+        }
+
+        private void progressHandler(int value)
+        {
+            parentProgressUpdaterCaller.DynamicInvoke(new Object[] { value });
+        }
+
+        private void processInfo(XmlDocument xmlDoc)
+        {
+            parentFunctionCaller.DynamicInvoke(new Object[] { xmlDoc });
+        }
+
+        private void progressConf(int value)
+        {
+            parentProgressConfCaller.DynamicInvoke(new Object[] { value });
+        }
+    }
+}

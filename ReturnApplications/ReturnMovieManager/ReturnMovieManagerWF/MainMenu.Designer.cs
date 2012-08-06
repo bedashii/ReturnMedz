@@ -29,16 +29,18 @@
         private void InitializeComponent()
         {
             this.TabPreferences = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.TabMovieAddControl = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.movieAddControl1 = new ReturnMovieManagerWF.Movies.MovieAddControl();
             this.preferencesControl1 = new ReturnMovieManagerWF.Controls.PreferencesControl();
             this.TabPreferences.SuspendLayout();
+            this.TabMovieAddControl.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // TabPreferences
             // 
-            this.TabPreferences.Controls.Add(this.tabPage1);
+            this.TabPreferences.Controls.Add(this.TabMovieAddControl);
             this.TabPreferences.Controls.Add(this.tabPage2);
             this.TabPreferences.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TabPreferences.Location = new System.Drawing.Point(0, 0);
@@ -47,15 +49,16 @@
             this.TabPreferences.Size = new System.Drawing.Size(822, 651);
             this.TabPreferences.TabIndex = 0;
             // 
-            // tabPage1
+            // TabMovieAddControl
             // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(814, 625);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.TabMovieAddControl.Controls.Add(this.movieAddControl1);
+            this.TabMovieAddControl.Location = new System.Drawing.Point(4, 22);
+            this.TabMovieAddControl.Name = "TabMovieAddControl";
+            this.TabMovieAddControl.Padding = new System.Windows.Forms.Padding(3);
+            this.TabMovieAddControl.Size = new System.Drawing.Size(814, 625);
+            this.TabMovieAddControl.TabIndex = 0;
+            this.TabMovieAddControl.Text = "Add Movie";
+            this.TabMovieAddControl.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
@@ -67,6 +70,14 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Preferences";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // movieAddControl1
+            // 
+            this.movieAddControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.movieAddControl1.Location = new System.Drawing.Point(3, 3);
+            this.movieAddControl1.Name = "movieAddControl1";
+            this.movieAddControl1.Size = new System.Drawing.Size(808, 619);
+            this.movieAddControl1.TabIndex = 0;
             // 
             // preferencesControl1
             // 
@@ -85,6 +96,7 @@
             this.Name = "MainMenu";
             this.Text = "Main Menu";
             this.TabPreferences.ResumeLayout(false);
+            this.TabMovieAddControl.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -93,9 +105,10 @@
         #endregion
 
         private System.Windows.Forms.TabControl TabPreferences;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage TabMovieAddControl;
         private System.Windows.Forms.TabPage tabPage2;
         private Controls.PreferencesControl preferencesControl1;
+        private Movies.MovieAddControl movieAddControl1;
 
 
     }

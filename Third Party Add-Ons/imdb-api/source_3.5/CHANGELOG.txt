@@ -1,0 +1,60 @@
+Version 3.5 - 20-01-2009 - João Massena <jpmassena@gmail.com>
+**********************************************************
+	1- New result mode. Now, when you search for a title, and IMDb returns a list of results, a window will
+	be opened with a list of those results. The sections parsed are popular titles, approx matches, exact matches and partial matches.
+	Then you may choose one of those and only the choosed one will be parsed;
+	
+	2- There is no longer the need of threads;
+	
+	3- There is no more XML involved. The search results are represented as a list of IMDbLink and the title's informations are represented
+	as a IMDbTitle object, that holds all the fields for each title. There's also the objects IMDbActor (represents an actor with its infos),
+	IMDbDirCrea (represents a director or a creator), IMDbSerieEpisode (represents an episode of a serie) and IMDbSerieSeason (represents a 
+	season of a serie);
+	
+	4- Character field parsing was added for the actors;
+	
+	5- The parsing is now done with strong regular expressions, without using string functions as substring;
+	
+	6- You don't need anymore to implement an error or progress listener to get those informations from the API if you don't want them.
+
+Version 3.1 - xx-xx-xxxx - João Massena <jpmassena@gmail.com>
+**********************************************************
+	1- It is possible to parse episodes's information (name, first air date, plot) from all or just some seasons of the
+	   TV series;
+	
+	2- All the communication between the api and the form are event based;
+	
+	3- The results are transmitted in a XML document loaded on memory;
+	
+	4- The test form is improved with a richtextbox for the results display;
+	
+	5- Implemented a manager that is responsable to check what kind of page we get. The form only is used to pass the options
+	and the queries to the api and to display the results.
+
+Version 3.0 - 19-OCT-2008 - João Massena <jpmassena@gmail.com>
+**********************************************************
+	1- Restart the implementation from scratch.
+	
+	2- Now uses Regular Expressions for parsing the HTML results.
+	
+	3- Fields allowed to get from the titles pages:
+		* Link to title's IMDb page;
+		* Title of the movie/TV serie;
+		* Year of release;
+		* Link to the cover;
+		* User rating;
+		* Movie's director or TV serie's creator;
+		* All the genres listed on the title's page;
+		* Tagline;
+		* Plot;
+		* All the actors listed on the title's main page.
+			* User can now choose how many actors he wants to parse;
+			* Each actor will have these informations parsed:
+			 - name;
+			 - picture link; (if exists)
+			 - actor's page of IMDb link.
+		* Runtime.
+		
+	4- Implemented a BackgroundWorker Manager to take the threads management out of the form responsability;
+	
+	5- Communications between the form and the thread manager are event based, with no need to pass the form as argument;

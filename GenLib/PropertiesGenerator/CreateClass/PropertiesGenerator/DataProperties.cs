@@ -126,8 +126,8 @@ namespace CreateClass.PropertiesGenerator
                             s += " " + GetDBVariable(x.PName) + " = " + GetCSPlaceHolder(x.PName) + @"\n"";" + NL;
                     });
 
-                s += @"            q += ""WHERE ID = @ID\n"";" + NL;
-                s += @"            q += ""SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'"";" + NL + NL;
+                s += @"            q += ""WHERE " + this.PrimaryKeyName + @" = @" + this.PrimaryKeyName + @"\n"";" + NL;
+                s += @"            q += ""SELECT SCOPE_IDENTITY() '" + this.PrimaryKeyName + @"', @@ROWCOUNT 'RowCount'"";" + NL + NL;
                 s += @"            SqlCommand cmd = dataHelper.CreateCommand(q);" + NL + NL;
 
                 s = ICantThinkOfANameForThisMethodRightNowBecauseItDoesSoMuchShit(s) + NL;
@@ -168,7 +168,7 @@ namespace CreateClass.PropertiesGenerator
                             s += GetCSPlaceHolder(x.PName) + @" )\n"";" + NL;
                     });
 
-                s += @"            q += ""SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'"";" + NL;
+                s += @"            q += ""SELECT SCOPE_IDENTITY() '" + this.PrimaryKeyName + @"', @@ROWCOUNT 'RowCount'"";" + NL;
                 s += @"            SqlCommand cmd = dataHelper.CreateCommand(q);" + NL + NL;
 
                 s = ICantThinkOfANameForThisMethodRightNowBecauseItDoesSoMuchShit(s) + NL;
@@ -188,13 +188,13 @@ namespace CreateClass.PropertiesGenerator
         {
             get
             {
-                string s = "        ";
-                s += "internal void DeleteItem(int id)" + NL;
+                string s = NL + "        ";
+                s += "internal void DeleteItem(" + this.PrimaryKeyCSharpType + " " + this.PrimaryKeyName + ")" + NL;
                 s += "        {" + NL;
                 s += @"            string q = ""DELETE FROM dbo." + this.ClassName + @"\n"";" + NL;
-                s += @"            q += ""WHERE ID = @ID\n"";" + NL + NL;
+                s += @"            q += ""WHERE " + this.PrimaryKeyName + @" = @" + this.PrimaryKeyName + @"\n"";" + NL + NL;
                 s += @"            SqlCommand cmd = dataHelper.CreateCommand(q);" + NL;
-                s += @"            cmd.Parameters.Add(""@ID"", SqlDbType.Int).Value = id;" + NL + NL;
+                s += @"            cmd.Parameters.Add(""@" + this.PrimaryKeyName + @""", SqlDbType." + this.PrimaryKeySQLType + ").Value = id;" + NL + NL;
                 s += @"            dataHelper.ExecuteNonQuery(cmd);" + NL;
                 s += "        }" + NL;
                 return s;
@@ -205,13 +205,13 @@ namespace CreateClass.PropertiesGenerator
         {
             get
             {
-                string s = "        ";
-                s += "internal void LoadItemData(int iD)" + NL;
+                string s = NL + "        ";
+                s += "internal void LoadItemData(" + this.PrimaryKeyCSharpType + " " + this.PrimaryKeyName + ")" + NL;
                 s += "        {" + NL;
                 s += @"            string q = ""SELECT "" + _selectColumnNames + "" FROM dbo." + this.ClassName + " " + TH + @"\n"";" + NL;
-                s += @"            q += ""WHERE " + TH + @".ID = @ID\n"";" + NL + NL;
+                s += @"            q += ""WHERE " + TH + @"." + this.PrimaryKeyName + " = @" + this.PrimaryKeyName + @"\n"";" + NL + NL;
                 s += @"            SqlCommand cmd = dataHelper.CreateCommand(q);" + NL;
-                s += @"            cmd.Parameters.Add(""@ID"", SqlDbType.Int).Value = iD;" + NL + NL;
+                s += @"            cmd.Parameters.Add(""@" + this.PrimaryKeyName + @""", SqlDbType." + this.PrimaryKeySQLType + ").Value = iD;" + NL + NL;
                 s += @"            DataTable dt = dataHelper.ExecuteQuery(cmd);" + NL;
                 s += @"            if (dt.Rows.Count == 0)" + NL;
                 s += @"                base.Exists = false;" + NL;
@@ -226,7 +226,7 @@ namespace CreateClass.PropertiesGenerator
         {
             get
             {
-                string s = "        ";
+                string s = NL + "        ";
                 s += "internal void PopulateList(List<Business." + this.ClassName + "> list, DataTable dt)" + NL;
                 s += "        {" + NL;
                 s += @"            list.Clear();" + NL + NL;
@@ -245,7 +245,7 @@ namespace CreateClass.PropertiesGenerator
         {
             get
             {
-                string s = "        ";
+                string s = NL + "        ";
                 s += "internal void LoadAll(List<Business." + this.ClassName + "> list)" + NL;
                 s += "        {" + NL;
                 s += @"            PopulateList(list, GetData(""""));" + NL;
@@ -254,6 +254,77 @@ namespace CreateClass.PropertiesGenerator
             }
         }
 
+        private string ValidateFields
+        {
+            get
+            {
+                string s = NL + "        ";
+                s += "public virtual void ValidateFields()" + NL;
+                s += "        { }" + NL;
+                return s;
+            }
+        }
+
+        private string Update
+        {
+            get
+            {
+                string s = NL + "";
+                s += "        public virtual void Update()" + NL;
+                s += "        {" + NL;
+                s += "            ValidateFields();" + NL;
+                s += "            Data.UpdateProperties up = this.UpdateData();" + NL;
+                s += "            if (up.RowsAffected == 0)" + NL;
+                s += @"                throw new Exception(string.Format(""Applications record {0} was not updated successfully. Reason unknown."", GetPrimaryKeyValues()));" + NL;
+                s += "        }" + NL;
+                return s;
+            }
+        }
+
+        private string Insert
+        {
+            get
+            {
+                string s = NL + "";
+                s += "        public virtual void Insert()" + NL;
+                s += "        {" + NL;
+                s += "            ValidateFields();" + NL;
+                s += "            this.InsertData();" + NL;
+                s += "        }" + NL;
+                return s;
+            }
+        }
+
+        private string InsertOrUpdate
+        {
+            get
+            {
+                string s = NL + "";
+                s += "        public virtual void InsertOrUpdate()" + NL;
+                s += "        {" + NL;
+                s += "            if (this.Exists)" + NL;
+                s += "                this.Update();" + NL;
+                s += "            else" + NL;
+                s += "                this.Insert();" + NL;
+                s += "        }" + NL;
+                return s;
+            }
+        }
+
+        private string GetPrimaryKeyValues
+        {
+            get
+            {
+                string s = NL + "";
+                s += "        public string GetPrimaryKeyValues()" + NL;
+                s += "        {" + NL;
+                s += @"            string pkValues = ""PK:["";" + NL;
+                s += @"            pkValues += """ + this.PrimaryKeyName + @"="" + " + this.PrimaryKeyName + ".ToString();" + NL;
+                s += @"            return pkValues + ""]"";" + NL;
+                s += "        }" + NL;
+                return s;
+            }
+        }
 
         private string GetDBVariable(string pName)
         {
@@ -272,65 +343,8 @@ namespace CreateClass.PropertiesGenerator
 
         private string GetConversion(string cSharpType)
         {
-            //string s = " = Convert.To";
-
-            //switch (dataType)
-            //{
-            //    case "int":
-            //        return s += "Int32";
-            //    case "bool":
-            //    return s += "ToBoolean";
-            //    case "DateTime":
-            //    return s += "DateTime";
-            //    case "decimal":
-            //    return s += "Decimal";
-            //    case "float":
-            //    return s += "Double";
-            //    case "long":
-            //        return s += "Int64";
-            //    case "short":
-            //        return s += "Int16";
-            //    case "byte":
-            //        return s += "Byte";
-            //    case "string":
-            //    case "Guid":
-            //        return s += "String";
-            //    default:
-            //        return "";
-            //}
-
             return " = Convert.To" + this.Prop.CSharpThesaurus[cSharpType];
-            
         }
-
-        //private string GetSQLDataType(string dataType)
-        //{
-        //    string s = "SqlDbType.";
-
-        //    if (dataType.Equals("bool"))
-        //        return s += "Bit";
-        //    else if (dataType.Equals("DateTime"))
-        //        return s += "DateTime";
-        //    else if (dataType.Equals("string"))
-        //        return s += "varchar";
-        //    else if (dataType.Equals("int"))
-        //        return s += "Int";
-        //    else if (dataType.Equals("decimal"))
-        //        return s += "Decimal";
-            
-        //    if (dataType.Equals("int"))
-        //        return s += "Int";
-        //    else if (dataType.Equals("decimal"))
-        //        return s += "Decimal";
-        //    else if (dataType.Equals("long"))
-        //        return s += "Long";
-        //    else if (dataType.Equals("DateTime"))
-        //        return s += "DateTime";
-        //    else if (dataType.Equals("string"))
-        //        return s += "VarChar";
-        //    else
-        //        return s;
-        //}
 
         private string ICantThinkOfANameForThisMethodRightNowBecauseItDoesSoMuchShit(string s)
         {
@@ -382,6 +396,11 @@ namespace CreateClass.PropertiesGenerator
                         s += LoadItemData;
                         s += PopulateList;
                         s += LoadAll;
+                        s += ValidateFields;
+                        s += Update;
+                        s += Insert;
+                        s += InsertOrUpdate;
+                        s += GetPrimaryKeyValues;
                         s += Footer;
                     }
 
@@ -522,7 +541,7 @@ namespace CreateClass.PropertiesGenerator
         public DataProps()
         {
         }
-        
+
         public string PName { get; set; }
         public string PSQLType { get; set; }
         public string PCSharpType { get; set; }
@@ -537,6 +556,6 @@ namespace CreateClass.PropertiesGenerator
 
         public bool CanBeNull { get; set; }
 
-        
+
     }
 }

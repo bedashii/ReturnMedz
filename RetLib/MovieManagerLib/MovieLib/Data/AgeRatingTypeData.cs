@@ -8,7 +8,7 @@ namespace MovieLib.Data
 {
     public partial class AgeRatingTypeData : Properties.AgeRatingTypeProperties
     {
-        private string _selectColumnNames = "A.[ID], A.[Description]";
+        private string _selectColumnNames = "A.[ID], A.[AgeRating], A.[AgeRatingDescription]";
         private DataHelper dataHelper;
 
         public AgeRatingTypeData()
@@ -19,7 +19,8 @@ namespace MovieLib.Data
         internal void SetRowProperties(DataRow dr, Properties.AgeRatingTypeProperties row)
         {
             row.ID = Convert.ToByte(dr["ID"]);
-            row.Description = Convert.ToString(dr["Description"]);
+            row.AgeRating = Convert.ToString(dr["AgeRating"]);
+            row.AgeRatingDescription = Convert.ToString(dr["AgeRatingDescription"]);
             row.Exists = true;
             row.HasChanged = false;
         }
@@ -39,14 +40,16 @@ namespace MovieLib.Data
 
         private UpdateProperties UpdateData()
         {
-            string q = "UPDATE dbo.AgeRatingType SET [ID] = @ID, [Description] = @Description\n";
+            string q = "UPDATE dbo.AgeRatingType SET [ID] = @ID, [AgeRating] = @AgeRating, [AgeRatingDescription] = @AgeRatingDescription\n";
             q += "WHERE ID = @ID\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
 
             SqlCommand cmd = dataHelper.CreateCommand(q);
 
             cmd.Parameters.Add("@ID", SqlDbType.TinyInt).Value = ID;
-            cmd.Parameters.Add("@Description", SqlDbType.VarChar, 50).Value = Description;
+            cmd.Parameters.Add("@AgeRating", SqlDbType.VarChar, 10).Value = AgeRating;
+
+            cmd.Parameters.Add("@AgeRatingDescription", SqlDbType.VarChar, 50).Value = AgeRatingDescription;
 
 
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
@@ -56,13 +59,15 @@ namespace MovieLib.Data
 
         private UpdateProperties InsertData()
         {
-            string q = "INSERT INTO dbo.AgeRatingType ( [ID], [Description] )\n";
-            q += "VALUES ( @ID, @Description )\n";
+            string q = "INSERT INTO dbo.AgeRatingType ( [ID], [AgeRating], [AgeRatingDescription] )\n";
+            q += "VALUES ( @ID, @AgeRating, @AgeRatingDescription )\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
             SqlCommand cmd = dataHelper.CreateCommand(q);
 
             cmd.Parameters.Add("@ID", SqlDbType.TinyInt).Value = ID;
-            cmd.Parameters.Add("@Description", SqlDbType.VarChar, 50).Value = Description;
+            cmd.Parameters.Add("@AgeRating", SqlDbType.VarChar, 10).Value = AgeRating;
+
+            cmd.Parameters.Add("@AgeRatingDescription", SqlDbType.VarChar, 50).Value = AgeRatingDescription;
 
 
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
@@ -73,23 +78,25 @@ namespace MovieLib.Data
 
             return up;
         }
-        internal void DeleteItem(int id)
+
+        internal void DeleteItem(byte id)
         {
             string q = "DELETE FROM dbo.AgeRatingType\n";
             q += "WHERE ID = @ID\n";
 
             SqlCommand cmd = dataHelper.CreateCommand(q);
-            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = id;
+            cmd.Parameters.Add("@ID", SqlDbType.TinyInt).Value = id;
 
             dataHelper.ExecuteNonQuery(cmd);
         }
-        internal void LoadItemData(int iD)
+
+        internal void LoadItemData(byte iD)
         {
             string q = "SELECT " + _selectColumnNames + " FROM dbo.AgeRatingType A\n";
             q += "WHERE A.ID = @ID\n";
 
             SqlCommand cmd = dataHelper.CreateCommand(q);
-            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = iD;
+            cmd.Parameters.Add("@ID", SqlDbType.TinyInt).Value = iD;
 
             DataTable dt = dataHelper.ExecuteQuery(cmd);
             if (dt.Rows.Count == 0)
@@ -97,6 +104,7 @@ namespace MovieLib.Data
             else
                 SetRowProperties(dt.Rows[0], this);
         }
+
         internal void PopulateList(List<Business.AgeRatingType> list, DataTable dt)
         {
             list.Clear();
@@ -108,6 +116,7 @@ namespace MovieLib.Data
                 list.Add(p);
             }
         }
+
         internal void LoadAll(List<Business.AgeRatingType> list)
         {
             PopulateList(list, GetData(""));

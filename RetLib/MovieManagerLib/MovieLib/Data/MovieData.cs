@@ -35,7 +35,7 @@ namespace MovieLib.Data
             if ((dr["YearOfRelease"]) == DBNull.Value)
                 row.YearOfRelease = null;
             else
-                row.YearOfRelease = Convert.ToDateTime(dr["YearOfRelease"]);
+                row.YearOfRelease = Convert.ToInt16(dr["YearOfRelease"]);
 
             if ((dr["AgeRating"]) == DBNull.Value)
                 row.AgeRating = null;

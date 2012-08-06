@@ -43,5 +43,21 @@ namespace MovieLib.Business
         internal virtual void PostConstructionTasks()
         {
         }
+
+        public int GetVideoQualityType(string videoHeight)
+        {
+            if (videoHeight != null)
+            {
+                int vh = Convert.ToInt32(videoHeight);
+                if (vh < 720)
+                    return 1;
+                else if (vh >= 720 && vh < 1080)
+                    return 2;
+                else if (vh >= 1080)
+                    return 3;
+            }
+            
+            return 0;
+        }
     }
 }

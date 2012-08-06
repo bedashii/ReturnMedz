@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/22/trunk/IMDBDLL/IMDBDLL
+END
+IMDB.cs
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/23/trunk/IMDBDLL/IMDBDLL/IMDB.cs
+END
+IMDBDLL.csproj
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/23/trunk/IMDBDLL/IMDBDLL/IMDBDLL.csproj
+END
+IMDbManager.cs
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/23/trunk/IMDBDLL/IMDBDLL/IMDbManager.cs
+END

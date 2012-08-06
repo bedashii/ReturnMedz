@@ -32,10 +32,10 @@ namespace CreateClass.PropertiesGenerator
             get
             {
                 string s = NL;
-                s += "        public " + ClassNameFull + "(int id)" + NL;
+                s += "        public " + ClassNameFull + "(" + this.PrimaryKeyCSharpType + " " + this.PrimaryKeyName.ToLower() + ")" + NL;
                 s += "        {" + NL;
                 s += "            PreConstructionTasks();" + NL;
-                s += "            this.LoadItemData(id);" + NL;
+                s += "            this.LoadItemData(" + this.PrimaryKeyName.ToLower() + ");" + NL;
                 s += "            PostConstructionTasks();" + NL;
                 s += "        }" + NL;
                 return s;
@@ -47,10 +47,10 @@ namespace CreateClass.PropertiesGenerator
             get
             {
                 string s = NL;
-                s += "        public void LoadItem(int id)" + NL;
+                s += "        public void LoadItem(" + this.PrimaryKeyCSharpType + " " + this.PrimaryKeyName.ToLower() + ")" + NL;
                 s += "        {" + NL;
                 s += "            this.ID = id;" + NL;
-                s += "            base.LoadItemData(id);" + NL;
+                s += "            base.LoadItemData(" + this.PrimaryKeyName.ToLower() + ");" + NL;
                 s += "        }" + NL;
                 return s;
             }
@@ -61,9 +61,9 @@ namespace CreateClass.PropertiesGenerator
             get
             {
                 string s = NL;
-                s += "        public void Refresh(int id)" + NL;
+                s += "        public void Refresh(" + this.PrimaryKeyCSharpType + " " + this.PrimaryKeyName.ToLower() + ")" + NL;
                 s += "        {" + NL;
-                s += "            base.LoadItemData(id);" + NL;
+                s += "            base.LoadItemData(" + this.PrimaryKeyName.ToLower() + ");" + NL;
                 s += "        }" + NL;
                 return s;
             }

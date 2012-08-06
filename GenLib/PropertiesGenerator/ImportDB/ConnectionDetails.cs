@@ -48,7 +48,7 @@ namespace ImportDB
             config.AppSettings.Settings["LCDStorePassword"].Value = checkBoxRememberPassword.Checked.ToString();
             config.AppSettings.Settings["LCDPassword"].Value = checkBoxRememberPassword.Checked ? textBoxPassword.Text : "";
 
-            config.Save(System.Configuration.ConfigurationSaveMode.Full, true);
+            //config.Save(System.Configuration.ConfigurationSaveMode.Full, true);
         }
 
         private void buttonConnect_Click(object sender, EventArgs e)

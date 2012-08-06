@@ -105,6 +105,25 @@ namespace DataHelper
             }
         }
 
+        public DataTable ExecuteQuery(string query)
+        {
+            lock (Conn)
+            {
+                try
+                {
+                    SqlDataAdapter da = new SqlDataAdapter(new SqlCommand(query, Conn));
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    return dt;
+                }
+                finally
+                {
+                    Conn.Close();
+                }
+            }
+        }
+
         public int ExecuteNonQuery(SqlCommand cmd)
         {
             int count = 0;

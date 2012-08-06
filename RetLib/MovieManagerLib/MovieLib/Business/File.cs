@@ -47,5 +47,22 @@ namespace MovieLib.Business
         internal virtual void PostConstructionTasks()
         {
         }
+
+
+        private string _videoHeight;
+        public string VideoHeight
+        {
+            get
+            {
+                return _videoHeight;
+            }
+            set
+            {
+                _videoHeight = value;
+
+                
+                    
+            }
+        }
     }
 }

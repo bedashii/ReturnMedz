@@ -5,14 +5,6 @@ using System.Text;
 
 namespace CreateClass.PropertiesGenerator
 {
-    /* <Add>
-     * public void Refresh()
-        {
-            _data.PopulateList(this, _data.GetData(""));
-        }
-     * </Add>
-     */ 
-
     public class ListProperties : BaseProperties
     {
         public ListProperties(string ns, string className)
@@ -53,6 +45,72 @@ namespace CreateClass.PropertiesGenerator
             }
         }
 
+        private string Refresh
+        {
+            get
+            {
+                string s = NL;
+                s += "        public void Refresh()" + NL;
+                s += "        {" + NL;
+                s += @"            _data.PopulateList(this, _data.GetData(""""));" + NL;
+                s += "        }" + NL;
+                return s;
+            }
+        }
+
+        private string ValidateAll
+        {
+            get
+            {
+                string s = NL;
+                s += "        public void ValidateAll()" + NL;
+                s += "        {" + NL;
+                s += "            foreach (var item in this)" + NL;
+                s += "            {" + NL;
+                s += "                if (item.HasChanged)" + NL;
+                s += "                {" + NL;
+                s += "                    item.ValidateFields();" + NL;
+                s += "                }" + NL;
+                s += "            }" + NL;
+                s += "        }" + NL;
+                return s;
+            }
+        }
+
+        private string UpdateAll
+        {
+            get
+            {
+                string s = NL;
+                s += "        public void UpdateAll()" + NL;
+                s += "        {" + NL;
+                s += "            this.ValidateAll();" + NL;
+                s += "" + NL;
+                s += "            foreach (var item in this)" + NL;
+                s += "            {" + NL;
+                s += "                if (item.HasChanged)" + NL;
+                s += "                {" + NL;
+                s += "                    item.InsertOrUpdate();" + NL;
+                s += "                }" + NL;
+                s += "            }" + NL;
+                s += "        }" + NL;
+                return s;
+            }
+        }
+
+        private string InsertItem
+        {
+            get
+            {
+                string s = NL;
+                s += "        public void InsertItem(Business." + ClassName + " " + InternalItem + ")" + NL;
+                s += "        {" + NL;
+                s += "            " + InternalItem + ".Insert();" + NL;
+                s += "        }" + NL;
+                return s;
+            }
+        }
+
         public string GetAll
         {
             get
@@ -69,6 +127,10 @@ namespace CreateClass.PropertiesGenerator
                         s += Data;
                         s += Constructor;
                         s += GetAllDataMethod;
+                        s += Refresh;
+                        s += ValidateAll;
+                        s += UpdateAll;
+                        s += InsertItem;
                         s += Footer;
                     }
 

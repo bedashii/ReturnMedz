@@ -8,10 +8,11 @@
     <ProjectGuid>{ED325B59-305F-4B66-B2E8-C1BFD2B42AF7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MovieManagerLib</RootNamespace>
+    <RootNamespace>MovieLib</RootNamespace>
     <AssemblyName>MovieManagerLib</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,11 +38,12 @@
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Magic\Magic.cs" />
+    <Compile Include="Magic\Movie.cs" />
     <Compile Include="MovieLib\Business\AgeRatingType.cs" />
     <Compile Include="MovieLib\Business\AudioQualityType.cs" />
     <Compile Include="MovieLib\Business\ExtensionType.cs" />
@@ -64,6 +66,7 @@
     <Compile Include="MovieLib\List\GenreTypesList.cs" />
     <Compile Include="MovieLib\List\MovieList.cs" />
     <Compile Include="MovieLib\List\VideoQualityTypeList.cs" />
+    <Compile Include="Magic\File.cs" />
     <Compile Include="MovieLib\Properties\AgeRatingTypeProperties.cs" />
     <Compile Include="MovieLib\Properties\AudioQualityTypeProperties.cs" />
     <Compile Include="MovieLib\Properties\ExtensionTypeProperties.cs" />
@@ -74,6 +77,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MovieLib\Properties\PropertiesBase.cs" />
     <Compile Include="MovieLib\Tools\XMLDecoder.cs" />
+    <Compile Include="Third Party\IMDb_Scraper.cs" />
+    <Compile Include="Third Party\MediaInfoDLL.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

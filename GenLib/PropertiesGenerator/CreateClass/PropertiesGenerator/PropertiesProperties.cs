@@ -41,16 +41,16 @@ namespace CreateClass.PropertiesGenerator
                         s += "        partial void On" + x.PName + "Changing();" + NL;
                         s += "        partial void On" + x.PName + "Changed();" + NL;
 
-                        if (x.PName.ToLower() == "id")
+                        if (x.PName.ToLower() == "" + this.PrimaryKeyName.ToLower() + "")
                         {
-                            s += "        private " + x.PDataType + " _id;" + NL;
-                            s += "        public " + x.PDataType + " ID" + NL;
+                            s += "        private " + x.PDataType + " _" + this.PrimaryKeyName.ToLower() + ";" + NL;
+                            s += "        public " + x.PDataType + " " + this.PrimaryKeyName + "" + NL;
                             s += "        {" + NL;
-                            s += "            get { return _id; }" + NL;
+                            s += "            get { return _" + this.PrimaryKeyName.ToLower() + "; }" + NL;
                             s += "            set" + NL;
                             s += "            {" + NL;
                             s += "                On" + x.PName + "Changing();" + NL;
-                            s += "                _id = value;" + NL;
+                            s += "                _" + this.PrimaryKeyName.ToLower() + " = value;" + NL;
                             s += "                base.HasChanged = true;" + NL;
                             s += "                On" + x.PName + "Changed();" + NL;
                             s += "            }" + NL;
