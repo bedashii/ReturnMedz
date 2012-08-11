@@ -5,6 +5,8 @@ using System.Text;
 using System.IO;
 using System.Xml;
 using IMDb_Scraper;
+using System.Net;
+
 
 namespace MovieLib.Magic
 {
@@ -28,6 +30,7 @@ namespace MovieLib.Magic
         public string MPAARating { get; set; }
         public string Storyline { get; set; }
         public string Plot { get; set; }
+        public List<string> Posters { get; set; }
 
         #endregion Properties
 
@@ -35,20 +38,35 @@ namespace MovieLib.Magic
         {
             _trim = new FileNameTrimmer();
             Genres = new List<string>();
+            Posters = new List<string>();
         }
 
-        public string GetMovieName(string fileName)
+        public bool GetMovieName(string fileName, string parentFolder)
         {
             try
             {
                 OriginalName = _trim.GetMovieName(fileName);
                 IMDb imdb = new IMDb(OriginalName, true);
-                SetMovieInfo(imdb);
-                return null;
+
+                if (imdb.Title != "")
+                {
+                    SetMovieInfo(imdb);
+                    return true;
+                }
+
+                imdb = new IMDb(parentFolder, true);
+
+                if (imdb.Title != "" && parentFolder != null && parentFolder != "")
+                {
+                    SetMovieInfo(imdb);
+                    return true;
+                }
+
+                return false;
             }
-            catch (Exception x)
+            catch (Exception)
             {
-                return x.Message;
+                return false;
             }
         }
 
@@ -71,24 +89,36 @@ namespace MovieLib.Magic
                 Plot = imdb.Plot.Substring(0, imdb.Plot.IndexOf(@"<a href=""plotsummary"">")).Replace("&#x27;", "'");
             else
                 Plot = imdb.Plot.Replace("&#x27;", "'");
+
+            Posters.Add(imdb.Poster);
+            Posters.Add(imdb.PosterSmall);
+            Posters.Add(imdb.PosterLarge);
+            Posters.Add(imdb.PosterFull);
         }
     }
 
     public class FileNameTrimmer
     {
-        private List<string> ExclusionList;
+        private List<string> _exclusionList;
+        private List<string> _trimmingsList;
+        private MovieLib.List.ExtensionTypeList _extensionsList;
 
         public FileNameTrimmer()
         {
-            ExclusionList = new List<string>();
-            LoadExclusionList();
+            _exclusionList = new List<string>();
+            _trimmingsList = new List<string>();
+            _extensionsList = new List.ExtensionTypeList();
+            _extensionsList.GetAll();
+
+            LoadLists();
         }
 
-        private void LoadExclusionList()
+        private void LoadLists()
         {
             try
             {
-                ExclusionList = System.IO.File.ReadAllLines(System.Configuration.ConfigurationSettings.AppSettings.Get("ExclusionList")).ToList();
+                _exclusionList = System.IO.File.ReadAllLines(System.Configuration.ConfigurationSettings.AppSettings.Get("ExclusionList")).ToList();
+                _trimmingsList = System.IO.File.ReadAllLines(System.Configuration.ConfigurationSettings.AppSettings.Get("Trimmings")).ToList();
             }
             catch (IOException) { }
             catch (Exception) { }
@@ -97,15 +127,12 @@ namespace MovieLib.Magic
         public string GetMovieName(string fileName)
         {
             string movie = "";
-            string temp = "";
-            string[] splitByPeriod = fileName.Split('.');
 
-            foreach (string s in splitByPeriod)
-                temp += s + ' ';
+            RemoveTrimmings(ref fileName);
 
-            string[] splitBySpace = temp.Split(' ');
+            List<string> fileNameList = fileName.Split(' ').ToList();
 
-            foreach (string s in splitBySpace)
+            foreach (string s in fileNameList)
             {
                 if (CheckExclusionList(s) == false)
                     if (CheckForYear(s) == false)
@@ -117,18 +144,18 @@ namespace MovieLib.Magic
             return movie.Trim();
         }
 
+        private void RemoveTrimmings(ref string fileName)
+        {
+            foreach (string s in _trimmingsList)
+                fileName = fileName.Replace(s, " ");
+        }
+
         private bool CheckForYear(string s)
         {
             try
             {
                 int year = 0;
-
-                if (s.StartsWith("("))
-                    int.TryParse(s.Substring(1, 4), out year);
-                else if (s.StartsWith("["))
-                    int.TryParse(s.Substring(1, 4), out year);
-                else
-                    int.TryParse(s.Substring(0, 4), out year);
+                int.TryParse(s.Substring(0, 4), out year);
 
                 if (year >= 1900 && year <= DateTime.Today.Year)
                     return true;
@@ -145,7 +172,7 @@ namespace MovieLib.Magic
         {
             try
             {
-                if (ExclusionList.Exists(x => x == s))
+                if (_exclusionList.Exists(x => x == s))
                     return true;
 
                 return false;

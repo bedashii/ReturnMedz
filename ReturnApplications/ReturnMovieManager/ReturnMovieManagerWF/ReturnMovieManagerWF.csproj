@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="Processors\MovieAddProcessor.cs" />
     <Compile Include="Processors\PreferencesProcessor.cs" />
+    <Compile Include="Processors\PreferencesProcessor2.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controls\PreferencesControl.resx">
@@ -109,6 +110,8 @@
     <None Include="Properties\DataSources\MovieLib.Business.AudioQualityType.datasource" />
     <None Include="Properties\DataSources\MovieLib.Business.ExtensionType.datasource" />
     <None Include="Properties\DataSources\MovieLib.Business.GenreTypes.datasource" />
+    <None Include="Properties\DataSources\MovieLib.Business.InfoFile.datasource" />
+    <None Include="Properties\DataSources\MovieLib.Business.InfoMovie.datasource" />
     <None Include="Properties\DataSources\MovieLib.Business.VideoQualityType.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

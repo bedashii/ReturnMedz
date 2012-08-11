@@ -5,17 +5,25 @@ using System.Text;
 using System.Xml;
 namespace MovieLib.Business
 {
-    public partial class Movie : Data.MovieData
+    public partial class SysConfig : Data.SysConfigData
     {
+        private string p;
 
-        public Movie()
+        public SysConfig()
         {
         }
 
-        public Movie(int id)
+        public SysConfig(int id)
         {
             PreConstructionTasks();
             this.LoadItemData(id);
+            PostConstructionTasks();
+        }
+
+        public SysConfig(string setting)
+        {
+            PreConstructionTasks();
+            this.LoadItemData(setting);
             PostConstructionTasks();
         }
 
@@ -25,22 +33,22 @@ namespace MovieLib.Business
             base.LoadItemData(id);
         }
 
+        public void LoadItem(string setting)
+        {
+            this.Setting = setting;
+            base.LoadItemData(setting);
+        }
+
         public void Refresh(int id)
         {
             base.LoadItemData(id);
         }
 
-        public void SetProperties(MovieLib.Business.Movie properties)
+        public void SetProperties(MovieLib.Business.SysConfig properties)
         {
             this.ID = properties.ID;
-            this.Name = properties.Name;
-            this.GenreMain = properties.GenreMain;
-            this.GenreSub = properties.GenreSub;
-            this.Runtime = properties.Runtime;
-            this.IMDBRating = properties.IMDBRating;
-            this.YearOfRelease = properties.YearOfRelease;
-            this.AgeRating = properties.AgeRating;
-            this.PlotSummary = properties.PlotSummary;
+            this.Setting = properties.Setting;
+            this.Config = properties.Config;
         }
 
         internal virtual void PreConstructionTasks()

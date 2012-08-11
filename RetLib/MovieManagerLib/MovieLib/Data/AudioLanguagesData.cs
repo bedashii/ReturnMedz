@@ -6,28 +6,20 @@ using System.Linq;
 using System.Text;
 namespace MovieLib.Data
 {
-    public partial class FileData : Properties.FileProperties
+    public partial class AudioLanguagesData : Properties.AudioLanguagesProperties
     {
-        private string _selectColumnNames = "F.[ID], F.[Name], F.[Size], F.[ExtensionID], F.[VideoQuality], F.[AudioQuality]";
+        private string _selectColumnNames = "A.[ID], A.[Description]";
         private DataHelper dataHelper;
 
-        public FileData()
+        public AudioLanguagesData()
         {
             dataHelper = new DataHelper();
         }
 
-        internal void SetRowProperties(DataRow dr, Properties.FileProperties row)
+        internal void SetRowProperties(DataRow dr, Properties.AudioLanguagesProperties row)
         {
-            row.ID = Convert.ToInt32(dr["ID"]);
-            row.Name = Convert.ToString(dr["Name"]);
-            row.Size = Convert.ToDecimal(dr["Size"]);
-            row.ExtensionID = Convert.ToInt16(dr["ExtensionID"]);
-            if ((dr["VideoQuality"]) == DBNull.Value)
-                row.VideoQuality = null;
-            else
-                row.VideoQuality = Convert.ToByte(dr["VideoQuality"]);
-
-            row.AudioQuality = Convert.ToByte(dr["AudioQuality"]);
+            row.ID = Convert.ToInt16(dr["ID"]);
+            row.Description = Convert.ToString(dr["Description"]);
             row.Exists = true;
             row.HasChanged = false;
         }
@@ -38,7 +30,7 @@ namespace MovieLib.Data
             if (dataHelper.MaxRows != 0)
                 q += " TOP " + dataHelper.MaxRows.ToString() + " ";
             q += _selectColumnNames + "\n";
-            q += "FROM dbo.File AS F\n";
+            q += "FROM dbo.AudioLanguages AS A\n";
             if (orderBy != "")
                 q += "ORDER BY " + orderBy;
 
@@ -47,24 +39,15 @@ namespace MovieLib.Data
 
         private UpdateProperties UpdateData()
         {
-            string q = "UPDATE dbo.File SET [ID] = @ID, [Name] = @Name, [Size] = @Size, [ExtensionID] = @ExtensionID, [VideoQuality] = @VideoQuality, [AudioQuality] = @AudioQuality\n";
+            string q = "UPDATE dbo.AudioLanguages SET [ID] = @ID, [Description] = @Description\n";
             q += "WHERE ID = @ID\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
 
             SqlCommand cmd = dataHelper.CreateCommand(q);
 
-            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
-            cmd.Parameters.Add("@Name", SqlDbType.VarChar, 255).Value = Name;
+            cmd.Parameters.Add("@ID", SqlDbType.SmallInt).Value = ID;
+            cmd.Parameters.Add("@Description", SqlDbType.VarChar, 30).Value = Description;
 
-            cmd.Parameters.Add("@Size", SqlDbType.Decimal).Value = Size;
-            cmd.Parameters.Add("@ExtensionID", SqlDbType.SmallInt).Value = ExtensionID;
-
-            if (VideoQuality == null)
-                cmd.Parameters.Add("@VideoQuality", SqlDbType.TinyInt).Value = DBNull.Value;
-            else
-                cmd.Parameters.Add("@VideoQuality", SqlDbType.TinyInt).Value = VideoQuality;
-
-            cmd.Parameters.Add("@AudioQuality", SqlDbType.TinyInt).Value = AudioQuality;
 
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             base.HasChanged = false;
@@ -73,49 +56,42 @@ namespace MovieLib.Data
 
         private UpdateProperties InsertData()
         {
-            string q = "INSERT INTO dbo.File ( [ID], [Name], [Size], [ExtensionID], [VideoQuality], [AudioQuality] )\n";
-            q += "VALUES ( @ID, @Name, @Size, @ExtensionID, @VideoQuality, @AudioQuality )\n";
+            string q = "INSERT INTO dbo.AudioLanguages ( [ID], [Description] )\n";
+            q += "VALUES ( @ID, @Description )\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
             SqlCommand cmd = dataHelper.CreateCommand(q);
 
-            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
-            cmd.Parameters.Add("@Name", SqlDbType.VarChar, 255).Value = Name;
+            cmd.Parameters.Add("@ID", SqlDbType.SmallInt).Value = ID;
+            cmd.Parameters.Add("@Description", SqlDbType.VarChar, 30).Value = Description;
 
-            cmd.Parameters.Add("@Size", SqlDbType.Decimal).Value = Size;
-            cmd.Parameters.Add("@ExtensionID", SqlDbType.SmallInt).Value = ExtensionID;
-
-            if (VideoQuality == null)
-                cmd.Parameters.Add("@VideoQuality", SqlDbType.TinyInt).Value = DBNull.Value;
-            else
-                cmd.Parameters.Add("@VideoQuality", SqlDbType.TinyInt).Value = VideoQuality;
-
-            cmd.Parameters.Add("@AudioQuality", SqlDbType.TinyInt).Value = AudioQuality;
 
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
-            ID = up.Identity;
+            ID = (short)up.Identity;
 
             base.Exists = true; //After instert Exist must be true
             base.HasChanged = false; //After instert Change is false since it is a new record
 
             return up;
         }
-        internal void DeleteItem(int id)
+
+        internal void DeleteItem(short id)
         {
-            string q = "DELETE FROM dbo.File\n";
+            string q = "DELETE FROM dbo.AudioLanguages\n";
             q += "WHERE ID = @ID\n";
 
             SqlCommand cmd = dataHelper.CreateCommand(q);
-            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = id;
+            cmd.Parameters.Add("@ID", SqlDbType.SmallInt).Value = id;
 
             dataHelper.ExecuteNonQuery(cmd);
         }
-        internal void LoadItemData(int iD)
+
+        internal void LoadItemData(short iD)
         {
-            string q = "SELECT " + _selectColumnNames + " FROM dbo.File F\n";
-            q += "WHERE F.ID = @ID\n";
+            string q = "SELECT " + _selectColumnNames + " FROM dbo.AudioLanguages A\n";
+            q += "WHERE A.ID = @ID\n";
 
             SqlCommand cmd = dataHelper.CreateCommand(q);
-            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = iD;
+            cmd.Parameters.Add("@ID", SqlDbType.SmallInt).Value = iD;
 
             DataTable dt = dataHelper.ExecuteQuery(cmd);
             if (dt.Rows.Count == 0)
@@ -123,18 +99,20 @@ namespace MovieLib.Data
             else
                 SetRowProperties(dt.Rows[0], this);
         }
-        internal void PopulateList(List<Business.File> list, DataTable dt)
+
+        internal void PopulateList(List<Business.AudioLanguages> list, DataTable dt)
         {
             list.Clear();
 
             foreach (DataRow dr in dt.Rows)
             {
-                Business.File p = new Business.File();
+                Business.AudioLanguages p = new Business.AudioLanguages();
                 SetRowProperties(dr, p);
                 list.Add(p);
             }
         }
-        internal void LoadAll(List<Business.File> list)
+
+        internal void LoadAll(List<Business.AudioLanguages> list)
         {
             PopulateList(list, GetData(""));
         }

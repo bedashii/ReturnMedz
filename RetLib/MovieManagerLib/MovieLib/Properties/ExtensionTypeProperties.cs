@@ -13,8 +13,8 @@ namespace MovieLib.Properties
 
         partial void OnIDChanging();
         partial void OnIDChanged();
-        private short _id;
-        public short ID
+        private byte _id;
+        public byte ID
         {
             get { return _id; }
             set

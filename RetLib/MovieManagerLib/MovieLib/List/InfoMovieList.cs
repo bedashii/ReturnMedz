@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 namespace MovieLib.List
 {
-    public partial class ExtensionTypeList : List<Business.ExtensionType>
+    public partial class InfoMovieList : List<Business.InfoMovie>
     {
-        Data.ExtensionTypeData _data = new Data.ExtensionTypeData();
+        Data.InfoMovieData _data = new Data.InfoMovieData();
 
-        public ExtensionTypeList()
+        public InfoMovieList()
         {
         }
 
@@ -46,14 +46,9 @@ namespace MovieLib.List
             }
         }
 
-        public void InsertItem(Business.ExtensionType extensionType)
+        public void InsertItem(Business.InfoMovie infoMovie)
         {
-            extensionType.Insert();
-        }
-
-        public void DeleteItem(byte id)
-        {
-            _data.DeleteItem(id);
+            infoMovie.Insert();
         }
     }
 }

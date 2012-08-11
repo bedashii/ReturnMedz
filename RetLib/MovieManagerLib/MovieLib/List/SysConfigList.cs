@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 namespace MovieLib.List
 {
-    public partial class ExtensionTypeList : List<Business.ExtensionType>
+    public partial class SysConfigList : List<Business.SysConfig>
     {
-        Data.ExtensionTypeData _data = new Data.ExtensionTypeData();
+        Data.SysConfigData _data = new Data.SysConfigData();
 
-        public ExtensionTypeList()
+        public SysConfigList()
         {
         }
 
@@ -46,14 +46,9 @@ namespace MovieLib.List
             }
         }
 
-        public void InsertItem(Business.ExtensionType extensionType)
+        public void InsertItem(Business.SysConfig sysConfig)
         {
-            extensionType.Insert();
-        }
-
-        public void DeleteItem(byte id)
-        {
-            _data.DeleteItem(id);
+            sysConfig.Insert();
         }
     }
 }

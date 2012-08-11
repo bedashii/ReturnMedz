@@ -18,7 +18,7 @@ namespace MovieLib.Data
 
         internal void SetRowProperties(DataRow dr, Properties.ExtensionTypeProperties row)
         {
-            row.ID = Convert.ToInt16(dr["ID"]);
+            row.ID = Convert.ToByte(dr["ID"]);
             row.Extension = Convert.ToString(dr["Extension"]);
             row.ExtensionDescription = Convert.ToString(dr["ExtensionDescription"]);
             row.Exists = true;
@@ -46,7 +46,7 @@ namespace MovieLib.Data
 
             SqlCommand cmd = dataHelper.CreateCommand(q);
 
-            cmd.Parameters.Add("@ID", SqlDbType.SmallInt).Value = ID;
+            cmd.Parameters.Add("@ID", SqlDbType.TinyInt).Value = ID;
             cmd.Parameters.Add("@Extension", SqlDbType.VarChar, 10).Value = Extension;
 
             cmd.Parameters.Add("@ExtensionDescription", SqlDbType.VarChar, 100).Value = ExtensionDescription;
@@ -64,7 +64,7 @@ namespace MovieLib.Data
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
             SqlCommand cmd = dataHelper.CreateCommand(q);
 
-            cmd.Parameters.Add("@ID", SqlDbType.SmallInt).Value = ID;
+            cmd.Parameters.Add("@ID", SqlDbType.TinyInt).Value = ID;
             cmd.Parameters.Add("@Extension", SqlDbType.VarChar, 10).Value = Extension;
 
             cmd.Parameters.Add("@ExtensionDescription", SqlDbType.VarChar, 100).Value = ExtensionDescription;
@@ -78,23 +78,23 @@ namespace MovieLib.Data
 
             return up;
         }
-        internal void DeleteItem(int id)
+        internal void DeleteItem(byte id)
         {
             string q = "DELETE FROM dbo.ExtensionType\n";
             q += "WHERE ID = @ID\n";
 
             SqlCommand cmd = dataHelper.CreateCommand(q);
-            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = id;
+            cmd.Parameters.Add("@ID", SqlDbType.TinyInt).Value = id;
 
             dataHelper.ExecuteNonQuery(cmd);
         }
-        internal void LoadItemData(int iD)
+        internal void LoadItemData(byte iD)
         {
             string q = "SELECT " + _selectColumnNames + " FROM dbo.ExtensionType E\n";
             q += "WHERE E.ID = @ID\n";
 
             SqlCommand cmd = dataHelper.CreateCommand(q);
-            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = iD;
+            cmd.Parameters.Add("@ID", SqlDbType.TinyInt).Value = iD;
 
             DataTable dt = dataHelper.ExecuteQuery(cmd);
             if (dt.Rows.Count == 0)

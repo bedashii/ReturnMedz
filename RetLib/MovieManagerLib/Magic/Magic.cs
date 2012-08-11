@@ -16,10 +16,19 @@ namespace MovieLib.Magic
             Movie = new Movie();
         }
 
-        public void Open(string fullFileName)
+        public void OpenFile(string fullFileName)
         {
             File.Open(fullFileName);
-            Movie.GetMovieName(File.FileName);
+        }
+
+        public void OpenMovie(string fileName)
+        {
+            Movie.GetMovieName(fileName, null);
+        }
+
+        public void OpenMovie()
+        {
+            Movie.GetMovieName(File.FileName, File.ParentFolder);
         }
     }
 }

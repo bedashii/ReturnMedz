@@ -1,14 +1,15 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 namespace MovieLib.List
 {
-    public partial class FileList : List<Business.File>
+    public partial class MovieGenreList :List<Business.MovieGenre>
     {
-        Data.FileData _data = new Data.FileData();
+        Data.MovieGenreData _data = new Data.MovieGenreData();
 
-        public FileList()
+        public MovieGenreList()
         {
         }
 
@@ -46,9 +47,14 @@ namespace MovieLib.List
             }
         }
 
-        public void InsertItem(Business.File file)
+        public void InsertItem(Business.MovieGenre movieGenre)
         {
-            file.Insert();
+            movieGenre.Insert();
+        }
+
+        public void DeleteItem(int movie, short genre)
+        {
+            _data.DeleteItem(movie, genre);
         }
     }
 }

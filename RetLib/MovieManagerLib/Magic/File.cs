@@ -25,6 +25,7 @@ namespace MovieLib.Magic
 
         #region Properties
 
+        public string ParentFolder { get; set; }
         public string FullFileName
         {
             get { return FileName + "." + Extension; }
@@ -60,7 +61,8 @@ namespace MovieLib.Magic
         public decimal BitRateOverallmbps
         {
             get { return Decimal.Round(Convert.ToDecimal(BitRateOverallbps * 0.000001), 2); }
-            }
+        }
+            
 
         #endregion Properties
 
@@ -81,6 +83,9 @@ namespace MovieLib.Magic
 
         private void SetMovieMagicProperties()
         {
+            System.IO.DirectoryInfo info = System.IO.Directory.GetParent(_mediaInfo.Get(StreamKind.General, 0, 46));
+            ParentFolder = info.Name;
+
             FileName = _mediaInfo.Get(StreamKind.General, 0, 48);
             Extension = _mediaInfo.Get(StreamKind.General, 0, 49);
             Format = _mediaInfo.Get(StreamKind.General, 0, 50);

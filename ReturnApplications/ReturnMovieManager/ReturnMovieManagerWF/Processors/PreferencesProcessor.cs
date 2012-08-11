@@ -74,7 +74,7 @@ namespace ReturnMovieManagerWF.Processors
             else if (obj.GetType() == typeof(AudioQualityTypeList))
                 (obj as AudioQualityTypeList).DeleteItem(id);
             else if (obj.GetType() == typeof(ExtensionTypeList))
-                (obj as ExtensionTypeList).DeleteItem(id);
+                (obj as ExtensionTypeList).DeleteItem(Convert.ToByte(id));
             else if (obj.GetType() == typeof(GenreTypesList))
                 (obj as GenreTypesList).DeleteItem(id);
             else if (obj.GetType() == typeof(VideoQualityTypeList))

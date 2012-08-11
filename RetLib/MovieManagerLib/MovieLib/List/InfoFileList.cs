@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 namespace MovieLib.List
 {
-    public partial class MovieList : List<MovieLib.Business.Movie>
+    public partial class InfoFileList : List<Business.InfoFile>
     {
-        Data.MovieData _data = new Data.MovieData();
+        Data.InfoFileData _data = new Data.InfoFileData();
 
-        public MovieList()
+        public InfoFileList()
         {
         }
 
@@ -46,9 +46,9 @@ namespace MovieLib.List
             }
         }
 
-        public void InsertItem(Business.Movie movie)
+        public void InsertItem(Business.InfoFile infoFile)
         {
-            movie.Insert();
+            infoFile.Insert();
         }
     }
 }
