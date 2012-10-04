@@ -212,14 +212,48 @@ namespace DownloadSorter
             {
                 DialogResult dr = System.Windows.Forms.DialogResult.Yes;
 
-                if (File.Exists(destinationRoot + x.Substring(x.LastIndexOf('\\'))))
+                string path = x;
+                if (checkBoxUseFolderName.Checked)
                 {
-                    dr = MessageBox.Show(destinationRoot + x.Substring(x.LastIndexOf('\\')) + " already exists." + Environment.NewLine + "Do you want to overwrite this file?", "Overwrite?", MessageBoxButtons.YesNo);
+                    string originalPath = "";
+
+                    textBoxPath.Invoke((MethodInvoker)delegate { originalPath = textBoxPath.Text; });
+
+                    if (originalPath.EndsWith("\\"))
+                        originalPath = originalPath.Substring(0, originalPath.Length - 1);
+                    originalPath = originalPath.Substring(originalPath.LastIndexOf('\\') + 1);
+
+                    var splitPath = path.Split('\\');
+                    if (splitPath[splitPath.Length - 2] != originalPath)
+                    {
+                        string ext = path.Substring(path.LastIndexOf('.'));
+
+                        splitPath[splitPath.Length - 1] = splitPath[splitPath.Length - 2];
+
+                        //Rebuild path
+                        path = "";
+                        foreach (string s in splitPath)
+                        {
+                            if (path == "")
+                                path += s;
+                            else
+                                path += "\\" + s;
+                        }
+                        path += ext;
+                    }
+                    else
+                        path = x;
+
+                }
+
+                if (File.Exists(destinationRoot + path.Substring(x.LastIndexOf('\\'))))
+                {
+                    dr = MessageBox.Show(destinationRoot + path.Substring(x.LastIndexOf('\\')) + " already exists." + Environment.NewLine + "Do you want to overwrite this file?", "Overwrite?", MessageBoxButtons.YesNo);
                 }
 
                 if (dr == System.Windows.Forms.DialogResult.Yes)
                 {
-                    File.Copy(x, destinationRoot + x.Substring(x.LastIndexOf('\\')), true);
+                    File.Copy(x, destinationRoot + path.Substring(x.LastIndexOf('\\')), true);
                 }
 
                 if (ProgressBar.InvokeRequired)
@@ -231,7 +265,7 @@ namespace DownloadSorter
 
         void bgCopy_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            MessageBox.Show("Copy Compelte");
+            MessageBox.Show("Copy Complete");
 
             if (this.InvokeRequired)
                 this.Invoke((MethodInvoker)delegate { this.Controls.Remove(ProgressBar); });
@@ -275,7 +309,43 @@ namespace DownloadSorter
                     //if (File.Exists(destinationRoot + x.Substring(x.LastIndexOf('\\'))))
                     //    File.Delete(destinationRoot + x.Substring(x.LastIndexOf('\\')));
                     if (!File.Exists(destinationRoot + x.Substring(x.LastIndexOf('\\'))))
-                        File.Move(x, destinationRoot + x.Substring(x.LastIndexOf('\\')));
+                    {
+                        string path = x;
+                        if (checkBoxUseFolderName.Checked)
+                        {
+                            string originalPath = "";
+
+                            textBoxPath.Invoke((MethodInvoker)delegate { originalPath = textBoxPath.Text; });
+
+                            if (originalPath.EndsWith("\\"))
+                                originalPath = originalPath.Substring(0, originalPath.Length - 1);
+                            originalPath = originalPath.Substring(originalPath.LastIndexOf('\\')+1);
+
+                            var splitPath = path.Split('\\');
+                            if (splitPath[splitPath.Length - 2] != originalPath)
+                            {
+                                string ext = path.Substring(path.LastIndexOf('.'));
+
+                                splitPath[splitPath.Length - 1] = splitPath[splitPath.Length - 2];
+
+                                //Rebuild path
+                                path = "";
+                                foreach (string s in splitPath)
+                                {
+                                    if (path == "")
+                                        path += s;
+                                    else
+                                        path += "\\" + s;
+                                }
+                                path += ext;
+                            }
+                            else
+                                path = x;
+                            
+                        }
+
+                        File.Move(x, destinationRoot + path.Substring(x.LastIndexOf('\\')));
+                    }
                 }
 
                 if (ProgressBar.InvokeRequired)
@@ -287,7 +357,7 @@ namespace DownloadSorter
 
         void BGMove_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            MessageBox.Show("Move Compelte");
+            MessageBox.Show("Move Complete");
 
             if (this.InvokeRequired)
                 this.Invoke((MethodInvoker)delegate { this.Controls.Remove(ProgressBar); });

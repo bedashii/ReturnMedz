@@ -34,11 +34,12 @@
             this.buttonScan = new System.Windows.Forms.Button();
             this.buttonCopy = new System.Windows.Forms.Button();
             this.treeView1 = new System.Windows.Forms.TreeView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.selectAllOfThisTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxDestination = new System.Windows.Forms.TextBox();
             this.buttonMove = new System.Windows.Forms.Button();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.selectAllOfThisTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkBoxUseFolderName = new System.Windows.Forms.CheckBox();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -95,6 +96,20 @@
             this.treeView1.Size = new System.Drawing.Size(786, 410);
             this.treeView1.TabIndex = 5;
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.selectAllOfThisTypeToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(186, 26);
+            // 
+            // selectAllOfThisTypeToolStripMenuItem
+            // 
+            this.selectAllOfThisTypeToolStripMenuItem.Name = "selectAllOfThisTypeToolStripMenuItem";
+            this.selectAllOfThisTypeToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.selectAllOfThisTypeToolStripMenuItem.Text = "Select all of this Type";
+            this.selectAllOfThisTypeToolStripMenuItem.Click += new System.EventHandler(this.selectAllOfThisTypeToolStripMenuItem_Click);
+            // 
             // label2
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -111,7 +126,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxDestination.Location = new System.Drawing.Point(78, 456);
             this.textBoxDestination.Name = "textBoxDestination";
-            this.textBoxDestination.Size = new System.Drawing.Size(558, 20);
+            this.textBoxDestination.Size = new System.Drawing.Size(447, 20);
             this.textBoxDestination.TabIndex = 7;
             this.textBoxDestination.Text = "C:\\Users\\Medz\\Documents\\Downloads\\complete\\Project\\";
             // 
@@ -126,25 +141,25 @@
             this.buttonMove.UseVisualStyleBackColor = true;
             this.buttonMove.Click += new System.EventHandler(this.buttonMove_Click);
             // 
-            // contextMenuStrip1
+            // checkBoxUseFolderName
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.selectAllOfThisTypeToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(186, 26);
-            // 
-            // selectAllOfThisTypeToolStripMenuItem
-            // 
-            this.selectAllOfThisTypeToolStripMenuItem.Name = "selectAllOfThisTypeToolStripMenuItem";
-            this.selectAllOfThisTypeToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
-            this.selectAllOfThisTypeToolStripMenuItem.Text = "Select all of this Type";
-            this.selectAllOfThisTypeToolStripMenuItem.Click += new System.EventHandler(this.selectAllOfThisTypeToolStripMenuItem_Click);
+            this.checkBoxUseFolderName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxUseFolderName.AutoSize = true;
+            this.checkBoxUseFolderName.Checked = true;
+            this.checkBoxUseFolderName.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxUseFolderName.Location = new System.Drawing.Point(531, 458);
+            this.checkBoxUseFolderName.Name = "checkBoxUseFolderName";
+            this.checkBoxUseFolderName.Size = new System.Drawing.Size(105, 17);
+            this.checkBoxUseFolderName.TabIndex = 9;
+            this.checkBoxUseFolderName.Text = "Use FolderName";
+            this.checkBoxUseFolderName.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(810, 489);
+            this.Controls.Add(this.checkBoxUseFolderName);
             this.Controls.Add(this.buttonMove);
             this.Controls.Add(this.textBoxDestination);
             this.Controls.Add(this.label2);
@@ -174,6 +189,7 @@
         private System.Windows.Forms.Button buttonMove;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem selectAllOfThisTypeToolStripMenuItem;
+        private System.Windows.Forms.CheckBox checkBoxUseFolderName;
     }
 }
 
