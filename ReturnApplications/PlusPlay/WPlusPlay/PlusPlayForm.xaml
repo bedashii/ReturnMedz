@@ -4,15 +4,15 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:UIControls="clr-namespace:WPlusPlay.UIControls" 
     x:Class="WPlusPlay.PlusPlayForm"
-        Title="Plus Play" Height="467" Width="1095" WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="#FFEFEFF2" Closing="MetroWindow_Closing_1">
+        Title="Plus Play" Height="467" Width="1095" WindowStartupLocation="CenterScreen" WindowState="Maximized" Closing="MetroWindow_Closing_1" Background="{x:Null}">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Orange.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Red.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Controls:MetroWindow.Resources>
@@ -20,8 +20,8 @@
     <Grid>
         <UIControls:UIListBoxDouble x:Name="ListBoxModelGallerySelection" HorizontalAlignment="Left" Width="225" Margin="10,10,0,30" ListBoxMain_Set="ListBoxModelGallerySelection_ListBoxMain_Set" ListBoxSub_Set="ListBoxModelGallerySelection_ListBoxSub_Set" SubListBox_SelectedValueChanged="ListBoxModelGallerySelection_SubListBox_SelectedValueChanged" BorderBrush="Black" BorderThickness="0" MainListBox_SelectedValueChanged="ListBoxModelGallerySelection_MainListBox_SelectedValueChanged"/>
         <Border BorderBrush="LightGray" BorderThickness="3,3,1,1" Margin="265,122,30,30" CornerRadius="8,8,8,8">
-            <Grid>
-                <UIControls:UIPicturePanel x:Name="PicturePanelMain" Margin="20,20,10,10"/>
+            <Grid Background="White">
+                <UIControls:UIPicturePanel x:Name="PicturePanelMain" Margin="20,20,10,10" SelectedItemsChanged="PicturePanelMain_SelectedItemsChanged"/>
             </Grid>
         </Border>
         <Button Name="ButtonImport"  HorizontalAlignment="Left" Margin="266,26,0,0" VerticalAlignment="Top" Width="64" Height="64" Padding="0" MouseDown="ButtonImport_MouseDown">

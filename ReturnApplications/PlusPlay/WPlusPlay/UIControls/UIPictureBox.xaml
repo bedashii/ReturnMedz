@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="176" d:DesignWidth="166" Margin="5" MaxHeight="300" MaxWidth="300" MinHeight="176" MinWidth="176">
+             d:DesignHeight="176" d:DesignWidth="166" Margin="5" MaxHeight="348" MaxWidth="408" MinHeight="176" MinWidth="176"> 
     <Grid Name="GridPictureBox" Margin="0,0,0,0" >
         <Image Name="ImageDisplay" Margin="13,13,13,13" SnapsToDevicePixels="True" MouseLeftButtonDown="ImageDisplay_LeftButtonDown" UseLayoutRounding="True" RenderOptions.BitmapScalingMode="HighQuality"/>
         <Ellipse  x:Name="EllipseTitle" HorizontalAlignment="Left" Height="40" Margin="-6,-6,0,0" VerticalAlignment="Top" Width="40" StrokeDashCap="Round" StrokeStartLineCap="Round" Stroke="#FFDCDADA">

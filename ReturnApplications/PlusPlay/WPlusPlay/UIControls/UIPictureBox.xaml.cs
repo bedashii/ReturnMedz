@@ -85,6 +85,7 @@ namespace WPlusPlay.UIControls
         #region Methods
         public void SetData(BitmapImage bitmapImage, FileInfo file)
         {
+            Random r = new Random();
             _selectionMode = true;
             _filePath = file.FullName;
 
@@ -93,6 +94,12 @@ namespace WPlusPlay.UIControls
             ImageDisplay.Opacity = 0;
             ImageDisplay.Source = bitmapImage;
             ImageDisplay.BeginAnimation(Image.OpacityProperty, new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.17))));
+
+            if (r.Next(0, 6) == 3)
+            {
+                this.MaxHeight = this.ActualHeight > this.ActualWidth ? this.MaxHeight += (this.MaxHeight / 2) : this.MaxHeight;
+                this.MaxWidth = this.ActualWidth > this.ActualHeight ? this.MaxWidth += (this.MaxWidth / 2) : this.MaxWidth;
+            }
         }
 
         public void SetData(BitmapImage bitmapImage, string filepath)

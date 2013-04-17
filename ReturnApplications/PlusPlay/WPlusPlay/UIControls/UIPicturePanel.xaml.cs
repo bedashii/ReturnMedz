@@ -20,12 +20,11 @@ using System.Windows.Media.Animation;
 
 namespace WPlusPlay.UIControls
 {
-    /// <summary>
-    /// Interaction logic for UIPicturePanel.xaml
-    /// </summary>
+    public delegate void UIPicturePanel_SelectedItemsChanged(int ItemsSelected);
     public partial class UIPicturePanel : UserControl
     {
         #region Variables
+        public event UIPicturePanel_SelectedItemsChanged SelectedItemsChanged;
         List<string> _pictures;
         UIPictureBox[] _boxes;
         BackgroundWorker _backgroundWorker;
@@ -66,15 +65,23 @@ namespace WPlusPlay.UIControls
             try
             {
                 Initialize(false);
+                
 
                 foreach (UIPictureBox children in WrapPanelMain.Children)
                     children.UIPictureBox_OverrideSelectionEvent(Key.None, children);
 
                 WrapPanelMain.Children.Clear();
 
+                
+
                 for (int i = 0; i < gallery.Files.Count; i++)
                 {
                     UIControls.UIPictureBox pb = new UIPictureBox();
+
+
+                    
+
+                    
                     pb.OverrideSelectionEvent += pb_OverrideSelectionEvent;
                     //_pictures.Add(gallery.Files[i]);
                     _pictures.Add(gallery.Files[i].FullName);
@@ -161,13 +168,26 @@ namespace WPlusPlay.UIControls
                     break;
             }
 
-
+            SelectedItemsChanged(GetSelectedItems().Count());
         }
 
         internal void SetSelection(bool selectAll)
         {
             foreach (UIControls.UIPictureBox wuiPictureBox in WrapPanelMain.Children)
                 wuiPictureBox.OverrideSelection(selectAll);
+            
+            SelectedItemsChanged(GetSelectedItems().Count());
+        }
+
+        internal List<UIPictureBoxDetailsStruct> GetSelectedItems()
+        {
+            List<UIPictureBoxDetailsStruct> returnList = new List<UIPictureBoxDetailsStruct>();
+
+            foreach (UIPictureBox pb in this.WrapPanelMain.Children)
+                if (pb.Selected)
+                    returnList.Add(pb.GetUIPictureBoxDetails());
+
+            return returnList;
         }
         #endregion Methods
 
@@ -222,16 +242,5 @@ namespace WPlusPlay.UIControls
             return Convert.ToInt32(intObject);
         }
         #endregion StaticMethods
-
-        internal List<UIPictureBoxDetailsStruct> GetSelectedItems()
-        {
-            List<UIPictureBoxDetailsStruct> returnList = new List<UIPictureBoxDetailsStruct>();
-
-            foreach (UIPictureBox pb in this.WrapPanelMain.Children)
-                if (pb.Selected)
-                    returnList.Add(pb.GetUIPictureBoxDetails());
-
-            return returnList;
-        }
     }
 }

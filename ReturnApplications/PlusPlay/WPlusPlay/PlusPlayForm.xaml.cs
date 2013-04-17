@@ -23,6 +23,8 @@ namespace WPlusPlay
     public partial class PlusPlayForm : MetroWindow
     {
         #region Variables
+        PlusPlayLib.Bus.ModelB _selectedModel;
+        PlusPlayLib.Bus.Gallery _selectedGallery;
         PlusPlayProcessor _processor;
         System.Timers.Timer _busybee;
         string _resourcePath = System.Configuration.ConfigurationManager.AppSettings.Get("ResourcesPath");
@@ -63,7 +65,7 @@ namespace WPlusPlay
             _busybee = new System.Timers.Timer(10000);
             _busybee.Elapsed += _busybee_Elapsed;
             _busybee.Start();
-            
+
             ListBoxModelGallerySelection.SetListBoxMain(_processor.GetModelList(true));
             SetButtonImages();
             SetAvailabilityButton_AllFunctions(false);
@@ -87,6 +89,8 @@ namespace WPlusPlay
         #region ForeignEvents
         public PlusPlayLib.List.ModelListB ListBoxModelGallerySelection_ListBoxMain_Set()
         {
+            SetAvailabilityButton_PostingFunctions(false);
+
             if (_processor.ModelCount > 0)
             {
                 SetAvailabilityButton_SelectFunctions(false);
@@ -99,6 +103,7 @@ namespace WPlusPlay
         public PlusPlayLib.List.GalleryListB ListBoxModelGallerySelection_ListBoxSub_Set(PlusPlayLib.Bus.ModelB Model)
         {
             PlusPlayLib.List.GalleryListB galleryList = _processor.GetGalleryList(Model);
+            SetAvailabilityButton_PostingFunctions(false);
 
             if (galleryList.Count > 0)
                 SetAvailabilityButton_SelectFunctions(true);
@@ -110,15 +115,23 @@ namespace WPlusPlay
         {
             try
             {
+                _selectedGallery = Gallery;
+
                 PicturePanelMain.SetGallery(Gallery, false);
-                InfoDisplayControl.SetGallery(Gallery.GalleryName);
+                InfoDisplayControl.SetDisplay(_selectedModel.ModelName, _selectedGallery.GalleryName);
+                SetAvailabilityButton_PostingFunctions(false);
             }
             catch (Exception) { }
         }
 
         private void ListBoxModelGallerySelection_MainListBox_SelectedValueChanged(PlusPlayLib.Bus.ModelB ModelB)
         {
-            InfoDisplayControl.SetModel(ModelB.ModelName);
+            _selectedModel = ModelB;
+        }
+
+        private void PicturePanelMain_SelectedItemsChanged(int ItemsSelected)
+        {
+            SetAvailabilityButton_PostingFunctions(ItemsSelected > 0);
         }
         #endregion ForeignEvents
 
@@ -136,7 +149,7 @@ namespace WPlusPlay
                 Dictionary<Keyword, string> modelGalleryName = WPlusPlay.PlusPlayTools.StringManipulator.ExtractModelGalleryName(dialog.SafeFileName);
 
                 PicturePanelMain.SetGallery(@"TEMP\All");
-                InfoDisplayControl.SetDisplayInfo(true, modelGalleryName);
+                InfoDisplayControl.SetDisplay(true, modelGalleryName);
             }
         }
 
@@ -145,7 +158,7 @@ namespace WPlusPlay
             Dictionary<Keyword, string> modelGalleryName = InfoDisplayControl.GetGalleryInfo();
             _processor.ImportGallery(PicturePanelMain.GetSelectedItems(), modelGalleryName);
 
-            InfoDisplayControl.SetDisplayInfo(false, modelGalleryName);
+            InfoDisplayControl.SetDisplay(false, modelGalleryName);
 
             ImportActive = false;
 
@@ -160,7 +173,7 @@ namespace WPlusPlay
             if (result == MessageBoxResult.Yes)
             {
                 ImportActive = false;
-                InfoDisplayControl.SetDisplayInfo(false, null);
+                InfoDisplayControl.SetDisplay(false, null);
                 PlusPlayProcessor.CleanUpTempFiles();
             }
         }
@@ -182,11 +195,12 @@ namespace WPlusPlay
         {
             switch ((sender as System.Windows.Controls.Image).Name)
             {
-                //case "ButtonPostedImage":
-                //    _processor.SetGalleryStatus(ListBoxModelGallerySelection.sele
-                // CreateButtonEvents for this method, also send the appropriate bool value depending on which button is being pressed
-                // Decide how you're going to get the gallery into the processor
-
+                case "ButtonPostedImage":
+                    _processor.SetGalleryStatus(_selectedGallery, true);
+                    break;
+                case "ButtonNotPostedImage":
+                    _processor.SetGalleryStatus(_selectedGallery, false);
+                    break;
             }
         }
 
@@ -263,6 +277,5 @@ namespace WPlusPlay
                 PlusPlayProcessor.CleanUpTempFiles();
         }
         #endregion OtherThreads
-
     }
 }

@@ -47,7 +47,13 @@ namespace WPlusPlay.UIControls
             InitializeComponent();
         }
 
-        public void SetDisplayInfo(bool importMode, Dictionary<Keyword, string> modelGalleryName)
+        internal void SetDisplay(string modelName, string galleryName)
+        {
+            if (!modelName.Equals(ModelName))SetModel(modelName);
+            SetGallery(galleryName);
+        }
+
+        public void SetDisplay(bool importMode, Dictionary<Keyword, string> modelGalleryName)
         {
             TextBoxModel.Visibility = TextBoxGallery.Visibility
                 = importMode ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
@@ -75,7 +81,7 @@ namespace WPlusPlay.UIControls
             TextBlockModel.BeginAnimation(TextBlock.OpacityProperty, fadeOut);
         }
 
-        
+
 
         public void SetGallery(string gallery)
         {
