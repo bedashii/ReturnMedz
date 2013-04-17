@@ -1,0 +1,53 @@
+﻿<Controls:MetroWindow
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:UIControls="clr-namespace:WPlusPlay.UIControls" 
+    x:Class="WPlusPlay.PlusPlayForm"
+        Title="Plus Play" Height="467" Width="1095" WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="#FFEFEFF2" Closing="MetroWindow_Closing_1">
+    <Controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Orange.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Controls:MetroWindow.Resources>
+
+    <Grid>
+        <UIControls:UIListBoxDouble x:Name="ListBoxModelGallerySelection" HorizontalAlignment="Left" Width="225" Margin="10,10,0,30" ListBoxMain_Set="ListBoxModelGallerySelection_ListBoxMain_Set" ListBoxSub_Set="ListBoxModelGallerySelection_ListBoxSub_Set" SubListBox_SelectedValueChanged="ListBoxModelGallerySelection_SubListBox_SelectedValueChanged" BorderBrush="Black" BorderThickness="0" MainListBox_SelectedValueChanged="ListBoxModelGallerySelection_MainListBox_SelectedValueChanged"/>
+        <Border BorderBrush="LightGray" BorderThickness="3,3,1,1" Margin="265,122,30,30" CornerRadius="8,8,8,8">
+            <Grid>
+                <UIControls:UIPicturePanel x:Name="PicturePanelMain" Margin="20,20,10,10"/>
+            </Grid>
+        </Border>
+        <Button Name="ButtonImport"  HorizontalAlignment="Left" Margin="266,26,0,0" VerticalAlignment="Top" Width="64" Height="64" Padding="0" MouseDown="ButtonImport_MouseDown">
+            <Image Name="ButtonImportImage" Height="64" Width="64" MouseDown="ButtonImport_MouseDown"></Image>
+        </Button>
+        <Button Name="ButtonSave" HorizontalAlignment="Left" Margin="356,26,0,0" VerticalAlignment="Top" Width="64" Height="64" Padding="0" IsEnabled="False" MouseDown="ButtonSave_MouseDown">
+            <Image Name="ButtonSaveImage" Height="64" Width="64" MouseDown="ButtonSave_MouseDown"></Image>
+        </Button>
+        <Button Name="ButtonDiscard" HorizontalAlignment="Left" Margin="436,26,0,0" VerticalAlignment="Top" Width="64" Height="64" Padding="0" IsEnabled="False" MouseDown="ButtonDiscard_MouseDown">
+            <Image Name="ButtonDiscardImage" Height="64" Width="64" MouseDown="ButtonDiscard_MouseDown" ></Image>
+        </Button>
+        <Button Name="ButtonPosted" HorizontalAlignment="Left" Margin="522,26,0,0" VerticalAlignment="Top" Width="64" Height="64" Padding="0" IsEnabled="False">
+            <Image Name="ButtonPostedImage" Height="64" Width="64"/>
+        </Button>
+        <Button Name="ButtonNotPosted" HorizontalAlignment="Left" Margin="602,26,0,0" VerticalAlignment="Top" Width="64" Height="64" Padding="0" IsEnabled="False">
+            <Image Name="ButtonNotPostedImage" Height="64" Width="64"/>
+        </Button>
+        <Button Name="ButtonSelectAll" HorizontalAlignment="Left" Margin="682,26,0,0" VerticalAlignment="Top" Width="64" Height="64" Padding="0" IsEnabled="False" MouseDown="ButtonSelect_MouseDown">
+            <Image Name="ButtonSelectAllImage" Height="64" Width="64" MouseDown="ButtonSelect_MouseDown"/>
+        </Button>
+        <Button Name="ButtonSelectNone" HorizontalAlignment="Left" Margin="760,26,0,0" VerticalAlignment="Top" Width="64" Height="64" Padding="0" MouseDown="ButtonSelect_MouseDown">
+            <Image Name="ButtonSelectNoneImage" Height="64" Width="64" MouseDown="ButtonSelect_MouseDown" />
+        </Button>
+        <Button x:Name="ButtonCleanUp" HorizontalAlignment="Left" Margin="843,26,0,0" VerticalAlignment="Top" Width="64" Height="64" Padding="0" MouseDown="ButtonCleanUp_MouseDown" Visibility="Visible">
+            <Image x:Name="ButtonCleanUpImage" Height="64" Width="64" MouseDown="ButtonCleanUp_MouseDown"/>
+        </Button>
+        <UIControls:UIInfoDisplay x:Name="InfoDisplayControl" Margin="924,10,30,0" VerticalAlignment="Top" Width="Auto" Height="80"/>
+    </Grid>
+</Controls:MetroWindow>

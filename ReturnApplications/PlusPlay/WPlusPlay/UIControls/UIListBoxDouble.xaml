@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="WPlusPlay.UIControls.UIListBoxDouble"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Label FontSize="64" FontWeight="ExtraLight" VerticalAlignment="Top">Models</Label>
+        
+        <Grid Margin="0,95,0,1">
+            <ListBox Name="ListBoxSub" ItemsSource="{Binding}" FontSize="14"  
+                 MouseMove="ListBoxSub_MouseMove" MouseUp="ListBoxSub_MouseUp" MouseLeave="ListBoxSub_MouseLeave" SelectionChanged="ListBoxSub_SelectionChanged" PreviewMouseLeftButtonDown="ListBoxSub_PreviewMouseLeftButtonDown"/>
+            <ListBox Name="ListBoxMain" ItemsSource="{Binding}" FontSize="14" 
+                 KeyDown="ListBoxMain_KeyDown" MouseDoubleClick="ListBoxMain_MouseDoubleClick" SelectionChanged="ListBoxMain_SelectionChanged"/>
+        </Grid>
+    </Grid>
+    
+</UserControl>
