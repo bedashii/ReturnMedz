@@ -24,6 +24,7 @@ namespace DownloadSorter
             {
                 FullPath = fullPath;
                 FileInfo details = new FileInfo(fullPath);
+                FileName = NewFileName = details.Name.Replace(details.Extension, string.Empty);
                 Extention = details.Extension;
                 Size = details.Length / 1024 / 1024;
 
@@ -31,7 +32,8 @@ namespace DownloadSorter
             }
             else
             {
-
+                //Folder
+                //System.Windows.Forms.MessageBox.Show("Apparently..." + System.Environment.NewLine + fullPath + System.Environment.NewLine + "Doesn't exist...");
             }
         }
 
@@ -44,6 +46,24 @@ namespace DownloadSorter
                 hierList.Add(FullPath.IndexOf('\\', hierList.Last() + 1));
             }
             ParentName = FullPath.Substring(hierList[hierList.Count - 3] + 1, hierList[hierList.Count - 2] - hierList[hierList.Count - 3] - 1);
+        }
+
+        public bool Rename { get; set; }
+        public string NewFileName { get; set; }
+
+        private List<KeyValuePair<string, int>> _highlightedText;
+        public List<KeyValuePair<string, int>> HighlightedText
+        {
+            get
+            {
+                if (_highlightedText == null)
+                    _highlightedText = new List<KeyValuePair<string, int>>();
+                return _highlightedText;
+            }
+            set
+            {
+                _highlightedText = value;
+            }
         }
     }
 }

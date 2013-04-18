@@ -44,10 +44,13 @@
             this.checkBoxUseFolderName = new System.Windows.Forms.CheckBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllEmptyFoldersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearAnnoyancesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findSamplesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.renameToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeRarFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectNumericFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -69,7 +72,7 @@
             this.textBoxPath.Name = "textBoxPath";
             this.textBoxPath.Size = new System.Drawing.Size(662, 20);
             this.textBoxPath.TabIndex = 2;
-            this.textBoxPath.Text = "C:\\Users\\Medz\\Documents\\Downloads\\complete\\Series\\";
+            this.textBoxPath.Text = "C:\\Users\\Medz\\Documents\\Downloads\\complete\\Movies";
             // 
             // buttonScan
             // 
@@ -156,7 +159,7 @@
             this.textBoxDestination.Name = "textBoxDestination";
             this.textBoxDestination.Size = new System.Drawing.Size(447, 20);
             this.textBoxDestination.TabIndex = 7;
-            this.textBoxDestination.Text = "C:\\Users\\Medz\\Documents\\Downloads\\complete\\Project\\";
+            this.textBoxDestination.Text = "X:\\Xtra\\Downloads\\Movies\\";
             // 
             // buttonMove
             // 
@@ -198,10 +201,20 @@
             this.toolStripMenuItem1,
             this.deleteAllEmptyFoldersToolStripMenuItem,
             this.clearAnnoyancesToolStripMenuItem,
-            this.findSamplesToolStripMenuItem});
+            this.findSamplesToolStripMenuItem,
+            this.renameToolToolStripMenuItem,
+            this.removeRarFilesToolStripMenuItem,
+            this.selectNumericFilesToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(198, 22);
+            this.toolStripMenuItem1.Text = "Auto";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // deleteAllEmptyFoldersToolStripMenuItem
             // 
@@ -224,14 +237,28 @@
             this.findSamplesToolStripMenuItem.Text = "Find Samples";
             this.findSamplesToolStripMenuItem.Click += new System.EventHandler(this.findSamplesToolStripMenuItem_Click);
             // 
-            // toolStripMenuItem1
+            // renameToolToolStripMenuItem
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(198, 22);
-            this.toolStripMenuItem1.Text = "Auto";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            this.renameToolToolStripMenuItem.Name = "renameToolToolStripMenuItem";
+            this.renameToolToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.renameToolToolStripMenuItem.Text = "Rename Tool";
+            this.renameToolToolStripMenuItem.Click += new System.EventHandler(this.renameToolToolStripMenuItem_Click);
             // 
-            // Form1
+            // removeRarFilesToolStripMenuItem
+            // 
+            this.removeRarFilesToolStripMenuItem.Name = "removeRarFilesToolStripMenuItem";
+            this.removeRarFilesToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.removeRarFilesToolStripMenuItem.Text = "Select Achive Files";
+            this.removeRarFilesToolStripMenuItem.Click += new System.EventHandler(this.removeRarFilesToolStripMenuItem_Click);
+            // 
+            // selectNumericFilesToolStripMenuItem
+            // 
+            this.selectNumericFilesToolStripMenuItem.Name = "selectNumericFilesToolStripMenuItem";
+            this.selectNumericFilesToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.selectNumericFilesToolStripMenuItem.Text = "Select Numeric Files";
+            this.selectNumericFilesToolStripMenuItem.Click += new System.EventHandler(this.selectNumericFilesToolStripMenuItem_Click);
+            // 
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -247,7 +274,7 @@
             this.Controls.Add(this.textBoxPath);
             this.Controls.Add(this.label1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "Main";
             this.Text = "NZB Helper";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.contextMenuStrip1.ResumeLayout(false);
@@ -279,6 +306,9 @@
         private System.Windows.Forms.ToolStripMenuItem findSamplesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openFileDirectoryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem renameToolToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeRarFilesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem selectNumericFilesToolStripMenuItem;
     }
 }
 

@@ -152,15 +152,18 @@ namespace DownloadSorter
 
         private void getAllFiles(string path)
         {
-            Directory.GetFiles(path).ToList().ForEach(x =>
-                {
-                    Files.Add(new CustomFile(x));
-                });
+            if (Directory.Exists(path))
+            {
+                Directory.GetFiles(path).ToList().ForEach(x =>
+                    {
+                        Files.Add(new CustomFile(x));
+                    });
 
-            Directory.GetDirectories(path).ToList().ForEach(x =>
-                {
-                    getAllFiles(x);
-                });
+                Directory.GetDirectories(path).ToList().ForEach(x =>
+                    {
+                        getAllFiles(x);
+                    });
+            }
         }
 
         private void getCheckedFiles()
@@ -185,13 +188,14 @@ namespace DownloadSorter
             if (treeNode.Checked == true)
             {
                 string path = "";
-                if (textBoxPath.Text.LastIndexOf('\\') != textBoxPath.Text.Length)
+                if (textBoxPath.Text.LastIndexOf('\\') + 1 != textBoxPath.Text.Length)
                     path = textBoxPath.Text.Substring(0, textBoxPath.Text.LastIndexOf('\\'));
                 else
                     path = textBoxPath.Text;
                 //path = path.Substring(0, path.Contains('\\') ? path.LastIndexOf('\\') : path.Length);
                 if (path[path.Length - 1] != '\\')
                     path += "\\";
+                //path += treeNode.FullPath.ToString().Substring(treeNode.FullPath.ToString().IndexOf('\\') + 1);
                 path += treeNode.FullPath.ToString();
 
                 FilesToHandel.Add(new CustomFile(path));
@@ -456,20 +460,12 @@ namespace DownloadSorter
         {
             getCheckedFiles();
 
-            string message = "Are you sure you want to delete the following?";
-
             DeleteConfirmationForm dcf = new DeleteConfirmationForm();
             // POSSIBLE CRASH!!!
             dcf.Width = Convert.ToInt32(this.Width * 0.8);
             dcf.Height = Convert.ToInt32(this.Height * 0.8);
             dcf.CustomFileBindingSource.DataSource = FilesToHandel;
-            
-            //FilesToHandel.ForEach(x =>
-            //    {
-            //        message += Environment.NewLine + x.FullPath + "(" + x.Size + "Mb)";
-            //    });
 
-            //if (MessageBox.Show(message, "Delete Selected", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
             if (dcf.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 FilesToHandel.ForEach(x =>
@@ -506,7 +502,7 @@ namespace DownloadSorter
         private void clearAnnoyancesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             List<string> annoyanceList = new List<string>();
-            annoyanceList.AddRange(new string[] { "nfo", "nzb", "srs", "sfv", "srr" });
+            annoyanceList.AddRange(new string[] { "nfo", "nzb", "srs", "sfv", "srr", "srt" });
 
             foreach (TreeNode n in treeView1.Nodes)
             {
@@ -515,7 +511,13 @@ namespace DownloadSorter
 
             getCheckedFiles();
 
-            if (MessageBox.Show("Are you sure you want to delete the selected files?", "Delete annoying stuff!", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            DeleteConfirmationForm dcf = new DeleteConfirmationForm();
+            // POSSIBLE CRASH!!!
+            dcf.Width = Convert.ToInt32(this.Width * 0.8);
+            dcf.Height = Convert.ToInt32(this.Height * 0.8);
+            dcf.CustomFileBindingSource.DataSource = FilesToHandel;
+
+            if (dcf.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 FilesToHandel.ForEach(x =>
                 {
@@ -537,14 +539,13 @@ namespace DownloadSorter
 
             getCheckedFiles();
 
-            string samples = "Are you sure you want to delete the selected files?";
-            FilesToHandel.ForEach(x =>
-            {
-                if (File.Exists(x.FullPath))
-                    samples += Environment.NewLine + x.FullPath + "(" + x.Size + "Mb )";
-            });
+            DeleteConfirmationForm dcf = new DeleteConfirmationForm();
+            // POSSIBLE CRASH!!!
+            dcf.Width = Convert.ToInt32(this.Width * 0.8);
+            dcf.Height = Convert.ToInt32(this.Height * 0.8);
+            dcf.CustomFileBindingSource.DataSource = FilesToHandel;
 
-            if (MessageBox.Show(samples, "Delete annoying stuff!", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            if (dcf.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 FilesToHandel.ForEach(x =>
                 {
@@ -606,6 +607,83 @@ namespace DownloadSorter
                 });
 
             deleteAllEmptyFoldersToolStripMenuItem_Click(null, null);
+        }
+
+        private void renameToolToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RenameTool rt = new RenameTool();
+            rt.Width = Convert.ToInt32(this.Width * 0.8);
+            rt.Height = Convert.ToInt32(this.Height * 0.8);
+
+            Files.Clear();
+            getAllFiles(textBoxPath.Text);
+
+            rt.CustomFiles = Files;
+
+            if (rt.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                // Renamed
+            }
+            else
+            {
+                // Cancelled
+            }
+        }
+
+        private void removeRarFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (TreeNode n in treeView1.Nodes)
+            {
+                checkAllRarFiles(n);
+            }
+        }
+
+        private void checkAllRarFiles(TreeNode treeNode)
+        {
+            foreach (TreeNode n in treeNode.Nodes)
+            {
+                checkAllRarFiles(n);
+                if (n.ToString().LastIndexOf('.') != -1)
+                {
+                    string ext = n.ToString().ToLower().Substring(n.ToString().LastIndexOf('.') + 1);
+                    if (ext.Length > 0 && (ext[0] == 'r' || ext[0] == 's'))
+                    {
+                        int intValue = 0;
+                        if (ext == "rar" || Int32.TryParse(ext.Substring(1), out intValue))
+                        {
+                            n.Checked = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void checkAllNumFiles(TreeNode treeNode)
+        {
+            foreach (TreeNode n in treeNode.Nodes)
+            {
+                checkAllNumFiles(n);
+                if (n.ToString().LastIndexOf('.') != -1)
+                {
+                    string ext = n.ToString().ToLower().Substring(n.ToString().LastIndexOf('.') + 1);
+                    if (ext.Length > 0)
+                    {
+                        int intValue = 0;
+                        if (Int32.TryParse(ext, out intValue))
+                        {
+                            n.Checked = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void selectNumericFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (TreeNode n in treeView1.Nodes)
+            {
+                checkAllNumFiles(n);
+            }
         }
     }
 }
