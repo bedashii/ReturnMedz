@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="WPlusPlay.UIControls.UIPictureBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="176" d:DesignWidth="166" Margin="5" MaxHeight="348" MaxWidth="408" MinHeight="176" MinWidth="176"> 
+    <Grid Name="GridPictureBox" Margin="0,0,0,0" >
+        <Image Name="ImageDisplay" Margin="13,13,13,13" SnapsToDevicePixels="True" MouseLeftButtonDown="ImageDisplay_LeftButtonDown" UseLayoutRounding="True" RenderOptions.BitmapScalingMode="HighQuality"/>
+        <Ellipse  x:Name="EllipseTitle" HorizontalAlignment="Left" Height="40" Margin="-6,-6,0,0" VerticalAlignment="Top" Width="40" StrokeDashCap="Round" StrokeStartLineCap="Round" Stroke="#FFDCDADA">
+            <Ellipse.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF6EF300" Offset="0"/>
+                    <GradientStop Color="#FF54B800" Offset="1"/>
+                </LinearGradientBrush>
+            </Ellipse.Fill>
+        </Ellipse>
+        <TextBlock Name="TextBlockTitle" HorizontalAlignment="Left" Margin="5,5,0,0" TextWrapping="Wrap" Text="88" VerticalAlignment="Top" FontFamily="Tahoma" FontSize="14" Height="17" Width="25" Foreground="White" FontWeight="Bold"/>
+        <!--Source="D:\Users\bedashii\Dropbox\Public\NewsHost Posts\NSFW\Playboy\2013-03-03\Casey Connelly - 14.jpg" />-->
+    </Grid>
+</UserControl>
