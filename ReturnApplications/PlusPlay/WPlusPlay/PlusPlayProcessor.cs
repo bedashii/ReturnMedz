@@ -219,6 +219,16 @@ namespace WPlusPlay
                 throw new ApplicationException("Error Importing Gallery: " + ex.Message);
             }
         }
+        /// <summary>
+        /// Re-reads the gallery from hard drive and checks for an updated filename
+        /// (The purpose of this is determine whether or not it's a "posted" gallery or not)
+        /// </summary>
+        /// <param name="gallery"></param>
+        internal void RefreshGallery(Gallery gallery)
+        {
+            gallery.Files.Clear();
+            gallery.Files = gallery.Location.GetFiles("*" + gallery.GalleryName + "*").ToList();
+        }
         #endregion PublicMethods
     }
 }

@@ -40,6 +40,8 @@ namespace WPlusPlay.UIControls
         bool _selectionMode;
 
         RadialGradientBrush _brushNotTransparent;
+        Color _brushPosted;
+        Color _brushNotPosted;
         byte[] _colourStart;
         byte[] _colourStop;
 
@@ -56,8 +58,11 @@ namespace WPlusPlay.UIControls
         {
             try
             {
+                ColorConverter cc = new ColorConverter();
                 _colourStart = new byte[3];
                 _colourStop = new byte[3];
+                _brushPosted = (Color)ColorConverter.ConvertFromString("#FF0DE251");
+                _brushNotPosted = (Color)ColorConverter.ConvertFromString("#FFEA402F");
 
                 _colourStart[0] = Convert.ToByte(System.Configuration.ConfigurationManager.AppSettings.Get("ColourStartR"));
                 _colourStart[1] = Convert.ToByte(System.Configuration.ConfigurationManager.AppSettings.Get("ColourStartG"));
@@ -102,18 +107,6 @@ namespace WPlusPlay.UIControls
             }
         }
 
-        public void SetData(BitmapImage bitmapImage, string filepath)
-        {
-            _selectionMode = true;
-            _filePath = filepath;
-
-            SetTitle("Please Work - I Shit You Not [00]");
-
-            ImageDisplay.Opacity = 0;
-            ImageDisplay.Source = bitmapImage;
-            ImageDisplay.BeginAnimation(Image.OpacityProperty, new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.17))));
-        }
-
         internal void SetData(BitmapImage bitmapImage, string filepath, string title)
         {
             _selectionMode = true;
@@ -124,6 +117,27 @@ namespace WPlusPlay.UIControls
             ImageDisplay.Opacity = 0;
             ImageDisplay.Source = bitmapImage;
             ImageDisplay.BeginAnimation(Image.OpacityProperty, new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.17))));
+        }
+
+        internal void UpdateStatus(bool markAsPosted)
+        {
+            //ColorAnimation colourAnimation = new ColorAnimation();
+            //colourAnimation.From = markAsPosted ? _brushNotPosted : _brushPosted;
+            //colourAnimation.To = markAsPosted ? _brushPosted : _brushNotPosted;
+            //colourAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.13));
+
+            System.Windows.Media.Animation.ColorAnimation _myColorAnimation = new ColorAnimation();
+
+            _myColorAnimation.From = markAsPosted ? _brushNotPosted : _brushPosted;
+            _myColorAnimation.To = markAsPosted ? _brushPosted : _brushNotPosted;
+            _myColorAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(200));
+
+            Storyboard sb = new Storyboard();
+            //sb.Duration = new Duration(TimeSpan.FromMilliseconds(200));
+            sb.Children.Add(_myColorAnimation);
+            Storyboard.SetTarget(_myColorAnimation, EllipseTitle);
+            Storyboard.SetTargetProperty(_myColorAnimation, new PropertyPath("Fill.Color"));
+            sb.Begin();
         }
 
         public void OverrideSelection(bool select)
@@ -154,25 +168,25 @@ namespace WPlusPlay.UIControls
         {
             TextBlockTitle.Text = _title = ExtractFileTitle(fileName);
 
-            BrushConverter bc = new BrushConverter();
-            ColorConverter cc = new ColorConverter();
-            Brush solidNotPosted = (Brush)bc.ConvertFrom("#FFDE0000"), solidPosted = (Brush)bc.ConvertFrom("#FF0BC113");
-            LinearGradientBrush gradientPosted = new LinearGradientBrush((Color)cc.ConvertFrom("#FF6EF300"), (Color)cc.ConvertFrom("#FF54B800"), 90);
-            LinearGradientBrush gradientNotPosted = new LinearGradientBrush((Color)cc.ConvertFrom("#FFA80000"), Colors.Red, 90);
+            //BrushConverter bc = new BrushConverter();
+            //ColorConverter cc = new ColorConverter();
+            //Brush solidNotPosted = (Brush)bc.ConvertFrom("#FFDE0000"), solidPosted = (Brush)bc.ConvertFrom("#FF0BC113");
+            //LinearGradientBrush gradientPosted = new LinearGradientBrush((Color)cc.ConvertFrom("#FF6EF300"), (Color)cc.ConvertFrom("#FF54B800"), 90);
+            //LinearGradientBrush gradientNotPosted = new LinearGradientBrush((Color)cc.ConvertFrom("#FFA80000"), Colors.Red, 90);
 
-            EllipseTitle.Fill = fileName.Contains(']') ? gradientPosted : gradientNotPosted;
+            EllipseTitle.Fill = fileName.Contains(']') ? new SolidColorBrush(_brushPosted) : new SolidColorBrush(_brushNotPosted);
         }
 
         private void SetTitleFromExtracted(string fileName)
         {
             TextBlockTitle.Text = _title = fileName;
 
-            BrushConverter bc = new BrushConverter();
-            ColorConverter cc = new ColorConverter();
-            Brush solidNotPosted = (Brush)bc.ConvertFrom("#FFDE0000"), solidPosted = (Brush)bc.ConvertFrom("#FF0BC113");
-            LinearGradientBrush gradientNotPosted = new LinearGradientBrush((Color)cc.ConvertFrom("#FFA80000"), Colors.Red, 90);
+            //BrushConverter bc = new BrushConverter();
+            //ColorConverter cc = new ColorConverter();
+            //Brush solidNotPosted = (Brush)bc.ConvertFrom("#FFDE0000"), solidPosted = (Brush)bc.ConvertFrom("#FF0BC113");
+            //LinearGradientBrush gradientNotPosted = new LinearGradientBrush((Color)cc.ConvertFrom("#FFA80000"), Colors.Red, 90);
 
-            EllipseTitle.Fill = gradientNotPosted;
+            EllipseTitle.Fill = new SolidColorBrush(_brushNotPosted);
         }
         #endregion Methods
 

@@ -4,7 +4,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:UIControls="clr-namespace:WPlusPlay.UIControls" 
     x:Class="WPlusPlay.PlusPlayForm"
-        Title="Plus Play" Height="467" Width="1095" WindowStartupLocation="CenterScreen" WindowState="Maximized" Closing="MetroWindow_Closing_1" Background="{x:Null}">
+        Title="Plus Play" Height="467" Width="1095" WindowStartupLocation="CenterScreen" WindowState="Maximized" Closing="MetroWindow_Closing_1" Background="WhiteSmoke">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -12,7 +12,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Red.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Controls:MetroWindow.Resources>
@@ -33,11 +33,11 @@
         <Button Name="ButtonDiscard" HorizontalAlignment="Left" Margin="436,26,0,0" VerticalAlignment="Top" Width="64" Height="64" Padding="0" IsEnabled="False" MouseDown="ButtonDiscard_MouseDown">
             <Image Name="ButtonDiscardImage" Height="64" Width="64" MouseDown="ButtonDiscard_MouseDown" ></Image>
         </Button>
-        <Button Name="ButtonPosted" HorizontalAlignment="Left" Margin="522,26,0,0" VerticalAlignment="Top" Width="64" Height="64" Padding="0" IsEnabled="False">
-            <Image Name="ButtonPostedImage" Height="64" Width="64"/>
+        <Button Name="ButtonPosted" HorizontalAlignment="Left" Margin="522,26,0,0" VerticalAlignment="Top" Width="64" Height="64" Padding="0" IsEnabled="False" MouseDown="ButtonUpdateGalleryStatus_MouseDown">
+            <Image Name="ButtonPostedImage" Height="64" Width="64" MouseDown="ButtonUpdateGalleryStatus_MouseDown"/>
         </Button>
-        <Button Name="ButtonNotPosted" HorizontalAlignment="Left" Margin="602,26,0,0" VerticalAlignment="Top" Width="64" Height="64" Padding="0" IsEnabled="False">
-            <Image Name="ButtonNotPostedImage" Height="64" Width="64"/>
+        <Button Name="ButtonNotPosted" HorizontalAlignment="Left" Margin="602,26,0,0" VerticalAlignment="Top" Width="64" Height="64" Padding="0" IsEnabled="False" MouseDown="ButtonUpdateGalleryStatus_MouseDown">
+            <Image Name="ButtonNotPostedImage" Height="64" Width="64" MouseDown="ButtonUpdateGalleryStatus_MouseDown"/>
         </Button>
         <Button Name="ButtonSelectAll" HorizontalAlignment="Left" Margin="682,26,0,0" VerticalAlignment="Top" Width="64" Height="64" Padding="0" IsEnabled="False" MouseDown="ButtonSelect_MouseDown">
             <Image Name="ButtonSelectAllImage" Height="64" Width="64" MouseDown="ButtonSelect_MouseDown"/>

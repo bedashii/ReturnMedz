@@ -27,7 +27,8 @@ namespace WPlusPlay.UIControls
         public event UIPicturePanel_SelectedItemsChanged SelectedItemsChanged;
         List<string> _pictures;
         UIPictureBox[] _boxes;
-        BackgroundWorker _backgroundWorker;
+        BackgroundWorker _imageLoaderBackgroundWorker;
+        BackgroundWorker _galleryStatusUpdaterBackgroudnWorker;
         string _previousSelectionString;
         #endregion Variables
 
@@ -40,12 +41,15 @@ namespace WPlusPlay.UIControls
 
         void Initialize(bool fromExtracted)
         {
-            _backgroundWorker = new BackgroundWorker();
+            _imageLoaderBackgroundWorker = new BackgroundWorker();
+            _galleryStatusUpdaterBackgroudnWorker = new BackgroundWorker();
 
             if (fromExtracted)
-                _backgroundWorker.DoWork += _backgroundWorkerExtracted_DoWork;
+                _imageLoaderBackgroundWorker.DoWork += _backgroundWorkerExtracted_DoWork;
             else
-                _backgroundWorker.DoWork += _backgroundWorker_DoWork;
+                _imageLoaderBackgroundWorker.DoWork += _backgroundWorker_DoWork;
+
+            _galleryStatusUpdaterBackgroudnWorker.DoWork += _galleryStatusUpdaterBackgroudnWorker_DoWork;
 
             //_pictures = new List<FileInfo>();
             _pictures = new List<string>();
@@ -65,25 +69,19 @@ namespace WPlusPlay.UIControls
             try
             {
                 Initialize(false);
-                
+
 
                 foreach (UIPictureBox children in WrapPanelMain.Children)
                     children.UIPictureBox_OverrideSelectionEvent(Key.None, children);
 
                 WrapPanelMain.Children.Clear();
 
-                
+
 
                 for (int i = 0; i < gallery.Files.Count; i++)
                 {
                     UIControls.UIPictureBox pb = new UIPictureBox();
-
-
-                    
-
-                    
                     pb.OverrideSelectionEvent += pb_OverrideSelectionEvent;
-                    //_pictures.Add(gallery.Files[i]);
                     _pictures.Add(gallery.Files[i].FullName);
 
                     Array.Resize(ref _boxes, _boxes.Length + 1);
@@ -92,7 +90,7 @@ namespace WPlusPlay.UIControls
                     WrapPanelMain.Children.Add(pb);
                 }
 
-                _backgroundWorker.RunWorkerAsync();
+                _imageLoaderBackgroundWorker.RunWorkerAsync();
             }
             catch (Exception) { }
         }
@@ -126,7 +124,7 @@ namespace WPlusPlay.UIControls
                     WrapPanelMain.Children.Add(pb);
                 }
 
-                _backgroundWorker.RunWorkerAsync();
+                _imageLoaderBackgroundWorker.RunWorkerAsync();
             }
             catch (Exception) { }
         }
@@ -175,7 +173,7 @@ namespace WPlusPlay.UIControls
         {
             foreach (UIControls.UIPictureBox wuiPictureBox in WrapPanelMain.Children)
                 wuiPictureBox.OverrideSelection(selectAll);
-            
+
             SelectedItemsChanged(GetSelectedItems().Count());
         }
 
@@ -188,6 +186,11 @@ namespace WPlusPlay.UIControls
                     returnList.Add(pb.GetUIPictureBoxDetails());
 
             return returnList;
+        }
+
+        internal void SetGalleryStatus(bool posted)
+        {
+            _galleryStatusUpdaterBackgroudnWorker.RunWorkerAsync(posted);
         }
         #endregion Methods
 
@@ -231,6 +234,27 @@ namespace WPlusPlay.UIControls
                         _boxes[i].Dispatcher.Invoke(DispatcherPriority.Normal, workMethod, generated, i);
                     else
                         workMethod(generated, i);
+                }
+                catch (Exception) { }
+        }
+
+        void _galleryStatusUpdaterBackgroudnWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Action<bool, int> workMethod = (markAsPosted, i) =>
+                {
+                    _boxes[i].UpdateStatus(markAsPosted);
+                };
+            
+            bool posted = (bool) e.Argument;
+            Thread.Sleep(2);
+            
+            for(int i = 0; i < _pictures.Count; i++)
+                try
+                {
+                    if (!_boxes[i].Dispatcher.CheckAccess())
+                        _boxes[i].Dispatcher.Invoke(DispatcherPriority.Normal, workMethod, posted, i);
+                    else
+                        workMethod(posted, i);
                 }
                 catch (Exception) { }
         }

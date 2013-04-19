@@ -20,6 +20,9 @@ using Microsoft.Win32;
 
 namespace WPlusPlay
 {
+    /// <summary>
+    /// #FFU = For Future Use
+    /// </summary>
     public partial class PlusPlayForm : MetroWindow
     {
         #region Variables
@@ -103,7 +106,7 @@ namespace WPlusPlay
         public PlusPlayLib.List.GalleryListB ListBoxModelGallerySelection_ListBoxSub_Set(PlusPlayLib.Bus.ModelB Model)
         {
             PlusPlayLib.List.GalleryListB galleryList = _processor.GetGalleryList(Model);
-            SetAvailabilityButton_PostingFunctions(false);
+            SetAvailabilityButton_PostingFunctions(true);
 
             if (galleryList.Count > 0)
                 SetAvailabilityButton_SelectFunctions(true);
@@ -119,7 +122,8 @@ namespace WPlusPlay
 
                 PicturePanelMain.SetGallery(Gallery, false);
                 InfoDisplayControl.SetDisplay(_selectedModel.ModelName, _selectedGallery.GalleryName);
-                SetAvailabilityButton_PostingFunctions(false);
+                //SetAvailabilityButton_PostingFunctions(false); #FFU
+
             }
             catch (Exception) { }
         }
@@ -131,7 +135,7 @@ namespace WPlusPlay
 
         private void PicturePanelMain_SelectedItemsChanged(int ItemsSelected)
         {
-            SetAvailabilityButton_PostingFunctions(ItemsSelected > 0);
+            //SetAvailabilityButton_PostingFunctions(ItemsSelected > 0); #FFU
         }
         #endregion ForeignEvents
 
@@ -193,15 +197,9 @@ namespace WPlusPlay
 
         private void ButtonUpdateGalleryStatus_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            switch ((sender as System.Windows.Controls.Image).Name)
-            {
-                case "ButtonPostedImage":
-                    _processor.SetGalleryStatus(_selectedGallery, true);
-                    break;
-                case "ButtonNotPostedImage":
-                    _processor.SetGalleryStatus(_selectedGallery, false);
-                    break;
-            }
+            _processor.SetGalleryStatus(_selectedGallery, (sender as System.Windows.Controls.Image).Name == "ButtonPostedImage");
+            _processor.RefreshGallery(_selectedGallery);
+            PicturePanelMain.SetGalleryStatus((sender as System.Windows.Controls.Image).Name == "ButtonPostedImage");
         }
 
         private void ButtonCleanUp_MouseDown(object sender, MouseButtonEventArgs e)
