@@ -38,7 +38,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ionic.Zip">
-      <HintPath>..\..\..\..\Visual Studio 2010\Projects\PlayboyTool\PlayboyTool\bin\Debug\Ionic.Zip.dll</HintPath>
+      <HintPath>..\..\..\TPDLL\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro">
       <HintPath>..\packages\MahApps.Metro.0.11.0.2-ALPHA\lib\net45\MahApps.Metro.dll</HintPath>
