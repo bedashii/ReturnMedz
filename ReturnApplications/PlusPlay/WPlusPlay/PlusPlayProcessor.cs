@@ -235,7 +235,7 @@ namespace WPlusPlay
             StringBuilder sb = new StringBuilder();
 
             foreach (FileInfo file in gallery.Files)
-                sb.AppendLine(DropBoxLinkerLib.Linker.GetPublicURLFromFile(file.FullName));
+                sb.AppendLine("[IMG]" +  DropBoxLinkerLib.Linker.GetPublicURLFromFile(file.FullName) + "[/IMG]");
 
             return sb.ToString();
         }
@@ -243,10 +243,7 @@ namespace WPlusPlay
 
         
 
-        internal System.Windows.Media.Animation.DoubleAnimation GetMouseEnterStoryboard(bool mouseEnter)
-        {
-            return mouseEnter ? new System.Windows.Media.Animation.DoubleAnimation(0, 20, TimeSpan.FromMilliseconds(120)) : new System.Windows.Media.Animation.DoubleAnimation(20, 0, TimeSpan.FromMilliseconds(120));
-        }
+        
 
         public enum MouseStatus { Enter, Leave, Pressed , Dropbox};
         internal System.Windows.Media.Brush GetButtonColour(MouseStatus status)

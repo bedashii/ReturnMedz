@@ -30,7 +30,7 @@ namespace WPlusPlay.UIControls
         public event UIListBoxDouble_SetListBoxSub ListBoxSub_Set;
         public event UIListBoxDouble_SubSelectedValueChanged SubListBox_SelectedValueChanged;
         public event UIListBoxDouble_MainSelectedValueChanged MainListBox_SelectedValueChanged;
-        
+
         double _downPosition;
         bool _mouseDown;
         #endregion Variables
@@ -44,7 +44,8 @@ namespace WPlusPlay.UIControls
 
         private void InitializeControl()
         {
-            ListBoxSub.Margin = new Thickness(ListBoxMain.ActualWidth, 0, 0, 0);
+            //ListBoxSub.Margin = new Thickness(ListBoxMain.ActualWidth, 0, 0, 0);
+            //LabelGalleries.Margin = new Thickness(-300, 0, 0, 0);
         }
         #endregion Construction
 
@@ -106,7 +107,7 @@ namespace WPlusPlay.UIControls
             ListBoxMain.DisplayMemberPath = "ModelName";
             DataContext = this;
 
-            ShowListBoxSub(false);
+            //ShowListBoxSub(false);
         }
 
         void ListBoxSub_Populate(PlusPlayLib.List.GalleryListB galleries)
@@ -121,16 +122,21 @@ namespace WPlusPlay.UIControls
         void ShowListBoxSub(bool showListBoxSub)
         {
             double width = showListBoxSub ? ListBoxMain.ActualWidth : ListBoxSub.ActualWidth;
+            double width2 = showListBoxSub ? LabelModels.ActualWidth : LabelGalleries.ActualWidth;
 
             if (showListBoxSub)
             {
                 ListBoxMain.BeginAnimation(ListBox.MarginProperty, new ThicknessAnimation(ListBoxMain.Margin, new Thickness(width, 0, 0, 0), TimeSpan.FromSeconds(0.5)));
                 ListBoxSub.BeginAnimation(ListBox.MarginProperty, new ThicknessAnimation(new Thickness((width * -1), 0, 0, 0), new Thickness(0, 0, 0, 0), TimeSpan.FromSeconds(0.5)));
+                LabelModels.BeginAnimation(TextBlock.MarginProperty, new ThicknessAnimation(LabelModels.Margin, new Thickness(width2, 0, 0, 0), TimeSpan.FromSeconds(0.5)));
+                LabelGalleries.BeginAnimation(TextBlock.MarginProperty, new ThicknessAnimation(new Thickness((width2 * -1), 0, 0, 0), new Thickness(0, 0, 0, 0), TimeSpan.FromSeconds(0.5)));
             }
             else
             {
                 ListBoxSub.BeginAnimation(ListBox.MarginProperty, new ThicknessAnimation(ListBoxSub.Margin, new Thickness((width * -1), 0, 0, 0), TimeSpan.FromSeconds(0.5)));
                 ListBoxMain.BeginAnimation(ListBox.MarginProperty, new ThicknessAnimation(new Thickness(width, 0, 0, 0), new Thickness(0, 0, 0, 0), TimeSpan.FromSeconds(0.5)));
+                LabelGalleries.BeginAnimation(TextBlock.MarginProperty, new ThicknessAnimation(LabelGalleries.Margin, new Thickness((width2 * -1), 0, 0, 0), TimeSpan.FromSeconds(0.5)));
+                LabelModels.BeginAnimation(TextBlock.MarginProperty, new ThicknessAnimation(new Thickness(width2, 0, 0, 0), new Thickness(0, 0, 0, 0), TimeSpan.FromSeconds(0.5)));
             }
         }
         #endregion Methods

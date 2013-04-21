@@ -6,8 +6,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Label FontSize="64" FontWeight="ExtraLight" VerticalAlignment="Top">Models</Label>
-        
+        <Grid Height="95" VerticalAlignment="Top">
+            <TextBlock Name="LabelModels" FontSize="64" FontWeight="ExtraLight" Foreground="White" VerticalAlignment="Top" TextAlignment="Left" >Models</TextBlock>
+            <TextBlock Name="LabelGalleries" FontSize="64" FontWeight="ExtraLight" Foreground="White" VerticalAlignment="Top" TextAlignment="Left" Margin="-300,0,300,0">Galleries</TextBlock>
+        </Grid>
         <Grid Margin="0,95,0,1">
             <ListBox Name="ListBoxSub" ItemsSource="{Binding}" FontSize="14"  
                  MouseMove="ListBoxSub_MouseMove" MouseUp="ListBoxSub_MouseUp" MouseLeave="ListBoxSub_MouseLeave" SelectionChanged="ListBoxSub_SelectionChanged" PreviewMouseLeftButtonDown="ListBoxSub_PreviewMouseLeftButtonDown"/>
@@ -15,5 +17,5 @@
                  KeyDown="ListBoxMain_KeyDown" MouseDoubleClick="ListBoxMain_MouseDoubleClick" SelectionChanged="ListBoxMain_SelectionChanged"/>
         </Grid>
     </Grid>
-    
+
 </UserControl>

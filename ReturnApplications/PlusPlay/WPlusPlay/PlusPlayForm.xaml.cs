@@ -31,6 +31,7 @@ namespace WPlusPlay
         PlusPlayProcessor _processor;
         System.Timers.Timer _busybee;
         string _resourcePath = System.Configuration.ConfigurationManager.AppSettings.Get("ResourcesPath");
+        Dictionary<UIControls.ButtonType, UIControls.UIButton> _uiButtons;
 
         const string _zipDialogFilter = "ZIP Archive (.zip)|*.zip";
         bool _SelectAllActive = false;
@@ -57,13 +58,13 @@ namespace WPlusPlay
 
         private void InitializeDevMode()
         {
-            ButtonCleanUp.Visibility = System.Windows.Visibility.Visible;
-            ButtonCleanUpImage.Source = new BitmapImage(new Uri(_resourcePath + @"\Icons\CleanUp.png"));
+
         }
 
         private void Initialize()
         {
             _processor = new PlusPlayProcessor();
+            _uiButtons = new Dictionary<UIControls.ButtonType, UIControls.UIButton>();
 
             _busybee = new System.Timers.Timer(10000);
             _busybee.Elapsed += _busybee_Elapsed;
@@ -79,14 +80,33 @@ namespace WPlusPlay
 
         private void SetButtonImages()
         {
-            ButtonSelectAllImage.Source = new BitmapImage(new Uri(_resourcePath + @"\Icons\SelectAll.png"));
-            ButtonSaveImage.Source = new BitmapImage(new Uri(_resourcePath + @"\Icons\Save.png"));
-            ButtonDiscardImage.Source = new BitmapImage(new Uri(_resourcePath + @"\Icons\Discard.png"));
-            ButtonPostedImage.Source = new BitmapImage(new Uri(_resourcePath + @"\Icons\Posted.png"));
-            ButtonNotPostedImage.Source = new BitmapImage(new Uri(_resourcePath + @"\Icons\NotPosted.png"));
-            ButtonSelectAllImage.Source = new BitmapImage(new Uri(_resourcePath + @"\Icons\SelectAll.png"));
-            ButtonSelectNoneImage.Source = new BitmapImage(new Uri(_resourcePath + @"\Icons\SelectNone.png"));
-            ButtonDropboxImage.Source = new BitmapImage(new Uri(_resourcePath + @"\Icons\Dropbox.png"));
+            string defaultButton = System.Configuration.ConfigurationManager.AppSettings.Get("ButtonColourDefault"),
+                   mouseEnter = System.Configuration.ConfigurationManager.AppSettings.Get("ColourMouseEnter"),
+                   mosueLeave = System.Configuration.ConfigurationManager.AppSettings.Get("ColourMouseLeave"),
+                   mouseDown = System.Configuration.ConfigurationManager.AppSettings.Get("ColourMouseDown"); ;
+
+            _uiButtons.Add(UIControls.ButtonType.Dropbox, new UIControls.UIButton(UIControls.ButtonType.Dropbox, _resourcePath + @"\Icons\Dropbox.png", "Dropbox", System.Configuration.ConfigurationManager.AppSettings.Get("ButtonColourDropbox"), mouseEnter, mosueLeave, mouseDown));
+            _uiButtons.Add(UIControls.ButtonType.SelectNone, new UIControls.UIButton(UIControls.ButtonType.SelectNone, _resourcePath + @"\Icons\SelectNone.png", "Select None", defaultButton, mouseEnter, mosueLeave, mouseDown));
+            _uiButtons.Add(UIControls.ButtonType.SelectAll, new UIControls.UIButton(UIControls.ButtonType.SelectAll, _resourcePath + @"\Icons\SelectAll.png", "Select All", defaultButton, mouseEnter, mosueLeave, mouseDown));
+            _uiButtons.Add(UIControls.ButtonType.NotPosted, new UIControls.UIButton(UIControls.ButtonType.NotPosted, _resourcePath + @"\Icons\NotPosted.png", "Not Posted", defaultButton, mouseEnter, mosueLeave, mouseDown));
+            _uiButtons.Add(UIControls.ButtonType.Posted, new UIControls.UIButton(UIControls.ButtonType.Posted, _resourcePath + @"\Icons\Posted.png", "Posted", defaultButton, mouseEnter, mosueLeave, mouseDown));
+            _uiButtons.Add(UIControls.ButtonType.Discard, new UIControls.UIButton(UIControls.ButtonType.Discard, _resourcePath + @"\Icons\Discard.png", "Discard", defaultButton, mouseEnter, mosueLeave, mouseDown));
+            _uiButtons.Add(UIControls.ButtonType.Save, new UIControls.UIButton(UIControls.ButtonType.Save, _resourcePath + @"\Icons\Save.png", "Save", defaultButton, mouseEnter, mosueLeave, mouseDown));
+            _uiButtons.Add(UIControls.ButtonType.Import, new UIControls.UIButton(UIControls.ButtonType.Import, _resourcePath + @"\Icons\Import.png", "Import", defaultButton, mouseEnter, mosueLeave, mouseDown));
+
+            WrapPanelButtonContainer.Children.Add(_uiButtons[UIControls.ButtonType.Dropbox]);
+            WrapPanelButtonContainer.Children.Add(_uiButtons[UIControls.ButtonType.SelectNone]);
+            WrapPanelButtonContainer.Children.Add(_uiButtons[UIControls.ButtonType.SelectAll]);
+            WrapPanelButtonContainer.Children.Add(_uiButtons[UIControls.ButtonType.NotPosted]);
+            WrapPanelButtonContainer.Children.Add(_uiButtons[UIControls.ButtonType.Posted]);
+            WrapPanelButtonContainer.Children.Add(_uiButtons[UIControls.ButtonType.Discard]);
+            WrapPanelButtonContainer.Children.Add(_uiButtons[UIControls.ButtonType.Save]);
+            WrapPanelButtonContainer.Children.Add(_uiButtons[UIControls.ButtonType.Import]);
+
+
+
+            foreach (UIControls.UIButton button in WrapPanelButtonContainer.Children)
+                button.Button_MouseDown += button_Button_MouseDown;
         }
         #endregion Construction
 
@@ -138,14 +158,46 @@ namespace WPlusPlay
         {
             //SetAvailabilityButton_PostingFunctions(ItemsSelected > 0); #FFU
         }
+
+        // The only reason this doesn't directly do the switch is to keep the uniformity of foreign events
+        void button_Button_MouseDown(UIControls.ButtonType ButtonType)
+        {
+            ButtonEvent_MouseDown(ButtonType);
+        }
         #endregion ForeignEvents
 
         #region ButtonEvents
-        private void ButtonImport_MouseDown(object sender, MouseButtonEventArgs e)
+
+        private void ButtonEvent_MouseDown(UIControls.ButtonType buttonType)
         {
-            ButtonSelectAllGrid.Background = _processor.GetButtonColour(PlusPlayProcessor.MouseStatus.Pressed);
+            switch (buttonType)
+            {
+                case UIControls.ButtonType.Import:
+                    ButtonImport_MouseDown();
+                    break;
+                case UIControls.ButtonType.Save:
+                    ButtonSave_MouseDown();
+                    break;
+                case UIControls.ButtonType.Discard:
+                    ButtonDiscard_MouseDown();
+                    break;
+                case UIControls.ButtonType.SelectAll:
+                case UIControls.ButtonType.SelectNone:
+                    ButtonSelect_MouseDown(buttonType);
+                    break;
+                case UIControls.ButtonType.Posted:
+                case UIControls.ButtonType.NotPosted:
+                    ButtonUpdateGalleryStatus_MouseDown(buttonType);
+                    break;
+                case UIControls.ButtonType.Dropbox:
+                    ButtonDropbox_MouseDown();
+                    break;
+            }
+        }
+        private void ButtonImport_MouseDown()
+        {
             Thread.Sleep(100);
-            
+
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = _zipDialogFilter;
             dialog.Multiselect = false;
@@ -161,19 +213,7 @@ namespace WPlusPlay
             }
         }
 
-        private void ButtonImportImage_MouseEnter(object sender, MouseEventArgs e)
-        {
-            ButtonSelectAllTextBlock.BeginAnimation(TextBlock.HeightProperty, _processor.GetMouseEnterStoryboard(true));
-            ButtonSelectAllGrid.Background = _processor.GetButtonColour(PlusPlayProcessor.MouseStatus.Enter);
-        }
-
-        private void ButtonImportImage_MouseLeave(object sender, MouseEventArgs e)
-        {
-            ButtonSelectAllTextBlock.BeginAnimation(TextBlock.HeightProperty, _processor.GetMouseEnterStoryboard(false));
-            ButtonSelectAllGrid.Background = _processor.GetButtonColour(PlusPlayProcessor.MouseStatus.Leave);
-        }
-
-        private void ButtonSave_MouseDown(object sender, MouseButtonEventArgs e)
+        private void ButtonSave_MouseDown()
         {
             Dictionary<Keyword, string> modelGalleryName = InfoDisplayControl.GetGalleryInfo();
             _processor.ImportGallery(PicturePanelMain.GetSelectedItems(), modelGalleryName);
@@ -186,19 +226,7 @@ namespace WPlusPlay
             ListBoxModelGallerySelection.SetListBoxSub(_processor.GetGalleryList(modelGalleryName[Keyword.Model]), modelGalleryName[Keyword.Gallery]);
         }
 
-        private void ButtonSaveImage_MouseEnter(object sender, MouseEventArgs e)
-        {
-            ButtonSaveTextBlock.BeginAnimation(TextBlock.HeightProperty, _processor.GetMouseEnterStoryboard(true));
-            ButtonSaveGrid.Background = _processor.GetButtonColour(PlusPlayProcessor.MouseStatus.Enter);
-        }
-
-        private void ButtonSaveImage_MouseLeave(object sender, MouseEventArgs e)
-        {
-            ButtonSaveTextBlock.BeginAnimation(TextBlock.HeightProperty, _processor.GetMouseEnterStoryboard(false));
-            ButtonSaveGrid.Background = _processor.GetButtonColour(PlusPlayProcessor.MouseStatus.Leave);
-        }
-
-        private void ButtonDiscard_MouseDown(object sender, MouseButtonEventArgs e)
+        private void ButtonDiscard_MouseDown()
         {
             MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel the directory SelectAll", "Cancel SelectAll", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
@@ -210,127 +238,38 @@ namespace WPlusPlay
             }
         }
 
-        private void ButtonDiscardImage_MouseEnter(object sender, MouseEventArgs e)
+        private void ButtonSelect_MouseDown(UIControls.ButtonType buttonType)
         {
-            ButtonDiscardTextBlock.BeginAnimation(TextBlock.HeightProperty, _processor.GetMouseEnterStoryboard(true));
-            ButtonDiscardGrid.Background = _processor.GetButtonColour(PlusPlayProcessor.MouseStatus.Enter);
-        }
-
-        private void ButtonDiscardImage_MouseLeave(object sender, MouseEventArgs e)
-        {
-            ButtonDiscardTextBlock.BeginAnimation(TextBlock.HeightProperty, _processor.GetMouseEnterStoryboard(false));
-            ButtonDiscardGrid.Background = _processor.GetButtonColour(PlusPlayProcessor.MouseStatus.Leave);
-        }
-
-        
-
-        private void ButtonSelect_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            switch ((sender as System.Windows.Controls.Image).Name)
+            switch (buttonType)
             {
-                case "ButtonSelectAllImage":
+                case UIControls.ButtonType.SelectAll:
                     PicturePanelMain.SetSelection(true);
-                    ButtonSelectAllGrid.Background = _processor.GetButtonColour(PlusPlayProcessor.MouseStatus.Pressed);
                     break;
-                case "ButtonSelectNoneImage":
-                    ButtonSelectNoneGrid.Background = _processor.GetButtonColour(PlusPlayProcessor.MouseStatus.Pressed);
+                case UIControls.ButtonType.SelectNone:
                     PicturePanelMain.SetSelection(false);
                     break;
             }
         }
 
-        private void ButtonSelectAllImage_MouseEnter(object sender, MouseEventArgs e)
+        private void ButtonUpdateGalleryStatus_MouseDown(UIControls.ButtonType buttonType)
         {
-            ButtonSelectAllTextBlock.BeginAnimation(TextBlock.HeightProperty, _processor.GetMouseEnterStoryboard(true));
-            ButtonSelectAllGrid.Background = _processor.GetButtonColour(PlusPlayProcessor.MouseStatus.Enter);
-        }
-
-        private void ButtonSelectAllImage_MouseLeave(object sender, MouseEventArgs e)
-        {
-            ButtonSelectAllTextBlock.BeginAnimation(TextBlock.HeightProperty, _processor.GetMouseEnterStoryboard(false));
-            ButtonSelectAllGrid.Background = _processor.GetButtonColour(PlusPlayProcessor.MouseStatus.Leave);
-        }
-
-        private void ButtonSelectNoneImage_MouseEnter(object sender, MouseEventArgs e)
-        {
-            ButtonSelectNoneTextBlock.BeginAnimation(TextBlock.HeightProperty, _processor.GetMouseEnterStoryboard(true));
-            ButtonSelectNoneGrid.Background = _processor.GetButtonColour(PlusPlayProcessor.MouseStatus.Enter);
-        }
-
-        private void ButtonSelectNoneImage_MouseLeave(object sender, MouseEventArgs e)
-        {
-            ButtonSelectNoneTextBlock.BeginAnimation(TextBlock.HeightProperty, _processor.GetMouseEnterStoryboard(false));
-            ButtonSelectNoneGrid.Background = _processor.GetButtonColour(PlusPlayProcessor.MouseStatus.Leave);
-        }
-
-        private void ButtonUpdateGalleryStatus_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            _processor.SetGalleryStatus(_selectedGallery, (sender as System.Windows.Controls.Image).Name == "ButtonPostedImage");
+            _processor.SetGalleryStatus(_selectedGallery, buttonType == UIControls.ButtonType.Posted);
             _processor.RefreshGallery(_selectedGallery);
-            PicturePanelMain.SetGalleryStatus((sender as System.Windows.Controls.Image).Name == "ButtonPostedImage");
+            PicturePanelMain.SetGalleryStatus(buttonType == UIControls.ButtonType.Posted);
         }
 
-        private void ButtonPostedImage_MouseEnter(object sender, MouseEventArgs e)
-        {
-            ButtonPostedTextBlock.BeginAnimation(TextBlock.HeightProperty, _processor.GetMouseEnterStoryboard(true));
-            ButtonPostedGrid.Background = _processor.GetButtonColour(PlusPlayProcessor.MouseStatus.Enter);
-        }
-
-        private void ButtonPostedImage_MouseLeave(object sender, MouseEventArgs e)
-        {
-            ButtonPostedTextBlock.BeginAnimation(TextBlock.HeightProperty, _processor.GetMouseEnterStoryboard(false));
-            ButtonPostedGrid.Background = _processor.GetButtonColour(PlusPlayProcessor.MouseStatus.Leave);
-        }
-
-        private void ButtonNotPostedImage_MouseEnter(object sender, MouseEventArgs e)
-        {
-            ButtonNotPostedTextBlock.BeginAnimation(TextBlock.HeightProperty, _processor.GetMouseEnterStoryboard(true));
-            ButtonNotPostedGrid.Background = _processor.GetButtonColour(PlusPlayProcessor.MouseStatus.Enter);
-        }
-
-        private void ButtonNotPostedImage_MouseLeave(object sender, MouseEventArgs e)
-        {
-            ButtonNotPostedTextBlock.BeginAnimation(TextBlock.HeightProperty, _processor.GetMouseEnterStoryboard(false));
-            ButtonNotPostedGrid.Background = _processor.GetButtonColour(PlusPlayProcessor.MouseStatus.Leave);
-        }
-
-        private void ButtonCleanUp_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (PlusPlayProcessor.CleanUpTempFiles())
-                MessageBox.Show("Cleanup Successful", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
-            else
-                MessageBox.Show("Error during cleanup", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-
-        private void ButtonCleanUpImage_MouseEnter(object sender, MouseEventArgs e)
-        {
-            ButtonCleanUpTextBlock.BeginAnimation(TextBlock.HeightProperty, _processor.GetMouseEnterStoryboard(true));
-            ButtonCleanUpGrid.Background = _processor.GetButtonColour(PlusPlayProcessor.MouseStatus.Enter);
-        }
-
-        private void ButtonCleanUpImage_MouseLeave(object sender, MouseEventArgs e)
-        {
-            ButtonCleanUpTextBlock.BeginAnimation(TextBlock.HeightProperty, _processor.GetMouseEnterStoryboard(false));
-            ButtonCleanUpGrid.Background = _processor.GetButtonColour(PlusPlayProcessor.MouseStatus.Leave);
-        }
-
-        private void ButtonDropbox_MouseDown(object sender, MouseButtonEventArgs e)
+        private void ButtonDropbox_MouseDown()
         {
             string dLinks = _processor.GetDLinks(_selectedGallery);
             System.Windows.Clipboard.SetText(dLinks);
+            
+            uINotificationDisplay.SetImage(_resourcePath + @"\Icons\DropboxNotification.png"); 
+            uINotificationDisplay.SetHeading("Public Links Copied");
+            uINotificationDisplay.SetMessage(_selectedGallery.Files.Count().ToString("00") + " Public Dropbox image links copied to clipboard");
+            Storyboard sb = (Storyboard)this.Resources["UINotificationDisplayAnimation"];
+            sb.Begin();
         }
-
-        private void ButtonDropboxImage_MouseEnter(object sender, MouseEventArgs e)
-        {
-            ButtonDropboxTextBlock.BeginAnimation(TextBlock.HeightProperty, _processor.GetMouseEnterStoryboard(true));
-            ButtonDropboxGrid.Background = _processor.GetButtonColour(PlusPlayProcessor.MouseStatus.Dropbox);
-        }
-
-        private void ButtonDropboxImage_MouseLeave(object sender, MouseEventArgs e)
-        {
-            ButtonDropboxTextBlock.BeginAnimation(TextBlock.HeightProperty, _processor.GetMouseEnterStoryboard(false));
-            ButtonDropboxGrid.Background = _processor.GetButtonColour(PlusPlayProcessor.MouseStatus.Leave);
-        }
+        
         #endregion ButtonEvents
 
         #region FormEvents
@@ -348,44 +287,45 @@ namespace WPlusPlay
         #region Control Availability Methods
         private void SetAvailabilityButton_AllFunctions(bool available)
         {
-            //ButtonSave.IsEnabled =
-            //ButtonDiscard.IsEnabled =
-            //ButtonPosted.IsEnabled =
-            //ButtonNotPosted.IsEnabled =
-            //ButtonSelectAll.IsEnabled =
-            //ButtonSelectNone.IsEnabled = available;
+
+            _uiButtons[UIControls.ButtonType.Save].IsControlEnabled(available);
+            _uiButtons[UIControls.ButtonType.Discard].IsControlEnabled(available);
+            _uiButtons[UIControls.ButtonType.Posted].IsControlEnabled(available);
+            _uiButtons[UIControls.ButtonType.NotPosted].IsControlEnabled(available);
+            _uiButtons[UIControls.ButtonType.SelectAll].IsControlEnabled(available);
+            _uiButtons[UIControls.ButtonType.SelectNone].IsControlEnabled(available);
         }
 
         private void SetAvailabilityButton_SelectFunctions(bool available)
         {
-            //ButtonSelectAll.IsEnabled =
-            //ButtonSelectNone.IsEnabled = available;
+            _uiButtons[UIControls.ButtonType.SelectAll].IsControlEnabled(available);
+            _uiButtons[UIControls.ButtonType.SelectNone].IsControlEnabled(available);
         }
 
         private void SetAvailabilityButton_SelectAllFunctions(bool available)
         {
-            //ButtonSave.IsEnabled =
-            //ButtonDiscard.IsEnabled = available;
+            _uiButtons[UIControls.ButtonType.Save].IsControlEnabled(available);
+            _uiButtons[UIControls.ButtonType.Discard].IsControlEnabled(available);
         }
 
         private void SetAvailabilityButton_PostingFunctions(bool available)
         {
-            //ButtonPosted.IsEnabled =
-            //ButtonNotPosted.IsEnabled = available;
+            _uiButtons[UIControls.ButtonType.Posted].IsControlEnabled(available);
+            _uiButtons[UIControls.ButtonType.NotPosted].IsControlEnabled(available);
         }
 
         private void SetAvailabilityControls_SelectAllMode()
         {
-            //ButtonSelectAll.IsEnabled =
-            //ButtonPosted.IsEnabled =
-            //ButtonNotPosted.IsEnabled = SelectAllActive ? false : true;
+            _uiButtons[UIControls.ButtonType.SelectAll].IsControlEnabled(SelectAllActive ? false : true);
+            _uiButtons[UIControls.ButtonType.Posted].IsControlEnabled(SelectAllActive ? false : true);
+            _uiButtons[UIControls.ButtonType.NotPosted].IsControlEnabled(SelectAllActive ? false : true);
 
-            //ButtonSave.IsEnabled =
-            //ButtonDiscard.IsEnabled =
-            //ButtonSelectAll.IsEnabled =
-            //ButtonSelectNone.IsEnabled = SelectAllActive;
+            _uiButtons[UIControls.ButtonType.Save].IsControlEnabled(SelectAllActive);
+            _uiButtons[UIControls.ButtonType.Discard].IsControlEnabled(SelectAllActive);
+            _uiButtons[UIControls.ButtonType.SelectAll].IsControlEnabled(SelectAllActive);
+            _uiButtons[UIControls.ButtonType.SelectNone].IsControlEnabled(SelectAllActive);
 
-            //ListBoxModelGallerySelection.ImportMode(SelectAllActive);
+            ListBoxModelGallerySelection.ImportMode(SelectAllActive);
         }
 
         #endregion Button Availability Methods
@@ -398,14 +338,14 @@ namespace WPlusPlay
         }
         #endregion OtherThreads
 
-        
 
-        
 
-       
 
-      
 
-        
+
+
+
+
+
     }
 }

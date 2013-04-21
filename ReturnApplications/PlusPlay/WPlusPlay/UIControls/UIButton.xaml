@@ -8,7 +8,7 @@
     <Grid Name="GridControlFrame" Width="84" Height="100"  Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Top">
         <StackPanel Name="StackPanelButtonFrame" Width="64" Height="84">
             <Image x:Name="ImageIcon" Height="64" Width="64" MouseDown="ImageIcon_MouseDown" MouseEnter="ImageIcon_MouseEnter" MouseLeave="ImageIcon_MouseLeave" MouseUp="ImageIcon_MouseUp" />
-            <TextBlock Name="TextBlockTitle" TextAlignment="Center" Height="0" Width="64" Background="#c07807" Text="Posted" FontWeight="SemiBold" Foreground="White"/>
+            <TextBlock Name="TextBlockTitle" TextAlignment="Center" Height="0" Width="64" Background="Transparent" Text="Posted" FontWeight="SemiBold" Foreground="White"/>
         </StackPanel>
     </Grid>
 </UserControl>

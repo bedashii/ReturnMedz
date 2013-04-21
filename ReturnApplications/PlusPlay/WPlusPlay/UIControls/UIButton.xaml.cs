@@ -26,7 +26,7 @@ namespace WPlusPlay.UIControls
         Brush _brushMouseDown;
         Brush _brushMouseUp;
         ButtonType _buttonType;
-        
+
         bool _pointerInRange;
         bool PointerInRange
         {
@@ -34,7 +34,6 @@ namespace WPlusPlay.UIControls
             set
             {
                 _pointerInRange = value;
-                ButtonStatusChanged();
             }
         }
         #endregion Variables
@@ -45,25 +44,23 @@ namespace WPlusPlay.UIControls
             InitializeComponent();
         }
 
-        public UIButton(ButtonType buttonType, string brushMouseEnterHexCode, string brushMouseLeaveHexCode, string brushMouseDownHexCode)
+        public UIButton(ButtonType buttonType, string iconFilePath, string buttonTitle, string buttonColour, string brushMouseEnterHexCode, string brushMouseLeaveHexCode, string brushMouseDownHexCode)
         {
             InitializeComponent();
-            Initialize(buttonType, brushMouseEnterHexCode, brushMouseLeaveHexCode, brushMouseDownHexCode, null);
+            Initialize(buttonType, iconFilePath, buttonTitle, buttonColour, brushMouseEnterHexCode, brushMouseLeaveHexCode, brushMouseDownHexCode, null);
         }
 
-        public UIButton(ButtonType buttonType, string brushMouseEnterHexCode, string brushMouseLeaveHexCode, string brushMouseDownHexCode, string brushMouseUpHexCode)
-        {
-            InitializeComponent();
-            Initialize(buttonType, brushMouseEnterHexCode, brushMouseLeaveHexCode, brushMouseDownHexCode, brushMouseUpHexCode);
-        }
-
-        private void Initialize(ButtonType buttonType, string brushMouseEnterHexCode, string brushMouseLeaveHexCode, string brushMouseDownHexCode, string brushMouseUpHexCode)
+        private void Initialize(ButtonType buttonType, string iconFilePath, string buttonTitle, string buttonColour, string brushMouseEnterHexCode, string brushMouseLeaveHexCode, string brushMouseDownHexCode, string brushMouseUpHexCode)
         {
             BrushConverter bc = new BrushConverter();
             _brushMouseEnter = (Brush)bc.ConvertFromString(brushMouseEnterHexCode);
             _brushMouseLeave = (Brush)bc.ConvertFromString(brushMouseLeaveHexCode);
             _brushMouseDown = (Brush)bc.ConvertFromString(brushMouseDownHexCode);
             _brushMouseUp = brushMouseUpHexCode == null ? Brushes.Transparent : (Brush)bc.ConvertFromString(brushMouseUpHexCode);
+
+            TextBlockTitle.Background = (Brush)bc.ConvertFromString(buttonColour);
+            TextBlockTitle.Text = buttonTitle;
+            ImageIcon.Source = PlusPlayTools.ImageEditing.GenerateImage_FileStream(iconFilePath);
 
             _buttonType = buttonType;
         }
@@ -87,20 +84,27 @@ namespace WPlusPlay.UIControls
         private void ImageIcon_MouseEnter(object sender, MouseEventArgs e)
         {
             PointerInRange = true;
+            TextBlockTitle.BeginAnimation(TextBlock.HeightProperty, GetMouseEnterAnimation(true));
             GridControlFrame.Background = _brushMouseEnter;
         }
 
         private void ImageIcon_MouseLeave(object sender, MouseEventArgs e)
         {
+            TextBlockTitle.BeginAnimation(TextBlock.HeightProperty, GetMouseEnterAnimation(false));
             PointerInRange = false;
             GridControlFrame.Background = _brushMouseLeave;
         }
         #endregion Events
 
         #region Methods
-        private void ButtonStatusChanged()
+        System.Windows.Media.Animation.DoubleAnimation GetMouseEnterAnimation(bool mouseEnter)
         {
-            
+            return mouseEnter ? new System.Windows.Media.Animation.DoubleAnimation(0, 20, TimeSpan.FromMilliseconds(120)) : new System.Windows.Media.Animation.DoubleAnimation(20, 0, TimeSpan.FromMilliseconds(120));
+        }
+
+        public void IsControlEnabled(bool isEnabled)
+        {
+            GridControlFrame.Visibility = isEnabled ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
         }
         #endregion Methods
     }
