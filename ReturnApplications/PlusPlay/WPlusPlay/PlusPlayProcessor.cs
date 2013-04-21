@@ -229,6 +229,43 @@ namespace WPlusPlay
             gallery.Files.Clear();
             gallery.Files = gallery.Location.GetFiles("*" + gallery.GalleryName + "*").ToList();
         }
+
+        internal string GetDLinks(Gallery gallery)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (FileInfo file in gallery.Files)
+                sb.AppendLine(DropBoxLinkerLib.Linker.GetPublicURLFromFile(file.FullName));
+
+            return sb.ToString();
+        }
         #endregion PublicMethods
+
+        
+
+        internal System.Windows.Media.Animation.DoubleAnimation GetMouseEnterStoryboard(bool mouseEnter)
+        {
+            return mouseEnter ? new System.Windows.Media.Animation.DoubleAnimation(0, 20, TimeSpan.FromMilliseconds(120)) : new System.Windows.Media.Animation.DoubleAnimation(20, 0, TimeSpan.FromMilliseconds(120));
+        }
+
+        public enum MouseStatus { Enter, Leave, Pressed , Dropbox};
+        internal System.Windows.Media.Brush GetButtonColour(MouseStatus status)
+        {
+            System.Windows.Media.BrushConverter bc = new System.Windows.Media.BrushConverter();
+
+            switch (status)
+            {
+                case MouseStatus.Enter:
+                    return (System.Windows.Media.Brush)bc.ConvertFromString("#FFFFFF");
+                case MouseStatus.Leave:
+                    return (System.Windows.Media.Brush)bc.ConvertFromString("#FE9728");
+                case MouseStatus.Pressed:
+                    return (System.Windows.Media.Brush)bc.ConvertFromString("#007ACC");
+                case MouseStatus.Dropbox:
+                    return (System.Windows.Media.Brush)bc.ConvertFromString("#008BD3");
+                default:
+                    return System.Windows.Media.Brushes.Transparent;
+            }
+        }
     }
 }

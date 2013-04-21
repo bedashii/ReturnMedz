@@ -37,8 +37,11 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DropBoxLinkerLib">
+      <HintPath>..\..\..\RetLib\[precompiled]\DropBoxLinkerLib.dll</HintPath>
+    </Reference>
     <Reference Include="Ionic.Zip">
-      <HintPath>..\..\..\..\Visual Studio 2010\Projects\PlayboyTool\PlayboyTool\bin\Debug\Ionic.Zip.dll</HintPath>
+      <HintPath>..\..\..\TPDLL\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro">
       <HintPath>..\packages\MahApps.Metro.0.11.0.2-ALPHA\lib\net45\MahApps.Metro.dll</HintPath>
@@ -70,6 +73,9 @@
     <Compile Include="PlusPlayTools\ArchiveExtractor.cs" />
     <Compile Include="PlusPlayTools\ImageEditing.cs" />
     <Compile Include="PlusPlayTools\StringManipulator.cs" />
+    <Compile Include="UIControls\UIButton.xaml.cs">
+      <DependentUpon>UIButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\UIInfoDisplay.xaml.cs">
       <DependentUpon>UIInfoDisplay.xaml</DependentUpon>
     </Compile>
@@ -81,6 +87,9 @@
     </Compile>
     <Compile Include="UIControls\UIPicturePanel.xaml.cs">
       <DependentUpon>UIPicturePanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\UITooltipAnimated.xaml.cs">
+      <DependentUpon>UITooltipAnimated.xaml</DependentUpon>
     </Compile>
     <Page Include="PlusPlayForm.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -94,6 +103,10 @@
       <DependentUpon>PlusPlayForm.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UIControls\UIButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UIControls\UIInfoDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -107,6 +120,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIControls\UIPicturePanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\UITooltipAnimated.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

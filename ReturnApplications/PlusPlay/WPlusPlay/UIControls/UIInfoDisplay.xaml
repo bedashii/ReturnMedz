@@ -3,11 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" Height="112" Width="502" MinHeight="107">
-    <Grid>
-        <TextBox Name="TextBoxModel" FontSize="36" TextAlignment="Right" Background="#00CCCCCC" Visibility="Hidden" RenderTransformOrigin="0.5,0.5" Height="64" VerticalAlignment="Top" FontWeight="Light" MaxLines="1" MinLines="1" Text="{Binding Path=ModelName}" Margin="0,0,0,0"/>
-        <TextBlock Name="TextBlockModel" FontSize="36" TextAlignment="Right" Background="#00CCCCCC" Visibility="Visible" RenderTransformOrigin="0.5,0.5" Height="64" VerticalAlignment="Top" FontWeight="Light" Margin="0,0,0,0"/>
-        <TextBox Name="TextBoxGallery" Margin="0,64,0,0" Visibility="Hidden" FontSize="30" VerticalAlignment="Top" TextAlignment="Right" FontWeight="SemiBold" Height="48" Background="#00CCCCCC" RenderTransformOrigin="0.5,0.5"/>
-        <TextBlock Name="TextBlockGallery" Margin="0,64,0,0" Visibility="Visible" FontSize="30" VerticalAlignment="Top" TextAlignment="Right" FontWeight="SemiBold" Height="48" Background="#00CCCCCC" RenderTransformOrigin="0.5,0.5" Foreground="#FFACACAC" Text="{Binding Path=GalleryName}"/>
-    </Grid>
+             mc:Ignorable="d" Height="48.314" Width="525" >
+    <WrapPanel FlowDirection="RightToLeft">
+        <TextBlock Margin="20,0,0,0" Name="TextBlockGallery" Visibility="Visible" FontSize="36" HorizontalAlignment="Right" Foreground="White" VerticalAlignment="Top" FontWeight="Light" 
+                   Text="{Binding Path=GalleryName}"/>
+        <TextBlock Margin="20,0,0,0" Name="TextBlockModel" FontSize="36" Visibility="Visible" VerticalAlignment="Top" FontWeight="SemiBold" Foreground="#FFFAFAFA" />
+        <TextBox Name="TextBoxGallery" FontSize="36" HorizontalAlignment="Right" VerticalAlignment="Top" 
+                 Margin="20,0,0,0"  Visibility="Hidden" Background="White" Foreground="Black" FontWeight="Normal" />
+        <TextBox Name="TextBoxModel" FontSize="36" Background="White" 
+                 Margin="20,0,0,0" Visibility="Hidden" VerticalAlignment="Top" FontWeight="SemiBold" Foreground="Black" Text="{Binding Path=ModelName}" />
+        
+    </WrapPanel>
 </UserControl>

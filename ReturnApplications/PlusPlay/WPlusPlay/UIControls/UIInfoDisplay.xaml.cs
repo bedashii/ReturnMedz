@@ -22,12 +22,7 @@ namespace WPlusPlay.UIControls
     /// </summary>
     public partial class UIInfoDisplay : UserControl//, INotifyPropertyChanged
     {
-        //public event PropertyChangedEventHandler PropertyChanged;
-        //private void OnPropertyChanged(string propertyName)
-        //{
-
-        //}
-
+        #region Variables
         private string _modelName;
         public string ModelName
         {
@@ -41,25 +36,35 @@ namespace WPlusPlay.UIControls
             get { return _galleryName; }
             set { TextBlockGallery.Text = TextBoxGallery.Text = _galleryName = value; }
         }
+        #endregion Variables
 
+        #region Construction
         public UIInfoDisplay()
         {
             InitializeComponent();
         }
+        #endregion Construction
 
+        #region Methods
         internal void SetDisplay(string modelName, string galleryName)
         {
-            if (!modelName.Equals(ModelName))SetModel(modelName);
+            if (!modelName.Equals(ModelName)) SetModel(modelName);
             SetGallery(galleryName);
         }
 
-        public void SetDisplay(bool importMode, Dictionary<Keyword, string> modelGalleryName)
+        internal void SetDisplay(bool importMode, Dictionary<Keyword, string> modelGalleryName)
         {
             TextBoxModel.Visibility = TextBoxGallery.Visibility
-                = importMode ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+                = importMode ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
 
             TextBlockModel.Visibility = TextBlockGallery.Visibility
-                = importMode ? System.Windows.Visibility.Hidden : System.Windows.Visibility.Visible;
+                = importMode ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+
+            if (importMode)
+            {
+                TextBlockModel.Width = this.Width / 3;
+                TextBlockGallery.Width = this.Width / 2;
+            }
 
             if (modelGalleryName != null)
             {
@@ -68,7 +73,15 @@ namespace WPlusPlay.UIControls
             }
         }
 
-        public void SetModel(string model)
+        internal Dictionary<Keyword, string> GetGalleryInfo()
+        {
+            Dictionary<Keyword, string> galleryInfo = new Dictionary<Keyword, string>();
+            galleryInfo.Add(Keyword.Model, TextBoxModel.Text);
+            galleryInfo.Add(Keyword.Gallery, TextBoxGallery.Text);
+            return galleryInfo;
+        }
+
+        private void SetModel(string model)
         {
             DoubleAnimation fadeOut = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.1));
             fadeOut.Completed += (sender, eArgs) =>
@@ -81,9 +94,7 @@ namespace WPlusPlay.UIControls
             TextBlockModel.BeginAnimation(TextBlock.OpacityProperty, fadeOut);
         }
 
-
-
-        public void SetGallery(string gallery)
+        private void SetGallery(string gallery)
         {
             DoubleAnimation fadeOut = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.1));
             fadeOut.Completed += (sender, eArgs) =>
@@ -94,13 +105,6 @@ namespace WPlusPlay.UIControls
 
             TextBlockGallery.BeginAnimation(TextBlock.OpacityProperty, fadeOut);
         }
-
-        internal Dictionary<Keyword, string> GetGalleryInfo()
-        {
-            Dictionary<Keyword, string> galleryInfo = new Dictionary<Keyword, string>();
-            galleryInfo.Add(Keyword.Model, TextBoxModel.Text);
-            galleryInfo.Add(Keyword.Gallery, TextBoxGallery.Text);
-            return galleryInfo;
-        }
+        #endregion Methods
     }
 }
