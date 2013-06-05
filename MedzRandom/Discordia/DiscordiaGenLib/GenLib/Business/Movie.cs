@@ -13,5 +13,21 @@ namespace DiscordiaGenLib.GenLib.Business
         {
             base.LoadItemByFileName(fileName);
         }
+
+        public void InsertOrUpdate()
+        {
+            if (this.RecordExists)
+            {
+                if (this.AnyPropertiesChanged)
+                    this.Update();
+            }
+            else
+                this.Insert();
+        }
+
+        public void GetByTitle(string title)
+        {
+            base.GetByTitle(title);
+        }
     }
 }

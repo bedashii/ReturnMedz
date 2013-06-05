@@ -60,13 +60,37 @@ namespace Discordia
                 string q = "CREATE TABLE IF NOT EXISTS Movies\n";
                 q += "(\n";
                 q += "Title VARCHAR(50) NOT NULL,\n";
-                q += "Poster INT NULL,\n";
                 q += "Synopsis TEXT NULL,\n";
                 q += "Year INT NULL,\n";
                 q += "Duration INT NULL,\n";
                 q += "Rating DOUBLE NULL,\n";
                 q += "AgeRestriction VARCHAR(10),\n";
-                q += "IMDBID INT";
+                q += "TMDBID INT";
+                q += ");";
+
+                //create command and assign the query and connection from the constructor
+                SQLiteCommand cmd = new SQLiteCommand(q, connection);
+
+                //Execute command
+                cmd.ExecuteNonQuery();
+
+                //close connection
+                CloseConnection();
+            }
+        }
+
+        public void CreatePostersTable()
+        {
+            //open connection
+            if (OpenConnection() == true)
+            {
+                string q = "CREATE TABLE IF NOT EXISTS Posters\n";
+                q += "(\n";
+                q += "Movie Path NOT NULL,\n";
+                q += "URL VARCHAR NULL,\n";
+                q += "Path VARCHAR NULL,\n";
+                q += "Width INT NULL,\n";
+                q += "Height INT NULL\n";
                 q += ");";
 
                 //create command and assign the query and connection from the constructor
@@ -111,27 +135,6 @@ namespace Discordia
                 string q = "CREATE TABLE IF NOT EXISTS Genres\n";
                 q += "(\n";
                 q += "Name VARCHAR(50)";
-                q += ");";
-
-                //create command and assign the query and connection from the constructor
-                SQLiteCommand cmd = new SQLiteCommand(q, connection);
-
-                //Execute command
-                cmd.ExecuteNonQuery();
-
-                //close connection
-                CloseConnection();
-            }
-        }
-
-        public void CreatePostersTable()
-        {
-            //open connection
-            if (OpenConnection() == true)
-            {
-                string q = "CREATE TABLE IF NOT EXISTS Posters\n";
-                q += "(\n";
-                q += "PicturePath VARCHAR(255)";
                 q += ");";
 
                 //create command and assign the query and connection from the constructor

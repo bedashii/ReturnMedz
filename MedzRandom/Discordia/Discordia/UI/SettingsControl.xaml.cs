@@ -51,6 +51,13 @@ namespace Discordia
                     listBoxMovieLocations.Width = width;
             };
 
+            if (System.Configuration.ConfigurationSettings.AppSettings.AllKeys.ToList().Find(x => x == "OnlineMode") != null)
+            {
+                if (System.Configuration.ConfigurationSettings.AppSettings.Get("OnlineMode") == "1")
+                    checkBoxOnlineMode.IsChecked = true;
+                else
+                    checkBoxOnlineMode.IsChecked = false;
+            }
         }
 
         private void buttonMovieLocation_Click(object sender, RoutedEventArgs e)
@@ -59,6 +66,19 @@ namespace Discordia
             if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 _processor.MoviePaths.Add(new DiscordiaGenLib.GenLib.Business.SystemConfig("MoviePath", fbd.SelectedPath));
+            }
+            _processor.MoviePaths.InsertOrUpdateAll();
+        }
+
+        private void checkBoxOnlineMode_Checked(object sender, RoutedEventArgs e)
+        {
+            if ((bool)checkBoxOnlineMode.IsChecked)
+            {
+
+            }
+            else
+            {
+
             }
         }
     }

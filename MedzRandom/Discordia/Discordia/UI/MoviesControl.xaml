@@ -7,9 +7,12 @@
              d:DesignHeight="300" d:DesignWidth="300" Loaded="UserControl_Loaded">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*"/>
+            <!--<RowDefinition Height="3*"/>
             <RowDefinition Height="6*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>-->
+            <RowDefinition Height="0*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="0*"/>
         </Grid.RowDefinitions>
 
         <ListBox Name="listBoxTop" Grid.Row="0">
@@ -30,25 +33,27 @@
                 </Style>
             </ListBox.ItemContainerStyle>
         </ListBox>
-
-        <ListBox Name="listBoxMain" Grid.Row="1">
-            <ListBox.ItemsPanel>
+        <ScrollViewer Grid.Row="1">
+            <WrapPanel Name="wrapPanelMain"  />
+        </ScrollViewer>
+        <!--<ListBox Name="listBoxMain" Grid.Row="1" >-->
+        <!--<ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel IsItemsHost="True" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBox.ItemContainerStyle>
+            </ListBox.ItemsPanel>-->
+        <!--<ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                <ContentPresenter Margin="75,0,75,0"/>
+                                <ContentPresenter Margin="0,0,0,0"/>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
                 </Style>
-            </ListBox.ItemContainerStyle>
-        </ListBox>
+            </ListBox.ItemContainerStyle>-->
+        <!--</ListBox>-->
 
         <ListBox Name="listBoxBottom" Grid.Row="2">
             <ListBox.ItemsPanel>

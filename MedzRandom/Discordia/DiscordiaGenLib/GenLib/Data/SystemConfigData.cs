@@ -32,8 +32,8 @@ namespace DiscordiaGenLib.GenLib.Data
         {
             string q = "UPDATE SystemConfig\n";
             q += "SET ConfigKey = '" + ConfigKey + "',\n";
-            q += "ConfigValye = '" + ConfigValue + "'\n";
-            q += "Where ID = " + ID;
+            q += "ConfigValue = '" + ConfigValue + "'\n";
+            q += "Where ROWID = " + ID;
 
             dh.ExecuteNonQuery(q);
 
@@ -43,7 +43,7 @@ namespace DiscordiaGenLib.GenLib.Data
         internal void Delete()
         {
             string q = "DELETE FROM SystemConfig\n";
-            q += "WHERE ID = " + ID;
+            q += "WHERE ROWID = " + ID;
 
             dh.ExecuteNonQuery(q);
         }
@@ -55,7 +55,7 @@ namespace DiscordiaGenLib.GenLib.Data
             //Open connection
             if (dh.OpenConnection() == true)
             {
-                string q = "SELECT * FROM SystemConfig";
+                string q = "SELECT ROWID,ConfigKey,ConfigValue FROM SystemConfig";
 
                 //Create Command
                 SQLiteCommand cmd = new SQLiteCommand(q, dh.connection);
@@ -69,8 +69,8 @@ namespace DiscordiaGenLib.GenLib.Data
                 {
                     sc = new SystemConfig();
 
-                    if (dh.HasColumn(dataReader, "ID"))
-                        sc.ID = Convert.ToInt32(dataReader["ID"]);
+                    if (dh.HasColumn(dataReader, "ROWID"))
+                        sc.ID = Convert.ToInt32(dataReader["ROWID"]);
                     if (dh.HasColumn(dataReader, "ConfigKey"))
                         sc.ConfigKey = dataReader["ConfigKey"].ToString();
                     if (dh.HasColumn(dataReader, "ConfigValue"))
@@ -98,7 +98,7 @@ namespace DiscordiaGenLib.GenLib.Data
             //Open connection
             if (dh.OpenConnection() == true)
             {
-                string q = "SELECT * FROM SystemConfig\n";
+                string q = "SELECT ROWID,ConfigKey,ConfigValue FROM SystemConfig\n";
                 q += "WHERE ConfigKey = '" + key + "'";
 
                 //Create Command

@@ -41,6 +41,20 @@ namespace Discordia.UI
                 if (_movies != value)
                 {
                     _movies = value;
+                    _movies.ForEach(x =>
+                        {
+                            x.GainedFocus += delegate(string fullPath)
+                            {
+                                _movies.ForEach(y =>
+                                    {
+                                        if (fullPath != y.FullPath)
+                                        {
+                                            y.Poster.Height = new GridLength(1, GridUnitType.Star);
+                                            y.Main.Height = new GridLength(0, GridUnitType.Star);
+                                        }
+                                    });
+                            };
+                        });
                     updateMovieUI();
                 }
             }
@@ -51,7 +65,7 @@ namespace Discordia.UI
         void updateMovieUI()
         {
             listBoxTop.Items.Clear();
-            listBoxMain.Items.Clear();
+            wrapPanelMain.Children.Clear();
             listBoxBottom.Items.Clear();
 
             if (selectedIndex != 0 && selectedIndex > 5)
@@ -61,17 +75,21 @@ namespace Discordia.UI
 
             if (selectedIndex != 0 && selectedIndex > 6)
             {
-
+                
             }
+            MovieControlList.ForEach(x=>
+                {
+                    wrapPanelMain.Children.Add(x);
+                });
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < 15; i++)
-            {
-                MovieControlList.Add(new MovieControl());
-            }
-            updateMovieUI();
+            //for (int i = 0; i < 15; i++)
+            //{
+            //    MovieControlList.Add(new MovieControl());
+            //}
+            //updateMovieUI();
         }
     }
 }

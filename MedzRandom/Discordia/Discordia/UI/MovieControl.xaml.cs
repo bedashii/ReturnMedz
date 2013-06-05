@@ -1,8 +1,10 @@
 ﻿using DiscordiaGenLib.GenLib.Business;
+using DiscordiaGenLib.GenLib.Lists;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -34,7 +36,7 @@ namespace Discordia.UI
         }
 
         string _fullPath;
-        string FullPath
+        public string FullPath
         {
             get
             {
@@ -50,16 +52,184 @@ namespace Discordia.UI
             }
         }
 
+        private bool OnlineMode
+        {
+            get
+            {
+                if (System.Configuration.ConfigurationSettings.AppSettings.AllKeys.ToList().Find(x => x == "OnlineMode") != null)
+                {
+                    if (System.Configuration.ConfigurationSettings.AppSettings.Get("OnlineMode") == "1")
+                        return true;
+                    else
+                        return false;
+                }
+                return true;
+            }
+        }
+
         private void findMovie()
         {
             FileInfo fi = new FileInfo(FullPath);
 
+            string title = cleanTitle(fi.Name.Replace(fi.Extension, string.Empty));
+
             Movie m = new Movie();
-            m.GetByFileName(fi.Name);
-            if (!m.RecordExists)
+            m.GetByTitle(title);
+            //m.GetByFileName(fi.Name);
+            if (OnlineMode && !m.RecordExists)
             {
-                // Create new details
+                // TODO
+                // Create new details and save
+                WatTmdb.V3.Tmdb tmdb = new WatTmdb.V3.Tmdb("72cdccd9229e5896d3df21c8c96b3016");
+                var movieSearch = tmdb.SearchMovie(title, 1);
+                if (movieSearch.results.Count > 0)
+                {
+                    m.TMDBID = movieSearch.results[0].id;
+                    m.Title = movieSearch.results[0].title.Replace(":", string.Empty).Replace("'", string.Empty);
+                    m.Rating = movieSearch.results[0].popularity;
+                    int year = 0;
+                    if (Int32.TryParse(movieSearch.results[0].release_date, out year))
+                        m.Year = year;
+
+                    Posters.GetByMovie(m.TMDBID);
+
+                    var images = tmdb.GetMovieImages(m.TMDBID);
+                    images.posters.ForEach(x =>
+                        {
+                            if (Posters.Find(y => y.URL == x.file_path) == null)
+                                Posters.Add(new Poster()
+                                    {
+                                        Movie = m.TMDBID,
+                                        URL = x.file_path,
+                                        Width = x.width,
+                                        Height = x.height
+                                    });
+                        });
+
+
+                    Posters.InsertOrUpdateAll();
+                    m.InsertOrUpdate();
+
+                    string dest = m.Title;
+                    if (m.Year != 0)
+                        dest += " " + m.Year;
+                    dest += fi.Extension;
+
+                    if (fi.Name != dest)
+                    {
+                        File.Move(fi.FullName, fi.DirectoryName + "\\" + dest);
+                        _fullPath = fi.DirectoryName + "\\" + dest;
+                        fi = null;
+                    }
+                }
             }
+
+            if (Posters.Count == 0)
+            {
+                Posters.GetByMovie(m.TMDBID);
+            }
+
+            updateUI(m);
+        }
+
+        List<string> cleanStrings = new List<string>() { "480p", "720p", "1080p" };
+
+        // Gets rid of strings that are most likely not part of the title.
+        private string cleanTitle(string title)
+        {
+            title = removeDate(title);
+
+            string newTitle = "";
+            title.Split(' ').ToList().ForEach(x =>
+                {
+                    if (cleanStrings.Find(y => x == y) == null)
+                    {
+                        if (newTitle == "")
+                            newTitle += x;
+                        else
+                            newTitle += " " + x;
+
+                    }
+                });
+            newTitle = newTitle.Replace("And", "&");
+            newTitle = newTitle.Replace("and", "&");
+            return newTitle;
+        }
+
+        private string removeDate(string title)
+        {
+            string newTitle = "";
+            List<string> titleSplit = title.Split(' ').ToList();
+            int counter = 0;
+            int tempInt = 0;
+            titleSplit.ForEach(x =>
+                {
+                    if (Int32.TryParse(x, out tempInt))
+                        counter++;
+                });
+
+            // No Date Found
+            if (counter == 0)
+                return title;
+
+            int counterPlaceHolder = 0;
+
+            titleSplit.ForEach(x =>
+                {
+                    if (counter == 1) // only one number, assumed date
+                    {
+                        if (!Int32.TryParse(x, out tempInt))
+                        {
+                            if (newTitle == "")
+                                newTitle += x;
+                            else
+                                newTitle += " " + x;
+                        }
+                        else
+                        {
+                            if (x.Length != 4)
+                            {
+                                if (newTitle == "")
+                                    newTitle += x;
+                                else
+                                    newTitle += " " + x;
+                            }
+                        }
+                    }
+                    else // More than one number, only remove last.
+                    {
+                        if (Int32.TryParse(x, out tempInt))
+                        {
+                            if (counter - 1 == counterPlaceHolder)
+                            {
+                                // Date Do Nothing.
+                            }
+                            else
+                            {
+                                if (newTitle == "")
+                                    newTitle += x;
+                                else
+                                    newTitle += " " + x;
+                                counterPlaceHolder++;
+                            }
+                        }
+                        else
+                        {
+                            if (newTitle == "")
+                                newTitle += x;
+                            else
+                                newTitle += " " + x;
+                        }
+                    }
+                });
+            return newTitle;
+        }
+
+        private void updateUI(Movie m)
+        {
+            // TODO
+            Title = m.Title;
+            updatePosterUI();
         }
 
         string _title;
@@ -84,18 +254,23 @@ namespace Discordia.UI
             textBlockTitle.Text = Title;
         }
 
-        Image _poster;
-        public Image Poster
+        PosterList _posters;
+        public PosterList Posters
         {
             get
             {
-                return _poster;
+                if (_posters == null)
+                {
+                    _posters = new PosterList();
+                    //_posters.GetByMovie();
+                }
+                return _posters;
             }
             set
             {
-                if (_poster != value)
+                if (_posters != value)
                 {
-                    _poster = value;
+                    _posters = value;
                     updatePosterUI();
                 }
             }
@@ -156,17 +331,48 @@ namespace Discordia.UI
             }
         }
 
-        public string PosterPath { get; set; }
-
         private void updatePosterUI()
         {
             try
             {
-                imagePoster.Source = new BitmapImage(new Uri(PosterPath));
+                if (Posters.Count > 0)
+                {
+                    if (OnlineMode)
+                    {
+                        string url = @"http://cf2.imgobject.com/t/p/w500" + @Posters[0].URL;
+                        if (Posters[0].Path == null || Posters[0].Path == "" || !File.Exists("Posters\\" + @Posters[0].Path))
+                        {
+                            if (!Directory.Exists("Posters"))
+                                Directory.CreateDirectory("Posters");
+
+                            FileInfo fi = new FileInfo("Posters\\" + Posters[0].URL.Substring(1));
+                            if (!fi.Exists)
+                            {
+                                using (WebClient client = new WebClient())
+                                {
+                                    client.DownloadFile(@url, "Posters\\" + Posters[0].URL.Substring(1));
+                                }
+                            }
+                            Posters[0].Path = Posters[0].URL.Substring(1);
+                            Posters[0].Update();
+                        }
+                    }
+
+                    if (Posters[0].Path != "")
+                    {
+                        FileInfo fi = new FileInfo("Posters\\" + @Posters[0].Path);
+                        if (fi.Exists)
+                        {
+                            imagePoster.Source = new BitmapImage(new Uri(fi.FullName));
+                            imageMainPoster.Source = new BitmapImage(new Uri(fi.FullName));
+                        }
+                        fi = null;
+                    }
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
             }
         }
         private void updateGenresUI()
@@ -190,5 +396,34 @@ namespace Discordia.UI
             textBlockSynopsis.Text = Synopsis;
         }
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (Poster.Height.Value == 1)
+            {
+                Poster.Height = new GridLength(0, GridUnitType.Star);
+                Main.Height = new GridLength(1, GridUnitType.Star);
+
+                GainedFocus.Invoke(FullPath);
+            }
+            else
+            {
+                Poster.Height = new GridLength(1, GridUnitType.Star);
+                Main.Height = new GridLength(0, GridUnitType.Star);
+            }
+        }
+
+        private void buttonPlay_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(FullPath);
+        }
+
+        public delegate void GainedFocusHandler(string fullPath);
+        public event GainedFocusHandler GainedFocus;
+
+        //private void UserControl_LostFocus_1(object sender, RoutedEventArgs e)
+        //{
+        //    Poster.Height = new GridLength(1, GridUnitType.Star);
+        //    Main.Height = new GridLength(0, GridUnitType.Star);
+        //}
     }
 }

@@ -14,7 +14,7 @@ namespace DiscordiaGenLib.GenLib.Lists
 
         public SystemConfigList()
         {
-            
+
         }
 
         public void GetAll()
@@ -28,6 +28,20 @@ namespace DiscordiaGenLib.GenLib.Lists
         {
             this.Clear();
             this.AddRange(_data.GetByKey("MoviePath"));
+        }
+
+        public void InsertOrUpdateAll()
+        {
+            this.ForEach(x =>
+                {
+                    if (x.RecordExists)
+                    {
+                        if (x.AnyPropertiesChanged)
+                            x.Update();
+                    }
+                    else
+                        x.Insert();
+                });
         }
     }
 }

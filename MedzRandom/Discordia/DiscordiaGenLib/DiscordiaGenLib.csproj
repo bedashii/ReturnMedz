@@ -56,13 +56,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GenLib\Business\Movie.cs" />
+    <Compile Include="GenLib\Business\Poster.cs" />
     <Compile Include="GenLib\Business\SystemConfig.cs" />
     <Compile Include="GenLib\Data\DataHelper.cs" />
     <Compile Include="GenLib\Data\MovieData.cs" />
+    <Compile Include="GenLib\Data\PosterData.cs" />
     <Compile Include="GenLib\Data\SystemConfigData.cs" />
     <Compile Include="GenLib\Lists\MovieList.cs" />
+    <Compile Include="GenLib\Lists\PosterList.cs" />
     <Compile Include="GenLib\Lists\SystemConfigList.cs" />
     <Compile Include="GenLib\Properties\MovieProperties.cs" />
+    <Compile Include="GenLib\Properties\PosterProperties.cs" />
     <Compile Include="GenLib\Properties\PropertiesBase.cs" />
     <Compile Include="GenLib\Properties\SystemConfigProperties.cs" />
   </ItemGroup>

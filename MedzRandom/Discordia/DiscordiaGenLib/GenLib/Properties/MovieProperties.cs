@@ -8,22 +8,22 @@ namespace DiscordiaGenLib.GenLib.Properties
 {
     public class MovieProperties:PropertiesBase
     {
-        int _iD;
-        public int ID
-        {
-            get
-            {
-                return _iD;
-            }
-            set
-            {
-                if (_iD != value)
-                {
-                    _iD = value;
-                    AnyPropertiesChanged = true;
-                }
-            }
-        }
+        //int _iD;
+        //public int ID
+        //{
+        //    get
+        //    {
+        //        return _iD;
+        //    }
+        //    set
+        //    {
+        //        if (_iD != value)
+        //        {
+        //            _iD = value;
+        //            AnyPropertiesChanged = true;
+        //        }
+        //    }
+        //}
 
         string _title;
         public string Title
@@ -37,23 +37,6 @@ namespace DiscordiaGenLib.GenLib.Properties
                 if (_title != value)
                 {
                     _title = value;
-                    AnyPropertiesChanged = true;
-                }
-            }
-        }
-
-        int _poster;
-        public int Poster
-        {
-            get
-            {
-                return _poster;
-            }
-            set
-            {
-                if (_poster != value)
-                {
-                    _poster = value;
                     AnyPropertiesChanged = true;
                 }
             }
@@ -144,18 +127,18 @@ namespace DiscordiaGenLib.GenLib.Properties
             }
         }
 
-        int _iMDBID;
-        public int IMDBID
+        int _tMDBID;
+        public int TMDBID
         {
             get
             {
-                return _iMDBID;
+                return _tMDBID;
             }
             set
             {
-                if (_iMDBID != value)
+                if (_tMDBID != value)
                 {
-                    _iMDBID = value;
+                    _tMDBID = value;
                     AnyPropertiesChanged = true;
                 }
             }

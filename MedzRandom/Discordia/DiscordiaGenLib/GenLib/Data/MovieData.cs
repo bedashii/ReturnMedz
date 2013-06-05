@@ -20,8 +20,8 @@ namespace DiscordiaGenLib.GenLib.Data
 
         internal void Insert()
         {
-            string q = "Insert INTO Movies(Title,Poster,Synopsis,Year,Duration,Rating,AgeRestriction,IMDBID)\n";
-            q += "VALUES('" + Title + "'," + Poster + ",'" + Synopsis + "'," + Year + "," + Duration + "," + Rating + ",'" + AgeRestriction + "'," + IMDBID + ")";
+            string q = "Insert INTO Movies(Title,Synopsis,Year,Duration,Rating,AgeRestriction,TMDBID)\n";
+            q += "VALUES('" + Title + "','" + Synopsis + "'," + Year + "," + Duration + "," + Rating + ",'" + AgeRestriction + "'," + TMDBID + ")";
 
             this.RecordExists = true;
 
@@ -32,14 +32,13 @@ namespace DiscordiaGenLib.GenLib.Data
         {
             string q = "UPDATE Movies\n";
             q += "SET Title = '" + Title + "',\n";
-            q += "Poster = " + Poster + ",\n";
             q += "Synopsis = '" + Synopsis + "',\n";
             q += "Year = " + Year + ",\n";
             q += "Duration = " + Duration + ",\n";
             q += "Rating = " + Rating + ",\n";
             q += "AgeRestriction = '" + AgeRestriction + "',\n";
-            q += "IMDBID = " + IMDBID + ",\n";
-            q += "WHERE ID = " + ID;
+            q += "TMDBID = " + TMDBID + ",\n";
+            q += "WHERE TMDBID = " + TMDBID;
 
             dh.ExecuteNonQuery(q);
 
@@ -49,7 +48,7 @@ namespace DiscordiaGenLib.GenLib.Data
         internal void Delete()
         {
             string q = "DELETE FROM Movies\n";
-            q += "WHERE ID = " + ID;
+            q += "WHERE TMDBID = " + TMDBID;
 
             dh.ExecuteNonQuery(q);
         }
@@ -75,12 +74,10 @@ namespace DiscordiaGenLib.GenLib.Data
                 {
                     m = new Movie();
 
-                    if (dh.HasColumn(dataReader, "ID"))
-                        m.ID = Convert.ToInt32(dataReader["ID"]);
+                    //if (dh.HasColumn(dataReader, "ROWID"))
+                    //    m.ID = Convert.ToInt32(dataReader["ROWID"]);
                     if (dh.HasColumn(dataReader, "Title"))
                         m.Title = dataReader["Title"].ToString();
-                    if (dh.HasColumn(dataReader, "Poster"))
-                        m.Poster = Convert.ToInt32(dataReader["Poster"]);
                     if (dh.HasColumn(dataReader, "Synopsis"))
                         m.Synopsis = dataReader["Synopsis"].ToString();
                     if (dh.HasColumn(dataReader, "Year"))
@@ -91,8 +88,8 @@ namespace DiscordiaGenLib.GenLib.Data
                         m.Rating = Convert.ToInt32(dataReader["Rating"]);
                     if (dh.HasColumn(dataReader, "AgeRestriction"))
                         m.AgeRestriction = dataReader["AgeRestriction"].ToString();
-                    if (dh.HasColumn(dataReader, "IMDBID"))
-                        m.IMDBID = Convert.ToInt32(dataReader["IMDBID"]);
+                    if (dh.HasColumn(dataReader, "TMDBID"))
+                        m.TMDBID = Convert.ToInt32(dataReader["TMDBID"]);
 
                     m.RecordExists = true;
 
@@ -115,8 +112,8 @@ namespace DiscordiaGenLib.GenLib.Data
             if (dh.OpenConnection() == true)
             {
                 string q = "SELECT m.* FROM MoviePath mp\n";
-q+="JOIN Movies m on mp.movie = m.ID\n";
-q+="Where Filename = '" + fileName + "'";
+                q += "JOIN Movies m on mp.movie = m.ROWID\n";
+                q += "Where Filename = '" + fileName + "'";
 
                 //Create Command
                 SQLiteCommand cmd = new SQLiteCommand(q, dh.connection);
@@ -128,12 +125,10 @@ q+="Where Filename = '" + fileName + "'";
 
                 while (dataReader.Read())
                 {
-                    if (dh.HasColumn(dataReader, "ID"))
-                        this.ID = Convert.ToInt32(dataReader["ID"]);
+                    //if (dh.HasColumn(dataReader, "ROWID"))
+                    //    this.ID = Convert.ToInt32(dataReader["ROWID"]);
                     if (dh.HasColumn(dataReader, "Title"))
                         this.Title = dataReader["Title"].ToString();
-                    if (dh.HasColumn(dataReader, "Poster"))
-                        this.Poster = Convert.ToInt32(dataReader["Poster"]);
                     if (dh.HasColumn(dataReader, "Synopsis"))
                         this.Synopsis = dataReader["Synopsis"].ToString();
                     if (dh.HasColumn(dataReader, "Year"))
@@ -144,10 +139,53 @@ q+="Where Filename = '" + fileName + "'";
                         this.Rating = Convert.ToInt32(dataReader["Rating"]);
                     if (dh.HasColumn(dataReader, "AgeRestriction"))
                         this.AgeRestriction = dataReader["AgeRestriction"].ToString();
-                    if (dh.HasColumn(dataReader, "IMDBID"))
-                        this.IMDBID = Convert.ToInt32(dataReader["IMDBID"]);
+                    if (dh.HasColumn(dataReader, "TMDBID"))
+                        this.TMDBID = Convert.ToInt32(dataReader["TMDBID"]);
 
                     m.RecordExists = true;
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                dh.CloseConnection();
+            }
+        }
+
+        internal void GetByTitle(string title)
+        {
+            //Open connection
+            if (dh.OpenConnection() == true)
+            {
+                string q = "SELECT * FROM Movies m\n";
+                q += "Where Title = '" + title + "'";
+
+                //Create Command
+                SQLiteCommand cmd = new SQLiteCommand(q, dh.connection);
+                //Create a data reader and Execute the command
+                SQLiteDataReader dataReader = cmd.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    //if (dh.HasColumn(dataReader, "ROWID"))
+                    //    this.ID = Convert.ToInt32(dataReader["ROWID"]);
+                    if (dh.HasColumn(dataReader, "Title"))
+                        this.Title = dataReader["Title"].ToString();
+                    if (dh.HasColumn(dataReader, "Synopsis"))
+                        this.Synopsis = dataReader["Synopsis"].ToString();
+                    if (dh.HasColumn(dataReader, "Year"))
+                        this.Year = Convert.ToInt32(dataReader["Year"]);
+                    if (dh.HasColumn(dataReader, "Duration"))
+                        this.Duration = Convert.ToInt32(dataReader["Duration"]);
+                    if (dh.HasColumn(dataReader, "Rating"))
+                        this.Rating = Convert.ToInt32(dataReader["Rating"]);
+                    if (dh.HasColumn(dataReader, "AgeRestriction"))
+                        this.AgeRestriction = dataReader["AgeRestriction"].ToString();
+                    if (dh.HasColumn(dataReader, "TMDBID"))
+                        this.TMDBID = Convert.ToInt32(dataReader["TMDBID"]);
+
+                    this.RecordExists = true;
                 }
 
                 //close Data Reader
