@@ -1,7 +1,8 @@
 ﻿using DiscordiaGenLib.GenLib.Data;
-using MySql.Data.MySqlClient;
+//using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,10 +13,6 @@ namespace Discordia
     {
         public StartUp()
         {
-            // Create Database
-            InitializeNoDB();
-            CreateDataBase();
-
             // Link To Database
             InitializeDB();
 
@@ -45,25 +42,7 @@ namespace Discordia
                 q += ");";
 
                 //create command and assign the query and connection from the constructor
-                MySqlCommand cmd = new MySqlCommand(q, connection);
-
-                //Execute command
-                cmd.ExecuteNonQuery();
-
-                //close connection
-                CloseConnection();
-            }
-        }
-
-        public void CreateDataBase()
-        {
-            //open connection
-            if (OpenConnection() == true)
-            {
-                string q = "CREATE DATABASE IF NOT EXISTS Discordia;";
-
-                //create command and assign the query and connection from the constructor
-                MySqlCommand cmd = new MySqlCommand(q, connection);
+                SQLiteCommand cmd = new SQLiteCommand(q, connection);
 
                 //Execute command
                 cmd.ExecuteNonQuery();
@@ -80,7 +59,6 @@ namespace Discordia
             {
                 string q = "CREATE TABLE IF NOT EXISTS Movies\n";
                 q += "(\n";
-                q += "ID INT NOT NULL AUTO_INCREMENT,\n";
                 q += "Title VARCHAR(50) NOT NULL,\n";
                 q += "Poster INT NULL,\n";
                 q += "Synopsis TEXT NULL,\n";
@@ -88,12 +66,11 @@ namespace Discordia
                 q += "Duration INT NULL,\n";
                 q += "Rating DOUBLE NULL,\n";
                 q += "AgeRestriction VARCHAR(10),\n";
-                q += "IMDBID INT,\n";
-                q += "PRIMARY KEY (ID)\n";
+                q += "IMDBID INT";
                 q += ");";
 
                 //create command and assign the query and connection from the constructor
-                MySqlCommand cmd = new MySqlCommand(q, connection);
+                SQLiteCommand cmd = new SQLiteCommand(q, connection);
 
                 //Execute command
                 cmd.ExecuteNonQuery();
@@ -110,15 +87,13 @@ namespace Discordia
             {
                 string q = "CREATE TABLE IF NOT EXISTS Actors\n";
                 q += "(\n";
-                q += "ID INT NOT NULL AUTO_INCREMENT,\n";
                 q += "Name VARCHAR(50) NOT NULL,\n";
                 q += "PicturePath VARCHAR(255) NULL,\n";
-                q += "BIO TEXT NULL,\n";
-                q += "PRIMARY KEY (ID)\n";
+                q += "BIO TEXT NULL";
                 q += ");";
 
                 //create command and assign the query and connection from the constructor
-                MySqlCommand cmd = new MySqlCommand(q, connection);
+                SQLiteCommand cmd = new SQLiteCommand(q, connection);
 
                 //Execute command
                 cmd.ExecuteNonQuery();
@@ -135,13 +110,11 @@ namespace Discordia
             {
                 string q = "CREATE TABLE IF NOT EXISTS Genres\n";
                 q += "(\n";
-                q += "ID INT NOT NULL AUTO_INCREMENT,\n";
-                q += "Name VARCHAR(50),\n";
-                q += "PRIMARY KEY (ID)\n";
+                q += "Name VARCHAR(50)";
                 q += ");";
 
                 //create command and assign the query and connection from the constructor
-                MySqlCommand cmd = new MySqlCommand(q, connection);
+                SQLiteCommand cmd = new SQLiteCommand(q, connection);
 
                 //Execute command
                 cmd.ExecuteNonQuery();
@@ -158,13 +131,11 @@ namespace Discordia
             {
                 string q = "CREATE TABLE IF NOT EXISTS Posters\n";
                 q += "(\n";
-                q += "ID INT NOT NULL AUTO_INCREMENT,\n";
-                q += "PicturePath VARCHAR(255),\n";
-                q += "PRIMARY KEY (ID)\n";
+                q += "PicturePath VARCHAR(255)";
                 q += ");";
 
                 //create command and assign the query and connection from the constructor
-                MySqlCommand cmd = new MySqlCommand(q, connection);
+                SQLiteCommand cmd = new SQLiteCommand(q, connection);
 
                 //Execute command
                 cmd.ExecuteNonQuery();
@@ -181,14 +152,12 @@ namespace Discordia
             {
                 string q = "CREATE TABLE IF NOT EXISTS Directors\n";
                 q += "(\n";
-                q += "ID INT NOT NULL AUTO_INCREMENT,\n";
                 q += "Name VARCHAR(50),\n";
-                q += "PicturePath  VARCHAR(255),\n";
-                q += "PRIMARY KEY (ID)\n";
+                q += "PicturePath  VARCHAR(255)";
                 q += ");";
 
                 //create command and assign the query and connection from the constructor
-                MySqlCommand cmd = new MySqlCommand(q, connection);
+                SQLiteCommand cmd = new SQLiteCommand(q, connection);
 
                 //Execute command
                 cmd.ExecuteNonQuery();
@@ -205,14 +174,12 @@ namespace Discordia
             {
                 string q = "CREATE TABLE IF NOT EXISTS Writers\n";
                 q += "(\n";
-                q += "ID INT NOT NULL AUTO_INCREMENT,\n";
                 q += "NAME VARCHAR(50),\n";
-                q += "PicturePath VARCHAR(255),\n";
-                q += "PRIMARY KEY (ID)\n";
+                q += "PicturePath VARCHAR(255)";
                 q += ");";
 
                 //create command and assign the query and connection from the constructor
-                MySqlCommand cmd = new MySqlCommand(q, connection);
+                SQLiteCommand cmd = new SQLiteCommand(q, connection);
 
                 //Execute command
                 cmd.ExecuteNonQuery();
@@ -229,14 +196,12 @@ namespace Discordia
             {
                 string q = "CREATE TABLE IF NOT EXISTS SystemConfig\n";
                 q += "(\n";
-                //q += "ID INT NOT NULL AUTO_INCREMENT,\n";
                 q += "ConfigKey VARCHAR(50) NOT NULL,\n";
-                q += "ConfigValue VARCHAR(255)\n";
-                //q += "PRIMARY KEY (ID)\n";
+                q += "ConfigValue VARCHAR(255)";
                 q += ");";
 
                 //create command and assign the query and connection from the constructor
-                MySqlCommand cmd = new MySqlCommand(q, connection);
+                SQLiteCommand cmd = new SQLiteCommand(q, connection);
 
                 //Execute command
                 cmd.ExecuteNonQuery();

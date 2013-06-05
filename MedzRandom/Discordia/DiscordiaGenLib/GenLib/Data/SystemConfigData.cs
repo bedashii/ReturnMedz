@@ -1,8 +1,8 @@
 ﻿using DiscordiaGenLib.GenLib.Business;
 using DiscordiaGenLib.GenLib.Properties;
-using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,9 +58,9 @@ namespace DiscordiaGenLib.GenLib.Data
                 string q = "SELECT * FROM SystemConfig";
 
                 //Create Command
-                MySqlCommand cmd = new MySqlCommand(q, dh.connection);
+                SQLiteCommand cmd = new SQLiteCommand(q, dh.connection);
                 //Create a data reader and Execute the command
-                MySqlDataReader dataReader = cmd.ExecuteReader();
+                SQLiteDataReader dataReader = cmd.ExecuteReader();
 
                 //Read the data and store them in the list
                 SystemConfig sc = null;
@@ -102,9 +102,9 @@ namespace DiscordiaGenLib.GenLib.Data
                 q += "WHERE ConfigKey = '" + key + "'";
 
                 //Create Command
-                MySqlCommand cmd = new MySqlCommand(q, dh.connection);
+                SQLiteCommand cmd = new SQLiteCommand(q, dh.connection);
                 //Create a data reader and Execute the command
-                MySqlDataReader dataReader = cmd.ExecuteReader();
+                SQLiteDataReader dataReader = cmd.ExecuteReader();
 
                 //Read the data and store them in the list
                 SystemConfig sc = null;
@@ -113,8 +113,8 @@ namespace DiscordiaGenLib.GenLib.Data
                 {
                     sc = new SystemConfig();
 
-                    if (dh.HasColumn(dataReader, "ID"))
-                        sc.ID = Convert.ToInt32(dataReader["ID"]);
+                    if (dh.HasColumn(dataReader, "ROWID"))
+                        sc.ID = Convert.ToInt32(dataReader["ROWID"]);
                     if (dh.HasColumn(dataReader, "ConfigKey"))
                         sc.ConfigKey = dataReader["ConfigKey"].ToString();
                     if (dh.HasColumn(dataReader, "ConfigValue"))

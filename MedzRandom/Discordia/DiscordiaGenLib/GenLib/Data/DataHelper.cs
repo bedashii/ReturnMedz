@@ -3,47 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
 using System.Windows;
 using System.Data;
+using System.Data.SQLite;
 
 namespace DiscordiaGenLib.GenLib.Data
 {
     public class DataHelper
     {
-        public MySqlConnection connection;
-        public string server;
-        public string database;
-        public string uid;
-        public string password;
+        public SQLiteConnection connection;
 
         public DataHelper()
         {
             InitializeDB();
         }
 
-        public void InitializeNoDB()
-        {
-            server = "localhost";
-            uid = "Operator";
-            password = "Operator";
-            string connectionString;
-            connectionString = "SERVER=" + server + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
-
-            connection = new MySqlConnection(connectionString);
-        }
-
         public void InitializeDB()
         {
-            server = "localhost";
-            database = "Discordia";
-            uid = "Operator";
-            password = "Operator";
-            string connectionString;
-            connectionString = "SERVER=" + server + ";" + "DATABASE=" +
-            database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
-
-            connection = new MySqlConnection(connectionString);
+            connection = new SQLiteConnection("Data Source=Discordia.s3db");
         }
 
         //open connection to database
@@ -54,23 +31,25 @@ namespace DiscordiaGenLib.GenLib.Data
                 connection.Open();
                 return true;
             }
-            catch (MySqlException ex)
+            catch (SQLiteException ex)
             {
                 //When handling errors, you can your application's response based 
                 //on the error number.
                 //The two most common error numbers when connecting are as follows:
                 //0: Cannot connect to server.
                 //1045: Invalid user name and/or password.
-                switch (ex.Number)
-                {
-                    case 0:
-                        MessageBox.Show("Cannot connect to server.  Contact administrator");
-                        break;
+                //switch (ex.Number)
+                //{
+                //    case 0:
+                //        MessageBox.Show("Cannot connect to server.  Contact administrator");
+                //        break;
 
-                    case 1045:
-                        MessageBox.Show("Invalid username/password, please try again");
-                        break;
-                }
+                //    case 1045:
+                //        MessageBox.Show("Invalid username/password, please try again");
+                //        break;
+                //    default:
+                //        throw new ApplicationException(ex.Message);
+                //}
                 return false;
             }
         }
@@ -83,7 +62,7 @@ namespace DiscordiaGenLib.GenLib.Data
                 connection.Close();
                 return true;
             }
-            catch (MySqlException ex)
+            catch (SQLiteException ex)
             {
                 MessageBox.Show(ex.Message);
                 return false;
@@ -98,7 +77,7 @@ namespace DiscordiaGenLib.GenLib.Data
             if (this.OpenConnection() == true)
             {
                 //create command and assign the query and connection from the constructor
-                MySqlCommand cmd = new MySqlCommand(query, connection);
+                SQLiteCommand cmd = new SQLiteCommand(query, connection);
 
                 //Execute command
                 cmd.ExecuteNonQuery();

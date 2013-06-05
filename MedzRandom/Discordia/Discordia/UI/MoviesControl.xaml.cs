@@ -31,7 +31,9 @@ namespace Discordia.UI
             get
             {
                 if (_movies == null)
+                {
                     _movies = new List<MovieControl>();
+                }
                 return _movies;
             }
             set
@@ -44,18 +46,32 @@ namespace Discordia.UI
             }
         }
 
+        int selectedIndex = 0;
+
         void updateMovieUI()
         {
+            listBoxTop.Items.Clear();
             listBoxMain.Items.Clear();
-            MovieControlList.ForEach(x =>
+            listBoxBottom.Items.Clear();
+
+            if (selectedIndex != 0 && selectedIndex > 5)
             {
-                listBoxMain.Items.Add(new ListBoxItem() { Content = x });
-            });
+
+            }
+
+            if (selectedIndex != 0 && selectedIndex > 6)
+            {
+
+            }
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-
+            for (int i = 0; i < 15; i++)
+            {
+                MovieControlList.Add(new MovieControl());
+            }
+            updateMovieUI();
         }
     }
 }

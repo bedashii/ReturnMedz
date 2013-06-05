@@ -1,8 +1,8 @@
 ﻿using DiscordiaGenLib.GenLib.Business;
 using DiscordiaGenLib.GenLib.Properties;
-using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,9 +64,9 @@ namespace DiscordiaGenLib.GenLib.Data
                 string q = "SELECT * FROM Movies";
 
                 //Create Command
-                MySqlCommand cmd = new MySqlCommand(q, dh.connection);
+                SQLiteCommand cmd = new SQLiteCommand(q, dh.connection);
                 //Create a data reader and Execute the command
-                MySqlDataReader dataReader = cmd.ExecuteReader();
+                SQLiteDataReader dataReader = cmd.ExecuteReader();
 
                 //Read the data and store them in the list
                 Movie m = null;
@@ -119,9 +119,9 @@ q+="JOIN Movies m on mp.movie = m.ID\n";
 q+="Where Filename = '" + fileName + "'";
 
                 //Create Command
-                MySqlCommand cmd = new MySqlCommand(q, dh.connection);
+                SQLiteCommand cmd = new SQLiteCommand(q, dh.connection);
                 //Create a data reader and Execute the command
-                MySqlDataReader dataReader = cmd.ExecuteReader();
+                SQLiteDataReader dataReader = cmd.ExecuteReader();
 
                 //Read the data and store them in the list
                 Movie m = null;
