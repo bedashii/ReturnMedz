@@ -50,6 +50,9 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="WatTmdb">
+      <HintPath>..\WatTmdbv0.6\WatTmdb.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -71,6 +74,7 @@
     <Compile Include="GenLib\Properties\SystemConfigProperties.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GenLib\TMDBHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

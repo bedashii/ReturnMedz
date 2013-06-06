@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DiscordiaGenLib.GenLib;
 
 namespace Discordia.UI
 {
@@ -210,8 +211,8 @@ namespace Discordia.UI
             {
                 // TODO
                 // Create new details and save
-                WatTmdb.V3.Tmdb tmdb = new WatTmdb.V3.Tmdb("72cdccd9229e5896d3df21c8c96b3016");
-                var movieSearch = tmdb.SearchMovie(title, 1);
+                
+                var movieSearch = TMDBHelper.TMDB.SearchMovie(title, 1);
                 if (movieSearch.results.Count > 0)
                 {
                     m.TMDBID = movieSearch.results[0].id;
@@ -223,7 +224,7 @@ namespace Discordia.UI
 
                     Posters.GetByMovie(m.TMDBID);
 
-                    var images = tmdb.GetMovieImages(m.TMDBID);
+                    var images = TMDBHelper.TMDB.GetMovieImages(m.TMDBID);
                     images.posters.ForEach(x =>
                     {
                         if (Posters.Find(y => y.URL == x.file_path) == null)
@@ -235,7 +236,6 @@ namespace Discordia.UI
                                 Height = x.height
                             });
                     });
-
 
                     Posters.InsertOrUpdateAll();
                     m.InsertOrUpdate();

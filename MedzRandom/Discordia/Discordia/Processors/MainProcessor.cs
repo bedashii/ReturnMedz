@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DiscordiaGenLib.GenLib;
 
 namespace Discordia
 {
@@ -13,6 +14,7 @@ namespace Discordia
     {
         public MainProcessor()
         {
+            TMDBHelper.TMDB = new WatTmdb.V3.Tmdb("72cdccd9229e5896d3df21c8c96b3016");
         }
 
         SystemConfigList _moviePaths;
