@@ -41,13 +41,15 @@ namespace Discordia.UI
                 if (_movies != value)
                 {
                     _movies = value;
+                    // This adds an event handler that will run on all movies except the one being selected.
+                    // This is currently being used to maximize the poster when a movie is not selected.
                     _movies.ForEach(x =>
                         {
                             x.GainedFocus += delegate(string fullPath)
                             {
                                 _movies.ForEach(y =>
                                     {
-                                        if (fullPath != y.FullPath)
+                                        if (fullPath != y.FullPath && y.Posters.Count != 0)
                                         {
                                             y.Poster.Height = new GridLength(1, GridUnitType.Star);
                                             y.Main.Height = new GridLength(0, GridUnitType.Star);
@@ -64,20 +66,23 @@ namespace Discordia.UI
 
         void updateMovieUI()
         {
-            listBoxTop.Items.Clear();
-            wrapPanelMain.Children.Clear();
-            listBoxBottom.Items.Clear();
+            // Originally I wanted 3 seperate list boxes to hold the movies so that you could scroll though them.
+            // Kinda like Movies spinning around a cylinder
 
-            if (selectedIndex != 0 && selectedIndex > 5)
-            {
+            //listBoxTop.Items.Clear();
+            //wrapPanelMain.Children.Clear();
+            //listBoxBottom.Items.Clear();
 
-            }
+            //if (selectedIndex != 0 && selectedIndex > 5)
+            //{
 
-            if (selectedIndex != 0 && selectedIndex > 6)
-            {
-                
-            }
-            MovieControlList.ForEach(x=>
+            //}
+
+            //if (selectedIndex != 0 && selectedIndex > 6)
+            //{
+
+            //}
+            MovieControlList.ForEach(x =>
                 {
                     wrapPanelMain.Children.Add(x);
                 });

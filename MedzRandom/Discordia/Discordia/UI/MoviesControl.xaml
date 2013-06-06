@@ -10,12 +10,12 @@
             <!--<RowDefinition Height="3*"/>
             <RowDefinition Height="6*"/>
             <RowDefinition Height="3*"/>-->
-            <RowDefinition Height="0*"/>
+            <!--<RowDefinition Height="0*"/>-->
             <RowDefinition Height="10*"/>
-            <RowDefinition Height="0*"/>
+            <!--<RowDefinition Height="0*"/>-->
         </Grid.RowDefinitions>
 
-        <ListBox Name="listBoxTop" Grid.Row="0">
+        <!--<ListBox Name="listBoxTop" Grid.Row="0">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel IsItemsHost="True" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -32,8 +32,8 @@
                     </Setter>
                 </Style>
             </ListBox.ItemContainerStyle>
-        </ListBox>
-        <ScrollViewer Grid.Row="1">
+        </ListBox>-->
+        <ScrollViewer Grid.Row="0">
             <WrapPanel Name="wrapPanelMain"  />
         </ScrollViewer>
         <!--<ListBox Name="listBoxMain" Grid.Row="1" >-->
@@ -55,7 +55,7 @@
             </ListBox.ItemContainerStyle>-->
         <!--</ListBox>-->
 
-        <ListBox Name="listBoxBottom" Grid.Row="2">
+        <!--<ListBox Name="listBoxBottom" Grid.Row="2">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel IsItemsHost="True" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -72,6 +72,6 @@
                     </Setter>
                 </Style>
             </ListBox.ItemContainerStyle>
-        </ListBox>
+        </ListBox>-->
     </Grid>
 </UserControl>

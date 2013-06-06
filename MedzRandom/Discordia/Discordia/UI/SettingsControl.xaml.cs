@@ -65,21 +65,29 @@ namespace Discordia
             System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog();
             if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                _processor.MoviePaths.Add(new DiscordiaGenLib.GenLib.Business.SystemConfig("MoviePath", fbd.SelectedPath));
+                DiscordiaGenLib.GenLib.Business.SystemConfig sc = new DiscordiaGenLib.GenLib.Business.SystemConfig("MoviePath", fbd.SelectedPath);
+
+                _processor.MoviePaths.Add(sc);
+                listBoxMovieLocations.Items.Add(sc.ConfigValue);
+
+                double newWidth = new FormattedText(sc.ConfigValue, CultureInfo.GetCultureInfo("en-us"), FlowDirection.LeftToRight, new Typeface("Verdana"), 32, Brushes.Black).Width;
+
+                if (newWidth > listBoxMovieLocations.Width)
+                    listBoxMovieLocations.Width = newWidth;
             }
             _processor.MoviePaths.InsertOrUpdateAll();
         }
 
         private void checkBoxOnlineMode_Checked(object sender, RoutedEventArgs e)
         {
-            if ((bool)checkBoxOnlineMode.IsChecked)
-            {
+            System.Configuration.ConfigurationSettings.AppSettings.Set("OnlineMode", "1");
+            MessageBox.Show("This option doesn't work yet.");
+        }
 
-            }
-            else
-            {
-
-            }
+        private void checkBoxOnlineMode_Unchecked(object sender, RoutedEventArgs e)
+        {
+            System.Configuration.ConfigurationSettings.AppSettings.Set("OnlineMode", "0");
+            MessageBox.Show("This option doesn't work yet.");
         }
     }
 }
