@@ -14,10 +14,10 @@
     <Border BorderBrush="Black" BorderThickness="1">
         <Grid Name="gridMainPoster" FocusManager.IsFocusScope="True">
             <Grid.RowDefinitions>
-                <RowDefinition Name="Poster" Height="1*"/>
-                <RowDefinition Name="Main" Height="0"/>
+                <RowDefinition Name="Poster" Height="0*"/>
+                <RowDefinition Name="Main" Height="1*"/>
             </Grid.RowDefinitions>
-            <Button Style="{StaticResource posterButtonStyle}" Click="Button_Click_1" Grid.Row="0" >
+            <Button Style="{StaticResource posterButtonStyle}" Click="buttonPoster_Click" Grid.Row="0" >
                 <Image Name="imageMainPoster"/>
             </Button>
             <Grid Name="gridMain" Grid.Row="1">
@@ -36,7 +36,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Style="{StaticResource posterButtonStyle}" Click="Button_Click_1" >
+                    <Button Style="{StaticResource posterButtonStyle}" Click="buttonPoster_Click" >
                         <Image Name="imagePoster" Grid.Column="0"/>
                     </Button>
 
