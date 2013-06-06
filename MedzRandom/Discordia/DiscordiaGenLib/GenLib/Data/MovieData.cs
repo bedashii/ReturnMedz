@@ -37,7 +37,7 @@ namespace DiscordiaGenLib.GenLib.Data
             q += "Duration = " + Duration + ",\n";
             q += "Rating = " + Rating + ",\n";
             q += "AgeRestriction = '" + AgeRestriction + "',\n";
-            q += "TMDBID = " + TMDBID + ",\n";
+            q += "TMDBID = " + TMDBID + "\n";
             q += "WHERE TMDBID = " + TMDBID;
 
             dh.ExecuteNonQuery(q);

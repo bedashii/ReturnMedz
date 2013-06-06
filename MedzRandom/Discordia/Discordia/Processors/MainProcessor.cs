@@ -72,7 +72,7 @@ namespace Discordia
 
         private List<MovieControl> _movieControls;
 
-        private List<string> movieFileTypes = new List<string>() { ".mkv",".avi" };
+        private List<string> movieFileTypes = new List<string>() { ".mkv", ".avi" };
 
         private void findMovies()
         {
@@ -99,12 +99,18 @@ namespace Discordia
 
         private void fetchMovieInfo()
         {
-            // Derp
+            _movieControls.ForEach(x =>
+                {
+                    x.FindMovieInfo();
+                });
         }
 
         private void updateDatabase()
         {
-            // Derp
+            _movieControls.ForEach(x =>
+            {
+                x.Save();
+            });
         }
     }
 }

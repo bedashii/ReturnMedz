@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DiscordiaGenLib.GenLib;
+using System.ComponentModel;
 
 namespace Discordia.UI
 {
@@ -27,7 +28,7 @@ namespace Discordia.UI
     {
         #region CustomEvents
         public delegate void GainedFocusHandler(string fullPath);
-        public event GainedFocusHandler GainedFocus; 
+        public event GainedFocusHandler GainedFocus;
         #endregion
 
         #region Properties
@@ -43,7 +44,6 @@ namespace Discordia.UI
                 if (_fullPath != value)
                 {
                     _fullPath = value;
-                    findMovie();
                 }
             }
         }
@@ -155,7 +155,7 @@ namespace Discordia.UI
                     updateSynopsisUI();
                 }
             }
-        } 
+        }
         #endregion
 
         #region Contructors
@@ -168,7 +168,7 @@ namespace Discordia.UI
         {
             InitializeComponent();
             FullPath = path;
-        } 
+        }
         #endregion
 
         #region Events
@@ -194,76 +194,93 @@ namespace Discordia.UI
         private void buttonPlay_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start(FullPath);
-        } 
+        }
         #endregion
 
         #region Methods
-        private void findMovie()
+
+        Movie _movie;
+        public Movie Movie
+        {
+            get
+            {
+                if (_movie == null)
+                {
+                    _movie = new Movie();
+                }
+                return _movie;
+            }
+            set
+            {
+                _movie = value;
+            }
+        }
+
+        public void FindMovieInfo()
         {
             FileInfo fi = new FileInfo(FullPath);
 
             string title = cleanTitle(fi.Name.Replace(fi.Extension, string.Empty));
 
-            Movie m = new Movie();
-            m.GetByTitle(title);
+            Movie.GetByTitle(title);
             //m.GetByFileName(fi.Name);
-            if (OnlineMode && !m.RecordExists)
+            if (OnlineMode && !Movie.RecordExists)
             {
                 // TODO
                 // Create new details and save
-                
+
                 var movieSearch = TMDBHelper.TMDB.SearchMovie(title, 1);
                 if (movieSearch.results.Count > 0)
                 {
-                    m.TMDBID = movieSearch.results[0].id;
-                    m.Title = movieSearch.results[0].title.Replace(":", string.Empty).Replace("'", string.Empty);
-                    m.Rating = movieSearch.results[0].popularity;
+                    Movie.TMDBID = movieSearch.results[0].id;
+                    Movie.Title = movieSearch.results[0].title.Replace(":", string.Empty).Replace("'", string.Empty);
+                    Movie.Rating = movieSearch.results[0].popularity;
                     int year = 0;
                     if (Int32.TryParse(movieSearch.results[0].release_date, out year))
-                        m.Year = year;
+                        Movie.Year = year;
 
-                    Posters.GetByMovie(m.TMDBID);
+                    Posters.GetByMovie(Movie.TMDBID);
 
-                    var images = TMDBHelper.TMDB.GetMovieImages(m.TMDBID);
+                    var images = TMDBHelper.TMDB.GetMovieImages(Movie.TMDBID);
                     images.posters.ForEach(x =>
                     {
                         if (Posters.Find(y => y.URL == x.file_path) == null)
                             Posters.Add(new Poster()
                             {
-                                Movie = m.TMDBID,
+                                Movie = Movie.TMDBID,
                                 URL = x.file_path,
                                 Width = x.width,
                                 Height = x.height
                             });
                     });
 
-                    Posters.InsertOrUpdateAll();
-                    m.InsertOrUpdate();
-
-                    string dest = m.Title;
-                    if (m.Year != 0)
-                        dest += " " + m.Year;
+                    string dest = Movie.Title;
+                    if (Movie.Year != 0)
+                        dest += " " + Movie.Year;
                     dest += fi.Extension;
 
                     if (fi.Name != dest)
                     {
-                        File.Move(fi.FullName, fi.DirectoryName + "\\" + dest);
+                        if (!File.Exists(fi.DirectoryName + "\\" + dest))
+                            File.Move(fi.FullName, fi.DirectoryName + "\\" + dest);
                         _fullPath = fi.DirectoryName + "\\" + dest;
                         fi = null;
                     }
                 }
+                else
+                    Movie.Title = title;
             }
             else
             {
-                m.Title = title;
+                Movie.Title = title;
             }
 
             if (Posters.Count == 0)
             {
-                Posters.GetByMovie(m.TMDBID);
+                Posters.GetByMovie(Movie.TMDBID);
             }
 
-            updateUI(m);
+            updateUI();
         }
 
         List<string> cleanStrings = new List<string>() { "480p", "720p", "1080p" };
@@ -346,10 +363,10 @@ namespace Discordia.UI
             return newTitle;
         }
 
-        private void updateUI(Movie m)
+        private void updateUI()
         {
             // TODO
-            Title = m.Title;
+            Title = Movie.Title;
             updatePosterUI();
         }
 
@@ -380,7 +397,6 @@ namespace Discordia.UI
                                 }
                             }
                             Posters[0].Path = Posters[0].URL.Substring(1);
-                            Posters[0].Update();
                         }
                     }
 
@@ -431,7 +447,13 @@ namespace Discordia.UI
         private void updateSynopsisUI()
         {
             textBlockSynopsis.Text = Synopsis;
-        } 
+        }
+
+        internal void Save()
+        {
+            Posters.InsertOrUpdateAll();
+            Movie.InsertOrUpdate();
+        }
         #endregion
     }
 }
