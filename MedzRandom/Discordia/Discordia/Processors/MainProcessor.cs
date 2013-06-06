@@ -74,6 +74,9 @@ namespace Discordia
 
         private void findMovies()
         {
+            // This should have just been a method to find the movie files
+            // But When you create a movie control it finds the movie info for itself...
+
             List<FileInfo> movieFiles = new List<FileInfo>();
 
             _files.ForEach(file =>
@@ -94,12 +97,12 @@ namespace Discordia
 
         private void fetchMovieInfo()
         {
-            
+            // Derp
         }
 
         private void updateDatabase()
         {
-
+            // Derp
         }
     }
 }
