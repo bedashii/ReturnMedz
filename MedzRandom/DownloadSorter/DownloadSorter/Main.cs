@@ -489,7 +489,14 @@ namespace DownloadSorter
             if (Directory.Exists(path))
             {
                 if (Directory.GetDirectories(path).Length + Directory.GetFiles(path).Length == 0)
-                    Directory.Delete(path);
+                    try
+                    {
+                        Directory.Delete(path);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message + Environment.NewLine + "Debug Info:" + Environment.NewLine + ex.StackTrace);
+                    }
                 else
                     Directory.GetDirectories(path).ToList().ForEach(x =>
                         {

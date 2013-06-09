@@ -216,6 +216,8 @@ namespace Discordia.UI
             }
         }
 
+        bool renameFile = false;
+
         public void FindMovieInfo()
         {
             FileInfo fi = new FileInfo(FullPath);
@@ -259,12 +261,15 @@ namespace Discordia.UI
                         dest += " " + Movie.Year;
                     dest += fi.Extension;
 
-                    if (fi.Name != dest)
+                    if (renameFile)
                     {
-                        if (!File.Exists(fi.DirectoryName + "\\" + dest))
-                            File.Move(fi.FullName, fi.DirectoryName + "\\" + dest);
-                        _fullPath = fi.DirectoryName + "\\" + dest;
-                        fi = null;
+                        if (fi.Name != dest)
+                        {
+                            if (!File.Exists(fi.DirectoryName + "\\" + dest))
+                                File.Move(fi.FullName, fi.DirectoryName + "\\" + dest);
+                            _fullPath = fi.DirectoryName + "\\" + dest;
+                            fi = null;
+                        }
                     }
                 }
                 else
