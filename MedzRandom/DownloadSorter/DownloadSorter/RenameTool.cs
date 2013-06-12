@@ -181,6 +181,7 @@ namespace DownloadSorter
                 File.Create("RenameRemovalWords.txt");
                 FileInfo fi = new FileInfo("RenameRemovalWords.txt");
                 MessageBox.Show(fi.FullName + " created.");
+                fi = null;
             }
 
             RemovalWords.Clear();
