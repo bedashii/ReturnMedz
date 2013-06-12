@@ -32,14 +32,51 @@ namespace DownloadSorter
 
         private void applyRenameFilters()
         {
-            removeCustomWords();
+            // Reset File names before applying filters.
+            CustomFiles.ForEach(x => { x.NewFileName = x.FileName; });
             removeNewsHostID();
 
             removeCharacters(new char[] { '-', '.' });
             removeDoubleSpaces();
 
+            trimCustomFiles();
+
+            removeCustomWords2();
+
             capitalizeFirstWord();
             trimCustomFiles();
+
+            bindingSourceCustomFile.ResetBindings(false);
+        }
+
+        private void removeCustomWords2()
+        {
+            List<string> wordsToRemove = new List<string>();
+            checkedListBoxRemovalWords.CheckedItems.OfType<string>().ToList().ForEach(x =>
+                {
+                    wordsToRemove.Add(x.ToLower());
+                });
+
+            CustomFiles.ForEach(x =>
+            {
+                string newFileName = "";
+                x.NewFileName.Split(' ').ToList().ForEach(word =>
+                    {
+                        // To Lower
+                        if (!wordsToRemove.Contains(word.ToLower()))
+                        {
+                            if (newFileName == "")
+                                newFileName += word;
+                            else
+                                newFileName += ' ' + word;
+                        }
+                        else
+                        {
+                            // Remove words
+                        }
+                    });
+                x.NewFileName = newFileName;
+            });
         }
 
         private void trimCustomFiles()
@@ -119,59 +156,6 @@ namespace DownloadSorter
             checkedListBoxRemovalWords.Sorted = true;
 
             loadRemovalWords();
-        }
-
-        private void removeCustomWords()
-        {
-            CustomFiles.ForEach(x =>
-                {
-                    x.NewFileName = x.FileName;
-                    checkedListBoxRemovalWords.CheckedItems.OfType<string>().ToList().ForEach(y =>
-                        {
-                            var list = x.NewFileName.ToLower().Split(' ').ToList();
-                            for(int i = 0;i<list.Count;i++)
-                            {
-                                if (y.ToLower() == list[i])
-                                {
-                                    int len = 0;
-                                    for (int j = 0; j < i; j++)
-                                    {
-                                        len += list[j].Length;
-                                    }
-                                    x.HighlightedText.Add(new KeyValuePair<string, int>(list[i], len));
-                                    //x.NewFileName = Regex.Replace(x.NewFileName, y, string.Empty, RegexOptions.IgnoreCase);
-                                }
-                                // else skip
-                            }
-                            x.HighlightedText.ForEach(z =>
-                                {
-                                    x.NewFileName.Remove(z.Value, z.Key.Length);
-                                });
-
-                            //if (x.NewFileName.ToLower().Contains(y.ToLower()))
-                            //{
-                            //    int loc = -1;
-                            //    x.FileName.Split(' ').ToList().ForEach(z =>
-                            //        {
-                            //            if(z.ToLower() == )
-                            //            {
-
-                            //            }
-                            //        });
-                            //    loc = x.FileName.ToLower().IndexOf(y.ToLower());
-                            //    KeyValuePair<string, int> alreadyFoundWord = x.HighlightedText.Find(z => z.Value == loc);
-                            //    while (alreadyFoundWord.Key != null)
-                            //    {
-                            //        loc = x.FileName.ToLower().IndexOf(y.ToLower(), loc + 1);
-                            //        if (loc != -1)
-                            //            alreadyFoundWord = x.HighlightedText.Find(z => z.Value == loc);
-                            //    }
-                            //    x.HighlightedText.Add(new KeyValuePair<string, int>(y, loc));
-                            //    x.NewFileName = Regex.Replace(x.NewFileName, y, string.Empty, RegexOptions.IgnoreCase);
-                            //}
-                        });
-                });
-            bindingSourceCustomFile.ResetBindings(false);
         }
 
         private void loadRemovalWords()
@@ -288,6 +272,9 @@ namespace DownloadSorter
         {
             if (textBoxAddRemovalWord.Text != "")
             {
+                RemovalWords.Clear();
+                checkedListBoxRemovalWords.Items.OfType<string>().ToList().ForEach(x => { RemovalWords.Add(x); });
+
                 if (RemovalWords.Find(x => x.ToLower() == textBoxAddRemovalWord.Text.ToLower()) == null)
                 {
                     RemovalWords.Add(textBoxAddRemovalWord.Text);
@@ -400,6 +387,16 @@ namespace DownloadSorter
             else
                 bindingSourceCustomFile.DataSource = CustomFiles;
             bindingSourceCustomFile.ResetBindings(false);
+        }
+
+        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (checkedListBoxRemovalWords.SelectedItem != null)
+                checkedListBoxRemovalWords.Items.Remove(checkedListBoxRemovalWords.SelectedItem);
+            
+            saveRemovalWords();
+
+            applyRenameFilters();
         }
     }
 }
