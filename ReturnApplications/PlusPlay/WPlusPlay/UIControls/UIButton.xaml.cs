@@ -26,16 +26,7 @@ namespace WPlusPlay.UIControls
         Brush _brushMouseDown;
         Brush _brushMouseUp;
         ButtonType _buttonType;
-
         bool _pointerInRange;
-        bool PointerInRange
-        {
-            get { return _pointerInRange; }
-            set
-            {
-                _pointerInRange = value;
-            }
-        }
         #endregion Variables
 
         #region Construction
@@ -75,7 +66,7 @@ namespace WPlusPlay.UIControls
 
         private void ImageIcon_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (PointerInRange)
+            if (_pointerInRange)
                 GridControlFrame.Background = _brushMouseEnter;
             else
                 GridControlFrame.Background = _brushMouseUp;
@@ -83,7 +74,7 @@ namespace WPlusPlay.UIControls
 
         private void ImageIcon_MouseEnter(object sender, MouseEventArgs e)
         {
-            PointerInRange = true;
+            _pointerInRange = true;
             TextBlockTitle.BeginAnimation(TextBlock.HeightProperty, GetMouseEnterAnimation(true));
             GridControlFrame.Background = _brushMouseEnter;
         }
@@ -91,7 +82,7 @@ namespace WPlusPlay.UIControls
         private void ImageIcon_MouseLeave(object sender, MouseEventArgs e)
         {
             TextBlockTitle.BeginAnimation(TextBlock.HeightProperty, GetMouseEnterAnimation(false));
-            PointerInRange = false;
+            _pointerInRange = false;
             GridControlFrame.Background = _brushMouseLeave;
         }
         #endregion Events

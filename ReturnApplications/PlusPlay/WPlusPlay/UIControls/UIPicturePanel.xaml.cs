@@ -45,11 +45,11 @@ namespace WPlusPlay.UIControls
             _galleryStatusUpdaterBackgroudnWorker = new BackgroundWorker();
 
             if (fromExtracted)
-                _imageLoaderBackgroundWorker.DoWork += _backgroundWorkerExtracted_DoWork;
+                _imageLoaderBackgroundWorker.DoWork += _backgroundWorkerExtracted_LoadGalleryFiles;
             else
-                _imageLoaderBackgroundWorker.DoWork += _backgroundWorker_DoWork;
+                _imageLoaderBackgroundWorker.DoWork += _backgroundWorker_LoadGalleryFiles;
 
-            _galleryStatusUpdaterBackgroudnWorker.DoWork += _galleryStatusUpdaterBackgroudnWorker_DoWork;
+            _galleryStatusUpdaterBackgroudnWorker.DoWork += _galleryStatusUpdaterBackgroudnWorker_UpdateGalleryStatus;
 
             //_pictures = new List<FileInfo>();
             _pictures = new List<string>();
@@ -195,7 +195,7 @@ namespace WPlusPlay.UIControls
         #endregion Methods
 
         #region Events
-        void _backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        void _backgroundWorker_LoadGalleryFiles(object sender, DoWorkEventArgs e)
         {
             Action<BitmapImage, int> workMethod = (bitmapImage, i) =>
                 {
@@ -217,7 +217,7 @@ namespace WPlusPlay.UIControls
                 catch (Exception) { }
         }
 
-        void _backgroundWorkerExtracted_DoWork(object sender, DoWorkEventArgs e)
+        void _backgroundWorkerExtracted_LoadGalleryFiles(object sender, DoWorkEventArgs e)
         {
             Action<BitmapImage, int> workMethod = (bitmapImage, i) =>
                 {
@@ -238,7 +238,7 @@ namespace WPlusPlay.UIControls
                 catch (Exception) { }
         }
 
-        void _galleryStatusUpdaterBackgroudnWorker_DoWork(object sender, DoWorkEventArgs e)
+        void _galleryStatusUpdaterBackgroudnWorker_UpdateGalleryStatus(object sender, DoWorkEventArgs e)
         {
             Action<bool, int> workMethod = (markAsPosted, i) =>
                 {

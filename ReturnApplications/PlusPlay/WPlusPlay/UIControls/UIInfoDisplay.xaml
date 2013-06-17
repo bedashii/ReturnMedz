@@ -6,10 +6,10 @@
              mc:Ignorable="d" Height="48.314" Width="525" >
     <WrapPanel FlowDirection="RightToLeft">
         <TextBlock Margin="20,0,0,0" Name="TextBlockGallery" Visibility="Visible" FontSize="36" HorizontalAlignment="Right" Foreground="White" VerticalAlignment="Top" FontWeight="Light" 
-                   Text="{Binding Path=GalleryName}"/>
+                   Text="{Binding Path=GalleryName}" MouseLeftButtonDown="TextBlockGallery_MouseLeftButtonDown"/>
         <TextBlock Margin="20,0,0,0" Name="TextBlockModel" FontSize="36" Visibility="Visible" VerticalAlignment="Top" FontWeight="SemiBold" Foreground="#FFFAFAFA" />
         <TextBox Name="TextBoxGallery" FontSize="36" HorizontalAlignment="Right" VerticalAlignment="Top" 
-                 Margin="20,0,0,0"  Visibility="Hidden" Background="White" Foreground="Black" FontWeight="Normal" />
+                 Margin="20,0,0,0"  Visibility="Hidden" Background="White" Foreground="Black" FontWeight="Normal" KeyDown="TextBox_KeyDown"/>
         <TextBox Name="TextBoxModel" FontSize="36" Background="White" 
                  Margin="20,0,0,0" Visibility="Hidden" VerticalAlignment="Top" FontWeight="SemiBold" Foreground="Black" Text="{Binding Path=ModelName}" />
         

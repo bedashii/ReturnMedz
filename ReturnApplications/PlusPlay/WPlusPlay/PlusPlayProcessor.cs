@@ -149,14 +149,14 @@ namespace WPlusPlay
             return _modelList;
         }
 
-        internal GalleryListB GetGalleryList(ModelB Model)
-        {
-            foreach (ModelB model in _modelList)
-                if (model.ModelName == Model.ModelName)
-                    return model.ModelGalleries;
+        //internal GalleryListB GetGalleryList(ModelB Model)
+        //{
+        //    foreach (ModelB model in _modelList)
+        //        if (model.ModelName == Model.ModelName)
+        //            return model.ModelGalleries;
 
-            return null;
-        }
+        //    return null;
+        //}
 
         internal GalleryListB GetGalleryList(string Model)
         {
@@ -235,33 +235,39 @@ namespace WPlusPlay
             StringBuilder sb = new StringBuilder();
 
             foreach (FileInfo file in gallery.Files)
-                sb.AppendLine("[IMG]" +  DropBoxLinkerLib.Linker.GetPublicURLFromFile(file.FullName) + "[/IMG]");
+                sb.AppendLine("[IMG]" + DropBoxLinkerLib.Linker.GetPublicURLFromFile(file.FullName) + "[/IMG]");
 
             return sb.ToString();
         }
         #endregion PublicMethods
 
-        
-
-        
-
-        public enum MouseStatus { Enter, Leave, Pressed , Dropbox};
-        internal System.Windows.Media.Brush GetButtonColour(MouseStatus status)
+        internal void NameChangeRequest(Dictionary<Keyword, string> ModelGalleryName, ModelB model)
         {
-            System.Windows.Media.BrushConverter bc = new System.Windows.Media.BrushConverter();
-
-            switch (status)
+            if (ModelGalleryName[Keyword.Model] != model.ModelName)
             {
-                case MouseStatus.Enter:
-                    return (System.Windows.Media.Brush)bc.ConvertFromString("#FFFFFF");
-                case MouseStatus.Leave:
-                    return (System.Windows.Media.Brush)bc.ConvertFromString("#FE9728");
-                case MouseStatus.Pressed:
-                    return (System.Windows.Media.Brush)bc.ConvertFromString("#007ACC");
-                case MouseStatus.Dropbox:
-                    return (System.Windows.Media.Brush)bc.ConvertFromString("#008BD3");
-                default:
-                    return System.Windows.Media.Brushes.Transparent;
+                foreach (Gallery gallery in model.ModelGalleries)
+                {
+                    gallery.Files.ForEach(x =>
+                        {
+                            FileInfo newFileLocation = new FileInfo(x.FullName.Replace(model.ModelName + " - ", ModelGalleryName[Keyword.Model] + " - "));
+                            File.Move(x.FullName, newFileLocation.FullName);
+                        });
+                }
+
+                DirectoryInfo newModelLocation = new DirectoryInfo(model.Location.FullName.Substring(0, model.Location.FullName.Length - model.Location.Name.Length) + ModelGalleryName[Keyword.Model]);
+                Directory.Move(model.Location.FullName, newModelLocation.FullName);
+            }
+        }
+
+        internal void NameChangeRequest(string galleryName, Gallery gallery)
+        {
+            if (galleryName != gallery.GalleryName)
+            {
+                gallery.Files.ForEach(x =>
+                    {
+                        FileInfo newFileLocation = new FileInfo(x.FullName.Replace(" - " + gallery.GalleryName, " - " + galleryName));
+                        File.Move(x.FullName, newFileLocation.FullName);
+                    });
             }
         }
     }
