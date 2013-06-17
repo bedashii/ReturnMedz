@@ -482,6 +482,7 @@ namespace DownloadSorter
         private void deleteAllEmptyFoldersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             deleteEmptyFolders(textBoxPath.Text);
+            loadTree();
         }
 
         private void deleteEmptyFolders(string path)
@@ -489,13 +490,19 @@ namespace DownloadSorter
             if (Directory.Exists(path))
             {
                 if (Directory.GetDirectories(path).Length + Directory.GetFiles(path).Length == 0)
-                    Directory.Delete(path);
+                    try
+                    {
+                        Directory.Delete(path);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message + Environment.NewLine + "Debug Info:" + Environment.NewLine + ex.StackTrace);
+                    }
                 else
                     Directory.GetDirectories(path).ToList().ForEach(x =>
                         {
                             deleteEmptyFolders(x);
                         });
-                loadTree();
             }
         }
 
@@ -616,7 +623,10 @@ namespace DownloadSorter
             rt.Height = Convert.ToInt32(this.Height * 0.8);
 
             Files.Clear();
-            getAllFiles(textBoxPath.Text);
+            Directory.GetFiles(textBoxPath.Text).ToList().ForEach(x =>
+            {
+                Files.Add(new CustomFile(x));
+            });
 
             rt.CustomFiles = Files;
 

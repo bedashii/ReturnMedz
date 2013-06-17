@@ -38,9 +38,12 @@
             this.textBoxAddRemovalWord = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonAddRemovalWord = new System.Windows.Forms.Button();
+            this.checkBoxShowOnlyFilesToBeRenamed = new System.Windows.Forms.CheckBox();
             this.buttonInvertSelection = new System.Windows.Forms.Button();
             this.buttonDeselectAll = new System.Windows.Forms.Button();
             this.buttonSelectAll = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.renameDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.fileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.newFileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,7 +53,6 @@
             this.destinationFullPathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.parentNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bindingSourceCustomFile = new System.Windows.Forms.BindingSource(this.components);
-            this.checkBoxShowOnlyFilesToBeRenamed = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -60,6 +62,7 @@
             this.splitContainerFilters.Panel1.SuspendLayout();
             this.splitContainerFilters.Panel2.SuspendLayout();
             this.splitContainerFilters.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCustomFile)).BeginInit();
             this.SuspendLayout();
             // 
@@ -115,6 +118,7 @@
             this.checkedListBoxRemovalWords.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkedListBoxRemovalWords.ContextMenuStrip = this.contextMenuStrip1;
             this.checkedListBoxRemovalWords.FormattingEnabled = true;
             this.checkedListBoxRemovalWords.Location = new System.Drawing.Point(6, 29);
             this.checkedListBoxRemovalWords.Name = "checkedListBoxRemovalWords";
@@ -194,6 +198,19 @@
             this.buttonAddRemovalWord.UseVisualStyleBackColor = true;
             this.buttonAddRemovalWord.Click += new System.EventHandler(this.buttonAddRemovalWord_Click);
             // 
+            // checkBoxShowOnlyFilesToBeRenamed
+            // 
+            this.checkBoxShowOnlyFilesToBeRenamed.AutoSize = true;
+            this.checkBoxShowOnlyFilesToBeRenamed.Checked = true;
+            this.checkBoxShowOnlyFilesToBeRenamed.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxShowOnlyFilesToBeRenamed.Location = new System.Drawing.Point(3, 7);
+            this.checkBoxShowOnlyFilesToBeRenamed.Name = "checkBoxShowOnlyFilesToBeRenamed";
+            this.checkBoxShowOnlyFilesToBeRenamed.Size = new System.Drawing.Size(182, 17);
+            this.checkBoxShowOnlyFilesToBeRenamed.TabIndex = 0;
+            this.checkBoxShowOnlyFilesToBeRenamed.Text = "Only Show Files To Be Renamed";
+            this.checkBoxShowOnlyFilesToBeRenamed.UseVisualStyleBackColor = true;
+            this.checkBoxShowOnlyFilesToBeRenamed.CheckedChanged += new System.EventHandler(this.checkBoxShowOnlyFilesToBeRenamed_CheckedChanged);
+            // 
             // buttonInvertSelection
             // 
             this.buttonInvertSelection.Location = new System.Drawing.Point(165, 3);
@@ -223,6 +240,20 @@
             this.buttonSelectAll.Text = "Select All";
             this.buttonSelectAll.UseVisualStyleBackColor = true;
             this.buttonSelectAll.Click += new System.EventHandler(this.buttonSelectAll_Click);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(118, 26);
+            // 
+            // removeToolStripMenuItem
+            // 
+            this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.removeToolStripMenuItem.Text = "Remove";
+            this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
             // renameDataGridViewCheckBoxColumn
             // 
@@ -291,19 +322,6 @@
             // 
             this.bindingSourceCustomFile.DataSource = typeof(DownloadSorter.CustomFile);
             // 
-            // checkBoxShowOnlyFilesToBeRenamed
-            // 
-            this.checkBoxShowOnlyFilesToBeRenamed.AutoSize = true;
-            this.checkBoxShowOnlyFilesToBeRenamed.Checked = true;
-            this.checkBoxShowOnlyFilesToBeRenamed.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxShowOnlyFilesToBeRenamed.Location = new System.Drawing.Point(3, 7);
-            this.checkBoxShowOnlyFilesToBeRenamed.Name = "checkBoxShowOnlyFilesToBeRenamed";
-            this.checkBoxShowOnlyFilesToBeRenamed.Size = new System.Drawing.Size(182, 17);
-            this.checkBoxShowOnlyFilesToBeRenamed.TabIndex = 0;
-            this.checkBoxShowOnlyFilesToBeRenamed.Text = "Only Show Files To Be Renamed";
-            this.checkBoxShowOnlyFilesToBeRenamed.UseVisualStyleBackColor = true;
-            this.checkBoxShowOnlyFilesToBeRenamed.CheckedChanged += new System.EventHandler(this.checkBoxShowOnlyFilesToBeRenamed_CheckedChanged);
-            // 
             // RenameTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -328,6 +346,7 @@
             this.splitContainerFilters.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerFilters)).EndInit();
             this.splitContainerFilters.ResumeLayout(false);
+            this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceCustomFile)).EndInit();
             this.ResumeLayout(false);
 
@@ -357,5 +376,7 @@
         private System.Windows.Forms.Button buttonDeselectAll;
         private System.Windows.Forms.Button buttonSelectAll;
         private System.Windows.Forms.CheckBox checkBoxShowOnlyFilesToBeRenamed;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
     }
 }

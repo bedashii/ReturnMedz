@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="Discordia.UI.MoviesControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <!--<RowDefinition Height="3*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="3*"/>-->
+            <!--<RowDefinition Height="0*"/>-->
+            <RowDefinition Height="10*"/>
+            <!--<RowDefinition Height="0*"/>-->
+        </Grid.RowDefinitions>
+
+        <!--<ListBox Name="listBoxTop" Grid.Row="0">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <ContentPresenter Margin="75,0,75,0"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>-->
+        <ScrollViewer Grid.Row="0">
+            <WrapPanel Name="wrapPanelMain"  />
+        </ScrollViewer>
+        <!--<ListBox Name="listBoxMain" Grid.Row="1" >-->
+        <!--<ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>-->
+        <!--<ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <ContentPresenter Margin="0,0,0,0"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>-->
+        <!--</ListBox>-->
+
+        <!--<ListBox Name="listBoxBottom" Grid.Row="2">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <ContentPresenter Margin="75,0,75,0"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>-->
+    </Grid>
+</UserControl>

@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="Discordia.UI.MovieControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             Height="450" Width="300">
+    <UserControl.Resources>
+        <Style x:Key="posterButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+    </UserControl.Resources>
+    
+    <Border BorderBrush="Black" BorderThickness="1">
+        <Grid Name="gridMainPoster" FocusManager.IsFocusScope="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Name="Poster" Height="0*"/>
+                <RowDefinition Name="Main" Height="1*"/>
+            </Grid.RowDefinitions>
+            <Button Style="{StaticResource posterButtonStyle}" Click="buttonPoster_Click" Grid.Row="0" >
+                <Image Name="imageMainPoster"/>
+            </Button>
+            <Grid Name="gridMain" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Name="textBlockTitle" Text="Title" Grid.Row="0" TextAlignment="Center" FontSize="24" TextWrapping="Wrap"/>
+
+                <Grid Name="gridPosterGenresActors" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Style="{StaticResource posterButtonStyle}" Click="buttonPoster_Click" >
+                        <Image Name="imagePoster" Grid.Column="0"/>
+                    </Button>
+
+                    <Grid Name="gridGenresActors" Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="4*"/>
+                            <RowDefinition Height="6*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Genres : " Grid.Row="0" HorizontalAlignment="Center" />
+                            <WrapPanel Name="wrapPanelGenres" Grid.Row="1"/>
+                        </Grid>
+
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Actors : " Grid.Row="0" HorizontalAlignment="Center"/>
+                            <WrapPanel Name="wrapPanelActors" Grid.Row="1"/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+
+                <TextBlock Name="textBlockSynopsis" Grid.Row="2"/>
+                <Button Name="buttonPlay" Grid.Row="3" Width="50" Height="40" Click="buttonPlay_Click">Play</Button>
+            </Grid>
+        </Grid>        
+    </Border>
+</UserControl>
