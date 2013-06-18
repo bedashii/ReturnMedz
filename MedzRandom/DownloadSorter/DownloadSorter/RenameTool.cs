@@ -34,16 +34,19 @@ namespace DownloadSorter
         {
             // Reset File names before applying filters.
             CustomFiles.ForEach(x => { x.NewFileName = x.FileName; });
-            removeNewsHostID();
 
-            removeCharacters(new char[] { '-', '.' });
+            removeCharacters(new char[] { '-', '.', '[', ']' });
+
             removeDoubleSpaces();
-
             trimCustomFiles();
+
+            removeNewsHostID();
 
             removeCustomWords2();
 
-            capitalizeFirstWord();
+            capitalizeWords();
+
+            removeDoubleSpaces();
             trimCustomFiles();
 
             bindingSourceCustomFile.ResetBindings(false);
@@ -87,23 +90,100 @@ namespace DownloadSorter
                 });
         }
 
-        private void capitalizeFirstWord()
+        private void capitalizeWords()
         {
             CustomFiles.ForEach(x =>
                 {
-                    x.NewFileName = x.NewFileName[0].ToString().ToUpper() + x.NewFileName.Substring(1, x.NewFileName.Length - 1);
+                    string newFileName = "";
+                    x.NewFileName.Split(' ').ToList().ForEach(y =>
+                        {
+                            if (newFileName == "")
+                            {
+                                for (int i = 0; i < y.Length; i++)
+                                {
+                                    if (i == 0)
+                                    {
+                                        newFileName += y[i].ToString().ToUpper();
+                                    }
+                                    else
+                                    {
+                                        newFileName += y[i].ToString().ToLower();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                for (int i = 0; i < y.Length; i++)
+                                {
+                                    if (i == 0)
+                                    {
+                                        newFileName += ' ' + y[i].ToString().ToUpper();
+                                    }
+                                    else
+                                    {
+                                        newFileName += ' ' + y[i].ToString().ToLower();
+                                    }
+                                }
+                            }
+                        });
                 });
         }
 
         private void removeNewsHostID()
         {
+            //CustomFiles.ForEach(x =>
+            //    {
+            //        if (x.NewFileName.ToLower().Contains("newshost"))
+            //        {
+            //            x.NewFileName = x.NewFileName.Substring(0, x.NewFileName.Length - 5);
+            //            x.NewFileName = Regex.Replace(x.NewFileName, "newshost", string.Empty, RegexOptions.IgnoreCase);
+            //        }
+            //    });
+
             CustomFiles.ForEach(x =>
                 {
                     if (x.NewFileName.ToLower().Contains("newshost"))
-                    {
-                        x.NewFileName = x.NewFileName.Substring(0, x.NewFileName.Length - 5);
                         x.NewFileName = Regex.Replace(x.NewFileName, "newshost", string.Empty, RegexOptions.IgnoreCase);
-                    }
+
+                    string newFileName = "";
+                    x.NewFileName.Split(' ').ToList().ForEach(y =>
+                        {
+                            if (y.Length == 4)
+                            {
+                                int isInt = 0;
+                                if ((Int32.TryParse(y, out isInt)))
+                                {
+                                    if (isInt < DateTime.Now.AddYears(-50).Year || isInt > DateTime.Now.AddYears(50).Year)
+                                    {
+                                        // Ignore - aka remove
+                                    }
+                                    else
+                                    {
+                                        if (newFileName == "")
+                                            newFileName += y;
+                                        else
+                                            newFileName += ' ' + y;
+                                    }
+                                }
+                                else
+                                {
+                                    if (newFileName == "")
+                                        newFileName += y;
+                                    else
+                                        newFileName += ' ' + y;
+                                }
+                            }
+                            else
+                            {
+                                if (newFileName == "")
+                                    newFileName += y;
+                                else
+                                    newFileName += ' ' + y;
+                            }
+                        });
+
+                    x.NewFileName = newFileName;
+
                 });
         }
 
@@ -244,13 +324,16 @@ namespace DownloadSorter
             List<string> cantMoveFiles = new List<string>();
             CustomFiles.ForEach(x =>
             {
-                if (x.Rename)
+                if (x.FileName != x.NewFileName)
                 {
-                    string dest = x.FullPath.Replace(x.FileName, x.NewFileName);
-                    if (!File.Exists(dest))
-                        File.Move(x.FullPath, dest);
-                    else
-                        cantMoveFiles.Add(dest);
+                    if (x.Rename)
+                    {
+                        string dest = x.FullPath.Replace(x.FileName, x.NewFileName);
+                        if (!File.Exists(dest))
+                            File.Move(x.FullPath, dest);
+                        else
+                            cantMoveFiles.Add(dest);
+                    }
                 }
             });
 
@@ -393,7 +476,7 @@ namespace DownloadSorter
         {
             if (checkedListBoxRemovalWords.SelectedItem != null)
                 checkedListBoxRemovalWords.Items.Remove(checkedListBoxRemovalWords.SelectedItem);
-            
+
             saveRemovalWords();
 
             applyRenameFilters();

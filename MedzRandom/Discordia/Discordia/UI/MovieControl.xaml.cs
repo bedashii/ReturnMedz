@@ -234,46 +234,17 @@ namespace Discordia.UI
                 var movieSearch = TMDBHelper.TMDB.SearchMovie(title, 1);
                 if (movieSearch.results.Count > 0)
                 {
-                    Movie.TMDBID = movieSearch.results[0].id;
-                    Movie.Title = movieSearch.results[0].title.Replace(":", string.Empty).Replace("'", string.Empty);
-                    Movie.Rating = movieSearch.results[0].popularity;
-                    int year = 0;
-                    if (Int32.TryParse(movieSearch.results[0].release_date, out year))
-                        Movie.Year = year;
-
-                    Posters.GetByMovie(Movie.TMDBID);
-
-                    var images = TMDBHelper.TMDB.GetMovieImages(Movie.TMDBID);
-                    images.posters.ForEach(x =>
-                    {
-                        if (Posters.Find(y => y.URL == x.file_path) == null)
-                            Posters.Add(new Poster()
-                            {
-                                Movie = Movie.TMDBID,
-                                URL = x.file_path,
-                                Width = x.width,
-                                Height = x.height
-                            });
-                    });
-
-                    string dest = Movie.Title;
-                    if (Movie.Year != 0)
-                        dest += " " + Movie.Year;
-                    dest += fi.Extension;
-
-                    if (renameFile)
-                    {
-                        if (fi.Name != dest)
-                        {
-                            if (!File.Exists(fi.DirectoryName + "\\" + dest))
-                                File.Move(fi.FullName, fi.DirectoryName + "\\" + dest);
-                            _fullPath = fi.DirectoryName + "\\" + dest;
-                            fi = null;
-                        }
-                    }
+                    fi = setMovieInfo(fi, movieSearch);
                 }
                 else
+                {
+                    // Ask the user to manually change the movie name.
+                    // Attempt to find the movie again
+                    // Else
+                    // Set Movie Title
+
                     Movie.Title = title;
+                }
             }
             else
             {
@@ -286,6 +257,48 @@ namespace Discordia.UI
             }
 
             updateUI();
+        }
+
+        private FileInfo setMovieInfo(FileInfo fi, WatTmdb.V3.TmdbMovieSearch movieSearch)
+        {
+            Movie.TMDBID = movieSearch.results[0].id;
+            Movie.Title = movieSearch.results[0].title.Replace(":", string.Empty).Replace("'", string.Empty);
+            Movie.Rating = movieSearch.results[0].popularity;
+            int year = 0;
+            if (Int32.TryParse(movieSearch.results[0].release_date, out year))
+                Movie.Year = year;
+
+            Posters.GetByMovie(Movie.TMDBID);
+
+            var images = TMDBHelper.TMDB.GetMovieImages(Movie.TMDBID);
+            images.posters.ForEach(x =>
+            {
+                if (Posters.Find(y => y.URL == x.file_path) == null)
+                    Posters.Add(new Poster()
+                    {
+                        Movie = Movie.TMDBID,
+                        URL = x.file_path,
+                        Width = x.width,
+                        Height = x.height
+                    });
+            });
+
+            string dest = Movie.Title;
+            if (Movie.Year != 0)
+                dest += " " + Movie.Year;
+            dest += fi.Extension;
+
+            if (renameFile)
+            {
+                if (fi.Name != dest)
+                {
+                    if (!File.Exists(fi.DirectoryName + "\\" + dest))
+                        File.Move(fi.FullName, fi.DirectoryName + "\\" + dest);
+                    _fullPath = fi.DirectoryName + "\\" + dest;
+                    fi = null;
+                }
+            }
+            return fi;
         }
 
         List<string> cleanStrings = new List<string>() { "480p", "720p", "1080p" };
