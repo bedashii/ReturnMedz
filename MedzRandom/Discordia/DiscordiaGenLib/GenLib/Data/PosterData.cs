@@ -118,10 +118,9 @@ namespace DiscordiaGenLib.GenLib.Data
                     if (dh.HasColumn(dataReader, "Path"))
                         poster.Path = dataReader["Path"].ToString();
                     if (dh.HasColumn(dataReader, "Width"))
-                        this.Width = Convert.ToInt32(dataReader["Width"]);
+                        poster.Width = Convert.ToInt32(dataReader["Width"]);
                     if (dh.HasColumn(dataReader, "Height"))
-                        this.Height = Convert.ToInt32(dataReader["Height"]);
-
+                        poster.Height = Convert.ToInt32(dataReader["Height"]);
 
                     poster.RecordExists = true;
 
@@ -134,6 +133,11 @@ namespace DiscordiaGenLib.GenLib.Data
                 //close Connection
                 dh.CloseConnection();
             }
+        }
+
+        internal void MassInsert(string insertQuery)
+        {
+            dh.ExecuteNonQuery(insertQuery);
         }
     }
 }

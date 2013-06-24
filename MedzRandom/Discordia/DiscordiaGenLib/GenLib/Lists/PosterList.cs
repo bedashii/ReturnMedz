@@ -19,16 +19,43 @@ namespace DiscordiaGenLib.GenLib.Lists
 
         public void InsertOrUpdateAll()
         {
-            this.ForEach(x =>
+            bool inserts = false;
+            string insertQuery = "";
+            for (int i = 0; i < this.Count; i++)
             {
-                if (x.RecordExists)
+                if (this[i].RecordExists)
                 {
-                    if (x.AnyPropertiesChanged)
-                        x.Update();
+                    if (this[i].AnyPropertiesChanged)
+                        this[i].Update();
                 }
                 else
-                    x.Insert();
-            });
+                {
+                    insertQuery += this[i].AppendInsert(inserts);
+                    inserts = true;
+                }
+            }
+
+            if (inserts)
+            {
+                _data.MassInsert(insertQuery);
+                this.ForEach(x =>
+                    {
+                        if (!x.RecordExists)
+                            x.RecordExists = true;
+                    });
+            }
+
+
+            //this.ForEach(x =>
+            //{
+            //    if (x.RecordExists)
+            //    {
+            //        if (x.AnyPropertiesChanged)
+            //            x.Update();
+            //    }
+            //    else
+            //        x.Insert();
+            //});
         }
 
         public void GetByMovie(int movie)
