@@ -11,11 +11,32 @@ namespace Chatters
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            using (System.Data.OleDb.OleDbConnection conn = new System.Data.OleDb.OleDbConnection(AccessDataSource1.ConnectionString))
+            {
+                System.Data.OleDb.OleDbCommand cmd = new System.Data.OleDb.OleDbCommand();
+                cmd.CommandText="";
+                cmd.CommandType= System.Data.CommandType.Text;
+
+                try
+                {
+                    conn.Open();
+                    System.Data.OleDb.OleDbDataReader reader = cmd.ExecuteReader();
+                    while(reader)
+                    {
+                    }
+                }
+                catch(Exception ex)
+                {
+                    conn.Close();
+                    throw ex;
+                }
+            }
+
             Chatters.Controls.menuItem mi = null;
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 25; i++)
             {
                 mi = Page.LoadControl("~/Controls/menuItem.ascx") as Chatters.Controls.menuItem;
-                mi.Title = "THIS IS THE TEST TEXT TITLE " + (i+1);
+                mi.Title = "Menu Item " + (i+1);
                 this.Controls.Add(mi);
             }
         }
