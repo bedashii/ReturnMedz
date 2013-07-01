@@ -39,16 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChattersDBBusiness\MenuItem.cs" />
     <Compile Include="ChattersDBData\DataHelper.cs" />
     <Compile Include="ChattersDBData\MenuItemData.cs" />
+    <Compile Include="ChattersDBLists\MenuItemList.cs" />
     <Compile Include="ChattersDBProperties\MenuItemProperties.cs" />
     <Compile Include="PropertiesBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ChattersDBBusiness\" />
-    <Folder Include="ChattersDBLists\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
