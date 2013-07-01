@@ -25,6 +25,7 @@ namespace DiscordiaGenLib.GenLib.Properties
         //    }
         //}
 
+        bool titleSet = false;
         string _title;
         public string Title
         {
@@ -37,11 +38,15 @@ namespace DiscordiaGenLib.GenLib.Properties
                 if (_title != value)
                 {
                     _title = value;
-                    AnyPropertiesChanged = true;
+                    if (titleSet)
+                        AnyPropertiesChanged = true;
+                    else
+                        titleSet = true;
                 }
             }
         }
 
+        bool synposisSet = false;
         string _synopsis;
         public string Synopsis
         {
@@ -54,11 +59,15 @@ namespace DiscordiaGenLib.GenLib.Properties
                 if (_synopsis != value)
                 {
                     _synopsis = value;
-                    AnyPropertiesChanged = true;
+                    if (synposisSet)
+                        AnyPropertiesChanged = true;
+                    else
+                        synposisSet = true;
                 }
             }
         }
-        
+
+        bool yearSet = false;
         int _year;
         public int Year
         {
@@ -71,11 +80,15 @@ namespace DiscordiaGenLib.GenLib.Properties
                 if (_year != value)
                 {
                     _year = value;
-                    AnyPropertiesChanged = true;
+                    if (yearSet)
+                        AnyPropertiesChanged = true;
+                    else
+                        yearSet = true;
                 }
             }
         }
 
+        bool durationSet = false;
         int _duration;
         public int Duration
         {
@@ -88,11 +101,15 @@ namespace DiscordiaGenLib.GenLib.Properties
                 if (_duration != value)
                 {
                     _duration = value;
-                    AnyPropertiesChanged = true;
+                    if (durationSet)
+                        AnyPropertiesChanged = true;
+                    else
+                        durationSet = true;
                 }
             }
         }
 
+        bool ratingSet = false;
         double _rating;
         public double Rating
         {
@@ -105,11 +122,15 @@ namespace DiscordiaGenLib.GenLib.Properties
                 if (_rating != value)
                 {
                     _rating = value;
-                    AnyPropertiesChanged = true;
+                    if (ratingSet)
+                        AnyPropertiesChanged = true;
+                    else
+                        ratingSet = true;
                 }
             }
         }
 
+        bool ageRestrictionSet = false;
         string _ageRestriction;
         public string AgeRestriction
         {
@@ -122,11 +143,15 @@ namespace DiscordiaGenLib.GenLib.Properties
                 if (_ageRestriction != value)
                 {
                     _ageRestriction = value;
-                    AnyPropertiesChanged = true;
+                    if (ageRestrictionSet)
+                        AnyPropertiesChanged = true;
+                    else
+                        ageRestrictionSet = true;
                 }
             }
         }
 
+        bool tmdbidSet = false;
         int _tMDBID;
         public int TMDBID
         {
@@ -139,7 +164,10 @@ namespace DiscordiaGenLib.GenLib.Properties
                 if (_tMDBID != value)
                 {
                     _tMDBID = value;
-                    AnyPropertiesChanged = true;
+                    if (tmdbidSet)
+                        AnyPropertiesChanged = true;
+                    else
+                        tmdbidSet = true;
                 }
             }
         }

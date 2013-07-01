@@ -196,7 +196,10 @@ namespace DownloadSorter
                 if (path[path.Length - 1] != '\\')
                     path += "\\";
                 //path += treeNode.FullPath.ToString().Substring(treeNode.FullPath.ToString().IndexOf('\\') + 1);
-                path += treeNode.FullPath.ToString();
+                if (treeNode.FullPath.Substring(0, treeNode.FullPath.IndexOf('\\')) == treeNode.TreeView.Nodes[0].Text)
+                    path += treeNode.FullPath.Substring(treeNode.FullPath.IndexOf('\\')+1);
+                else
+                    path += treeNode.FullPath;
 
                 FilesToHandel.Add(new CustomFile(path));
             }

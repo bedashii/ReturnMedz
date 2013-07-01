@@ -8,6 +8,7 @@ namespace DiscordiaGenLib.GenLib.Properties
 {
     public class PosterProperties : PropertiesBase
     {
+        bool idSet = false;
         int _iD;
         public int ID
         {
@@ -20,11 +21,15 @@ namespace DiscordiaGenLib.GenLib.Properties
                 if (_iD != value)
                 {
                     _iD = value;
-                    AnyPropertiesChanged = true;
+                    if (idSet)
+                        AnyPropertiesChanged = true;
+                    else
+                        idSet = true;
                 }
             }
         }
 
+        bool movieSet = false;
         int _movie;
         public int Movie
         {
@@ -37,11 +42,15 @@ namespace DiscordiaGenLib.GenLib.Properties
                 if (_movie != value)
                 {
                     _movie = value;
-                    AnyPropertiesChanged = true;
+                    if (movieSet)
+                        AnyPropertiesChanged = true;
+                    else
+                        movieSet = true;
                 }
             }
         }
 
+        bool urlSet = false;
         string _uRL;
         public string URL
         {
@@ -54,11 +63,15 @@ namespace DiscordiaGenLib.GenLib.Properties
                 if (_uRL != value)
                 {
                     _uRL = value;
-                    AnyPropertiesChanged = true;
+                    if (urlSet)
+                        AnyPropertiesChanged = true;
+                    else
+                        urlSet = true;
                 }
             }
         }
 
+        bool pathSet = false;
         string _path;
         public string Path
         {
@@ -71,11 +84,15 @@ namespace DiscordiaGenLib.GenLib.Properties
                 if (_path != value)
                 {
                     _path = value;
-                    AnyPropertiesChanged = true;
+                    if (pathSet)
+                        AnyPropertiesChanged = true;
+                    else
+                        pathSet = true;
                 }
             }
         }
 
+        bool widthSet = false;
         int _width;
         public int Width
         {
@@ -88,11 +105,15 @@ namespace DiscordiaGenLib.GenLib.Properties
                 if (_width != value)
                 {
                     _width = value;
-                    AnyPropertiesChanged = true;
+                    if (widthSet)
+                        AnyPropertiesChanged = true;
+                    else
+                        widthSet = true;
                 }
             }
         }
 
+        bool heightSet = false;
         int _height;
         public int Height
         {
@@ -105,7 +126,10 @@ namespace DiscordiaGenLib.GenLib.Properties
                 if (_height != value)
                 {
                     _height = value;
-                    AnyPropertiesChanged = true;
+                    if (heightSet)
+                        AnyPropertiesChanged = true;
+                    else
+                        heightSet = true;
                 }
             }
         }
