@@ -33,19 +33,8 @@ namespace ChattersLib.ChattersDBData
                 this.ID = Convert.ToInt32(dt.Rows[0]["ID"]);
                 this.Title = dt.Rows[0]["Title"].ToString();
                 this.Description = dt.Rows[0]["Description"].ToString();
-            }
-        }
-
-        void PopulateList(List<ChattersDBBusiness.MenuItem> list, DataTable reader)
-        {
-            foreach (DataRow dr in reader.Rows)
-            {
-                list.Add(new ChattersDBBusiness.MenuItem()
-                {
-                    ID = Convert.ToInt32(dr["ID"]),
-                    Title = dr["Title"].ToString(),
-                    Description = dr["Description"].ToString()
-                });
+                this.Price = Convert.ToDecimal(dt.Rows[0]["Price"]);
+                this.RecordsExists = true;
             }
         }
 
@@ -58,6 +47,86 @@ namespace ChattersLib.ChattersDBData
             DataTable dt = dataHelper.ExecuteReader(cmd);
 
             PopulateList(list, dt);
+        }
+
+        void PopulateList(List<ChattersDBBusiness.MenuItem> list, DataTable reader)
+        {
+            ChattersDBBusiness.MenuItem mi = null;
+
+            foreach (DataRow dr in reader.Rows)
+            {
+                mi = new ChattersDBBusiness.MenuItem();
+
+                if (dr["ID"] != DBNull.Value)
+                    mi.ID = Convert.ToInt32(dr["ID"]);
+                if (dr["Title"] != DBNull.Value)
+                    mi.Title = dr["Title"].ToString();
+                if (dr["Description"] != DBNull.Value)
+                    mi.Description = dr["Description"].ToString();
+                if (dr["Price"] != DBNull.Value)
+                    mi.Price = Convert.ToDecimal(dr["Price"]);
+
+                mi.RecordsExists = true;
+
+                list.Add(mi);
+            }
+        }
+
+        internal void Insert()
+        {
+            System.Data.OleDb.OleDbCommand cmd = new System.Data.OleDb.OleDbCommand();
+
+            string q = "INSERT INTO MenuItem(Title,Description,Price)\n";
+            q += "Values(@Title,@Description,@Price)";
+
+            cmd.CommandText = q;
+
+            cmd.Parameters.Add("@Title", System.Data.OleDb.OleDbType.WChar, 255).Value = this.Title;
+            cmd.Parameters.Add("@Description", System.Data.OleDb.OleDbType.WChar, 255).Value = this.Description;
+            cmd.Parameters.Add("@Price", System.Data.OleDb.OleDbType.Currency).Value = this.Price;
+
+            dataHelper.ExecuteNonReader(cmd);
+
+            this.AnyPropertyChanged = false;
+            this.RecordsExists = true;
+        }
+
+        internal void Update()
+        {
+            System.Data.OleDb.OleDbCommand cmd = new System.Data.OleDb.OleDbCommand();
+
+            string q = "UPDATE MenuItem SET\n";
+            q += "Title = @Title,\n";
+            q += "Description = @Description,\n";
+            q += "Price = @Price\n";
+            q += "WHERE ID = @ID";
+
+            cmd.CommandText = q;
+
+            cmd.Parameters.Add("@Title", System.Data.OleDb.OleDbType.WChar, 255).Value = this.Title;
+            cmd.Parameters.Add("@Description", System.Data.OleDb.OleDbType.WChar, 255).Value = this.Description;
+            cmd.Parameters.Add("@Price", System.Data.OleDb.OleDbType.Currency).Value = this.Price;
+
+            cmd.Parameters.Add("@ID", System.Data.OleDb.OleDbType.Integer).Value = this.ID;
+
+            dataHelper.ExecuteNonReader(cmd);
+
+            this.AnyPropertyChanged = false;
+            this.RecordsExists = true;
+        }
+
+        public void Delete()
+        {
+            System.Data.OleDb.OleDbCommand cmd = new System.Data.OleDb.OleDbCommand();
+
+            string q = "DELETE FROM MenuItem\n";
+            q += "WHERE ID = @ID";
+
+            cmd.CommandText = q;
+
+            cmd.Parameters.Add("@ID", System.Data.OleDb.OleDbType.Integer).Value = this.ID;
+
+            dataHelper.ExecuteNonReader(cmd);
         }
     }
 }

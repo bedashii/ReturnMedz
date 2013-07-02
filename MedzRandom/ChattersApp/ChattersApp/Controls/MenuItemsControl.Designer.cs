@@ -31,21 +31,23 @@
             this.components = new System.ComponentModel.Container();
             this.splitContainerMenuItems = new System.Windows.Forms.SplitContainer();
             this.dataGridViewMenuItems = new System.Windows.Forms.DataGridView();
+            this.buttonNew = new System.Windows.Forms.Button();
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.labelPrice = new System.Windows.Forms.Label();
+            this.labelDescription = new System.Windows.Forms.Label();
+            this.labelTitle = new System.Windows.Forms.Label();
+            this.textBoxPrice = new System.Windows.Forms.TextBox();
+            this.textBoxDescription = new System.Windows.Forms.TextBox();
+            this.textBoxTitle = new System.Windows.Forms.TextBox();
             this.labelSearch = new System.Windows.Forms.Label();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.buttonSearch = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.labelTitle = new System.Windows.Forms.Label();
-            this.labelDescription = new System.Windows.Forms.Label();
-            this.labelPrice = new System.Windows.Forms.Label();
-            this.buttonSave = new System.Windows.Forms.Button();
-            this.buttonNew = new System.Windows.Forms.Button();
             this.menuItemListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonDelete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.recordsExistsDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.anyPropertyChangedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMenuItems)).BeginInit();
@@ -76,9 +78,9 @@
             this.splitContainerMenuItems.Panel2.Controls.Add(this.labelPrice);
             this.splitContainerMenuItems.Panel2.Controls.Add(this.labelDescription);
             this.splitContainerMenuItems.Panel2.Controls.Add(this.labelTitle);
-            this.splitContainerMenuItems.Panel2.Controls.Add(this.textBox3);
-            this.splitContainerMenuItems.Panel2.Controls.Add(this.textBox2);
-            this.splitContainerMenuItems.Panel2.Controls.Add(this.textBox1);
+            this.splitContainerMenuItems.Panel2.Controls.Add(this.textBoxPrice);
+            this.splitContainerMenuItems.Panel2.Controls.Add(this.textBoxDescription);
+            this.splitContainerMenuItems.Panel2.Controls.Add(this.textBoxTitle);
             this.splitContainerMenuItems.Size = new System.Drawing.Size(662, 468);
             this.splitContainerMenuItems.SplitterDistance = 206;
             this.splitContainerMenuItems.TabIndex = 0;
@@ -91,11 +93,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewMenuItems.AutoGenerateColumns = false;
+            this.dataGridViewMenuItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewMenuItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewMenuItems.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.iDDataGridViewTextBoxColumn,
             this.titleDataGridViewTextBoxColumn,
             this.descriptionDataGridViewTextBoxColumn,
+            this.Price,
+            this.buttonDelete,
             this.recordsExistsDataGridViewCheckBoxColumn,
             this.anyPropertyChangedDataGridViewCheckBoxColumn});
             this.dataGridViewMenuItems.DataSource = this.menuItemListBindingSource;
@@ -104,6 +109,86 @@
             this.dataGridViewMenuItems.ReadOnly = true;
             this.dataGridViewMenuItems.Size = new System.Drawing.Size(656, 200);
             this.dataGridViewMenuItems.TabIndex = 0;
+            this.dataGridViewMenuItems.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMenuItems_CellContentClick);
+            // 
+            // buttonNew
+            // 
+            this.buttonNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonNew.Location = new System.Drawing.Point(503, 232);
+            this.buttonNew.Name = "buttonNew";
+            this.buttonNew.Size = new System.Drawing.Size(75, 23);
+            this.buttonNew.TabIndex = 7;
+            this.buttonNew.Text = "New";
+            this.buttonNew.UseVisualStyleBackColor = true;
+            this.buttonNew.Click += new System.EventHandler(this.buttonNew_Click);
+            // 
+            // buttonSave
+            // 
+            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSave.Location = new System.Drawing.Point(584, 232);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(75, 23);
+            this.buttonSave.TabIndex = 6;
+            this.buttonSave.Text = "Save";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            // 
+            // labelPrice
+            // 
+            this.labelPrice.AutoSize = true;
+            this.labelPrice.Location = new System.Drawing.Point(3, 58);
+            this.labelPrice.Name = "labelPrice";
+            this.labelPrice.Size = new System.Drawing.Size(31, 13);
+            this.labelPrice.TabIndex = 5;
+            this.labelPrice.Text = "Price";
+            // 
+            // labelDescription
+            // 
+            this.labelDescription.AutoSize = true;
+            this.labelDescription.Location = new System.Drawing.Point(3, 32);
+            this.labelDescription.Name = "labelDescription";
+            this.labelDescription.Size = new System.Drawing.Size(60, 13);
+            this.labelDescription.TabIndex = 4;
+            this.labelDescription.Text = "Description";
+            // 
+            // labelTitle
+            // 
+            this.labelTitle.AutoSize = true;
+            this.labelTitle.Location = new System.Drawing.Point(3, 6);
+            this.labelTitle.Name = "labelTitle";
+            this.labelTitle.Size = new System.Drawing.Size(27, 13);
+            this.labelTitle.TabIndex = 3;
+            this.labelTitle.Text = "Title";
+            // 
+            // textBoxPrice
+            // 
+            this.textBoxPrice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxPrice.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.menuItemListBindingSource, "Price", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "C2"));
+            this.textBoxPrice.Location = new System.Drawing.Point(69, 55);
+            this.textBoxPrice.Name = "textBoxPrice";
+            this.textBoxPrice.Size = new System.Drawing.Size(590, 20);
+            this.textBoxPrice.TabIndex = 2;
+            // 
+            // textBoxDescription
+            // 
+            this.textBoxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxDescription.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.menuItemListBindingSource, "Description", true));
+            this.textBoxDescription.Location = new System.Drawing.Point(69, 29);
+            this.textBoxDescription.Name = "textBoxDescription";
+            this.textBoxDescription.Size = new System.Drawing.Size(590, 20);
+            this.textBoxDescription.TabIndex = 1;
+            // 
+            // textBoxTitle
+            // 
+            this.textBoxTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxTitle.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.menuItemListBindingSource, "Title", true));
+            this.textBoxTitle.Location = new System.Drawing.Point(69, 3);
+            this.textBoxTitle.Name = "textBoxTitle";
+            this.textBoxTitle.Size = new System.Drawing.Size(590, 20);
+            this.textBoxTitle.TabIndex = 0;
             // 
             // labelSearch
             // 
@@ -133,83 +218,6 @@
             this.buttonSearch.Text = "Search";
             this.buttonSearch.UseVisualStyleBackColor = true;
             // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(69, 3);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(590, 20);
-            this.textBox1.TabIndex = 0;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(69, 29);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(590, 20);
-            this.textBox2.TabIndex = 1;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox3.Enabled = false;
-            this.textBox3.Location = new System.Drawing.Point(69, 55);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(590, 20);
-            this.textBox3.TabIndex = 2;
-            // 
-            // labelTitle
-            // 
-            this.labelTitle.AutoSize = true;
-            this.labelTitle.Location = new System.Drawing.Point(3, 6);
-            this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(27, 13);
-            this.labelTitle.TabIndex = 3;
-            this.labelTitle.Text = "Title";
-            // 
-            // labelDescription
-            // 
-            this.labelDescription.AutoSize = true;
-            this.labelDescription.Location = new System.Drawing.Point(3, 32);
-            this.labelDescription.Name = "labelDescription";
-            this.labelDescription.Size = new System.Drawing.Size(60, 13);
-            this.labelDescription.TabIndex = 4;
-            this.labelDescription.Text = "Description";
-            // 
-            // labelPrice
-            // 
-            this.labelPrice.AutoSize = true;
-            this.labelPrice.Location = new System.Drawing.Point(3, 58);
-            this.labelPrice.Name = "labelPrice";
-            this.labelPrice.Size = new System.Drawing.Size(31, 13);
-            this.labelPrice.TabIndex = 5;
-            this.labelPrice.Text = "Price";
-            // 
-            // buttonSave
-            // 
-            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.Location = new System.Drawing.Point(584, 232);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(75, 23);
-            this.buttonSave.TabIndex = 6;
-            this.buttonSave.Text = "Save";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
-            // 
-            // buttonNew
-            // 
-            this.buttonNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonNew.Location = new System.Drawing.Point(503, 232);
-            this.buttonNew.Name = "buttonNew";
-            this.buttonNew.Size = new System.Drawing.Size(75, 23);
-            this.buttonNew.TabIndex = 7;
-            this.buttonNew.Text = "New";
-            this.buttonNew.UseVisualStyleBackColor = true;
-            this.buttonNew.Click += new System.EventHandler(this.buttonNew_Click);
-            // 
             // menuItemListBindingSource
             // 
             this.menuItemListBindingSource.DataSource = typeof(ChattersLib.ChattersDBLists.MenuItemList);
@@ -220,6 +228,7 @@
             this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
             this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
             this.iDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.iDDataGridViewTextBoxColumn.Width = 43;
             // 
             // titleDataGridViewTextBoxColumn
             // 
@@ -227,6 +236,7 @@
             this.titleDataGridViewTextBoxColumn.HeaderText = "Title";
             this.titleDataGridViewTextBoxColumn.Name = "titleDataGridViewTextBoxColumn";
             this.titleDataGridViewTextBoxColumn.ReadOnly = true;
+            this.titleDataGridViewTextBoxColumn.Width = 52;
             // 
             // descriptionDataGridViewTextBoxColumn
             // 
@@ -234,6 +244,22 @@
             this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
             this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
             this.descriptionDataGridViewTextBoxColumn.ReadOnly = true;
+            this.descriptionDataGridViewTextBoxColumn.Width = 85;
+            // 
+            // Price
+            // 
+            this.Price.DataPropertyName = "Price";
+            this.Price.HeaderText = "Price";
+            this.Price.Name = "Price";
+            this.Price.ReadOnly = true;
+            this.Price.Width = 56;
+            // 
+            // buttonDelete
+            // 
+            this.buttonDelete.HeaderText = "";
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.ReadOnly = true;
+            this.buttonDelete.Width = 5;
             // 
             // recordsExistsDataGridViewCheckBoxColumn
             // 
@@ -242,6 +268,7 @@
             this.recordsExistsDataGridViewCheckBoxColumn.Name = "recordsExistsDataGridViewCheckBoxColumn";
             this.recordsExistsDataGridViewCheckBoxColumn.ReadOnly = true;
             this.recordsExistsDataGridViewCheckBoxColumn.Visible = false;
+            this.recordsExistsDataGridViewCheckBoxColumn.Width = 80;
             // 
             // anyPropertyChangedDataGridViewCheckBoxColumn
             // 
@@ -250,6 +277,7 @@
             this.anyPropertyChangedDataGridViewCheckBoxColumn.Name = "anyPropertyChangedDataGridViewCheckBoxColumn";
             this.anyPropertyChangedDataGridViewCheckBoxColumn.ReadOnly = true;
             this.anyPropertyChangedDataGridViewCheckBoxColumn.Visible = false;
+            this.anyPropertyChangedDataGridViewCheckBoxColumn.Width = 113;
             // 
             // MenuItemsControl
             // 
@@ -280,19 +308,21 @@
         private System.Windows.Forms.Label labelPrice;
         private System.Windows.Forms.Label labelDescription;
         private System.Windows.Forms.Label labelTitle;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxPrice;
+        private System.Windows.Forms.TextBox textBoxDescription;
+        private System.Windows.Forms.TextBox textBoxTitle;
         private System.Windows.Forms.Label labelSearch;
         private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.Button buttonNew;
         private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.BindingSource menuItemListBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn titleDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Price;
+        private System.Windows.Forms.DataGridViewButtonColumn buttonDelete;
         private System.Windows.Forms.DataGridViewCheckBoxColumn recordsExistsDataGridViewCheckBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn anyPropertyChangedDataGridViewCheckBoxColumn;
-        private System.Windows.Forms.BindingSource menuItemListBindingSource;
     }
 }

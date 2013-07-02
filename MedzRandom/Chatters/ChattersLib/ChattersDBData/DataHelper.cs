@@ -40,8 +40,6 @@ namespace ChattersLib.ChattersDBData
                 da.Fill(dt);
 
                 return dt;
-
-                //return cmd.ExecuteReader();
             }
             finally
             {
@@ -53,6 +51,8 @@ namespace ChattersLib.ChattersDBData
         {
             try
             {
+                cmd.Connection = conn;
+
                 conn.Open();
 
                 cmd.ExecuteNonQuery();

@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace ChattersLib.ChattersDBProperties
 {
     public class MenuItemProperties : PropertiesBase
     {
-        private int _id;
+        private int id;
         public int ID
         {
             get
             {
-                return _id;
+                return id;
             }
             set
             {
-                _id = value;
+                if (id != value)
+                {
+                    id = value;
+                    AnyPropertyChanged = true;
+                }
             }
         }
 
@@ -30,7 +29,11 @@ namespace ChattersLib.ChattersDBProperties
             }
             set
             {
-                title = value; 
+                if (title != value)
+                {
+                    title = value;
+                    AnyPropertyChanged = true;
+                }
             }
         }
 
@@ -43,7 +46,28 @@ namespace ChattersLib.ChattersDBProperties
             }
             set
             {
-                description = value;
+                if (description != value)
+                {
+                    description = value;
+                    AnyPropertyChanged = true;
+                }
+            }
+        }
+
+        private decimal price;
+        public decimal Price
+        {
+            get
+            {
+                return price;
+            }
+            set
+            {
+                if (price != value)
+                {
+                    price = value;
+                    AnyPropertyChanged = true;
+                }
             }
         }
     }

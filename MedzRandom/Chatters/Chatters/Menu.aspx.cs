@@ -12,8 +12,8 @@ namespace Chatters
         protected void Page_Load(object sender, EventArgs e)
         {
             ChattersLib.ChattersDBLists.MenuItemList mil = new ChattersLib.ChattersDBLists.MenuItemList();
+            mil.GetAll();
             
-
             Chatters.Controls.menuItem mi = null;
 
             foreach (ChattersLib.ChattersDBBusiness.MenuItem menuItem in mil)
@@ -21,7 +21,7 @@ namespace Chatters
                 mi = Page.LoadControl("~/Controls/menuItem.ascx") as Chatters.Controls.menuItem;
                 mi.Title = menuItem.Title;
                 mi.Description = menuItem.Description;
-                //mi.Price = menuItem.Price;
+                mi.Price = menuItem.Price.ToString("C");
                 this.Controls.Add(mi);
             }
         }

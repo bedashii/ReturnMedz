@@ -65,7 +65,8 @@
             this.ClientSize = new System.Drawing.Size(622, 360);
             this.Controls.Add(this.splitContainer1);
             this.Name = "MainForm";
-            this.Text = "Chatters";
+            this.ShowIcon = false;
+            this.Text = "Chatters - Admin App";
             this.splitContainer1.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);

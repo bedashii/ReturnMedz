@@ -12,26 +12,43 @@ namespace ChattersApp.Controls
 {
     public partial class MenuItemsControl : UserControl
     {
-        ChattersLib.ChattersDBLists.MenuItemList mil = null;
+        ChattersLib.ChattersDBLists.MenuItemList menuItemList = null;
 
         public MenuItemsControl()
         {
             InitializeComponent();
 
-            mil = new ChattersLib.ChattersDBLists.MenuItemList();
-            mil.GetAll();
+            menuItemList = new ChattersLib.ChattersDBLists.MenuItemList();
+            menuItemList.GetAll();
 
-            menuItemListBindingSource.DataSource = mil;
+            menuItemListBindingSource.DataSource = menuItemList;
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            mil.UpdateAll();
+            menuItemList.UpdateAll();
         }
 
         private void buttonNew_Click(object sender, EventArgs e)
         {
             menuItemListBindingSource.AddNew();
+        }
+
+        private void dataGridViewMenuItems_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dataGridViewMenuItems.Columns["buttonDelete"].Index)
+            {
+                if (MessageBox.Show("Are you sure you wish to delete the selected Menu Item?", "Delete Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    // Delete Current row.
+                    ChattersLib.ChattersDBBusiness.MenuItem mi = ((ChattersLib.ChattersDBBusiness.MenuItem)dataGridViewMenuItems.Rows[e.RowIndex].DataBoundItem);
+                    mi.Delete();
+
+                    menuItemList.Remove(mi);
+
+                    menuItemListBindingSource.ResetBindings(false);
+                }
+            }
         }
     }
 }
