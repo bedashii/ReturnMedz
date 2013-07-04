@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.buttonMenu = new System.Windows.Forms.Button();
             this.buttonMenuItems = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -38,19 +39,31 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.buttonMenu);
             this.splitContainer1.Panel1.Controls.Add(this.buttonMenuItems);
             this.splitContainer1.Size = new System.Drawing.Size(622, 360);
             this.splitContainer1.SplitterDistance = 137;
             this.splitContainer1.TabIndex = 0;
             // 
+            // buttonMenu
+            // 
+            this.buttonMenu.Location = new System.Drawing.Point(3, 3);
+            this.buttonMenu.Name = "buttonMenu";
+            this.buttonMenu.Size = new System.Drawing.Size(131, 38);
+            this.buttonMenu.TabIndex = 1;
+            this.buttonMenu.Text = "Menus";
+            this.buttonMenu.UseVisualStyleBackColor = true;
+            this.buttonMenu.Click += new System.EventHandler(this.buttonMenu_Click);
+            // 
             // buttonMenuItems
             // 
-            this.buttonMenuItems.Location = new System.Drawing.Point(3, 3);
+            this.buttonMenuItems.Location = new System.Drawing.Point(3, 47);
             this.buttonMenuItems.Name = "buttonMenuItems";
             this.buttonMenuItems.Size = new System.Drawing.Size(131, 38);
             this.buttonMenuItems.TabIndex = 0;
@@ -78,6 +91,7 @@
 
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button buttonMenuItems;
+        private System.Windows.Forms.Button buttonMenu;
     }
 }
 

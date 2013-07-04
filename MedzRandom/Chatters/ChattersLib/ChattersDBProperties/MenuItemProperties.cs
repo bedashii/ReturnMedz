@@ -15,7 +15,9 @@ namespace ChattersLib.ChattersDBProperties
                 if (id != value)
                 {
                     id = value;
-                    AnyPropertyChanged = true;
+
+                    if (RecordsExists)
+                        AnyPropertyChanged = true;
                 }
             }
         }
@@ -32,7 +34,8 @@ namespace ChattersLib.ChattersDBProperties
                 if (title != value)
                 {
                     title = value;
-                    AnyPropertyChanged = true;
+                    if (RecordsExists)
+                        AnyPropertyChanged = true;
                 }
             }
         }
@@ -49,7 +52,8 @@ namespace ChattersLib.ChattersDBProperties
                 if (description != value)
                 {
                     description = value;
-                    AnyPropertyChanged = true;
+                    if (RecordsExists)
+                        AnyPropertyChanged = true;
                 }
             }
         }
@@ -66,7 +70,26 @@ namespace ChattersLib.ChattersDBProperties
                 if (price != value)
                 {
                     price = value;
-                    AnyPropertyChanged = true;
+                    if (RecordsExists)
+                        AnyPropertyChanged = true;
+                }
+            }
+        }
+
+        private int menu;
+        public int Menu
+        {
+            get
+            {
+                return menu;
+            }
+            set
+            {
+                if (menu != value)
+                {
+                    menu = value;
+                    if (RecordsExists)
+                        AnyPropertyChanged = true;
                 }
             }
         }

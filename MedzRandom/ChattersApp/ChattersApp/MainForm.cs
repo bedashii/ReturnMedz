@@ -20,7 +20,24 @@ namespace ChattersApp
 
         Control activeControl = null;
 
+        MenusControl menusControl = null;
         MenuItemsControl menuItemControl = null;
+
+        private void buttonMenu_Click(object sender, EventArgs e)
+        {
+            if (menusControl == null)
+            {
+                menusControl = new MenusControl();
+                menusControl.Dock = DockStyle.Fill;
+            }
+
+            if (activeControl != null)
+                splitContainer1.Panel2.Controls.Remove(activeControl);
+
+            activeControl = menusControl;
+
+            splitContainer1.Panel2.Controls.Add(menusControl);
+        }
 
         private void buttonMenuItems_Click(object sender, EventArgs e)
         {

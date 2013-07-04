@@ -50,6 +50,12 @@
     <Compile Include="Controls\MenuItemsControl.Designer.cs">
       <DependentUpon>MenuItemsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MenusControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\MenusControl.Designer.cs">
+      <DependentUpon>MenusControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,6 +66,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controls\MenuItemsControl.resx">
       <DependentUpon>MenuItemsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\MenusControl.resx">
+      <DependentUpon>MenusControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -74,6 +83,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="Properties\DataSources\ChattersLib.ChattersDBLists.MenuItemList.datasource" />
+    <None Include="Properties\DataSources\ChattersLib.ChattersDBLists.MenuList.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
