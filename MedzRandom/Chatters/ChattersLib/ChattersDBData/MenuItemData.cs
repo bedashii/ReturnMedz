@@ -144,5 +144,18 @@ namespace ChattersLib.ChattersDBData
 
             dataHelper.ExecuteNonReader(cmd);
         }
+
+        internal void GetAllByMenu(ChattersDBLists.MenuItemList menuItemList, int menu)
+        {
+            System.Data.OleDb.OleDbCommand cmd = new System.Data.OleDb.OleDbCommand();
+            cmd.CommandText = "SELECT * FROM MenuItem WHERE Menu = @Menu";
+            cmd.CommandType = System.Data.CommandType.Text;
+
+            cmd.Parameters.Add("@Menu", SqlDbType.Int).Value = menu;
+
+            DataTable dt = dataHelper.ExecuteReader(cmd);
+
+            PopulateList(menuItemList, dt);
+        }
     }
 }

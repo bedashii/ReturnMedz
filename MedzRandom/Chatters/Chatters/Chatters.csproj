@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Controls\menuItem.ascx" />
+    <Content Include="Controls\subMenuControl.ascx" />
     <Content Include="Main.aspx" />
     <Content Include="Menu.aspx" />
     <Content Include="Styles.css" />
@@ -79,6 +80,13 @@
     </Compile>
     <Compile Include="Controls\menuItem.ascx.designer.cs">
       <DependentUpon>menuItem.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\subMenuControl.ascx.cs">
+      <DependentUpon>subMenuControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\subMenuControl.ascx.designer.cs">
+      <DependentUpon>subMenuControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="Main.aspx.cs">
       <DependentUpon>Main.aspx</DependentUpon>

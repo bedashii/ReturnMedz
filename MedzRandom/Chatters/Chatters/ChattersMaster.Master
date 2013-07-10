@@ -15,13 +15,6 @@
             <div id="header">
 
                 <span class="title" style="text-align:center">Chatters</span>
-                <%--<h2>57 Lourensford Rd, Helderberg, Somerset West, 7130</h2>
-                <h2 style="text-align: right">021 852 4336</h2>--%>
-
-                <%--<span class="breadcrumb">
-                    <asp:SiteMapPath ID="SiteMapPath1" runat="server">
-                    </asp:SiteMapPath>
-                </span>--%>
             </div>
 
             <div id="content">

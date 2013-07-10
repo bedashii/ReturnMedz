@@ -27,5 +27,10 @@ namespace ChattersLib.ChattersDBLists
                         x.Update();
                 });
         }
+
+        internal void GetAllByMenu(int menu)
+        {
+            _data.GetAllByMenu(this,menu);
+        }
     }
 }

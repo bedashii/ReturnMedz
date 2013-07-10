@@ -11,19 +11,23 @@ namespace Chatters
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            ChattersLib.ChattersDBLists.MenuItemList mil = new ChattersLib.ChattersDBLists.MenuItemList();
-            mil.GetAll();
-            
-            Chatters.Controls.menuItem mi = null;
+            ChattersLib.ChattersDBLists.MenuList menuList = new ChattersLib.ChattersDBLists.MenuList();
+            menuList.GetAll();
 
-            foreach (ChattersLib.ChattersDBBusiness.MenuItem menuItem in mil)
-            {
-                mi = Page.LoadControl("~/Controls/menuItem.ascx") as Chatters.Controls.menuItem;
-                mi.Title = menuItem.Title;
-                mi.Description = menuItem.Description;
-                mi.Price = menuItem.Price.ToString("C");
-                this.Controls.Add(mi);
-            }
+            Chatters.Controls.subMenuControl subMenu = null;
+
+            menuList.ForEach(x =>
+                {
+                    x.GetMenuItems();
+
+                    subMenu = Page.LoadControl("~/Controls/subMenuControl.ascx") as Chatters.Controls.subMenuControl;
+                    subMenu.Title = x.Title;
+                    subMenu.MenuItems = x.MenuItems;
+
+                    this.Controls.Add(subMenu);
+
+                    subMenu = null;
+                });
         }
     }
 }

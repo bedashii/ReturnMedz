@@ -1,11 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="menuItem.ascx.cs" Inherits="Chatters.Controls.menuItem" %>
 
 <style type="text/css">
-    .auto-style1 {
-        width: 50%;
-        margin-top: 1em;
-        margin-left: 16em;
-        margin-right: 2em;
+    .auto-style2 {
+        width: 100%;
     }
 
     #table {
@@ -15,30 +12,30 @@
         border-collapse: collapse;
     }
 
-    #table td, table th {
-        border: 0px solid black;
-    }
+        #table td, table th {
+            border: 0px solid black;
+        }
 
-    #table tr:first-child th {
-        border-top: 0;
-    }
+        #table tr:first-child th {
+            border-top: 0;
+        }
 
-   #table tr:last-child td {
-        border-bottom: 0;
-    }
+        #table tr:last-child td {
+            border-bottom: 0;
+        }
 
-    #table tr td:first-child,
-    table tr th:first-child {
-        border-left: 0;
-    }
+        #table tr td:first-child,
+        table tr th:first-child {
+            border-left: 0;
+        }
 
-    #table tr td:last-child,
-    table tr th:last-child {
-        border-right: 0;
-    }
+        #table tr td:last-child,
+        table tr th:last-child {
+            border-right: 0;
+        }
 </style>
 
-<table id="table" class="auto-style1" border="1">
+<table id="table" class="auto-style2" border="1">
     <tr>
         <td id="titleColumn" style="width: 80%">
             <asp:Label runat="server" ID="labelTitle">Title</asp:Label>
