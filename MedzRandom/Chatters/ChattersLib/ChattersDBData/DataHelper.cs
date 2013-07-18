@@ -14,7 +14,7 @@ namespace ChattersLib.ChattersDBData
 
         public DataHelper()
         {
-            SetConnectionString("Provider=Microsoft.ACE.OLEDB.12.0; Data Source=C:\\Git-Dev\\ReturnMedz\\MedzRandom\\Chatters\\Database\\ChattersDB.accdb");
+            SetConnectionString("Provider=Microsoft.ACE.OLEDB.12.0; Data Source=C:\\Users\\Rian\\Documents\\GitHub\\ReturnMedz\\MedzRandom\\Chatters\\Database\\ChattersDB.accdb");
         }
 
         public DataHelper(string connectionString)
@@ -32,7 +32,7 @@ namespace ChattersLib.ChattersDBData
             try
             {
                 cmd.Connection = conn;
-                
+
                 conn.Open();
 
                 System.Data.OleDb.OleDbDataAdapter da = new System.Data.OleDb.OleDbDataAdapter(cmd);

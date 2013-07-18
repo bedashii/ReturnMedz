@@ -7,11 +7,11 @@ using System.Web.UI.WebControls;
 
 namespace Chatters
 {
-    public partial class Main : System.Web.UI.Page
+    public partial class AboutUs : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            labelIntoduction.Text = "This is the Introduction." + "<BR>" + "Someone should write something here." + "<BR>" + "#JustSayin";
+            labelAboutUs.Text = "When were we established my dear?<BR>No Idea, like yesterday?<BR>Naw can't be!<BR>Says here it's been like years.";
         }
     }
 }
