@@ -31,6 +31,15 @@ namespace Chatters.Controls {
         protected global::System.Web.UI.WebControls.Label labelSubMenu;
         
         /// <summary>
+        /// CollapsiblePanelExtenderItemLinksPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CollapsiblePanelExtender CollapsiblePanelExtenderItemLinksPanel;
+        
+        /// <summary>
         /// menuItemPanel control.
         /// </summary>
         /// <remarks>

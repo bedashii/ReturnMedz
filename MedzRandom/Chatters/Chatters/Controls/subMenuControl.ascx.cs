@@ -1,10 +1,5 @@
 ﻿using ChattersLib.ChattersDBLists;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Chatters.Controls
 {
@@ -30,14 +25,7 @@ namespace Chatters.Controls
         private MenuItemList menuItems;
         public MenuItemList MenuItems
         {
-            get
-            {
-                if (menuItems == null)
-                {
-                    menuItems = new MenuItemList();
-                }
-                return menuItems;
-            }
+            get { return menuItems ?? (menuItems = new MenuItemList()); }
             set
             {
                 menuItems = value;
@@ -45,22 +33,27 @@ namespace Chatters.Controls
             }
         }
 
+        public bool Collapsed
+        {
+            get { return CollapsiblePanelExtenderItemLinksPanel.Collapsed; }
+            set { CollapsiblePanelExtenderItemLinksPanel.Collapsed = value; }
+        }
+
         private void updateMenuItems()
         {
             menuItemPanel.Controls.Clear();
 
-            Chatters.Controls.menuItem mi = null;
-
             MenuItems.ForEach(menuItem =>
                 {
-                    mi = Page.LoadControl("~/Controls/menuItem.ascx") as Chatters.Controls.menuItem;
-                    mi.Title = menuItem.Title;
-                    mi.Description = menuItem.Description;
-                    mi.Price = menuItem.Price.ToString("C");
+                    menuItem mi = Page.LoadControl("~/Controls/menuItem.ascx") as menuItem;
+                    if (mi != null)
+                    {
+                        mi.Title = menuItem.Title;
+                        mi.Description = menuItem.Description;
+                        mi.Price = menuItem.Price.ToString("C");
 
-                    menuItemPanel.Controls.Add(mi);
-
-                    mi = null;
+                        menuItemPanel.Controls.Add(mi);
+                    }
                 });
         }
     }

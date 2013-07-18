@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using ChattersLib.ChattersDBBusiness;
 
 namespace Chatters
 {
@@ -11,7 +7,13 @@ namespace Chatters
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            labelAboutUs.Text = "When were we established my dear?<BR>No Idea, like yesterday?<BR>Naw can't be!<BR>Says here it's been like years.";
+            SystemInfo siAboutUsIntro = new SystemInfo();
+            siAboutUsIntro.LoadItem("About Us Introduction");
+
+            if (siAboutUsIntro.RecordsExists)
+                labelAboutUs.Text = siAboutUsIntro.SIValue;
+            else
+                labelAboutUs.Text = "When were we established my dear?<BR>No Idea, like yesterday?<BR>Naw can't be!<BR>Says here it's been like years.";
         }
     }
 }

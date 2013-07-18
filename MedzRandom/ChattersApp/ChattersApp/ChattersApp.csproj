@@ -56,6 +56,12 @@
     <Compile Include="Controls\MenusControl.Designer.cs">
       <DependentUpon>MenusControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SystemInfoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SystemInfoControl.Designer.cs">
+      <DependentUpon>SystemInfoControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +75,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\MenusControl.resx">
       <DependentUpon>MenusControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SystemInfoControl.resx">
+      <DependentUpon>SystemInfoControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -84,6 +93,7 @@
     </Compile>
     <None Include="Properties\DataSources\ChattersLib.ChattersDBLists.MenuItemList.datasource" />
     <None Include="Properties\DataSources\ChattersLib.ChattersDBLists.MenuList.datasource" />
+    <None Include="Properties\DataSources\ChattersLib.ChattersDBLists.SystemInfoList.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

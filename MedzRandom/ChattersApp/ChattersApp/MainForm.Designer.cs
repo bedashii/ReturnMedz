@@ -31,6 +31,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.buttonMenu = new System.Windows.Forms.Button();
             this.buttonMenuItems = new System.Windows.Forms.Button();
+            this.buttonSystemInfo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -45,6 +46,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.buttonSystemInfo);
             this.splitContainer1.Panel1.Controls.Add(this.buttonMenu);
             this.splitContainer1.Panel1.Controls.Add(this.buttonMenuItems);
             this.splitContainer1.Size = new System.Drawing.Size(622, 360);
@@ -71,6 +73,16 @@
             this.buttonMenuItems.UseVisualStyleBackColor = true;
             this.buttonMenuItems.Click += new System.EventHandler(this.buttonMenuItems_Click);
             // 
+            // buttonSystemInfo
+            // 
+            this.buttonSystemInfo.Location = new System.Drawing.Point(3, 91);
+            this.buttonSystemInfo.Name = "buttonSystemInfo";
+            this.buttonSystemInfo.Size = new System.Drawing.Size(131, 38);
+            this.buttonSystemInfo.TabIndex = 2;
+            this.buttonSystemInfo.Text = "System Info";
+            this.buttonSystemInfo.UseVisualStyleBackColor = true;
+            this.buttonSystemInfo.Click += new System.EventHandler(this.buttonSystemInfo_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -92,6 +104,7 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button buttonMenuItems;
         private System.Windows.Forms.Button buttonMenu;
+        private System.Windows.Forms.Button buttonSystemInfo;
     }
 }
 

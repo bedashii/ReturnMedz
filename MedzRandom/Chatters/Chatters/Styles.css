@@ -11,46 +11,36 @@ body {
     background-color: #FFFFFF;
     color: #000000;
     font-family: Verdana, Arial, Helvetica, sans-serif;
-    border-top: 2px solid purple;
+    /*border-top: 2px solid purple;*/
 }
 
 /* Header Section */
 
 #header {
-    border-top: 3px solid purple;
-    border-bottom: 1px dotted purple;
-    height: 3em;
+    border-top: 3px solid darkgreen;
+    border-bottom: 1px dotted darkgreen;
+    height: 6em;
 }
 
     #header .title {
         font: 190% Arial, Helvetica, Georgia, "Times New Roman", Times, serif;
         color: black;
-        background-color: transparent;
+        background-color: lawngreen;
+        border-radius: 100px;
         float: left;
-        margin-right: 2em;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        margin-right: 20px;
         margin-top: 0.3em;
-        margin-left: .8em;
-    }
-
-    #header .breadcrumb {
-        font: 90% Arial, Helvetica, Georgia, "Times New Roman", Times, serif;
-        color: black;
-        background-color: transparent;
-        float: right;
-        margin-right: 2em;
-        margin-top: 0.8em;
-        font-weight: bold;
-    }
-
-    #header a:link, a:visited {
-        color: purple;
+        margin-left: 20px;
+        width: 250px;
     }
 
 /* Navigation */
 
 #navigation {
     width: 20%;
-    top: 5em;
+    top: 8em;
     left: 1em;
     width: 13em;
     position: absolute;
@@ -64,22 +54,18 @@ body {
         padding: 0;
     }
 
-    #navigation li {
-        border-bottom: 1px solid purple;
-    }
-
         #navigation li a {
             display: block;
             padding: 5px 5px 5px 0.5em;
-            border-left: 12px solid purple;
-            border-right: 1px solid purple;
-            background-color: purple;
+            border-left: 12px solid lightgreen;
+            border-right: 1px solid lightgreen;
+            background-color: lightgreen;
             color: #FFFFFF;
             text-decoration: none;
         }
 
             #navigation li a:hover {
-                background-color: purple;
+                background-color: lightgreen;
                 color: #FFFFFF;
             }
 
@@ -88,20 +74,20 @@ body {
     }
 
         #navigation ul ul li {
-            border-bottom: 1px solid purple;
+            border-bottom: 1px solid lightgreen;
             margin: 0;
-            background-color: purple;
-            color: purple;
+            background-color: lightgreen;
+            color: white;
         }
 
         #navigation ul ul a:link, #navigation ul ul a:visited {
-            background-color: purple;
-            color: purple;
+            background-color: lightgreen;
+            color: white;
         }
 
         #navigation ul ul a:hover {
-            background-color: purple;
-            color: #FFFFFF;
+            background-color: lightgreen;
+            color: white;
         }
 
 /* Main Content */

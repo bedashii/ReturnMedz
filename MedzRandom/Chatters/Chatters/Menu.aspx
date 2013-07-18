@@ -2,7 +2,9 @@
 
 <%@ Reference Control="~/Controls/menuItem.ascx" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="Server">
-    <div style="margin-left:35%">
-        <asp:Label runat="server" ID="labelHeader" Font-Size="XX-Large" Text="Menu" Font-Bold="True" Font-Names="Goudy Stout" />
+    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+    <div style="margin-left: auto;margin-right: auto; width: 80px;">
+        <asp:Label runat="server" ID="labelHeader" Font-Size="XX-Large" Text="Menu" Font-Bold="True" Font-Names="Goudy Stout" Width="80px"/>
     </div>
+    <asp:PlaceHolder runat="server" ID="placeHolderSubMenus"></asp:PlaceHolder>
 </asp:Content>

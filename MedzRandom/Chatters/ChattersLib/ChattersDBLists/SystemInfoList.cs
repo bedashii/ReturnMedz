@@ -1,13 +1,13 @@
-﻿using ChattersLib.ChattersDBBusiness;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using ChattersLib.ChattersDBBusiness;
 
 namespace ChattersLib.ChattersDBLists
 {
-    public class MenuList : List<Menu>
+    public class SystemInfoList:List<SystemInfo>
     {
-        ChattersDBData.MenuData _data = new ChattersDBData.MenuData();
+        ChattersDBData.SystemInfoData _data = new ChattersDBData.SystemInfoData();
 
-        public MenuList()
+        public SystemInfoList()
         {
 
         }

@@ -17,9 +17,9 @@ namespace ChattersLib.ChattersDBData
 
         internal void LoadItemData(int id)
         {
-            System.Data.OleDb.OleDbCommand cmd = new System.Data.OleDb.OleDbCommand();
+            OleDbCommand cmd = new OleDbCommand();
             cmd.CommandText = "SELECT * FROM Menu WHERE ID = @ID";
-            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.CommandType = CommandType.Text;
 
             cmd.Parameters.Add("@ID", OleDbType.Integer).Value = id;
 
@@ -27,22 +27,22 @@ namespace ChattersLib.ChattersDBData
 
             if (dt.Rows.Count > 0)
             {
-                this.ID = Convert.ToInt32(dt.Rows[0]["ID"]);
-                this.Title = dt.Rows[0]["Title"].ToString();
-                this.Description = dt.Rows[0]["Description"].ToString();
+                ID = Convert.ToInt32(dt.Rows[0]["ID"]);
+                Title = dt.Rows[0]["Title"].ToString();
+                Description = dt.Rows[0]["Description"].ToString();
 
-                this.RecordsExists = true;
-                this.AnyPropertyChanged = false;
+                RecordsExists = true;
+                AnyPropertyChanged = false;
             }
             else
-                this.RecordsExists = false;
+                RecordsExists = false;
         }
 
         internal void GetAll(List<ChattersDBBusiness.Menu> list)
         {
-            System.Data.OleDb.OleDbCommand cmd = new System.Data.OleDb.OleDbCommand();
+            OleDbCommand cmd = new OleDbCommand();
             cmd.CommandText = "SELECT * FROM Menu";
-            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.CommandType = CommandType.Text;
 
             DataTable dt = dataHelper.ExecuteReader(cmd);
 
@@ -51,11 +51,9 @@ namespace ChattersLib.ChattersDBData
 
         void PopulateList(List<ChattersDBBusiness.Menu> list, DataTable reader)
         {
-            ChattersDBBusiness.Menu m = null;
-
             foreach (DataRow dr in reader.Rows)
             {
-                m = new ChattersDBBusiness.Menu();
+                ChattersDBBusiness.Menu m = new ChattersDBBusiness.Menu();
 
                 if (dr["ID"] != DBNull.Value)
                     m.ID = Convert.ToInt32(dr["ID"]);
@@ -73,25 +71,25 @@ namespace ChattersLib.ChattersDBData
 
         internal void Insert()
         {
-            System.Data.OleDb.OleDbCommand cmd = new System.Data.OleDb.OleDbCommand();
+            OleDbCommand cmd = new OleDbCommand();
 
             string q = "INSERT INTO Menu(Title,Description)\n";
             q += "Values(@Title,@Description)";
 
             cmd.CommandText = q;
 
-            cmd.Parameters.Add("@Title", System.Data.OleDb.OleDbType.WChar, 255).Value = this.Title == null ? "" : this.Title;
-            cmd.Parameters.Add("@Description", System.Data.OleDb.OleDbType.WChar, 255).Value = this.Description == null ? "" : this.Description;
+            cmd.Parameters.Add("@Title", OleDbType.WChar, 255).Value = Title ?? "";
+            cmd.Parameters.Add("@Description", OleDbType.WChar, 255).Value = Description ?? "";
 
             dataHelper.ExecuteNonReader(cmd);
 
-            this.RecordsExists = true;
-            this.AnyPropertyChanged = false;
+            RecordsExists = true;
+            AnyPropertyChanged = false;
         }
 
         internal void Update()
         {
-            System.Data.OleDb.OleDbCommand cmd = new System.Data.OleDb.OleDbCommand();
+            OleDbCommand cmd = new OleDbCommand();
 
             string q = "UPDATE Menu SET\n";
             q += "Title = @Title,\n";
@@ -100,27 +98,27 @@ namespace ChattersLib.ChattersDBData
 
             cmd.CommandText = q;
 
-            cmd.Parameters.Add("@Title", System.Data.OleDb.OleDbType.WChar, 255).Value = this.Title == null ? "" : this.Title;
-            cmd.Parameters.Add("@Description", System.Data.OleDb.OleDbType.WChar, 255).Value = this.Description == null ? "" : this.Description;
+            cmd.Parameters.Add("@Title", OleDbType.WChar, 255).Value = Title ?? "";
+            cmd.Parameters.Add("@Description", OleDbType.WChar, 255).Value = Description ?? "";
 
-            cmd.Parameters.Add("@ID", System.Data.OleDb.OleDbType.Integer).Value = this.ID;
+            cmd.Parameters.Add("@ID", OleDbType.Integer).Value = ID;
 
             dataHelper.ExecuteNonReader(cmd);
 
-            this.RecordsExists = true;
-            this.AnyPropertyChanged = false;
+            RecordsExists = true;
+            AnyPropertyChanged = false;
         }
 
         public void Delete()
         {
-            System.Data.OleDb.OleDbCommand cmd = new System.Data.OleDb.OleDbCommand();
+            OleDbCommand cmd = new OleDbCommand();
 
             string q = "DELETE FROM Menu\n";
             q += "WHERE ID = @ID";
 
             cmd.CommandText = q;
 
-            cmd.Parameters.Add("@ID", System.Data.OleDb.OleDbType.Integer).Value = this.ID;
+            cmd.Parameters.Add("@ID", OleDbType.Integer).Value = ID;
 
             dataHelper.ExecuteNonReader(cmd);
         }

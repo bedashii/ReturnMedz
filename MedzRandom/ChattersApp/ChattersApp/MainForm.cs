@@ -22,6 +22,7 @@ namespace ChattersApp
 
         MenusControl menusControl = null;
         MenuItemsControl menuItemControl = null;
+        SystemInfoControl systemInfoControl = null;
 
         private void buttonMenu_Click(object sender, EventArgs e)
         {
@@ -53,6 +54,22 @@ namespace ChattersApp
             activeControl = menuItemControl;
 
             splitContainer1.Panel2.Controls.Add(menuItemControl);
+        }
+
+        private void buttonSystemInfo_Click(object sender, EventArgs e)
+        {
+            if (systemInfoControl == null)
+            {
+                systemInfoControl = new SystemInfoControl();
+                systemInfoControl.Dock = DockStyle.Fill;
+            }
+
+            if (activeControl != null)
+                splitContainer1.Panel2.Controls.Remove(activeControl);
+
+            activeControl = systemInfoControl;
+
+            splitContainer1.Panel2.Controls.Add(systemInfoControl);
         }
     }
 }

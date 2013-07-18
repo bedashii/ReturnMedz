@@ -1,20 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChattersLib.ChattersDBData
 {
     public class DataHelper
     {
-        private System.Data.OleDb.OleDbConnection conn = null;
+        private System.Data.OleDb.OleDbConnection conn;
 
         public DataHelper()
         {
-            SetConnectionString("Provider=Microsoft.ACE.OLEDB.12.0; Data Source=C:\\Users\\Rian\\Documents\\GitHub\\ReturnMedz\\MedzRandom\\Chatters\\Database\\ChattersDB.accdb");
+            //System.Configuration.ConfigurationManager
+            string path;
+            if (System.Configuration.ConfigurationSettings.AppSettings != null &&
+                System.Configuration.ConfigurationSettings.AppSettings.Get("DataSourcePath") != null)
+                path = @System.Configuration.ConfigurationSettings.AppSettings.GetValues("DataSourcePath").First();
+            else throw new ApplicationException("Please set the DataBase Path in the web.Config file.");
+            SetConnectionString("Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" + path);
         }
 
         public DataHelper(string connectionString)

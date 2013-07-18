@@ -13,6 +13,15 @@ namespace Chatters {
     public partial class AboutUs {
         
         /// <summary>
+        /// ScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        
+        /// <summary>
         /// imageAboutUs control.
         /// </summary>
         /// <remarks>
@@ -20,6 +29,15 @@ namespace Chatters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imageAboutUs;
+        
+        /// <summary>
+        /// SlideShowExtender1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.SlideShowExtender SlideShowExtender1;
         
         /// <summary>
         /// labelAboutUs control.

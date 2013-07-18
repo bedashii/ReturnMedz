@@ -6,14 +6,15 @@
     }
 
     #table {
-        border: medium solid #FFFF00;
-        background-color: #800080;
-        color: #FFFFFF;
+        border: none;
+        background-color: lightgreen;
+        color: black;
         border-collapse: collapse;
     }
 
         #table td, table th {
-            border: 0px solid black;
+            border: 0 solid transparent;
+            margin-bottom: 10px;
         }
 
         #table tr:first-child th {

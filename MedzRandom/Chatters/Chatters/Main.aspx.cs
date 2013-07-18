@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using ChattersLib.ChattersDBBusiness;
 
 namespace Chatters
 {
@@ -11,7 +7,13 @@ namespace Chatters
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            labelIntoduction.Text = "This is the Introduction." + "<BR>" + "Someone should write something here." + "<BR>" + "#JustSayin";
+            SystemInfo systemInfo = new SystemInfo();
+            systemInfo.LoadItem("Home Introduction");
+            if (systemInfo.RecordsExists)
+                labelIntoduction.Text = systemInfo.SIValue;
+            else
+                labelIntoduction.Text = "This is the Introduction." + "<BR>" + "Someone should write something here." +
+                                        "<BR>" + "#JustSayin TEST TEST TEST";
         }
     }
 }

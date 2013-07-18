@@ -38,7 +38,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit">
+      <HintPath>..\..\..\..\Utilities\CRMProgram\CRMApplication\packages\AjaxControlToolkit.7.0429\lib\40\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="Artem.Google, Version=6.1.0.0, Culture=neutral, PublicKeyToken=fc8d6190a3aeb01c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Artem.Google.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -52,7 +60,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
@@ -67,6 +74,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="WebServices\SlideShowWebService.asmx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutUs.aspx.cs">
@@ -104,6 +112,7 @@
     <Compile Include="Controls\subMenuControl.ascx.designer.cs">
       <DependentUpon>subMenuControl.ascx</DependentUpon>
     </Compile>
+    <Compile Include="CustomSiteMapProvider.cs" />
     <Compile Include="Main.aspx.cs">
       <DependentUpon>Main.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -119,6 +128,10 @@
       <DependentUpon>Menu.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebServices\SlideShowWebService.asmx.cs">
+      <DependentUpon>SlideShowWebService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="ChattersMaster.Master" />
@@ -133,6 +146,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\AboutUs\" />
+    <Folder Include="Images\Home\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChattersLib\ChattersLib.csproj">

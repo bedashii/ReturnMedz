@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ChattersApp.Controls
@@ -22,7 +15,7 @@ namespace ChattersApp.Controls
             menuListBindingSource.DataSource = menuList;
         }
 
-        ChattersLib.ChattersDBLists.MenuList menuList = null;
+        ChattersLib.ChattersDBLists.MenuList menuList;
 
         private void buttonNew_Click(object sender, EventArgs e)
         {
@@ -37,7 +30,8 @@ namespace ChattersApp.Controls
 
         private void dataGridViewMenus_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == dataGridViewMenus.Columns["buttonDelete"].Index)
+            DataGridViewColumn dataGridViewColumn = dataGridViewMenus.Columns["buttonDelete"];
+            if (dataGridViewColumn != null && e.ColumnIndex == dataGridViewColumn.Index)
             {
                 if (MessageBox.Show("Are you sure you wish to delete the selected Menu Item?", "Delete Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {

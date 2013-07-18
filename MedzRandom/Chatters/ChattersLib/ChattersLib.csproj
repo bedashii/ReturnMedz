@@ -41,13 +41,17 @@
   <ItemGroup>
     <Compile Include="ChattersDBBusiness\Menu.cs" />
     <Compile Include="ChattersDBBusiness\MenuItem.cs" />
+    <Compile Include="ChattersDBBusiness\SystemInfo.cs" />
     <Compile Include="ChattersDBData\DataHelper.cs" />
     <Compile Include="ChattersDBData\MenuData.cs" />
     <Compile Include="ChattersDBData\MenuItemData.cs" />
+    <Compile Include="ChattersDBData\SystemInfoData.cs" />
     <Compile Include="ChattersDBLists\MenuItemList.cs" />
     <Compile Include="ChattersDBLists\MenuList.cs" />
+    <Compile Include="ChattersDBLists\SystemInfoList.cs" />
     <Compile Include="ChattersDBProperties\MenuItemProperties.cs" />
     <Compile Include="ChattersDBProperties\MenuProperties.cs" />
+    <Compile Include="ChattersDBProperties\SystemInfoProperties.cs" />
     <Compile Include="PropertiesBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
