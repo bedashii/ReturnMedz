@@ -39,11 +39,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AjaxControlToolkit">
-      <HintPath>..\..\..\..\Utilities\CRMProgram\CRMApplication\packages\AjaxControlToolkit.7.0429\lib\40\AjaxControlToolkit.dll</HintPath>
+      <HintPath>.\AjaxControlToolkit.dll</HintPath>
     </Reference>
-    <Reference Include="Artem.Google, Version=6.1.0.0, Culture=neutral, PublicKeyToken=fc8d6190a3aeb01c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Artem.Google.dll</HintPath>
+    <Reference Include="Artem.Google">
+      <HintPath>.\Artem.Google.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Configuration" />
