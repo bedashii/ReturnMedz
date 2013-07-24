@@ -52,6 +52,7 @@
     <Compile Include="ChattersDBProperties\MenuItemProperties.cs" />
     <Compile Include="ChattersDBProperties\MenuProperties.cs" />
     <Compile Include="ChattersDBProperties\SystemInfoProperties.cs" />
+    <Compile Include="Processors\MenuItemProcessor.cs" />
     <Compile Include="PropertiesBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

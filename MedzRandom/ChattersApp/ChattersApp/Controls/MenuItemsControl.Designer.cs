@@ -41,9 +41,9 @@
             this.anyPropertyChangedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.menuItemListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.menuListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelPicture = new System.Windows.Forms.Label();
             this.comboBoxMenu = new System.Windows.Forms.ComboBox();
+            this.menuListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelMenu = new System.Windows.Forms.Label();
             this.buttonNew = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
@@ -207,11 +207,7 @@
             this.comboBox1.Location = new System.Drawing.Point(69, 108);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(590, 21);
-            this.comboBox1.TabIndex = 15;
-            // 
-            // menuListBindingSource
-            // 
-            this.menuListBindingSource.DataSource = typeof(ChattersLib.ChattersDBLists.MenuList);
+            this.comboBox1.TabIndex = 4;
             // 
             // labelPicture
             // 
@@ -233,9 +229,13 @@
             this.comboBoxMenu.Location = new System.Drawing.Point(69, 3);
             this.comboBoxMenu.Name = "comboBoxMenu";
             this.comboBoxMenu.Size = new System.Drawing.Size(590, 21);
-            this.comboBoxMenu.TabIndex = 13;
+            this.comboBoxMenu.TabIndex = 0;
             this.comboBoxMenu.ValueMember = "ID";
             this.comboBoxMenu.SelectedValueChanged += new System.EventHandler(this.comboBoxMenu_SelectedValueChanged);
+            // 
+            // menuListBindingSource
+            // 
+            this.menuListBindingSource.DataSource = typeof(ChattersLib.ChattersDBLists.MenuList);
             // 
             // labelMenu
             // 
@@ -252,7 +252,7 @@
             this.buttonNew.Location = new System.Drawing.Point(503, 150);
             this.buttonNew.Name = "buttonNew";
             this.buttonNew.Size = new System.Drawing.Size(75, 23);
-            this.buttonNew.TabIndex = 7;
+            this.buttonNew.TabIndex = 6;
             this.buttonNew.Text = "New";
             this.buttonNew.UseVisualStyleBackColor = true;
             this.buttonNew.Click += new System.EventHandler(this.buttonNew_Click);
@@ -263,7 +263,7 @@
             this.buttonSave.Location = new System.Drawing.Point(584, 150);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
-            this.buttonSave.TabIndex = 6;
+            this.buttonSave.TabIndex = 5;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
@@ -303,7 +303,7 @@
             this.textBoxPrice.Location = new System.Drawing.Point(69, 82);
             this.textBoxPrice.Name = "textBoxPrice";
             this.textBoxPrice.Size = new System.Drawing.Size(590, 20);
-            this.textBoxPrice.TabIndex = 2;
+            this.textBoxPrice.TabIndex = 3;
             // 
             // textBoxDescription
             // 
@@ -313,7 +313,7 @@
             this.textBoxDescription.Location = new System.Drawing.Point(69, 56);
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.Size = new System.Drawing.Size(590, 20);
-            this.textBoxDescription.TabIndex = 1;
+            this.textBoxDescription.TabIndex = 2;
             // 
             // textBoxTitle
             // 
@@ -323,7 +323,7 @@
             this.textBoxTitle.Location = new System.Drawing.Point(69, 30);
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.Size = new System.Drawing.Size(590, 20);
-            this.textBoxTitle.TabIndex = 0;
+            this.textBoxTitle.TabIndex = 1;
             // 
             // labelSearch
             // 
