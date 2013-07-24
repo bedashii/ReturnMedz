@@ -31,17 +31,17 @@
             this.components = new System.ComponentModel.Container();
             this.splitContainerMenues = new System.Windows.Forms.SplitContainer();
             this.dataGridViewMenus = new System.Windows.Forms.DataGridView();
+            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonDelete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.menuListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.buttonNew = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.labelDescription = new System.Windows.Forms.Label();
             this.labelTitle = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.textBoxTitle = new System.Windows.Forms.TextBox();
-            this.buttonDelete = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.menuListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMenues)).BeginInit();
             this.splitContainerMenues.Panel1.SuspendLayout();
             this.splitContainerMenues.Panel2.SuspendLayout();
@@ -55,6 +55,7 @@
             this.splitContainerMenues.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainerMenues.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splitContainerMenues.Location = new System.Drawing.Point(3, 3);
             this.splitContainerMenues.Name = "splitContainerMenues";
             this.splitContainerMenues.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -71,14 +72,17 @@
             this.splitContainerMenues.Panel2.Controls.Add(this.labelTitle);
             this.splitContainerMenues.Panel2.Controls.Add(this.textBoxDescription);
             this.splitContainerMenues.Panel2.Controls.Add(this.textBoxTitle);
-            this.splitContainerMenues.Size = new System.Drawing.Size(410, 314);
-            this.splitContainerMenues.SplitterDistance = 155;
+            this.splitContainerMenues.Size = new System.Drawing.Size(366, 274);
+            this.splitContainerMenues.SplitterDistance = 192;
             this.splitContainerMenues.TabIndex = 0;
             // 
             // dataGridViewMenus
             // 
             this.dataGridViewMenus.AllowUserToAddRows = false;
             this.dataGridViewMenus.AllowUserToDeleteRows = false;
+            this.dataGridViewMenus.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewMenus.AutoGenerateColumns = false;
             this.dataGridViewMenus.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewMenus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -91,14 +95,50 @@
             this.dataGridViewMenus.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewMenus.Name = "dataGridViewMenus";
             this.dataGridViewMenus.ReadOnly = true;
-            this.dataGridViewMenus.Size = new System.Drawing.Size(404, 149);
+            this.dataGridViewMenus.Size = new System.Drawing.Size(360, 186);
             this.dataGridViewMenus.TabIndex = 0;
             this.dataGridViewMenus.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMenus_CellContentClick);
+            // 
+            // iDDataGridViewTextBoxColumn
+            // 
+            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
+            this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
+            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
+            this.iDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.iDDataGridViewTextBoxColumn.Width = 43;
+            // 
+            // titleDataGridViewTextBoxColumn
+            // 
+            this.titleDataGridViewTextBoxColumn.DataPropertyName = "Title";
+            this.titleDataGridViewTextBoxColumn.HeaderText = "Title";
+            this.titleDataGridViewTextBoxColumn.Name = "titleDataGridViewTextBoxColumn";
+            this.titleDataGridViewTextBoxColumn.ReadOnly = true;
+            this.titleDataGridViewTextBoxColumn.Width = 52;
+            // 
+            // descriptionDataGridViewTextBoxColumn
+            // 
+            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
+            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
+            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
+            this.descriptionDataGridViewTextBoxColumn.ReadOnly = true;
+            this.descriptionDataGridViewTextBoxColumn.Width = 85;
+            // 
+            // buttonDelete
+            // 
+            this.buttonDelete.HeaderText = "";
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.ReadOnly = true;
+            this.buttonDelete.Text = "Delete";
+            this.buttonDelete.Width = 5;
+            // 
+            // menuListBindingSource
+            // 
+            this.menuListBindingSource.DataSource = typeof(ChattersLib.ChattersDBLists.MenuList);
             // 
             // buttonNew
             // 
             this.buttonNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonNew.Location = new System.Drawing.Point(251, 129);
+            this.buttonNew.Location = new System.Drawing.Point(207, 52);
             this.buttonNew.Name = "buttonNew";
             this.buttonNew.Size = new System.Drawing.Size(75, 23);
             this.buttonNew.TabIndex = 9;
@@ -109,7 +149,7 @@
             // buttonSave
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.Location = new System.Drawing.Point(332, 129);
+            this.buttonSave.Location = new System.Drawing.Point(288, 52);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 8;
@@ -142,7 +182,7 @@
             this.textBoxDescription.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.menuListBindingSource, "Description", true));
             this.textBoxDescription.Location = new System.Drawing.Point(69, 29);
             this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.Size = new System.Drawing.Size(338, 20);
+            this.textBoxDescription.Size = new System.Drawing.Size(294, 20);
             this.textBoxDescription.TabIndex = 1;
             // 
             // textBoxTitle
@@ -152,44 +192,8 @@
             this.textBoxTitle.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.menuListBindingSource, "Title", true));
             this.textBoxTitle.Location = new System.Drawing.Point(69, 3);
             this.textBoxTitle.Name = "textBoxTitle";
-            this.textBoxTitle.Size = new System.Drawing.Size(338, 20);
+            this.textBoxTitle.Size = new System.Drawing.Size(294, 20);
             this.textBoxTitle.TabIndex = 0;
-            // 
-            // buttonDelete
-            // 
-            this.buttonDelete.HeaderText = "";
-            this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.ReadOnly = true;
-            this.buttonDelete.Text = "Delete";
-            this.buttonDelete.Width = 5;
-            // 
-            // iDDataGridViewTextBoxColumn
-            // 
-            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
-            this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
-            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
-            this.iDDataGridViewTextBoxColumn.ReadOnly = true;
-            this.iDDataGridViewTextBoxColumn.Width = 43;
-            // 
-            // titleDataGridViewTextBoxColumn
-            // 
-            this.titleDataGridViewTextBoxColumn.DataPropertyName = "Title";
-            this.titleDataGridViewTextBoxColumn.HeaderText = "Title";
-            this.titleDataGridViewTextBoxColumn.Name = "titleDataGridViewTextBoxColumn";
-            this.titleDataGridViewTextBoxColumn.ReadOnly = true;
-            this.titleDataGridViewTextBoxColumn.Width = 52;
-            // 
-            // descriptionDataGridViewTextBoxColumn
-            // 
-            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
-            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
-            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
-            this.descriptionDataGridViewTextBoxColumn.ReadOnly = true;
-            this.descriptionDataGridViewTextBoxColumn.Width = 85;
-            // 
-            // menuListBindingSource
-            // 
-            this.menuListBindingSource.DataSource = typeof(ChattersLib.ChattersDBLists.MenuList);
             // 
             // MenusControl
             // 
@@ -197,7 +201,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.splitContainerMenues);
             this.Name = "MenusControl";
-            this.Size = new System.Drawing.Size(416, 320);
+            this.Size = new System.Drawing.Size(372, 280);
             this.splitContainerMenues.Panel1.ResumeLayout(false);
             this.splitContainerMenues.Panel2.ResumeLayout(false);
             this.splitContainerMenues.Panel2.PerformLayout();

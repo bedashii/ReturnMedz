@@ -80,7 +80,12 @@ namespace ChattersApp.Controls
 
         private void buttonNew_Click(object sender, EventArgs e)
         {
+            int menu = 0;
+            if (menuItemListBindingSource.Current != null)
+                menu = ((ChattersLib.ChattersDBBusiness.MenuItem)menuItemListBindingSource.Current).Menu;
             menuItemList.Add((ChattersLib.ChattersDBBusiness.MenuItem)menuItemListBindingSource.AddNew());
+
+            ((ChattersLib.ChattersDBBusiness.MenuItem)menuItemListBindingSource.Current).Menu = menu;
         }
 
         private void dataGridViewMenuItems_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -161,6 +166,17 @@ namespace ChattersApp.Controls
             });
 
             return mil;
+        }
+
+        internal void ResetMenus()
+        {
+            menuList = new ChattersLib.ChattersDBLists.MenuList();
+            menuList.GetAll();
+
+            menuListFilter = new ChattersLib.ChattersDBLists.MenuList();
+            menuListFilter.Insert(0, new ChattersLib.ChattersDBBusiness.Menu() { ID = 0, Title = "All" });
+
+            menuListBindingSource.DataSource = menuList;
         }
     }
 }

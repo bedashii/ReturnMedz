@@ -47,6 +47,10 @@ namespace ChattersApp
                 menuItemControl = new MenuItemsControl();
                 menuItemControl.Dock = DockStyle.Fill;
             }
+            else
+            {
+                menuItemControl.ResetMenus();
+            }
 
             if (activeControl != null)
                 splitContainer1.Panel2.Controls.Remove(activeControl);
