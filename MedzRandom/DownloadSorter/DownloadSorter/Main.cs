@@ -301,6 +301,9 @@ namespace DownloadSorter
             moveFiles();
         }
 
+
+        bool initBGMove = false;
+
         private void moveFiles()
         {
             ProgressBar.Value = 0;
@@ -309,8 +312,12 @@ namespace DownloadSorter
             this.Controls.Add(ProgressBar);
             ProgressBar.BringToFront();
 
-            BGMove.DoWork += new DoWorkEventHandler(BGMove_DoWork);
-            BGMove.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BGMove_RunWorkerCompleted);
+            if (!initBGMove)
+            {
+                BGMove.DoWork += new DoWorkEventHandler(BGMove_DoWork);
+                BGMove.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BGMove_RunWorkerCompleted);
+                initBGMove = true;
+            }
             BGMove.RunWorkerAsync();
         }
 
