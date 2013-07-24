@@ -39,7 +39,7 @@
 <table id="table" class="auto-style2" border="1">
     <tr>
         <td id="titleColumn" style="width: 80%">
-            <asp:Label runat="server" ID="labelTitle">Title</asp:Label>
+            <asp:Label runat="server" ID="labelTitle" Font-Bold="true">Title</asp:Label>
         </td>
         <td id="priceColumn" style="width: 20%">
             <asp:Label runat="server" ID="labelPrice">Price</asp:Label>

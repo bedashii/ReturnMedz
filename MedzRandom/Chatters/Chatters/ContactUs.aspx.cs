@@ -17,10 +17,16 @@ namespace Chatters
             siContactNumber.LoadItem("Contact Number");
             siEmail.LoadItem("Email Address");
 
+
+            labelAddress.Visible = labelAddressHeader.Visible = siAddress.RecordsExists;
             if (siAddress.RecordsExists)
                 labelAddress.Text = siAddress.SIValue;
+
+            labelContactNumber.Visible = labelContactNumberHeader.Visible = siContactNumber.RecordsExists;
             if (siContactNumber.RecordsExists)
                 labelContactNumber.Text = siContactNumber.SIValue;
+
+            labelEmail.Visible = labelEmailHeader.Visible = siEmail.RecordsExists;
             if (siEmail.RecordsExists)
                 labelEmail.Text = siEmail.SIValue;
         }

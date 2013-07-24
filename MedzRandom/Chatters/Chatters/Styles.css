@@ -8,7 +8,7 @@
 body {
     margin: 0;
     padding-bottom: 2em;
-    background-color: #FFFFFF;
+    background-color: lightgreen;
     color: #000000;
     font-family: Verdana, Arial, Helvetica, sans-serif;
     /*border-top: 2px solid purple;*/
@@ -65,7 +65,7 @@ body {
         }
 
             #navigation li a:hover {
-                background-color: lightgreen;
+                background-color: lawngreen;
                 color: #FFFFFF;
             }
 
@@ -86,7 +86,7 @@ body {
         }
 
         #navigation ul ul a:hover {
-            background-color: lightgreen;
+            background-color: lawngreen;
             color: white;
         }
 

@@ -8,46 +8,40 @@
         <h2>Contact Us</h2>
     </div>
     <div>
-        <table width="100%">
-            <tr>
-                <td width="50%">
-                    <table>
-                        <tr>
-                            <td width="150px">
-                                <asp:Label runat="server" ID="labelAddressHeader" Text="Address" />
-                            </td>
-                            <td >
-                                <asp:Label runat="server" ID="labelAddress" Text="" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label runat="server" ID="labelContactNumberHeader" Text="Contact Number" />
-                            </td>
-                            <td>
-                                <asp:Label runat="server" ID="labelContactNumber" Text="" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label runat="server" ID="labelEmailHeader" Text="Email Address" />
-                            </td>
-                            <td>
-                                <asp:Label runat="server" ID="labelEmail" Text="" />
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td width="50%">
-                    <artem:GoogleMap ID="GoogleMap1" runat="server" Zoom="18" MapType="Roadmap" Address="57 Lourensford Rd Helderberg, Somerset West 7130 South Africa">
-                        <markers>
+        <asp:Panel runat="server">
+            <table>
+                <tr>
+                    <td width="135px">
+                        <asp:Label runat="server" ID="labelAddressHeader" Text="Address" />
+                    </td>
+                    <td width="500px">
+                        <asp:Label runat="server" ID="labelAddress" Text=""  />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label runat="server" ID="labelContactNumberHeader" Text="Contact Number" />
+                    </td>
+                    <td>
+                        <asp:Label runat="server" ID="labelContactNumber" Text="" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label runat="server" ID="labelEmailHeader" Text="Email Address" />
+                    </td>
+                    <td>
+                        <asp:Label runat="server" ID="labelEmail" Text="" />
+                    </td>
+                </tr>
+            </table>
+            <artem:GoogleMap ID="GoogleMap1" runat="server" Zoom="18" MapType="Roadmap" Address="57 Lourensford Rd Helderberg, Somerset West 7130 South Africa">
+                <markers>
                             <artem:Marker Position-Latitude="-34.076648" Position-Longitude="18.857795"/>
                         </markers>
-                    </artem:GoogleMap>
-                    <%--Latitude="-34.076648" Longitude="18.857795"--%>
-                </td>
-            </tr>
-        </table>
+            </artem:GoogleMap>
+            <%--Latitude="-34.076648" Longitude="18.857795"--%>
+        </asp:Panel>
     </div>
     <div style="text-align: center">
         <h2>Leave Us a Message</h2>
