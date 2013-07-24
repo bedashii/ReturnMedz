@@ -9,18 +9,18 @@ namespace ChattersLib.ChattersDBBusiness
         {
             get
             {
-                if (menuMember == null)
-                {
-                    if (Menu != 0)
-                    {
-                        menuMember = Processors.MenuItemProcessor.MenuList.Find(x => x.ID == Menu);
-                        if (menuMember == null)
-                        {
-                            menuMember = new Menu();
-                            menuMember.LoadItemData(Menu);
+                if (menuMember != null && menuMember.ID == Menu)
+                    return menuMember;
 
-                            Processors.MenuItemProcessor.MenuList.Add(menuMember);
-                        }
+                if (Menu != 0)
+                {
+                    menuMember = Processors.MenuItemProcessor.MenuList.Find(x => x.ID == Menu);
+                    if (menuMember == null)
+                    {
+                        menuMember = new Menu();
+                        menuMember.LoadItemData(Menu);
+
+                        Processors.MenuItemProcessor.MenuList.Add(menuMember);
                     }
                 }
                 return menuMember;

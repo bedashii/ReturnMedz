@@ -172,9 +172,7 @@ namespace ChattersApp.Controls
         {
             menuList = new ChattersLib.ChattersDBLists.MenuList();
             menuList.GetAll();
-
-            menuListFilter = new ChattersLib.ChattersDBLists.MenuList();
-            menuListFilter.Insert(0, new ChattersLib.ChattersDBBusiness.Menu() { ID = 0, Title = "All" });
+            menuList.Insert(0, new ChattersLib.ChattersDBBusiness.Menu() { ID = 0, Title = "None" });
 
             menuListBindingSource.DataSource = menuList;
         }
