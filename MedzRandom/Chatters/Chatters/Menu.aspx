@@ -6,5 +6,7 @@
     <div style="margin-left: auto;margin-right: auto; width: 80px;">
         <asp:Label runat="server" ID="labelHeader" Font-Size="XX-Large" Text="Menu" Font-Bold="True" Font-Names="Goudy Stout" Width="80px"/>
     </div>
+    <div style="margin-left: auto;margin-right: auto; width: 800px;">
     <asp:PlaceHolder runat="server" ID="placeHolderSubMenus"></asp:PlaceHolder>
+        </div>
 </asp:Content>

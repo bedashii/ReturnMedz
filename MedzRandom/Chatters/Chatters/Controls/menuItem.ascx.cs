@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace Chatters.Controls
 {
@@ -40,9 +41,14 @@ namespace Chatters.Controls
             }
         }
 
+        public string ImagePlaceHolder
+        {
+            get { return imagePlaceHolder.ImageUrl; }
+            set { imagePlaceHolder.ImageUrl = value; }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

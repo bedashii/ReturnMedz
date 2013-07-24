@@ -8,7 +8,7 @@
             </Services>
     </asp:ScriptManager>
     <div style="text-align: center">
-        <h1>HOME</h1>
+        <h2>HOME</h2>
     </div>
     <div style="text-align: center">
         <asp:Label runat="server" ID="labelIntoduction" Style="text-align: center" />

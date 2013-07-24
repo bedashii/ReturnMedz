@@ -12,7 +12,7 @@
     <div id="wrapper">
 
         <form id="form1" runat="server">
-            <div id="header" style="text-align: center">
+            <div id="header" style="text-align: center; margin-left: 14em">
                 <asp:Image runat="server" ID="imageHeader" AlternateText="Chatters" ImageUrl="Images/ChattersLogo.png" Height="96px"/>
             </div>
 

@@ -24,6 +24,7 @@ namespace Chatters
                     {
                         subMenu.ID = "subMenu" + x.ID;
                         subMenu.Title = x.Title;
+                        subMenu.Description = x.Description;
                         subMenu.MenuItems = x.MenuItems;
                         subMenu.Collapsed = false;
 

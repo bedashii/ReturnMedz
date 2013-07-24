@@ -49,6 +49,10 @@
         <td id="descriptionColumn" style="width: 60%">
             <asp:Label runat="server" ID="labelDescription">Description</asp:Label>
         </td>
-        <td id="pictureColumn" style="width: 40%"></td>
+        <td id="pictureColumn" style="width: 40%">
+            <asp:Image runat="server" ID="imagePlaceHolder"
+                Width="100%"
+                />
+        </td>
     </tr>
 </table>

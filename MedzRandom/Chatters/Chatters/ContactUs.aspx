@@ -8,8 +8,8 @@
         <h2>Contact Us</h2>
     </div>
     <div>
-        <asp:Panel runat="server">
-            <table>
+        <asp:Panel>
+            <table width="635px" style="margin-left: auto;margin-right: auto">
                 <tr>
                     <td width="135px">
                         <asp:Label runat="server" ID="labelAddressHeader" Text="Address" />
@@ -35,7 +35,13 @@
                     </td>
                 </tr>
             </table>
-            <artem:GoogleMap ID="GoogleMap1" runat="server" Zoom="18" MapType="Roadmap" Address="57 Lourensford Rd Helderberg, Somerset West 7130 South Africa">
+            <artem:GoogleMap
+                ID="GoogleMap1" 
+                runat="server" 
+                Zoom="18" 
+                MapType="Roadmap" 
+                Address="57 Lourensford Rd Helderberg, Somerset West 7130 South Africa"
+                width="635px" style="margin-left: auto;margin-right: auto">
                 <markers>
                             <artem:Marker Position-Latitude="-34.076648" Position-Longitude="18.857795"/>
                         </markers>
@@ -47,12 +53,12 @@
         <h2>Leave Us a Message</h2>
     </div>
     <div>
-        <table width="100%">
+        <table width="635px" style="margin-left: auto;margin-right: auto">
             <tr>
-                <td width="20%">
+                <td width="135px">
                     <asp:Label runat="server" ID="labelNameHeader" Text="Name" />
                 </td>
-                <td width="80%">
+                <td width="500px">
                     <asp:TextBox runat="server" ID="textboxName" Width="200px" />
                 </td>
             </tr>

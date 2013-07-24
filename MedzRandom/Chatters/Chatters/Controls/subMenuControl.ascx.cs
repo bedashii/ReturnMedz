@@ -1,4 +1,5 @@
-﻿using ChattersLib.ChattersDBLists;
+﻿using System.Web.UI;
+using ChattersLib.ChattersDBLists;
 using System;
 
 namespace Chatters.Controls
@@ -22,6 +23,12 @@ namespace Chatters.Controls
             }
         }
 
+        public string Description
+        {
+            get { return labelDescription.Text; }
+            set { labelDescription.Text = value; }
+        }
+
         private MenuItemList menuItems;
         public MenuItemList MenuItems
         {
@@ -41,7 +48,13 @@ namespace Chatters.Controls
 
         private void updateMenuItems()
         {
-            menuItemPanel.Controls.Clear();
+            foreach (Control control in menuItemPanel.Controls)
+            {
+                if (control.GetType() == typeof(subMenuControl))
+                    menuItemPanel.Controls.Remove(control);
+            }
+
+            //menuItemPanel.Controls.Clear();
 
             MenuItems.ForEach(menuItem =>
                 {

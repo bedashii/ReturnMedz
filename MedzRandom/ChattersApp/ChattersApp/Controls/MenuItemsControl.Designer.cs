@@ -57,6 +57,8 @@
             this.labelFilterByMenu = new System.Windows.Forms.Label();
             this.comboBoxMenuListFilter = new System.Windows.Forms.ComboBox();
             this.menuListBindingSourceFilter = new System.Windows.Forms.BindingSource(this.components);
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.labelPicture = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMenuItems)).BeginInit();
             this.splitContainerMenuItems.Panel1.SuspendLayout();
             this.splitContainerMenuItems.Panel2.SuspendLayout();
@@ -83,6 +85,8 @@
             // 
             // splitContainerMenuItems.Panel2
             // 
+            this.splitContainerMenuItems.Panel2.Controls.Add(this.comboBox1);
+            this.splitContainerMenuItems.Panel2.Controls.Add(this.labelPicture);
             this.splitContainerMenuItems.Panel2.Controls.Add(this.comboBoxMenu);
             this.splitContainerMenuItems.Panel2.Controls.Add(this.labelMenu);
             this.splitContainerMenuItems.Panel2.Controls.Add(this.buttonNew);
@@ -93,8 +97,8 @@
             this.splitContainerMenuItems.Panel2.Controls.Add(this.textBoxPrice);
             this.splitContainerMenuItems.Panel2.Controls.Add(this.textBoxDescription);
             this.splitContainerMenuItems.Panel2.Controls.Add(this.textBoxTitle);
-            this.splitContainerMenuItems.Size = new System.Drawing.Size(662, 442);
-            this.splitContainerMenuItems.SplitterDistance = 300;
+            this.splitContainerMenuItems.Size = new System.Drawing.Size(662, 494);
+            this.splitContainerMenuItems.SplitterDistance = 314;
             this.splitContainerMenuItems.TabIndex = 0;
             // 
             // dataGridViewMenuItems
@@ -120,7 +124,7 @@
             this.dataGridViewMenuItems.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewMenuItems.Name = "dataGridViewMenuItems";
             this.dataGridViewMenuItems.ReadOnly = true;
-            this.dataGridViewMenuItems.Size = new System.Drawing.Size(656, 294);
+            this.dataGridViewMenuItems.Size = new System.Drawing.Size(656, 308);
             this.dataGridViewMenuItems.TabIndex = 0;
             this.dataGridViewMenuItems.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMenuItems_CellContentClick);
             // 
@@ -223,7 +227,7 @@
             // buttonNew
             // 
             this.buttonNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonNew.Location = new System.Drawing.Point(503, 112);
+            this.buttonNew.Location = new System.Drawing.Point(503, 150);
             this.buttonNew.Name = "buttonNew";
             this.buttonNew.Size = new System.Drawing.Size(75, 23);
             this.buttonNew.TabIndex = 7;
@@ -234,7 +238,7 @@
             // buttonSave
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.Location = new System.Drawing.Point(584, 112);
+            this.buttonSave.Location = new System.Drawing.Point(584, 150);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 6;
@@ -354,6 +358,27 @@
             // 
             this.menuListBindingSourceFilter.DataSource = typeof(ChattersLib.ChattersDBLists.MenuList);
             // 
+            // comboBox1
+            // 
+            this.comboBox1.DataSource = this.menuListBindingSource;
+            this.comboBox1.DisplayMember = "Title";
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(69, 108);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(590, 21);
+            this.comboBox1.TabIndex = 15;
+            this.comboBox1.ValueMember = "ID";
+            // 
+            // labelPicture
+            // 
+            this.labelPicture.AutoSize = true;
+            this.labelPicture.Location = new System.Drawing.Point(3, 111);
+            this.labelPicture.Name = "labelPicture";
+            this.labelPicture.Size = new System.Drawing.Size(40, 13);
+            this.labelPicture.TabIndex = 14;
+            this.labelPicture.Text = "Picture";
+            // 
             // MenuItemsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -365,7 +390,7 @@
             this.Controls.Add(this.labelSearch);
             this.Controls.Add(this.splitContainerMenuItems);
             this.Name = "MenuItemsControl";
-            this.Size = new System.Drawing.Size(668, 503);
+            this.Size = new System.Drawing.Size(668, 555);
             this.Load += new System.EventHandler(this.MenuItemsControl_Load);
             this.splitContainerMenuItems.Panel1.ResumeLayout(false);
             this.splitContainerMenuItems.Panel2.ResumeLayout(false);
@@ -411,5 +436,7 @@
         private System.Windows.Forms.DataGridViewButtonColumn buttonDelete;
         private System.Windows.Forms.DataGridViewCheckBoxColumn recordsExistsDataGridViewCheckBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn anyPropertyChangedDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label labelPicture;
     }
 }
