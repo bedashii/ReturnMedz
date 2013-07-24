@@ -1,4 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="ChattersMaster.master.cs" Inherits="Chatters.ChattersMaster" %>
+<%@ Register TagPrefix="AjaxControlToolkit" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit, Version=4.1.7.429, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e" %>
 
 <!DOCTYPE html>
 
@@ -11,10 +12,8 @@
     <div id="wrapper">
 
         <form id="form1" runat="server">
-
-            <div id="header">
-
-                <span class="title" style="text-align:center">Chatters</span>
+            <div id="header" style="text-align: center">
+                <asp:Image runat="server" ID="imageHeader" AlternateText="Chatters" ImageUrl="Images/ChattersLogo.png" Height="96px"/>
             </div>
 
             <div id="content">

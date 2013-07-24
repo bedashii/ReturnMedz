@@ -67,6 +67,7 @@
     <Content Include="ContactUs.aspx" />
     <Content Include="Controls\menuItem.ascx" />
     <Content Include="Controls\subMenuControl.ascx" />
+    <Content Include="Images\ChattersLogo.png" />
     <Content Include="Main.aspx" />
     <Content Include="Menu.aspx" />
     <Content Include="Styles.css" />
