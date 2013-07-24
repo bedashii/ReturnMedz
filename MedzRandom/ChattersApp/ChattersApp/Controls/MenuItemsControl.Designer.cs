@@ -40,8 +40,10 @@
             this.recordsExistsDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.anyPropertyChangedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.menuItemListBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.comboBoxMenu = new System.Windows.Forms.ComboBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.menuListBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.labelPicture = new System.Windows.Forms.Label();
+            this.comboBoxMenu = new System.Windows.Forms.ComboBox();
             this.labelMenu = new System.Windows.Forms.Label();
             this.buttonNew = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
@@ -57,8 +59,6 @@
             this.labelFilterByMenu = new System.Windows.Forms.Label();
             this.comboBoxMenuListFilter = new System.Windows.Forms.ComboBox();
             this.menuListBindingSourceFilter = new System.Windows.Forms.BindingSource(this.components);
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.labelPicture = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMenuItems)).BeginInit();
             this.splitContainerMenuItems.Panel1.SuspendLayout();
             this.splitContainerMenuItems.Panel2.SuspendLayout();
@@ -198,8 +198,34 @@
             this.menuItemListBindingSource.DataSource = typeof(ChattersLib.ChattersDBLists.MenuItemList);
             this.menuItemListBindingSource.CurrentChanged += new System.EventHandler(this.menuItemListBindingSource_CurrentChanged);
             // 
+            // comboBox1
+            // 
+            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(69, 108);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(590, 21);
+            this.comboBox1.TabIndex = 15;
+            // 
+            // menuListBindingSource
+            // 
+            this.menuListBindingSource.DataSource = typeof(ChattersLib.ChattersDBLists.MenuList);
+            // 
+            // labelPicture
+            // 
+            this.labelPicture.AutoSize = true;
+            this.labelPicture.Location = new System.Drawing.Point(3, 111);
+            this.labelPicture.Name = "labelPicture";
+            this.labelPicture.Size = new System.Drawing.Size(40, 13);
+            this.labelPicture.TabIndex = 14;
+            this.labelPicture.Text = "Picture";
+            // 
             // comboBoxMenu
             // 
+            this.comboBoxMenu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxMenu.DataSource = this.menuListBindingSource;
             this.comboBoxMenu.DisplayMember = "Title";
             this.comboBoxMenu.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -210,10 +236,6 @@
             this.comboBoxMenu.TabIndex = 13;
             this.comboBoxMenu.ValueMember = "ID";
             this.comboBoxMenu.SelectedValueChanged += new System.EventHandler(this.comboBoxMenu_SelectedValueChanged);
-            // 
-            // menuListBindingSource
-            // 
-            this.menuListBindingSource.DataSource = typeof(ChattersLib.ChattersDBLists.MenuList);
             // 
             // labelMenu
             // 
@@ -357,27 +379,6 @@
             // menuListBindingSourceFilter
             // 
             this.menuListBindingSourceFilter.DataSource = typeof(ChattersLib.ChattersDBLists.MenuList);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.DataSource = this.menuListBindingSource;
-            this.comboBox1.DisplayMember = "Title";
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(69, 108);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(590, 21);
-            this.comboBox1.TabIndex = 15;
-            this.comboBox1.ValueMember = "ID";
-            // 
-            // labelPicture
-            // 
-            this.labelPicture.AutoSize = true;
-            this.labelPicture.Location = new System.Drawing.Point(3, 111);
-            this.labelPicture.Name = "labelPicture";
-            this.labelPicture.Size = new System.Drawing.Size(40, 13);
-            this.labelPicture.TabIndex = 14;
-            this.labelPicture.Text = "Picture";
             // 
             // MenuItemsControl
             // 

@@ -94,8 +94,8 @@ namespace ChattersLib.ChattersDBData
 
             cmd.CommandText = q;
 
-            cmd.Parameters.Add("@Title", System.Data.OleDb.OleDbType.WChar, 255).Value = this.Title;
-            cmd.Parameters.Add("@Description", System.Data.OleDb.OleDbType.WChar, 255).Value = this.Description;
+            cmd.Parameters.Add("@Title", System.Data.OleDb.OleDbType.WChar, 255).Value = this.Title != null ? this.Title : "";
+            cmd.Parameters.Add("@Description", System.Data.OleDb.OleDbType.WChar, 255).Value = this.Description != null ? this.Description : "";
             cmd.Parameters.Add("@Price", System.Data.OleDb.OleDbType.Currency).Value = this.Price;
             cmd.Parameters.Add("@Menu", System.Data.OleDb.OleDbType.Integer).Value = this.Menu;
 

@@ -71,11 +71,16 @@ namespace ChattersApp.Controls
         private void buttonSave_Click(object sender, EventArgs e)
         {
             menuItemList.UpdateAll();
+
+            menuItemList.GetAll();
+            menuItemListBindingSource.DataSource = menuItemList;
+
+            refresh();
         }
 
         private void buttonNew_Click(object sender, EventArgs e)
         {
-            menuItemListBindingSource.AddNew();
+            menuItemList.Add((ChattersLib.ChattersDBBusiness.MenuItem)menuItemListBindingSource.AddNew());
         }
 
         private void dataGridViewMenuItems_CellContentClick(object sender, DataGridViewCellEventArgs e)
