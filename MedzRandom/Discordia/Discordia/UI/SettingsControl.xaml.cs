@@ -81,13 +81,24 @@ namespace Discordia
         private void checkBoxOnlineMode_Checked(object sender, RoutedEventArgs e)
         {
             System.Configuration.ConfigurationSettings.AppSettings.Set("OnlineMode", "1");
-            MessageBox.Show("This option doesn't work yet.");
+            //MessageBox.Show("This option doesn't work yet.");
         }
 
         private void checkBoxOnlineMode_Unchecked(object sender, RoutedEventArgs e)
         {
             System.Configuration.ConfigurationSettings.AppSettings.Set("OnlineMode", "0");
-            MessageBox.Show("This option doesn't work yet.");
+            //MessageBox.Show("This option doesn't work yet.");
+        }
+
+        private void listBoxMovieLocations_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DiscordiaGenLib.GenLib.Business.SystemConfig moviePath = _processor.MoviePaths.Find(x=>x.ConfigValue==listBoxMovieLocations.SelectedItem.ToString());
+
+            if (MessageBox.Show("Are you sure you want to delete '" + moviePath.ConfigValue + "?", "Delete Path Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                moviePath.Delete();
+                _processor.RunWorker();
+            }
         }
     }
 }

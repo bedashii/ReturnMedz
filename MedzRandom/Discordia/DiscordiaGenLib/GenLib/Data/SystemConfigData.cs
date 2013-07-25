@@ -40,7 +40,7 @@ namespace DiscordiaGenLib.GenLib.Data
             this.AnyPropertiesChanged = false;
         }
 
-        internal void Delete()
+        public void Delete()
         {
             string q = "DELETE FROM SystemConfig\n";
             q += "WHERE ROWID = " + ID;

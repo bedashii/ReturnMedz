@@ -41,6 +41,11 @@ namespace Discordia.Processors
             _bg.RunWorkerAsync();
         }
 
+        public void RunWorker()
+        {
+            _bg.RunWorkerAsync();
+        }
+
         void getDirectories()
         {
             MoviePaths.GetByKey("MoviePath");

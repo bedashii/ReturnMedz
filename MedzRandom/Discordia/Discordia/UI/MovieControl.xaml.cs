@@ -255,8 +255,6 @@ namespace Discordia.UI
             {
                 Posters.GetByMovie(Movie.TMDBID);
             }
-
-            updateUI();
         }
 
         private FileInfo setMovieInfo(FileInfo fi, WatTmdb.V3.TmdbMovieSearch movieSearch)
@@ -381,7 +379,7 @@ namespace Discordia.UI
             return newTitle;
         }
 
-        private void updateUI()
+        public void UpdateUI()
         {
             // TODO
             Title = Movie.Title;

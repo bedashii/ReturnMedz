@@ -22,18 +22,25 @@ namespace Discordia
 
         public List<MovieControl> Scan()
         {
+            DateTime now = DateTime.Now;
             getMoviePaths();
-
+            string getMoviePathsDuration = (DateTime.Now - now).TotalSeconds.ToString();
+            now = DateTime.Now;
             getAllFiles();
-
+            string getAllFilesDuration = (DateTime.Now - now).TotalSeconds.ToString();
+            now = DateTime.Now;
             findMovies();
-
+            string findMoviesDuration = (DateTime.Now - now).TotalSeconds.ToString();
+            now = DateTime.Now;
             fetchMovieInfo();
-
+            string fetchMovieInfoDuration = (DateTime.Now - now).TotalSeconds.ToString();
+            now = DateTime.Now;
             updateDatabase();
-
+            string updateDatabaseDuration = (DateTime.Now - now).TotalSeconds.ToString();
+            now = DateTime.Now;
+            updateUI();
+            string updateUIDuration = (DateTime.Now - now).TotalSeconds.ToString();
             return _movieControls;
-
         }
 
         private void getMoviePaths()
@@ -110,6 +117,14 @@ namespace Discordia
             _movieControls.ForEach(x =>
             {
                 x.Save();
+            });
+        }
+
+        private void updateUI()
+        {
+            _movieControls.ForEach(x =>
+            {
+                x.UpdateUI();
             });
         }
     }
