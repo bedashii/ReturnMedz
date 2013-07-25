@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DiscordiaGenLib.GenLib;
+using System.ComponentModel;
 
 namespace Discordia
 {
@@ -20,27 +21,58 @@ namespace Discordia
         SystemConfigList _moviePaths;
         List<FileInfo> _files;
 
-        public List<MovieControl> Scan()
+        BackgroundWorker _bgScan;
+
+        public delegate void ScanCompleteHandler();
+        public event ScanCompleteHandler ScanComplete;
+
+        public delegate void ScanProgressHandler();
+        public event ScanProgressHandler ScanProgressStep;
+
+        public int MovieCount = 100;
+
+        public void Scan()
         {
-            DateTime now = DateTime.Now;
-            getMoviePaths();
-            string getMoviePathsDuration = (DateTime.Now - now).TotalSeconds.ToString();
-            now = DateTime.Now;
-            getAllFiles();
-            string getAllFilesDuration = (DateTime.Now - now).TotalSeconds.ToString();
-            now = DateTime.Now;
-            findMovies();
-            string findMoviesDuration = (DateTime.Now - now).TotalSeconds.ToString();
-            now = DateTime.Now;
-            fetchMovieInfo();
-            string fetchMovieInfoDuration = (DateTime.Now - now).TotalSeconds.ToString();
-            now = DateTime.Now;
-            updateDatabase();
-            string updateDatabaseDuration = (DateTime.Now - now).TotalSeconds.ToString();
-            now = DateTime.Now;
-            updateUI();
-            string updateUIDuration = (DateTime.Now - now).TotalSeconds.ToString();
-            return _movieControls;
+            if (_bgScan == null)
+            {
+                _bgScan = new BackgroundWorker();
+                _bgScan.DoWork += delegate
+                {
+                    DateTime now = DateTime.Now;
+                    getMoviePaths();
+                    string getMoviePathsDuration = (DateTime.Now - now).TotalSeconds.ToString();
+                    now = DateTime.Now;
+                    getAllFiles();
+                    string getAllFilesDuration = (DateTime.Now - now).TotalSeconds.ToString();
+                    now = DateTime.Now;
+                    findMovies();
+                    string findMoviesDuration = (DateTime.Now - now).TotalSeconds.ToString();
+                    now = DateTime.Now;
+                    fetchMovieInfo();
+                    string fetchMovieInfoDuration = (DateTime.Now - now).TotalSeconds.ToString();
+                    now = DateTime.Now;
+                    updateDatabase();
+                    string updateDatabaseDuration = (DateTime.Now - now).TotalSeconds.ToString();
+                    now = DateTime.Now;
+                    updateUI();
+                    string updateUIDuration = (DateTime.Now - now).TotalSeconds.ToString();
+                };
+                _bgScan.ProgressChanged += delegate
+                {
+                    if (ScanProgressStep != null)
+                        ScanProgressStep.Invoke();
+                };
+                _bgScan.RunWorkerCompleted += delegate
+                {
+                    if (ScanComplete != null)
+                        ScanComplete.Invoke();
+                };
+            }
+
+            if (!_bgScan.IsBusy)
+            {
+                _bgScan.RunWorkerAsync();
+            }
         }
 
         private void getMoviePaths()
@@ -63,6 +95,8 @@ namespace Discordia
                 {
                     addFilesRecursive(systemConfig.ConfigValue);
                 });
+
+            MovieCount = _files.Count;
         }
 
         private void addFilesRecursive(string path)
@@ -77,7 +111,7 @@ namespace Discordia
                 });
         }
 
-        private List<MovieControl> _movieControls;
+        public List<MovieControl> MovieControls;
 
         private List<string> movieFileTypes = new List<string>() { ".mkv", ".avi" };
 
@@ -96,25 +130,27 @@ namespace Discordia
                     }
                 });
 
-            _movieControls = new List<MovieControl>();
+            MovieControls = new List<MovieControl>();
 
             movieFiles.ForEach(movieFile =>
                 {
-                    _movieControls.Add(new MovieControl(movieFile.FullName));
+                    MovieControls.Add(new MovieControl(movieFile.FullName));
                 });
         }
 
         private void fetchMovieInfo()
         {
-            _movieControls.ForEach(x =>
+            MovieControls.ForEach(x =>
                 {
                     x.FindMovieInfo();
+                    if (ScanProgressStep != null)
+                        ScanProgressStep.Invoke();
                 });
         }
 
         private void updateDatabase()
         {
-            _movieControls.ForEach(x =>
+            MovieControls.ForEach(x =>
             {
                 x.Save();
             });
@@ -122,7 +158,7 @@ namespace Discordia
 
         private void updateUI()
         {
-            _movieControls.ForEach(x =>
+            MovieControls.ForEach(x =>
             {
                 x.UpdateUI();
             });

@@ -94,15 +94,38 @@ namespace Discordia
             setActiveControl(settings);
         }
 
+        ScanProgressWindow scanProgressWindow;
+
+        bool progressMaxSet = false;
+
         private void ButtonScan_Click(object sender, RoutedEventArgs e)
         {
             if (movies == null)
                 movies = new MoviesControl();
             else
                 movies.MovieControlList.Clear();
-            movies.MovieControlList = _processor.Scan();
 
-            setActiveControl(movies);
+            if (scanProgressWindow == null)
+            {
+                scanProgressWindow = new ScanProgressWindow();
+                scanProgressWindow.Show();
+            }
+
+            _processor.ScanComplete += delegate
+            {
+                movies.MovieControlList = _processor.MovieControls;
+                setActiveControl(movies);
+            };
+            _processor.ScanProgressStep += delegate
+            {
+                if (!progressMaxSet)
+                {
+                    scanProgressWindow.ProgressBarProgress.Maximum = _processor.MovieCount;
+                }
+                scanProgressWindow.ProgressBarProgress.Value++;
+            };
+
+            _processor.Scan();
         }
     }
 }

@@ -92,6 +92,9 @@
     <Compile Include="UI\MoviesControl.xaml.cs">
       <DependentUpon>MoviesControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ScanProgressWindow.xaml.cs">
+      <DependentUpon>ScanProgressWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\SettingsControl.xaml.cs">
       <DependentUpon>SettingsControl.xaml</DependentUpon>
     </Compile>
@@ -113,6 +116,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\MoviesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ScanProgressWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
