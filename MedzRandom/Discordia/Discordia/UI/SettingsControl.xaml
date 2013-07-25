@@ -22,7 +22,7 @@
                 <RowDefinition/>
                 <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
-            <ListBox Grid.Row="0" Name="listBoxMovieLocations"  BorderThickness="0">
+            <ListBox Grid.Row="0" Name="listBoxMovieLocations"  BorderThickness="0" MouseDoubleClick="listBoxMovieLocations_MouseDoubleClick">
                 <ListBox.Template>
                     <ControlTemplate>
                         <StackPanel>
@@ -36,7 +36,7 @@
         </Grid>
         <TextBlock Name="textBloxOnlineMode" Grid.Column="0" Grid.Row="1" Text ="Online Mode"/>
         <Grid Grid.Column="1" Grid.Row="1">
-            <CheckBox Name="checkBoxOnlineMode" Checked="checkBoxOnlineMode_Checked" Unchecked="checkBoxOnlineMode_Unchecked" ></CheckBox>
+            <CheckBox Name="checkBoxOnlineMode" Checked="checkBoxOnlineMode_Checked" Unchecked="checkBoxOnlineMode_Unchecked" IsEnabled="False"></CheckBox>
         </Grid>
     </Grid>
 </UserControl>
