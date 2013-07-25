@@ -41,6 +41,8 @@
                     <asp:Panel runat="server" ID="menuItemPanel" BorderStyle="None">
                         <div style="text-align: center">
                             <asp:Label runat="server" ID="labelDescription"></asp:Label>
+                            <br />
+                            <br />
                         </div>
                     </asp:Panel>
                 </div>

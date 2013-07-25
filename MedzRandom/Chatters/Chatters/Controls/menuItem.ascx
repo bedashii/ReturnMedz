@@ -51,8 +51,8 @@
         </td>
         <td id="pictureColumn" style="width: 40%">
             <asp:Image runat="server" ID="imagePlaceHolder"
-                Width="100%"
-                />
+                Width="100%" />
         </td>
     </tr>
 </table>
+<br />

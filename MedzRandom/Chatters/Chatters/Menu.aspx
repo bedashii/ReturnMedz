@@ -3,7 +3,7 @@
 <%@ Reference Control="~/Controls/menuItem.ascx" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="Server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-    <div style="margin-left: auto;margin-right: auto; width: 80px;">
+    <div style="margin-left: auto;margin-right: auto; width: 160px;">
         <asp:Label runat="server" ID="labelHeader" Font-Size="XX-Large" Text="Menu" Font-Bold="True" Font-Names="Goudy Stout" Width="80px"/>
     </div>
     <div style="margin-left: auto;margin-right: auto; width: 800px;">
