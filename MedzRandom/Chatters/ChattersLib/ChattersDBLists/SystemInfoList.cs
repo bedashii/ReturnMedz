@@ -3,7 +3,7 @@ using ChattersLib.ChattersDBBusiness;
 
 namespace ChattersLib.ChattersDBLists
 {
-    public class SystemInfoList:List<SystemInfo>
+    public class SystemInfoList : List<SystemInfo>
     {
         ChattersDBData.SystemInfoData _data = new ChattersDBData.SystemInfoData();
 
@@ -27,6 +27,12 @@ namespace ChattersLib.ChattersDBLists
                     else if (x.AnyPropertyChanged)
                         x.Update();
                 });
+        }
+
+        public void GetAll(string likeKey)
+        {
+            Clear();
+            _data.GetAll(likeKey, this);
         }
     }
 }

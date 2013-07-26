@@ -6,7 +6,7 @@ using ChattersLib.ChattersDBProperties;
 
 namespace ChattersLib.ChattersDBData
 {
-    public class SystemInfoData :SystemInfoProperties
+    public class SystemInfoData : SystemInfoProperties
     {
         internal DataHelper dataHelper = new DataHelper();
 
@@ -139,6 +139,18 @@ namespace ChattersLib.ChattersDBData
             cmd.Parameters.Add("@ID", OleDbType.Integer).Value = ID;
 
             dataHelper.ExecuteNonReader(cmd);
+        }
+
+        internal void GetAll(string likeKey, ChattersDBLists.SystemInfoList systemInfoList)
+        {
+            OleDbCommand cmd = new OleDbCommand();
+            cmd.CommandText = "SELECT * FROM SystemInfo WHERE SIKey LIKE '%" + likeKey + "%'";
+
+            cmd.CommandType = CommandType.Text;
+
+            DataTable dt = dataHelper.ExecuteReader(cmd);
+
+            PopulateList(systemInfoList, dt);
         }
     }
 }

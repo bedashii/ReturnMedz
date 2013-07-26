@@ -57,4 +57,4 @@ _UpgradeReport_Files/
 vwd.webinfo
 *.tmp
 *.mkv
-*.config
+App.config
