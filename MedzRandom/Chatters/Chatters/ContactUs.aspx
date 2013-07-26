@@ -8,14 +8,14 @@
         <h2>Contact Us</h2>
     </div>
     <div>
-        <asp:Panel>
-            <table width="635px" style="margin-left: auto;margin-right: auto">
+        <asp:Panel runat="server">
+            <table width="635px" style="margin-left: auto; margin-right: auto">
                 <tr>
                     <td width="135px">
                         <asp:Label runat="server" ID="labelAddressHeader" Text="Address" />
                     </td>
                     <td width="500px">
-                        <asp:Label runat="server" ID="labelAddress" Text=""  />
+                        <asp:Label runat="server" ID="labelAddress" Text="" />
                     </td>
                 </tr>
                 <tr>
@@ -36,12 +36,12 @@
                 </tr>
             </table>
             <artem:GoogleMap
-                ID="GoogleMap1" 
-                runat="server" 
-                Zoom="18" 
-                MapType="Roadmap" 
+                ID="GoogleMap1"
+                runat="server"
+                Zoom="18"
+                MapType="Roadmap"
                 Address="57 Lourensford Rd Helderberg, Somerset West 7130 South Africa"
-                width="635px" style="margin-left: auto;margin-right: auto">
+                Width="635px" Style="margin-left: auto; margin-right: auto">
                 <markers>
                             <artem:Marker Position-Latitude="-34.076648" Position-Longitude="18.857795"/>
                         </markers>
@@ -52,32 +52,49 @@
     <div style="text-align: center">
         <h2>Leave Us a Message</h2>
     </div>
-    <div>
-        <table width="635px" style="margin-left: auto;margin-right: auto">
-            <tr>
-                <td width="135px">
-                    <asp:Label runat="server" ID="labelNameHeader" Text="Name" />
-                </td>
-                <td width="500px">
-                    <asp:TextBox runat="server" ID="textboxName" Width="200px" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <asp:Label runat="server" ID="labelTelEmail" Text="Telephone Number<BR>or<BR>Email Address" />
-                </td>
-                <td>
-                    <asp:TextBox runat="server" ID="textboxTelEmail" Width="200px" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <asp:Label runat="server" ID="labelMessage" Text="Message" />
-                </td>
-                <td>
-                    <asp:TextBox runat="server" ID="textboxMessage" TextMode="MultiLine" Width="400px" Height="200px" />
-                </td>
-            </tr>
-        </table>
-    </div>
+    <%--<asp:UpdatePanel runat="server">--%>
+        <div>
+            <table width="635px" style="margin-left: auto; margin-right: auto">
+                <tr>
+                    <td width="135px">
+                        <asp:Label runat="server" ID="labelNameHeader" Text="Name" />
+                    </td>
+                    <td width="500px">
+                        <asp:TextBox runat="server" ID="textboxName" Width="200px" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label runat="server" ID="labelTelEmail" Text="Telephone Number<BR>or<BR>Email Address" />
+                    </td>
+                    <td>
+                        <asp:TextBox runat="server" ID="textboxTelEmail" Width="200px" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label runat="server" ID="labelMessage" Text="Message" />
+                    </td>
+                    <td>
+                        <asp:TextBox runat="server" ID="textboxMessage" TextMode="MultiLine" Width="400px" Height="200px" />
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <div style="text-align: center">
+                            <asp:Button ID="btnSubmit" runat="server" Text="Send"
+                                OnClientClick="Button1_Click" CausesValidation="False" UseSubmitBehavior="true" />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <asp:Label ID="DisplayMessage" runat="server" Visible="false" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    <%--</asp:UpdatePanel>--%>
 </asp:Content>
