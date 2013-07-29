@@ -50,7 +50,9 @@
                         </ItemTemplate>
                     </asp:Repeater>
                 </ul>
-
+                <p>
+                    <asp:Label runat="server" ID="labelVisitors" />
+                </p>
                 <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" ShowStartingNode="false" />
             </div>
         </form>

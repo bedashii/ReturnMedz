@@ -152,5 +152,19 @@ namespace ChattersLib.ChattersDBData
 
             PopulateList(systemInfoList, dt);
         }
+
+        internal void GetByKey(string key, ChattersDBLists.SystemInfoList systemInfoList)
+        {
+            OleDbCommand cmd = new OleDbCommand();
+            cmd.CommandText = "SELECT * FROM SystemInfo WHERE SIKey = @Key";
+
+            cmd.CommandType = CommandType.Text;
+
+            cmd.Parameters.Add("@Key", OleDbType.VarChar).Value = key;
+
+            DataTable dt = dataHelper.ExecuteReader(cmd);
+
+            PopulateList(systemInfoList, dt);
+        }
     }
 }
