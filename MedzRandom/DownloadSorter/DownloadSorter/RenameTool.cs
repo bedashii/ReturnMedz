@@ -32,14 +32,54 @@ namespace DownloadSorter
 
         private void applyRenameFilters()
         {
-            removeCustomWords();
+            // Reset File names before applying filters.
+            CustomFiles.ForEach(x => { x.NewFileName = x.FileName; });
+
+            removeCharacters(new char[] { '-', '.', '[', ']' });
+
+            removeDoubleSpaces();
+            trimCustomFiles();
+
             removeNewsHostID();
 
-            removeCharacters(new char[] { '-', '.' });
-            removeDoubleSpaces();
+            removeCustomWords2();
 
-            capitalizeFirstWord();
+            capitalizeWords();
+
+            removeDoubleSpaces();
             trimCustomFiles();
+
+            bindingSourceCustomFile.ResetBindings(false);
+        }
+
+        private void removeCustomWords2()
+        {
+            List<string> wordsToRemove = new List<string>();
+            checkedListBoxRemovalWords.CheckedItems.OfType<string>().ToList().ForEach(x =>
+                {
+                    wordsToRemove.Add(x.ToLower());
+                });
+
+            CustomFiles.ForEach(x =>
+            {
+                string newFileName = "";
+                x.NewFileName.Split(' ').ToList().ForEach(word =>
+                    {
+                        // To Lower
+                        if (!wordsToRemove.Contains(word.ToLower()))
+                        {
+                            if (newFileName == "")
+                                newFileName += word;
+                            else
+                                newFileName += ' ' + word;
+                        }
+                        else
+                        {
+                            // Remove words
+                        }
+                    });
+                x.NewFileName = newFileName;
+            });
         }
 
         private void trimCustomFiles()
@@ -50,23 +90,100 @@ namespace DownloadSorter
                 });
         }
 
-        private void capitalizeFirstWord()
+        private void capitalizeWords()
         {
             CustomFiles.ForEach(x =>
                 {
-                    x.NewFileName = x.NewFileName[0].ToString().ToUpper() + x.NewFileName.Substring(1, x.NewFileName.Length - 1);
+                    string newFileName = "";
+                    x.NewFileName.Split(' ').ToList().ForEach(y =>
+                        {
+                            if (newFileName == "")
+                            {
+                                for (int i = 0; i < y.Length; i++)
+                                {
+                                    if (i == 0)
+                                    {
+                                        newFileName += y[i].ToString().ToUpper();
+                                    }
+                                    else
+                                    {
+                                        newFileName += y[i].ToString().ToLower();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                for (int i = 0; i < y.Length; i++)
+                                {
+                                    if (i == 0)
+                                    {
+                                        newFileName += ' ' + y[i].ToString().ToUpper();
+                                    }
+                                    else
+                                    {
+                                        newFileName += ' ' + y[i].ToString().ToLower();
+                                    }
+                                }
+                            }
+                        });
                 });
         }
 
         private void removeNewsHostID()
         {
+            //CustomFiles.ForEach(x =>
+            //    {
+            //        if (x.NewFileName.ToLower().Contains("newshost"))
+            //        {
+            //            x.NewFileName = x.NewFileName.Substring(0, x.NewFileName.Length - 5);
+            //            x.NewFileName = Regex.Replace(x.NewFileName, "newshost", string.Empty, RegexOptions.IgnoreCase);
+            //        }
+            //    });
+
             CustomFiles.ForEach(x =>
                 {
                     if (x.NewFileName.ToLower().Contains("newshost"))
-                    {
-                        x.NewFileName = x.NewFileName.Substring(0, x.NewFileName.Length - 5);
                         x.NewFileName = Regex.Replace(x.NewFileName, "newshost", string.Empty, RegexOptions.IgnoreCase);
-                    }
+
+                    string newFileName = "";
+                    x.NewFileName.Split(' ').ToList().ForEach(y =>
+                        {
+                            if (y.Length == 4)
+                            {
+                                int isInt = 0;
+                                if ((Int32.TryParse(y, out isInt)))
+                                {
+                                    if (isInt < DateTime.Now.AddYears(-50).Year || isInt > DateTime.Now.AddYears(50).Year)
+                                    {
+                                        // Ignore - aka remove
+                                    }
+                                    else
+                                    {
+                                        if (newFileName == "")
+                                            newFileName += y;
+                                        else
+                                            newFileName += ' ' + y;
+                                    }
+                                }
+                                else
+                                {
+                                    if (newFileName == "")
+                                        newFileName += y;
+                                    else
+                                        newFileName += ' ' + y;
+                                }
+                            }
+                            else
+                            {
+                                if (newFileName == "")
+                                    newFileName += y;
+                                else
+                                    newFileName += ' ' + y;
+                            }
+                        });
+
+                    x.NewFileName = newFileName;
+
                 });
         }
 
@@ -121,59 +238,6 @@ namespace DownloadSorter
             loadRemovalWords();
         }
 
-        private void removeCustomWords()
-        {
-            CustomFiles.ForEach(x =>
-                {
-                    x.NewFileName = x.FileName;
-                    checkedListBoxRemovalWords.CheckedItems.OfType<string>().ToList().ForEach(y =>
-                        {
-                            var list = x.NewFileName.ToLower().Split(' ').ToList();
-                            for(int i = 0;i<list.Count;i++)
-                            {
-                                if (y.ToLower() == list[i])
-                                {
-                                    int len = 0;
-                                    for (int j = 0; j < i; j++)
-                                    {
-                                        len += list[j].Length;
-                                    }
-                                    x.HighlightedText.Add(new KeyValuePair<string, int>(list[i], len));
-                                    //x.NewFileName = Regex.Replace(x.NewFileName, y, string.Empty, RegexOptions.IgnoreCase);
-                                }
-                                // else skip
-                            }
-                            x.HighlightedText.ForEach(z =>
-                                {
-                                    x.NewFileName.Remove(z.Value, z.Key.Length);
-                                });
-
-                            //if (x.NewFileName.ToLower().Contains(y.ToLower()))
-                            //{
-                            //    int loc = -1;
-                            //    x.FileName.Split(' ').ToList().ForEach(z =>
-                            //        {
-                            //            if(z.ToLower() == )
-                            //            {
-
-                            //            }
-                            //        });
-                            //    loc = x.FileName.ToLower().IndexOf(y.ToLower());
-                            //    KeyValuePair<string, int> alreadyFoundWord = x.HighlightedText.Find(z => z.Value == loc);
-                            //    while (alreadyFoundWord.Key != null)
-                            //    {
-                            //        loc = x.FileName.ToLower().IndexOf(y.ToLower(), loc + 1);
-                            //        if (loc != -1)
-                            //            alreadyFoundWord = x.HighlightedText.Find(z => z.Value == loc);
-                            //    }
-                            //    x.HighlightedText.Add(new KeyValuePair<string, int>(y, loc));
-                            //    x.NewFileName = Regex.Replace(x.NewFileName, y, string.Empty, RegexOptions.IgnoreCase);
-                            //}
-                        });
-                });
-            bindingSourceCustomFile.ResetBindings(false);
-        }
-
         private void loadRemovalWords()
         {
             if (!File.Exists("RenameRemovalWords.txt"))
@@ -181,6 +245,7 @@ namespace DownloadSorter
                 File.Create("RenameRemovalWords.txt");
                 FileInfo fi = new FileInfo("RenameRemovalWords.txt");
                 MessageBox.Show(fi.FullName + " created.");
+                fi = null;
             }
 
             RemovalWords.Clear();
@@ -259,13 +324,16 @@ namespace DownloadSorter
             List<string> cantMoveFiles = new List<string>();
             CustomFiles.ForEach(x =>
             {
-                if (x.Rename)
+                if (x.FileName != x.NewFileName)
                 {
-                    string dest = x.FullPath.Replace(x.FileName, x.NewFileName);
-                    if (!File.Exists(dest))
-                        File.Move(x.FullPath, dest);
-                    else
-                        cantMoveFiles.Add(dest);
+                    if (x.Rename)
+                    {
+                        string dest = x.FullPath.Replace(x.FileName, x.NewFileName);
+                        if (!File.Exists(dest))
+                            File.Move(x.FullPath, dest);
+                        else
+                            cantMoveFiles.Add(dest);
+                    }
                 }
             });
 
@@ -287,6 +355,9 @@ namespace DownloadSorter
         {
             if (textBoxAddRemovalWord.Text != "")
             {
+                RemovalWords.Clear();
+                checkedListBoxRemovalWords.Items.OfType<string>().ToList().ForEach(x => { RemovalWords.Add(x); });
+
                 if (RemovalWords.Find(x => x.ToLower() == textBoxAddRemovalWord.Text.ToLower()) == null)
                 {
                     RemovalWords.Add(textBoxAddRemovalWord.Text);
@@ -399,6 +470,16 @@ namespace DownloadSorter
             else
                 bindingSourceCustomFile.DataSource = CustomFiles;
             bindingSourceCustomFile.ResetBindings(false);
+        }
+
+        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (checkedListBoxRemovalWords.SelectedItem != null)
+                checkedListBoxRemovalWords.Items.Remove(checkedListBoxRemovalWords.SelectedItem);
+
+            saveRemovalWords();
+
+            applyRenameFilters();
         }
     }
 }

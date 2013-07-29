@@ -126,7 +126,7 @@ namespace WPlusPlay
 
         public PlusPlayLib.List.GalleryListB ListBoxModelGallerySelection_ListBoxSub_Set(PlusPlayLib.Bus.ModelB Model)
         {
-            PlusPlayLib.List.GalleryListB galleryList = _processor.GetGalleryList(Model);
+            PlusPlayLib.List.GalleryListB galleryList = _processor.GetGalleryList(Model.ModelName);
             SetAvailabilityButton_PostingFunctions(true);
 
             if (galleryList.Count > 0)
@@ -262,14 +262,14 @@ namespace WPlusPlay
         {
             string dLinks = _processor.GetDLinks(_selectedGallery);
             System.Windows.Clipboard.SetText(dLinks);
-            
-            uINotificationDisplay.SetImage(_resourcePath + @"\Icons\DropboxNotification.png"); 
+
+            uINotificationDisplay.SetImage(_resourcePath + @"\Icons\DropboxNotification.png");
             uINotificationDisplay.SetHeading("Public Links Copied");
             uINotificationDisplay.SetMessage(_selectedGallery.Files.Count().ToString("00") + " Public Dropbox image links copied to clipboard");
             Storyboard sb = (Storyboard)this.Resources["UINotificationDisplayAnimation"];
             sb.Begin();
         }
-        
+
         #endregion ButtonEvents
 
         #region FormEvents
@@ -338,14 +338,14 @@ namespace WPlusPlay
         }
         #endregion OtherThreads
 
+        private void InfoDisplayControl_NameChangeRequest(object incoming)
+        {
+            if (incoming.GetType() == typeof(Dictionary<Keyword, string>))
+                _processor.NameChangeRequest((Dictionary<Keyword, string>)incoming, _selectedModel);
+            else
+                _processor.NameChangeRequest((string)incoming, _selectedGallery);
 
-
-
-
-
-
-
-
-
+            ListBoxModelGallerySelection.SetListBoxMain(_processor.GetModelList(true));
+        }
     }
 }

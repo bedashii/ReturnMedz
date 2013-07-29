@@ -13,6 +13,8 @@ namespace DropBoxLinker
 {
     public partial class DropBoxLinker : Form
     {
+        bool _imageTags;
+
         public DropBoxLinker()
         {
             InitializeComponent();
@@ -52,11 +54,11 @@ namespace DropBoxLinker
                 ListBoxLinks.Items.Clear();
 
                 foreach (string s in links)
-                    ListBoxLinks.Items.Add(s);
+                    ListBoxLinks.Items.Add(_imageTags ? Method_AddImageTag(s) : s);
 
 
                 foreach (string s in links)
-                    sb.AppendLine(s);
+                    sb.AppendLine(_imageTags ? Method_AddImageTag(s) : s);
 
                 System.Windows.Forms.Clipboard.SetText(sb.ToString());
             }
@@ -81,9 +83,19 @@ namespace DropBoxLinker
                 GetPublicLinks();
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private void CheckBoxImageTags_CheckedChanged(object sender, EventArgs e)
         {
+            _imageTags = CheckBoxImageTags.Checked;
+        }
 
+        private void DropBoxLinker_Load(object sender, EventArgs e)
+        {
+            _imageTags = CheckBoxImageTags.Checked;
+        }
+
+        private string Method_AddImageTag(string s)
+        {
+            return "[IMG]" + s + "[/IMG]";
         }
     }
 }

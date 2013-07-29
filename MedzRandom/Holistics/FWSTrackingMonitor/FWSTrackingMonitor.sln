@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FWSTrackingMonitor", "FWSTrackingMonitor\FWSTrackingMonitor.csproj", "{7DEF46E7-EFDD-4710-91A0-C03FF286CA1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TPPGenAccess", "..\..\..\..\Prepaid\CAPS\Library\TPPGenAccess\TPPGenAccess\TPPGenAccess.csproj", "{DBF8F7B9-C2FB-4EBD-91D8-7B0EBB469AA1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7DEF46E7-EFDD-4710-91A0-C03FF286CA1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DEF46E7-EFDD-4710-91A0-C03FF286CA1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DEF46E7-EFDD-4710-91A0-C03FF286CA1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DEF46E7-EFDD-4710-91A0-C03FF286CA1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBF8F7B9-C2FB-4EBD-91D8-7B0EBB469AA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBF8F7B9-C2FB-4EBD-91D8-7B0EBB469AA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBF8F7B9-C2FB-4EBD-91D8-7B0EBB469AA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBF8F7B9-C2FB-4EBD-91D8-7B0EBB469AA1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

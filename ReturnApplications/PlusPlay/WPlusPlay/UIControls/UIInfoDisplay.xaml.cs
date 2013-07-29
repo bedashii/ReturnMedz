@@ -17,12 +17,11 @@ using System.Windows.Shapes;
 
 namespace WPlusPlay.UIControls
 {
-    /// <summary>
-    /// Interaction logic for UIInfoDisplay.xaml
-    /// </summary>
-    public partial class UIInfoDisplay : UserControl//, INotifyPropertyChanged
+    public delegate void UIInfoDisplay_NameChangeRequest(object Incoming);
+    public partial class UIInfoDisplay : UserControl
     {
         #region Variables
+        public event UIInfoDisplay_NameChangeRequest NameChangeRequest;
         private string _modelName;
         public string ModelName
         {
@@ -106,5 +105,39 @@ namespace WPlusPlay.UIControls
             TextBlockGallery.BeginAnimation(TextBlock.OpacityProperty, fadeOut);
         }
         #endregion Methods
+
+        private void TextBlockGallery_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+            {
+                Dictionary<Keyword, string> modelGalleryName = new Dictionary<Keyword,string>();
+                modelGalleryName.Add(Keyword.Model, ModelName);
+                modelGalleryName.Add(Keyword.Gallery, GalleryName);
+                
+                SetDisplay(true,  modelGalleryName);
+            }
+        }
+
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Dictionary<Keyword, string> modelGalleryName = new Dictionary<Keyword, string>();
+                modelGalleryName.Add(Keyword.Model, TextBoxModel.Text);
+                modelGalleryName.Add(Keyword.Gallery, TextBoxGallery.Text);
+
+                SetDisplay(false, modelGalleryName);
+                NameChangeRequest(modelGalleryName);
+                NameChangeRequest(TextBoxGallery.Text);
+            }
+            else if (e.Key == Key.Escape)
+            {
+                Dictionary<Keyword, string> modelGalleryName = new Dictionary<Keyword, string>();
+                modelGalleryName.Add(Keyword.Model, TextBlockModel.Text);
+                modelGalleryName.Add(Keyword.Gallery, TextBlockGallery.Text);
+
+                SetDisplay(false, modelGalleryName);
+            }
+        }
     }
 }

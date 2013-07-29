@@ -196,7 +196,10 @@ namespace DownloadSorter
                 if (path[path.Length - 1] != '\\')
                     path += "\\";
                 //path += treeNode.FullPath.ToString().Substring(treeNode.FullPath.ToString().IndexOf('\\') + 1);
-                path += treeNode.FullPath.ToString();
+                if (treeNode.FullPath.Substring(0, treeNode.FullPath.IndexOf('\\')) != treeNode.TreeView.Nodes[0].Text)
+                    path += treeNode.FullPath.Substring(treeNode.FullPath.IndexOf('\\')+1);
+                else
+                    path += treeNode.FullPath;
 
                 FilesToHandel.Add(new CustomFile(path));
             }
@@ -298,6 +301,9 @@ namespace DownloadSorter
             moveFiles();
         }
 
+
+        bool initBGMove = false;
+
         private void moveFiles()
         {
             ProgressBar.Value = 0;
@@ -306,8 +312,12 @@ namespace DownloadSorter
             this.Controls.Add(ProgressBar);
             ProgressBar.BringToFront();
 
-            BGMove.DoWork += new DoWorkEventHandler(BGMove_DoWork);
-            BGMove.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BGMove_RunWorkerCompleted);
+            if (!initBGMove)
+            {
+                BGMove.DoWork += new DoWorkEventHandler(BGMove_DoWork);
+                BGMove.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BGMove_RunWorkerCompleted);
+                initBGMove = true;
+            }
             BGMove.RunWorkerAsync();
         }
 
@@ -482,6 +492,7 @@ namespace DownloadSorter
         private void deleteAllEmptyFoldersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             deleteEmptyFolders(textBoxPath.Text);
+            loadTree();
         }
 
         private void deleteEmptyFolders(string path)
@@ -489,13 +500,19 @@ namespace DownloadSorter
             if (Directory.Exists(path))
             {
                 if (Directory.GetDirectories(path).Length + Directory.GetFiles(path).Length == 0)
-                    Directory.Delete(path);
+                    try
+                    {
+                        Directory.Delete(path);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message + Environment.NewLine + "Debug Info:" + Environment.NewLine + ex.StackTrace);
+                    }
                 else
                     Directory.GetDirectories(path).ToList().ForEach(x =>
                         {
                             deleteEmptyFolders(x);
                         });
-                loadTree();
             }
         }
 
@@ -616,7 +633,10 @@ namespace DownloadSorter
             rt.Height = Convert.ToInt32(this.Height * 0.8);
 
             Files.Clear();
-            getAllFiles(textBoxPath.Text);
+            Directory.GetFiles(textBoxPath.Text).ToList().ForEach(x =>
+            {
+                Files.Add(new CustomFile(x));
+            });
 
             rt.CustomFiles = Files;
 

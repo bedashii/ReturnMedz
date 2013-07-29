@@ -46,7 +46,7 @@
                 <UIControls:UIPicturePanel x:Name="PicturePanelMain" Margin="234,20,10,10" SelectedItemsChanged="PicturePanelMain_SelectedItemsChanged"/>
             </Grid>
         </Border>
-        <UIControls:UIInfoDisplay x:Name="InfoDisplayControl" Margin="266,34,30,0" Width="Auto" VerticalAlignment="Top" Height="60"/>
+        <UIControls:UIInfoDisplay x:Name="InfoDisplayControl" Margin="266,34,30,0" Width="Auto" VerticalAlignment="Top" Height="60" NameChangeRequest="InfoDisplayControl_NameChangeRequest"/>
         <WrapPanel x:Name="WrapPanelButtonContainer" HorizontalAlignment="Right" Height="103" Margin="0,0,1,7" VerticalAlignment="Bottom" Width="945" RenderTransformOrigin="0.5,0.5" FlowDirection="RightToLeft"/>
         <UIControls:UIListBoxDouble x:Name="ListBoxModelGallerySelection" HorizontalAlignment="Left" Width="225" Margin="10,10,0,108" ListBoxMain_Set="ListBoxModelGallerySelection_ListBoxMain_Set" ListBoxSub_Set="ListBoxModelGallerySelection_ListBoxSub_Set" SubListBox_SelectedValueChanged="ListBoxModelGallerySelection_SubListBox_SelectedValueChanged" BorderBrush="Black" BorderThickness="0" MainListBox_SelectedValueChanged="ListBoxModelGallerySelection_MainListBox_SelectedValueChanged"/>
         <UIControls:UINotificationDisplay x:Name="uINotificationDisplay" HorizontalAlignment="Left" Margin="20,0,0,-113" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5">

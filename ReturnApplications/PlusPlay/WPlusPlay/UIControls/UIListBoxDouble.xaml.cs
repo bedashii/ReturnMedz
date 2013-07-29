@@ -17,20 +17,22 @@ using System.Windows.Shapes;
 
 namespace WPlusPlay.UIControls
 {
-    #region Delegates
+    #region Delegates and Enums
     public delegate PlusPlayLib.List.ModelListB UIListBoxDouble_SetListBoxMain();
     public delegate PlusPlayLib.List.GalleryListB UIListBoxDouble_SetListBoxSub(PlusPlayLib.Bus.ModelB Model);
     public delegate void UIListBoxDouble_SubSelectedValueChanged(PlusPlayLib.Bus.Gallery Gallery);
     public delegate void UIListBoxDouble_MainSelectedValueChanged(PlusPlayLib.Bus.ModelB ModelB);
-    #endregion Delegates
+    #endregion Delegates and Enums
     public partial class UIListBoxDouble : UserControl
     {
+        private enum CurrentlyDisplayed { Main, Sub };// Current ListBox being Displayed
         #region Variables
         public event UIListBoxDouble_SetListBoxMain ListBoxMain_Set;
         public event UIListBoxDouble_SetListBoxSub ListBoxSub_Set;
         public event UIListBoxDouble_SubSelectedValueChanged SubListBox_SelectedValueChanged;
         public event UIListBoxDouble_MainSelectedValueChanged MainListBox_SelectedValueChanged;
 
+        CurrentlyDisplayed _currentlyDisplayed; // Is set in ShowListBoxSub(bool)
         double _downPosition;
         bool _mouseDown;
         #endregion Variables
@@ -57,6 +59,10 @@ namespace WPlusPlay.UIControls
         internal void SetListBoxMain(PlusPlayLib.List.ModelListB models)
         {
             ListBoxMain_Populate(models);
+
+            // #FUTURE
+            //if (_currentlyDisplayed == CurrentlyDisplayed.Sub)
+            //    ListBoxSub_Populate(model
         }
 
         /// <summary>
@@ -121,6 +127,8 @@ namespace WPlusPlay.UIControls
 
         void ShowListBoxSub(bool showListBoxSub)
         {
+            _currentlyDisplayed = showListBoxSub ? CurrentlyDisplayed.Sub : CurrentlyDisplayed.Main;
+
             double width = showListBoxSub ? ListBoxMain.ActualWidth : ListBoxSub.ActualWidth;
             double width2 = showListBoxSub ? LabelModels.ActualWidth : LabelGalleries.ActualWidth;
 

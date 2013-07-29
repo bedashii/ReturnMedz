@@ -35,6 +35,7 @@
             this.ListBoxLinks = new System.Windows.Forms.ListBox();
             this.ComboBoxExtension = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.CheckBoxImageTags = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // TextBoxFilePath
@@ -43,7 +44,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextBoxFilePath.Location = new System.Drawing.Point(12, 25);
             this.TextBoxFilePath.Name = "TextBoxFilePath";
-            this.TextBoxFilePath.Size = new System.Drawing.Size(253, 20);
+            this.TextBoxFilePath.Size = new System.Drawing.Size(311, 20);
             this.TextBoxFilePath.TabIndex = 0;
             this.TextBoxFilePath.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxFilePath_KeyDown);
             // 
@@ -59,7 +60,7 @@
             // ButtonGO
             // 
             this.ButtonGO.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ButtonGO.Location = new System.Drawing.Point(337, 22);
+            this.ButtonGO.Location = new System.Drawing.Point(481, 22);
             this.ButtonGO.Name = "ButtonGO";
             this.ButtonGO.Size = new System.Drawing.Size(75, 23);
             this.ButtonGO.TabIndex = 3;
@@ -77,14 +78,14 @@
             this.ListBoxLinks.Location = new System.Drawing.Point(12, 51);
             this.ListBoxLinks.Name = "ListBoxLinks";
             this.ListBoxLinks.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.ListBoxLinks.Size = new System.Drawing.Size(400, 236);
+            this.ListBoxLinks.Size = new System.Drawing.Size(544, 236);
             this.ListBoxLinks.TabIndex = 4;
             // 
             // ComboBoxExtension
             // 
             this.ComboBoxExtension.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ComboBoxExtension.FormattingEnabled = true;
-            this.ComboBoxExtension.Location = new System.Drawing.Point(271, 25);
+            this.ComboBoxExtension.Location = new System.Drawing.Point(415, 25);
             this.ComboBoxExtension.Name = "ComboBoxExtension";
             this.ComboBoxExtension.Size = new System.Drawing.Size(60, 21);
             this.ComboBoxExtension.TabIndex = 5;
@@ -93,18 +94,29 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(271, 9);
+            this.label2.Location = new System.Drawing.Point(415, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 13);
             this.label2.TabIndex = 6;
             this.label2.Text = "Extension";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // CheckBoxImageTags
+            // 
+            this.CheckBoxImageTags.AutoSize = true;
+            this.CheckBoxImageTags.Location = new System.Drawing.Point(329, 27);
+            this.CheckBoxImageTags.Name = "CheckBoxImageTags";
+            this.CheckBoxImageTags.Size = new System.Drawing.Size(82, 17);
+            this.CheckBoxImageTags.TabIndex = 7;
+            this.CheckBoxImageTags.Text = "Image Tags";
+            this.CheckBoxImageTags.UseVisualStyleBackColor = true;
+            this.CheckBoxImageTags.CheckedChanged += new System.EventHandler(this.CheckBoxImageTags_CheckedChanged);
             // 
             // DropBoxLinker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 315);
+            this.ClientSize = new System.Drawing.Size(568, 315);
+            this.Controls.Add(this.CheckBoxImageTags);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.ComboBoxExtension);
             this.Controls.Add(this.ListBoxLinks);
@@ -115,6 +127,7 @@
             this.Name = "DropBoxLinker";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DropBox Linker";
+            this.Load += new System.EventHandler(this.DropBoxLinker_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -128,6 +141,7 @@
         private System.Windows.Forms.ListBox ListBoxLinks;
         private System.Windows.Forms.ComboBox ComboBoxExtension;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox CheckBoxImageTags;
     }
 }
 
