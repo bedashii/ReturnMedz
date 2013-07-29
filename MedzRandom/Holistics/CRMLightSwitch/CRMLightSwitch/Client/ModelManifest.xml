@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<ModelDocumentManifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Documents>
+    <Document FullPath="C:\Git-Dev\ReturnMedz\MedzRandom\Holistics\CRMLightSwitch\CRMLightSwitch\Client\Properties\Client.lsml" Checksum="A70C7185049EE50684584B819ADDED45B398B68A6E067DFDE48A0016FD05789C" />
+    <Document FullPath="C:\Git-Dev\ReturnMedz\MedzRandom\Holistics\CRMLightSwitch\CRMLightSwitch\Common\Properties\Common.lsml" Checksum="4B53FB1FC47B8FD88787F93542E90BC847FDD75F287F2947DF114FCA85DE527E" />
+  </Documents>
+</ModelDocumentManifest>

@@ -1,0 +1,879 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" Namespace="LightSwitchApplication" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityType Name="Address">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Edm.Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TableName" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="TableReference" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="AddressType" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="IsActive" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="IsDefault" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="AddressTitle" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="AddressLine1" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="AddressLine2" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="City" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="State" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="Zip" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="Country" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="DateAdded" Type="Edm.DateTime" Precision="0" ConcurrencyMode="Fixed" />
+  </EntityType>
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="category_id" />
+    </Key>
+    <Property Name="category_id" Type="Edm.Int32" Nullable="false" />
+    <Property Name="cname" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="rep_id" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <NavigationProperty Name="problems" Relationship="LightSwitchApplication.FK_problems_categories" ToRole="problems" FromRole="categories" />
+  </EntityType>
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Edm.Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyName" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="IsActive" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="Comment" Type="Edm.String" MaxLength="2000" ConcurrencyMode="Fixed" />
+    <Property Name="Stage" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="Industry" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="IsInstallerElectrical" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="IsInstallerWater" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="IsInstallerGas" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="Priority" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="TaxNumber" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="Tel" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="Fax" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="Website" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="email" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="ParentCompany" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="Rep" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="Tags" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="PrimaryContact" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="SectorID" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="SectorGroupID" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <NavigationProperty Name="Contact" Relationship="LightSwitchApplication.FK_Company_Contact" ToRole="Contact" FromRole="Company" />
+    <NavigationProperty Name="Sector" Relationship="LightSwitchApplication.FK_Company_Sector" ToRole="Sector" FromRole="Company" />
+    <NavigationProperty Name="SectorGroup" Relationship="LightSwitchApplication.FK_Company_SectorGroup" ToRole="SectorGroup" FromRole="Company" />
+    <NavigationProperty Name="Dealings" Relationship="LightSwitchApplication.FK_Dealing_Company" ToRole="Dealing" FromRole="Company" />
+  </EntityType>
+  <EntityType Name="Contact">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Edm.Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="eMail" Type="Edm.String" Nullable="false" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="eMailAlternates" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="Title" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="FirstName" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="LastName" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="KnownName" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="Comment" Type="Edm.String" MaxLength="2000" ConcurrencyMode="Fixed" />
+    <Property Name="TelMobile" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="TelHome" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="TelWork" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="TelFax" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="IsActive" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="Stage" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="CompanyID" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="Position" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="Referredby" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="Rep" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="ContactType" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="ReceiveEmail" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="ReceiveSMS" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="MessengerNetwork" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="MessengerName" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="Source" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="TimeZone" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="BirthDate" Type="Edm.DateTime" Precision="0" ConcurrencyMode="Fixed" />
+    <Property Name="IsInstallerElectrical" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="IsInstallerWater" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="IsInstallerGas" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="Tags" Type="Edm.String" MaxLength="500" ConcurrencyMode="Fixed" />
+    <Property Name="SectorID" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="SectorGroupID" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <NavigationProperty Name="Companies" Relationship="LightSwitchApplication.FK_Company_Contact" ToRole="Company" FromRole="Contact" />
+    <NavigationProperty Name="Sector" Relationship="LightSwitchApplication.FK_Contact_Sector" ToRole="Sector" FromRole="Contact" />
+    <NavigationProperty Name="SectorGroup" Relationship="LightSwitchApplication.FK_Contact_SectorGroup" ToRole="SectorGroup" FromRole="Contact" />
+    <NavigationProperty Name="Dealings" Relationship="LightSwitchApplication.FK_Dealing_Contact" ToRole="Dealing" FromRole="Contact" />
+  </EntityType>
+  <EntityType Name="db_key">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Edm.Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="problems" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="departments" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="categories" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="users" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="Lang" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+  </EntityType>
+  <EntityType Name="Dealing">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Edm.Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="Comment" Type="Edm.String" MaxLength="2000" ConcurrencyMode="Fixed" />
+    <Property Name="Prospect" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="Product" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="ProjectedQty" Type="Edm.String" MaxLength="10" FixedLength="true" ConcurrencyMode="Fixed" />
+    <Property Name="ProjectedRevenue" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="ProjectedActualiztion" Type="Edm.DateTime" Precision="0" ConcurrencyMode="Fixed" />
+    <Property Name="Stage" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="Actualized" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="ActualizedQty" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="ActualizedDate" Type="Edm.DateTime" Precision="0" ConcurrencyMode="Fixed" />
+    <Property Name="ExcludeFromReports" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="Company" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="Contact" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="SectorID" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="SectorGroupID" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="Rep" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <NavigationProperty Name="Company1" Relationship="LightSwitchApplication.FK_Dealing_Company" ToRole="Company" FromRole="Dealing" />
+    <NavigationProperty Name="Contact1" Relationship="LightSwitchApplication.FK_Dealing_Contact" ToRole="Contact" FromRole="Dealing" />
+    <NavigationProperty Name="Sector" Relationship="LightSwitchApplication.FK_Dealing_Sector" ToRole="Sector" FromRole="Dealing" />
+    <NavigationProperty Name="SectorGroup" Relationship="LightSwitchApplication.FK_Dealing_SectorGroup" ToRole="SectorGroup" FromRole="Dealing" />
+    <NavigationProperty Name="tblUser" Relationship="LightSwitchApplication.FK_Dealing_tblUsers" ToRole="tblUsers" FromRole="Dealing" />
+    <NavigationProperty Name="problems" Relationship="LightSwitchApplication.FK_problems_Dealing" ToRole="problems" FromRole="Dealing" />
+  </EntityType>
+  <EntityType Name="department">
+    <Key>
+      <PropertyRef Name="department_id" />
+    </Key>
+    <Property Name="department_id" Type="Edm.Int32" Nullable="false" />
+    <Property Name="dname" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <NavigationProperty Name="problems" Relationship="LightSwitchApplication.FK_problems_departments" ToRole="problems" FromRole="departments" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="ItemID" Type="Edm.Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ItemType" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="ItemNumber" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="ItemSerial" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="ItemName" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="Comment" Type="Edm.String" MaxLength="1000" ConcurrencyMode="Fixed" />
+    <Property Name="Description" Type="Edm.String" MaxLength="1000" ConcurrencyMode="Fixed" />
+    <Property Name="DateCreated" Type="Edm.DateTime" Precision="0" ConcurrencyMode="Fixed" />
+    <Property Name="DateModified" Type="Edm.DateTime" Precision="0" ConcurrencyMode="Fixed" />
+  </EntityType>
+  <EntityType Name="ItemLink">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Edm.Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ItemID" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="LinkTableName" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="LinkTableID" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="IsActive" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+  </EntityType>
+  <EntityType Name="priority">
+    <Key>
+      <PropertyRef Name="priority_id" />
+    </Key>
+    <Property Name="priority_id" Type="Edm.Int32" Nullable="false" />
+    <Property Name="pname" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <NavigationProperty Name="problems" Relationship="LightSwitchApplication.FK_problems_priority" ToRole="problems" FromRole="priority" />
+  </EntityType>
+  <EntityType Name="problem">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Edm.Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ContactID" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="CallerName" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="CallerEmail" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="CallerLocation" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="CallerPhone" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="rep" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="time_spent" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="title" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="description" Type="Edm.String" MaxLength="Max" Unicode="false" />
+    <Property Name="solution" Type="Edm.String" MaxLength="Max" Unicode="false" />
+    <Property Name="start_date" Type="Edm.DateTime" Precision="3" ConcurrencyMode="Fixed" />
+    <Property Name="close_date" Type="Edm.DateTime" Precision="3" ConcurrencyMode="Fixed" />
+    <Property Name="kb" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="Referer" Type="Edm.String" MaxLength="500" ConcurrencyMode="Fixed" />
+    <Property Name="MeterNumber" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="ClientNumber" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="category" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="DealingID" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="department" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="priority" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="SectorID" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="SectorGroupID" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="status" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="entered_by" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <NavigationProperty Name="category1" Relationship="LightSwitchApplication.FK_problems_categories" ToRole="categories" FromRole="problems" />
+    <NavigationProperty Name="Dealing" Relationship="LightSwitchApplication.FK_problems_Dealing" ToRole="Dealing" FromRole="problems" />
+    <NavigationProperty Name="department1" Relationship="LightSwitchApplication.FK_problems_departments" ToRole="departments" FromRole="problems" />
+    <NavigationProperty Name="priority1" Relationship="LightSwitchApplication.FK_problems_priority" ToRole="priority" FromRole="problems" />
+    <NavigationProperty Name="Sector" Relationship="LightSwitchApplication.FK_problems_Sector" ToRole="Sector" FromRole="problems" />
+    <NavigationProperty Name="SectorGroup" Relationship="LightSwitchApplication.FK_problems_SectorGroup" ToRole="SectorGroup" FromRole="problems" />
+    <NavigationProperty Name="status1" Relationship="LightSwitchApplication.FK_problems_status" ToRole="status" FromRole="problems" />
+    <NavigationProperty Name="tblUser" Relationship="LightSwitchApplication.FK_problems_tblUsers" ToRole="tblUsers" FromRole="problems" />
+    <NavigationProperty Name="ProblemsRelateds" Relationship="LightSwitchApplication.FK_ProblemsRelated_problems" ToRole="ProblemsRelated" FromRole="problems" />
+    <NavigationProperty Name="ProblemsRelateds1" Relationship="LightSwitchApplication.FK_ProblemsRelated_problems1" ToRole="ProblemsRelated" FromRole="problems" />
+    <NavigationProperty Name="tblNotes" Relationship="LightSwitchApplication.FK_tblNotes_problems" ToRole="tblNotes" FromRole="problems" />
+  </EntityType>
+  <EntityType Name="ProblemsRelated">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Edm.Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IsActive" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="ProblemsAID" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="ProblemsBID" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <NavigationProperty Name="problem" Relationship="LightSwitchApplication.FK_ProblemsRelated_problems" ToRole="problems" FromRole="ProblemsRelated" />
+    <NavigationProperty Name="problem1" Relationship="LightSwitchApplication.FK_ProblemsRelated_problems1" ToRole="problems" FromRole="ProblemsRelated" />
+  </EntityType>
+  <EntityType Name="Sector">
+    <Key>
+      <PropertyRef Name="SectorID" />
+    </Key>
+    <Property Name="SectorID" Type="Edm.Int32" Nullable="false" />
+    <Property Name="SectorName" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="Description" Type="Edm.String" MaxLength="500" ConcurrencyMode="Fixed" />
+    <NavigationProperty Name="Companies" Relationship="LightSwitchApplication.FK_Company_Sector" ToRole="Company" FromRole="Sector" />
+    <NavigationProperty Name="Contacts" Relationship="LightSwitchApplication.FK_Contact_Sector" ToRole="Contact" FromRole="Sector" />
+    <NavigationProperty Name="Dealings" Relationship="LightSwitchApplication.FK_Dealing_Sector" ToRole="Dealing" FromRole="Sector" />
+    <NavigationProperty Name="problems" Relationship="LightSwitchApplication.FK_problems_Sector" ToRole="problems" FromRole="Sector" />
+    <NavigationProperty Name="SectorGroups" Relationship="LightSwitchApplication.FK_SectorGroup_Sector" ToRole="SectorGroup" FromRole="Sector" />
+  </EntityType>
+  <EntityType Name="SectorGroup">
+    <Key>
+      <PropertyRef Name="SectorGroupID" />
+    </Key>
+    <Property Name="SectorGroupID" Type="Edm.Int32" Nullable="false" />
+    <Property Name="SectorGroupName" Type="Edm.String" Nullable="false" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="Description" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="SectorID" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <NavigationProperty Name="Companies" Relationship="LightSwitchApplication.FK_Company_SectorGroup" ToRole="Company" FromRole="SectorGroup" />
+    <NavigationProperty Name="Contacts" Relationship="LightSwitchApplication.FK_Contact_SectorGroup" ToRole="Contact" FromRole="SectorGroup" />
+    <NavigationProperty Name="Dealings" Relationship="LightSwitchApplication.FK_Dealing_SectorGroup" ToRole="Dealing" FromRole="SectorGroup" />
+    <NavigationProperty Name="problems" Relationship="LightSwitchApplication.FK_problems_SectorGroup" ToRole="problems" FromRole="SectorGroup" />
+    <NavigationProperty Name="Sector" Relationship="LightSwitchApplication.FK_SectorGroup_Sector" ToRole="Sector" FromRole="SectorGroup" />
+  </EntityType>
+  <EntityType Name="State">
+    <Key>
+      <PropertyRef Name="StateID" />
+    </Key>
+    <Property Name="StateID" Type="Edm.Int32" Nullable="false" />
+    <Property Name="StateTable" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="StateColumn" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="StateField" Type="Edm.String" MaxLength="50" ConcurrencyMode="Fixed" />
+    <Property Name="StateDescription" Type="Edm.String" MaxLength="500" ConcurrencyMode="Fixed" />
+    <Property Name="IsActive" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="DisplayOrder" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="Schedule" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <NavigationProperty Name="tblNotes" Relationship="LightSwitchApplication.FK_tblNotes_States" ToRole="tblNotes" FromRole="States" />
+  </EntityType>
+  <EntityType Name="status">
+    <Key>
+      <PropertyRef Name="status_id" />
+    </Key>
+    <Property Name="status_id" Type="Edm.Int32" Nullable="false" />
+    <Property Name="sname" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <NavigationProperty Name="problems" Relationship="LightSwitchApplication.FK_problems_status" ToRole="problems" FromRole="status" />
+  </EntityType>
+  <EntityType Name="tblConfig">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Edm.Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SiteName" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="BaseURL" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="AdminPass" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="EmailType" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="SMTPServer" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="HDName" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="HDReply" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="BaseEmail" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="EnablePager" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="NotifyUser" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="EnableKB" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="DefaultPriority" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="DefaultStatus" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="CloseStatus" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="AuthType" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="Version" Type="Edm.String" MaxLength="6" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="UseSelectUser" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="UseInoutBoard" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="KBFreeText" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="DefaultLanguage" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="AllowImageUpload" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="MaxImageSize" Type="Edm.String" MaxLength="20" Unicode="false" ConcurrencyMode="Fixed" />
+  </EntityType>
+  <EntityType Name="tblConfig_Auth">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Edm.Int32" Nullable="false" />
+    <Property Name="Type" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+  </EntityType>
+  <EntityType Name="tblConfig_Email">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Edm.Int32" Nullable="false" />
+    <Property Name="Type" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+  </EntityType>
+  <EntityType Name="tblEmailMsg">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Edm.Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="type" Type="Edm.String" Nullable="false" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="subject" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="body" Type="Edm.String" MaxLength="Max" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tblLangString">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Edm.Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="variable" Type="Edm.String" Nullable="false" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="LangText" Type="Edm.String" Nullable="false" MaxLength="Max" Unicode="false" />
+    <Property Name="Language" Type="Edm.Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <NavigationProperty Name="tblLanguage" Relationship="LightSwitchApplication.FK_tblLangStrings_ID" ToRole="tblLanguage" FromRole="tblLangStrings" />
+  </EntityType>
+  <EntityType Name="tblLanguage">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Edm.Int32" Nullable="false" />
+    <Property Name="LangName" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="Localized" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <NavigationProperty Name="tblLangStrings" Relationship="LightSwitchApplication.FK_tblLangStrings_ID" ToRole="tblLangStrings" FromRole="tblLanguage" />
+  </EntityType>
+  <EntityType Name="tblNote">
+    <Key>
+      <PropertyRef Name="NoteID" />
+    </Key>
+    <Property Name="NoteID" Type="Edm.Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="note" Type="Edm.String" MaxLength="Max" Unicode="false" />
+    <Property Name="addDate" Type="Edm.DateTime" Precision="3" ConcurrencyMode="Fixed" />
+    <Property Name="uid" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="IsPrivate" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="IsFuture" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="FutureDate" Type="Edm.DateTime" Precision="0" ConcurrencyMode="Fixed" />
+    <Property Name="NoteType" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="Time" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="DateModified" Type="Edm.DateTime" Precision="3" ConcurrencyMode="Fixed" />
+    <Property Name="RelatedTo" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="RelatedFrom" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="id" Type="Edm.Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <Property Name="Status" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="entered_by" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <NavigationProperty Name="problem" Relationship="LightSwitchApplication.FK_tblNotes_problems" ToRole="problems" FromRole="tblNotes" />
+    <NavigationProperty Name="State" Relationship="LightSwitchApplication.FK_tblNotes_States" ToRole="States" FromRole="tblNotes" />
+    <NavigationProperty Name="tblUser" Relationship="LightSwitchApplication.FK_tblNotes_tblUsers" ToRole="tblUsers" FromRole="tblNotes" />
+  </EntityType>
+  <EntityType Name="tblUser">
+    <Key>
+      <PropertyRef Name="sid" />
+    </Key>
+    <Property Name="sid" Type="Edm.Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="uid" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="password" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="fname" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="email1" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="email2" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="phone" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="location1" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="location2" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="department" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="IsRep" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="dtCreated" Type="Edm.DateTime" Precision="3" ConcurrencyMode="Fixed" />
+    <Property Name="dtLastAccess" Type="Edm.DateTime" Precision="3" ConcurrencyMode="Fixed" />
+    <Property Name="ListOnInoutBoard" Type="Edm.Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <Property Name="firstname" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="lastname" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="inoutadmin" Type="Edm.Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <Property Name="phone_home" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="phone_mobile" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="jobfunction" Type="Edm.String" MaxLength="Max" Unicode="false" />
+    <Property Name="userresume" Type="Edm.String" MaxLength="Max" Unicode="false" />
+    <Property Name="statustext" Type="Edm.String" MaxLength="255" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="statuscode" Type="Edm.Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <Property Name="statusdate" Type="Edm.DateTime" Precision="3" ConcurrencyMode="Fixed" />
+    <Property Name="Language" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="RepAccess" Type="Edm.Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <NavigationProperty Name="Dealings" Relationship="LightSwitchApplication.FK_Dealing_tblUsers" ToRole="Dealing" FromRole="tblUsers" />
+    <NavigationProperty Name="problems" Relationship="LightSwitchApplication.FK_problems_tblUsers" ToRole="problems" FromRole="tblUsers" />
+    <NavigationProperty Name="tblNotes" Relationship="LightSwitchApplication.FK_tblNotes_tblUsers" ToRole="tblNotes" FromRole="tblUsers" />
+  </EntityType>
+  <EntityType Name="vwProblem">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Edm.Int32" Nullable="false" />
+    <Property Name="uid" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="uemail" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="ulocation" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="uphone" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="rep" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="status" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="time_spent" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="category" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="priority" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="department" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="title" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="description" Type="Edm.String" MaxLength="Max" Unicode="false" />
+    <Property Name="solution" Type="Edm.String" MaxLength="Max" Unicode="false" />
+    <Property Name="Start_Date" Type="Edm.DateTime" Precision="3" ConcurrencyMode="Fixed" />
+    <Property Name="close_date" Type="Edm.DateTime" Precision="3" ConcurrencyMode="Fixed" />
+    <Property Name="entered_by" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="kb" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="enteredBy" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="enteredBy_eMail1" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="enteredBy_eMail2" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="enteredBy_Phone" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="enteredBy_IsRep" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="enteredBy_phone_mobile" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="enteredBy_RepAccess" Type="Edm.Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <Property Name="assignedTo" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="assignedTo_eMail1" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="assignedTo_eMail2" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="assignedTo_Phone" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="assignedTo_IsRep" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="assignedTo_phone_mobile" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="assignedTo_RepAccess" Type="Edm.Int32" Nullable="false" ConcurrencyMode="Fixed" />
+    <Property Name="StatusName" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="CategoryName" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="Category_RepID" Type="Edm.Int32" ConcurrencyMode="Fixed" />
+    <Property Name="PriorityName" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+    <Property Name="DepartmentName" Type="Edm.String" MaxLength="50" Unicode="false" ConcurrencyMode="Fixed" />
+  </EntityType>
+  <Association Name="FK_Company_Contact">
+    <End Role="Contact" Type="LightSwitchApplication.Contact" Multiplicity="0..1" />
+    <End Role="Company" Type="LightSwitchApplication.Company" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contact">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Company">
+        <PropertyRef Name="PrimaryContact" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Company_Sector">
+    <End Role="Sector" Type="LightSwitchApplication.Sector" Multiplicity="0..1" />
+    <End Role="Company" Type="LightSwitchApplication.Company" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sector">
+        <PropertyRef Name="SectorID" />
+      </Principal>
+      <Dependent Role="Company">
+        <PropertyRef Name="SectorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Company_SectorGroup">
+    <End Role="SectorGroup" Type="LightSwitchApplication.SectorGroup" Multiplicity="0..1" />
+    <End Role="Company" Type="LightSwitchApplication.Company" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SectorGroup">
+        <PropertyRef Name="SectorGroupID" />
+      </Principal>
+      <Dependent Role="Company">
+        <PropertyRef Name="SectorGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Contact_Sector">
+    <End Role="Sector" Type="LightSwitchApplication.Sector" Multiplicity="0..1" />
+    <End Role="Contact" Type="LightSwitchApplication.Contact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sector">
+        <PropertyRef Name="SectorID" />
+      </Principal>
+      <Dependent Role="Contact">
+        <PropertyRef Name="SectorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Contact_SectorGroup">
+    <End Role="SectorGroup" Type="LightSwitchApplication.SectorGroup" Multiplicity="0..1" />
+    <End Role="Contact" Type="LightSwitchApplication.Contact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SectorGroup">
+        <PropertyRef Name="SectorGroupID" />
+      </Principal>
+      <Dependent Role="Contact">
+        <PropertyRef Name="SectorGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Dealing_Company">
+    <End Role="Company" Type="LightSwitchApplication.Company" Multiplicity="0..1" />
+    <End Role="Dealing" Type="LightSwitchApplication.Dealing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Dealing">
+        <PropertyRef Name="Company" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Dealing_Contact">
+    <End Role="Contact" Type="LightSwitchApplication.Contact" Multiplicity="0..1" />
+    <End Role="Dealing" Type="LightSwitchApplication.Dealing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contact">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Dealing">
+        <PropertyRef Name="Contact" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Dealing_Sector">
+    <End Role="Sector" Type="LightSwitchApplication.Sector" Multiplicity="0..1" />
+    <End Role="Dealing" Type="LightSwitchApplication.Dealing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sector">
+        <PropertyRef Name="SectorID" />
+      </Principal>
+      <Dependent Role="Dealing">
+        <PropertyRef Name="SectorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Dealing_SectorGroup">
+    <End Role="SectorGroup" Type="LightSwitchApplication.SectorGroup" Multiplicity="0..1" />
+    <End Role="Dealing" Type="LightSwitchApplication.Dealing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SectorGroup">
+        <PropertyRef Name="SectorGroupID" />
+      </Principal>
+      <Dependent Role="Dealing">
+        <PropertyRef Name="SectorGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Dealing_tblUsers">
+    <End Role="tblUsers" Type="LightSwitchApplication.tblUser" Multiplicity="0..1" />
+    <End Role="Dealing" Type="LightSwitchApplication.Dealing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUsers">
+        <PropertyRef Name="sid" />
+      </Principal>
+      <Dependent Role="Dealing">
+        <PropertyRef Name="Rep" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_problems_categories">
+    <End Role="categories" Type="LightSwitchApplication.category" Multiplicity="0..1" />
+    <End Role="problems" Type="LightSwitchApplication.problem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categories">
+        <PropertyRef Name="category_id" />
+      </Principal>
+      <Dependent Role="problems">
+        <PropertyRef Name="category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_problems_Dealing">
+    <End Role="Dealing" Type="LightSwitchApplication.Dealing" Multiplicity="0..1" />
+    <End Role="problems" Type="LightSwitchApplication.problem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dealing">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="problems">
+        <PropertyRef Name="DealingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_problems_departments">
+    <End Role="departments" Type="LightSwitchApplication.department" Multiplicity="0..1" />
+    <End Role="problems" Type="LightSwitchApplication.problem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="departments">
+        <PropertyRef Name="department_id" />
+      </Principal>
+      <Dependent Role="problems">
+        <PropertyRef Name="department" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_problems_priority">
+    <End Role="priority" Type="LightSwitchApplication.priority" Multiplicity="0..1" />
+    <End Role="problems" Type="LightSwitchApplication.problem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="priority">
+        <PropertyRef Name="priority_id" />
+      </Principal>
+      <Dependent Role="problems">
+        <PropertyRef Name="priority" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_problems_Sector">
+    <End Role="Sector" Type="LightSwitchApplication.Sector" Multiplicity="0..1" />
+    <End Role="problems" Type="LightSwitchApplication.problem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sector">
+        <PropertyRef Name="SectorID" />
+      </Principal>
+      <Dependent Role="problems">
+        <PropertyRef Name="SectorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_problems_SectorGroup">
+    <End Role="SectorGroup" Type="LightSwitchApplication.SectorGroup" Multiplicity="0..1" />
+    <End Role="problems" Type="LightSwitchApplication.problem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SectorGroup">
+        <PropertyRef Name="SectorGroupID" />
+      </Principal>
+      <Dependent Role="problems">
+        <PropertyRef Name="SectorGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_problems_status">
+    <End Role="status" Type="LightSwitchApplication.status" Multiplicity="0..1" />
+    <End Role="problems" Type="LightSwitchApplication.problem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="status">
+        <PropertyRef Name="status_id" />
+      </Principal>
+      <Dependent Role="problems">
+        <PropertyRef Name="status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_problems_tblUsers">
+    <End Role="tblUsers" Type="LightSwitchApplication.tblUser" Multiplicity="0..1" />
+    <End Role="problems" Type="LightSwitchApplication.problem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUsers">
+        <PropertyRef Name="sid" />
+      </Principal>
+      <Dependent Role="problems">
+        <PropertyRef Name="entered_by" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProblemsRelated_problems">
+    <End Role="problems" Type="LightSwitchApplication.problem" Multiplicity="0..1" />
+    <End Role="ProblemsRelated" Type="LightSwitchApplication.ProblemsRelated" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="problems">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ProblemsRelated">
+        <PropertyRef Name="ProblemsAID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProblemsRelated_problems1">
+    <End Role="problems" Type="LightSwitchApplication.problem" Multiplicity="0..1" />
+    <End Role="ProblemsRelated" Type="LightSwitchApplication.ProblemsRelated" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="problems">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ProblemsRelated">
+        <PropertyRef Name="ProblemsBID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SectorGroup_Sector">
+    <End Role="Sector" Type="LightSwitchApplication.Sector" Multiplicity="0..1" />
+    <End Role="SectorGroup" Type="LightSwitchApplication.SectorGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sector">
+        <PropertyRef Name="SectorID" />
+      </Principal>
+      <Dependent Role="SectorGroup">
+        <PropertyRef Name="SectorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblLangStrings_ID">
+    <End Role="tblLanguage" Type="LightSwitchApplication.tblLanguage" Multiplicity="1" />
+    <End Role="tblLangStrings" Type="LightSwitchApplication.tblLangString" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLanguage">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tblLangStrings">
+        <PropertyRef Name="Language" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblNotes_problems">
+    <End Role="problems" Type="LightSwitchApplication.problem" Multiplicity="1" />
+    <End Role="tblNotes" Type="LightSwitchApplication.tblNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="problems">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tblNotes">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblNotes_States">
+    <End Role="States" Type="LightSwitchApplication.State" Multiplicity="0..1" />
+    <End Role="tblNotes" Type="LightSwitchApplication.tblNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="States">
+        <PropertyRef Name="StateID" />
+      </Principal>
+      <Dependent Role="tblNotes">
+        <PropertyRef Name="Status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblNotes_tblUsers">
+    <End Role="tblUsers" Type="LightSwitchApplication.tblUser" Multiplicity="0..1" />
+    <End Role="tblNotes" Type="LightSwitchApplication.tblNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUsers">
+        <PropertyRef Name="sid" />
+      </Principal>
+      <Dependent Role="tblNotes">
+        <PropertyRef Name="entered_by" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HelpDeskCRMDataObjectContext" m:IsDefaultEntityContainer="true">
+    <EntitySet Name="Addresses" EntityType="LightSwitchApplication.Address" />
+    <EntitySet Name="categories" EntityType="LightSwitchApplication.category" />
+    <EntitySet Name="Companies" EntityType="LightSwitchApplication.Company" />
+    <EntitySet Name="Contacts" EntityType="LightSwitchApplication.Contact" />
+    <EntitySet Name="db_keys" EntityType="LightSwitchApplication.db_key" />
+    <EntitySet Name="Dealings" EntityType="LightSwitchApplication.Dealing" />
+    <EntitySet Name="departments" EntityType="LightSwitchApplication.department" />
+    <EntitySet Name="Items" EntityType="LightSwitchApplication.Item" />
+    <EntitySet Name="ItemLinks" EntityType="LightSwitchApplication.ItemLink" />
+    <EntitySet Name="priorities" EntityType="LightSwitchApplication.priority" />
+    <EntitySet Name="problems" EntityType="LightSwitchApplication.problem" />
+    <EntitySet Name="ProblemsRelateds" EntityType="LightSwitchApplication.ProblemsRelated" />
+    <EntitySet Name="Sectors" EntityType="LightSwitchApplication.Sector" />
+    <EntitySet Name="SectorGroups" EntityType="LightSwitchApplication.SectorGroup" />
+    <EntitySet Name="States" EntityType="LightSwitchApplication.State" />
+    <EntitySet Name="status" EntityType="LightSwitchApplication.status" />
+    <EntitySet Name="tblConfigs" EntityType="LightSwitchApplication.tblConfig" />
+    <EntitySet Name="tblConfig_Auths" EntityType="LightSwitchApplication.tblConfig_Auth" />
+    <EntitySet Name="tblConfig_Emails" EntityType="LightSwitchApplication.tblConfig_Email" />
+    <EntitySet Name="tblEmailMsgs" EntityType="LightSwitchApplication.tblEmailMsg" />
+    <EntitySet Name="tblLangStrings" EntityType="LightSwitchApplication.tblLangString" />
+    <EntitySet Name="tblLanguages" EntityType="LightSwitchApplication.tblLanguage" />
+    <EntitySet Name="tblNotes" EntityType="LightSwitchApplication.tblNote" />
+    <EntitySet Name="tblUsers" EntityType="LightSwitchApplication.tblUser" />
+    <EntitySet Name="vwProblems" EntityType="LightSwitchApplication.vwProblem" />
+    <AssociationSet Name="FK_Company_Contact" Association="LightSwitchApplication.FK_Company_Contact">
+      <End Role="Contact" EntitySet="Contacts" />
+      <End Role="Company" EntitySet="Companies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Company_Sector" Association="LightSwitchApplication.FK_Company_Sector">
+      <End Role="Sector" EntitySet="Sectors" />
+      <End Role="Company" EntitySet="Companies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Company_SectorGroup" Association="LightSwitchApplication.FK_Company_SectorGroup">
+      <End Role="SectorGroup" EntitySet="SectorGroups" />
+      <End Role="Company" EntitySet="Companies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Contact_Sector" Association="LightSwitchApplication.FK_Contact_Sector">
+      <End Role="Sector" EntitySet="Sectors" />
+      <End Role="Contact" EntitySet="Contacts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Contact_SectorGroup" Association="LightSwitchApplication.FK_Contact_SectorGroup">
+      <End Role="SectorGroup" EntitySet="SectorGroups" />
+      <End Role="Contact" EntitySet="Contacts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Dealing_Company" Association="LightSwitchApplication.FK_Dealing_Company">
+      <End Role="Company" EntitySet="Companies" />
+      <End Role="Dealing" EntitySet="Dealings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Dealing_Contact" Association="LightSwitchApplication.FK_Dealing_Contact">
+      <End Role="Contact" EntitySet="Contacts" />
+      <End Role="Dealing" EntitySet="Dealings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Dealing_Sector" Association="LightSwitchApplication.FK_Dealing_Sector">
+      <End Role="Sector" EntitySet="Sectors" />
+      <End Role="Dealing" EntitySet="Dealings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Dealing_SectorGroup" Association="LightSwitchApplication.FK_Dealing_SectorGroup">
+      <End Role="SectorGroup" EntitySet="SectorGroups" />
+      <End Role="Dealing" EntitySet="Dealings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Dealing_tblUsers" Association="LightSwitchApplication.FK_Dealing_tblUsers">
+      <End Role="tblUsers" EntitySet="tblUsers" />
+      <End Role="Dealing" EntitySet="Dealings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_problems_categories" Association="LightSwitchApplication.FK_problems_categories">
+      <End Role="categories" EntitySet="categories" />
+      <End Role="problems" EntitySet="problems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_problems_Dealing" Association="LightSwitchApplication.FK_problems_Dealing">
+      <End Role="Dealing" EntitySet="Dealings" />
+      <End Role="problems" EntitySet="problems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_problems_departments" Association="LightSwitchApplication.FK_problems_departments">
+      <End Role="departments" EntitySet="departments" />
+      <End Role="problems" EntitySet="problems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_problems_priority" Association="LightSwitchApplication.FK_problems_priority">
+      <End Role="priority" EntitySet="priorities" />
+      <End Role="problems" EntitySet="problems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_problems_Sector" Association="LightSwitchApplication.FK_problems_Sector">
+      <End Role="Sector" EntitySet="Sectors" />
+      <End Role="problems" EntitySet="problems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_problems_SectorGroup" Association="LightSwitchApplication.FK_problems_SectorGroup">
+      <End Role="SectorGroup" EntitySet="SectorGroups" />
+      <End Role="problems" EntitySet="problems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_problems_status" Association="LightSwitchApplication.FK_problems_status">
+      <End Role="status" EntitySet="status" />
+      <End Role="problems" EntitySet="problems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_problems_tblUsers" Association="LightSwitchApplication.FK_problems_tblUsers">
+      <End Role="tblUsers" EntitySet="tblUsers" />
+      <End Role="problems" EntitySet="problems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProblemsRelated_problems" Association="LightSwitchApplication.FK_ProblemsRelated_problems">
+      <End Role="problems" EntitySet="problems" />
+      <End Role="ProblemsRelated" EntitySet="ProblemsRelateds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProblemsRelated_problems1" Association="LightSwitchApplication.FK_ProblemsRelated_problems1">
+      <End Role="problems" EntitySet="problems" />
+      <End Role="ProblemsRelated" EntitySet="ProblemsRelateds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SectorGroup_Sector" Association="LightSwitchApplication.FK_SectorGroup_Sector">
+      <End Role="Sector" EntitySet="Sectors" />
+      <End Role="SectorGroup" EntitySet="SectorGroups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblLangStrings_ID" Association="LightSwitchApplication.FK_tblLangStrings_ID">
+      <End Role="tblLanguage" EntitySet="tblLanguages" />
+      <End Role="tblLangStrings" EntitySet="tblLangStrings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblNotes_problems" Association="LightSwitchApplication.FK_tblNotes_problems">
+      <End Role="problems" EntitySet="problems" />
+      <End Role="tblNotes" EntitySet="tblNotes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblNotes_States" Association="LightSwitchApplication.FK_tblNotes_States">
+      <End Role="States" EntitySet="States" />
+      <End Role="tblNotes" EntitySet="tblNotes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblNotes_tblUsers" Association="LightSwitchApplication.FK_tblNotes_tblUsers">
+      <End Role="tblUsers" EntitySet="tblUsers" />
+      <End Role="tblNotes" EntitySet="tblNotes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

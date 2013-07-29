@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{ECD6D718-D1CF-4119-97F3-97C25A0DFBF9}") = "CRMLightSwitch", "CRMLightSwitch\CRMLightSwitch.lsproj", "{CB0F4C1B-13F0-47F0-8A89-44EF97017B83}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+		{3C09661E-AD5D-4C4B-9147-AD6AD0DBF665}.0 = {41147648-EA3E-4B14-A661-38C4F2B586CB}
+		{3C09661E-AD5D-4C4B-9147-AD6AD0DBF665}.1 = {44AD83C5-4E7D-4105-A7D3-B7DB3E9F85B0}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CB0F4C1B-13F0-47F0-8A89-44EF97017B83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB0F4C1B-13F0-47F0-8A89-44EF97017B83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB0F4C1B-13F0-47F0-8A89-44EF97017B83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB0F4C1B-13F0-47F0-8A89-44EF97017B83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41147648-EA3E-4B14-A661-38C4F2B586CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41147648-EA3E-4B14-A661-38C4F2B586CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41147648-EA3E-4B14-A661-38C4F2B586CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41147648-EA3E-4B14-A661-38C4F2B586CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44AD83C5-4E7D-4105-A7D3-B7DB3E9F85B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44AD83C5-4E7D-4105-A7D3-B7DB3E9F85B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44AD83C5-4E7D-4105-A7D3-B7DB3E9F85B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44AD83C5-4E7D-4105-A7D3-B7DB3E9F85B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C09661E-AD5D-4C4B-9147-AD6AD0DBF665}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C09661E-AD5D-4C4B-9147-AD6AD0DBF665}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C09661E-AD5D-4C4B-9147-AD6AD0DBF665}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C09661E-AD5D-4C4B-9147-AD6AD0DBF665}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
