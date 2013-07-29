@@ -1,0 +1,2254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelFragment xmlns="http://schemas.microsoft.com/LightSwitch/2010/xaml/model">
+  <ServiceApplication
+    Name="LightSwitchServiceApplication"
+    Version="1.0.0.0">
+    <ServiceApplication.Attributes>
+      <ModuleNamespace
+        Namespace="LightSwitchApplication" />
+    </ServiceApplication.Attributes>
+  </ServiceApplication>
+  <DataService
+    DataProvider="EntityFrameworkDataProvider"
+    EntityContainer="LightSwitchCommonModule:HelpDeskCRMData"
+    Name="HelpDeskCRMDataDataService">
+    <DataService.ConnectionProperties>
+      <ConnectionProperty
+        Name="DataProviderName"
+        Value="91510608-8809-4020-8897-fba057e22d54" />
+      <ConnectionProperty
+        Name="DataSourceName"
+        Value="067ea0d9-ba62-43f7-9106-34930c60c528" />
+      <ConnectionProperty
+        Name="ProviderInvariantName"
+        Value="System.Data.SqlClient" />
+      <ConnectionProperty
+        Name="SafeConnectionString"
+        Value="Data Source=.;Initial Catalog=HelpDeskCRM;Persist Security Info=True;User ID=Operator;Password=Operator" />
+      <ConnectionProperty
+        Name="ConnectionStringGuid"
+        Value="5ce5a9b3-b197-4282-b5b7-718bf807c70f" />
+      <ConnectionProperty
+        Name="ProviderManifestToken"
+        Value="2008" />
+    </DataService.ConnectionProperties>
+    <EntitySetMapping
+      EntitySet="Addresses">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="Address" />
+        <SsdlProperty
+          Name="ID"
+          Nullable="False"
+          Property="LightSwitchCommonModule:Address/Properties[ID]"
+          StoreGeneratedPattern="Identity"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="TableName"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Address/Properties[TableName]"
+          Type="nvarchar" />
+        <SsdlProperty
+          Name="TableReference"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Address/Properties[TableReference]"
+          Type="int" />
+        <SsdlProperty
+          Name="AddressType"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Address/Properties[AddressType]"
+          Type="int" />
+        <SsdlProperty
+          Name="IsActive"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Address/Properties[IsActive]"
+          Type="int" />
+        <SsdlProperty
+          Name="IsDefault"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Address/Properties[IsDefault]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="AddressTitle"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Address/Properties[AddressTitle]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="AddressLine1"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Address/Properties[AddressLine1]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="AddressLine2"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Address/Properties[AddressLine2]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="City"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Address/Properties[City]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="State"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Address/Properties[State]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="Zip"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Address/Properties[Zip]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="Country"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Address/Properties[Country]"
+          Type="nvarchar" />
+        <SsdlProperty
+          Name="DateAdded"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Address/Properties[DateAdded]"
+          Type="date" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="categories">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="categories" />
+        <SsdlProperty
+          Name="category_id"
+          Nullable="False"
+          Property="LightSwitchCommonModule:category/Properties[category_id]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="cname"
+          Nullable="True"
+          Property="LightSwitchCommonModule:category/Properties[cname]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="rep_id"
+          Nullable="True"
+          Property="LightSwitchCommonModule:category/Properties[rep_id]"
+          Type="int" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="Companies">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="Company" />
+        <SsdlProperty
+          Name="ID"
+          Nullable="False"
+          Property="LightSwitchCommonModule:Company/Properties[ID]"
+          StoreGeneratedPattern="Identity"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="CompanyName"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Company/Properties[CompanyName]"
+          Type="nvarchar" />
+        <SsdlProperty
+          Name="IsActive"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Company/Properties[IsActive]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="2000"
+          Name="Comment"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Company/Properties[Comment]"
+          Type="nvarchar" />
+        <SsdlProperty
+          Name="Stage"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Company/Properties[Stage]"
+          Type="int" />
+        <SsdlProperty
+          Name="Industry"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Company/Properties[Industry]"
+          Type="int" />
+        <SsdlProperty
+          Name="IsInstallerElectrical"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Company/Properties[IsInstallerElectrical]"
+          Type="int" />
+        <SsdlProperty
+          Name="IsInstallerWater"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Company/Properties[IsInstallerWater]"
+          Type="int" />
+        <SsdlProperty
+          Name="IsInstallerGas"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Company/Properties[IsInstallerGas]"
+          Type="int" />
+        <SsdlProperty
+          Name="Priority"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Company/Properties[Priority]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="TaxNumber"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Company/Properties[TaxNumber]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="Tel"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Company/Properties[Tel]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="Fax"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Company/Properties[Fax]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="Website"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Company/Properties[Website]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="email"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Company/Properties[email]"
+          Type="nvarchar" />
+        <SsdlProperty
+          Name="ParentCompany"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Company/Properties[ParentCompany]"
+          Type="int" />
+        <SsdlProperty
+          Name="Rep"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Company/Properties[Rep]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="Tags"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Company/Properties[Tags]"
+          Type="nvarchar" />
+        <SsdlForeignKeyProperty
+          Name="PrimaryContact"
+          Nullable="True"
+          PropertyName="PrimaryContact"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="SectorID"
+          Nullable="True"
+          PropertyName="SectorID"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="SectorGroupID"
+          Nullable="True"
+          PropertyName="SectorGroupID"
+          Type="int" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="Contacts">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="Contact" />
+        <SsdlProperty
+          Name="ID"
+          Nullable="False"
+          Property="LightSwitchCommonModule:Contact/Properties[ID]"
+          StoreGeneratedPattern="Identity"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="eMail"
+          Nullable="False"
+          Property="LightSwitchCommonModule:Contact/Properties[eMail]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="eMailAlternates"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[eMailAlternates]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="Title"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[Title]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="FirstName"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[FirstName]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="LastName"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[LastName]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="KnownName"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[KnownName]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="2000"
+          Name="Comment"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[Comment]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="TelMobile"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[TelMobile]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="TelHome"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[TelHome]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="TelWork"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[TelWork]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="TelFax"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[TelFax]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="IsActive"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[IsActive]"
+          Type="int" />
+        <SsdlProperty
+          Name="Stage"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[Stage]"
+          Type="int" />
+        <SsdlProperty
+          Name="CompanyID"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[CompanyID]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="Position"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[Position]"
+          Type="nvarchar" />
+        <SsdlProperty
+          Name="Referredby"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[Referredby]"
+          Type="int" />
+        <SsdlProperty
+          Name="Rep"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[Rep]"
+          Type="int" />
+        <SsdlProperty
+          Name="ContactType"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[ContactType]"
+          Type="int" />
+        <SsdlProperty
+          Name="ReceiveEmail"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[ReceiveEmail]"
+          Type="int" />
+        <SsdlProperty
+          Name="ReceiveSMS"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[ReceiveSMS]"
+          Type="int" />
+        <SsdlProperty
+          Name="MessengerNetwork"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[MessengerNetwork]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="MessengerName"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[MessengerName]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="Source"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[Source]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="TimeZone"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[TimeZone]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="BirthDate"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[BirthDate]"
+          Type="date" />
+        <SsdlProperty
+          Name="IsInstallerElectrical"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[IsInstallerElectrical]"
+          Type="int" />
+        <SsdlProperty
+          Name="IsInstallerWater"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[IsInstallerWater]"
+          Type="int" />
+        <SsdlProperty
+          Name="IsInstallerGas"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[IsInstallerGas]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="500"
+          Name="Tags"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Contact/Properties[Tags]"
+          Type="nvarchar" />
+        <SsdlForeignKeyProperty
+          Name="SectorID"
+          Nullable="True"
+          PropertyName="SectorID"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="SectorGroupID"
+          Nullable="True"
+          PropertyName="SectorGroupID"
+          Type="int" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="db_keys">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="db_keys" />
+        <SsdlProperty
+          Name="ID"
+          Nullable="False"
+          Property="LightSwitchCommonModule:db_key/Properties[ID]"
+          StoreGeneratedPattern="Identity"
+          Type="int" />
+        <SsdlProperty
+          Name="problems"
+          Nullable="True"
+          Property="LightSwitchCommonModule:db_key/Properties[problems]"
+          Type="int" />
+        <SsdlProperty
+          Name="departments"
+          Nullable="True"
+          Property="LightSwitchCommonModule:db_key/Properties[departments]"
+          Type="int" />
+        <SsdlProperty
+          Name="categories"
+          Nullable="True"
+          Property="LightSwitchCommonModule:db_key/Properties[categories]"
+          Type="int" />
+        <SsdlProperty
+          Name="users"
+          Nullable="True"
+          Property="LightSwitchCommonModule:db_key/Properties[users]"
+          Type="int" />
+        <SsdlProperty
+          Name="Lang"
+          Nullable="True"
+          Property="LightSwitchCommonModule:db_key/Properties[Lang]"
+          Type="int" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="Dealings">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="Dealing" />
+        <SsdlProperty
+          Name="ID"
+          Nullable="False"
+          Property="LightSwitchCommonModule:Dealing/Properties[ID]"
+          StoreGeneratedPattern="Identity"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="Title"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Dealing/Properties[Title]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="2000"
+          Name="Comment"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Dealing/Properties[Comment]"
+          Type="nvarchar" />
+        <SsdlProperty
+          Name="Prospect"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Dealing/Properties[Prospect]"
+          Type="int" />
+        <SsdlProperty
+          Name="Product"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Dealing/Properties[Product]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="10"
+          Name="ProjectedQty"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Dealing/Properties[ProjectedQty]"
+          Type="nchar" />
+        <SsdlProperty
+          Name="ProjectedRevenue"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Dealing/Properties[ProjectedRevenue]"
+          Type="int" />
+        <SsdlProperty
+          Name="ProjectedActualiztion"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Dealing/Properties[ProjectedActualiztion]"
+          Type="date" />
+        <SsdlProperty
+          Name="Stage"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Dealing/Properties[Stage]"
+          Type="int" />
+        <SsdlProperty
+          Name="Actualized"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Dealing/Properties[Actualized]"
+          Type="int" />
+        <SsdlProperty
+          Name="ActualizedQty"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Dealing/Properties[ActualizedQty]"
+          Type="int" />
+        <SsdlProperty
+          Name="ActualizedDate"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Dealing/Properties[ActualizedDate]"
+          Type="date" />
+        <SsdlProperty
+          Name="ExcludeFromReports"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Dealing/Properties[ExcludeFromReports]"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="Company"
+          Nullable="True"
+          PropertyName="Company"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="Contact"
+          Nullable="True"
+          PropertyName="Contact"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="SectorID"
+          Nullable="True"
+          PropertyName="SectorID"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="SectorGroupID"
+          Nullable="True"
+          PropertyName="SectorGroupID"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="Rep"
+          Nullable="True"
+          PropertyName="Rep"
+          Type="int" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="departments">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="departments" />
+        <SsdlProperty
+          Name="department_id"
+          Nullable="False"
+          Property="LightSwitchCommonModule:department/Properties[department_id]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="dname"
+          Nullable="True"
+          Property="LightSwitchCommonModule:department/Properties[dname]"
+          Type="varchar" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="Items">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="Item" />
+        <SsdlProperty
+          Name="ItemID"
+          Nullable="False"
+          Property="LightSwitchCommonModule:Item/Properties[ItemID]"
+          StoreGeneratedPattern="Identity"
+          Type="int" />
+        <SsdlProperty
+          Name="ItemType"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Item/Properties[ItemType]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="ItemNumber"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Item/Properties[ItemNumber]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="ItemSerial"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Item/Properties[ItemSerial]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="ItemName"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Item/Properties[ItemName]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="1000"
+          Name="Comment"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Item/Properties[Comment]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="1000"
+          Name="Description"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Item/Properties[Description]"
+          Type="nvarchar" />
+        <SsdlProperty
+          Name="DateCreated"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Item/Properties[DateCreated]"
+          Type="date" />
+        <SsdlProperty
+          Name="DateModified"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Item/Properties[DateModified]"
+          Type="date" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="ItemLinks">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="ItemLinks" />
+        <SsdlProperty
+          Name="ID"
+          Nullable="False"
+          Property="LightSwitchCommonModule:ItemLink/Properties[ID]"
+          StoreGeneratedPattern="Identity"
+          Type="int" />
+        <SsdlProperty
+          Name="ItemID"
+          Nullable="True"
+          Property="LightSwitchCommonModule:ItemLink/Properties[ItemID]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="LinkTableName"
+          Nullable="True"
+          Property="LightSwitchCommonModule:ItemLink/Properties[LinkTableName]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="LinkTableID"
+          Nullable="True"
+          Property="LightSwitchCommonModule:ItemLink/Properties[LinkTableID]"
+          Type="int" />
+        <SsdlProperty
+          Name="IsActive"
+          Nullable="True"
+          Property="LightSwitchCommonModule:ItemLink/Properties[IsActive]"
+          Type="int" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="priorities">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="priority" />
+        <SsdlProperty
+          Name="priority_id"
+          Nullable="False"
+          Property="LightSwitchCommonModule:priority/Properties[priority_id]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="pname"
+          Nullable="True"
+          Property="LightSwitchCommonModule:priority/Properties[pname]"
+          Type="varchar" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="problems">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="problems" />
+        <SsdlProperty
+          Name="id"
+          Nullable="False"
+          Property="LightSwitchCommonModule:problem/Properties[id]"
+          StoreGeneratedPattern="Identity"
+          Type="int" />
+        <SsdlProperty
+          Name="ContactID"
+          Nullable="True"
+          Property="LightSwitchCommonModule:problem/Properties[ContactID]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="CallerName"
+          Nullable="True"
+          Property="LightSwitchCommonModule:problem/Properties[CallerName]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="CallerEmail"
+          Nullable="True"
+          Property="LightSwitchCommonModule:problem/Properties[CallerEmail]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="CallerLocation"
+          Nullable="True"
+          Property="LightSwitchCommonModule:problem/Properties[CallerLocation]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="CallerPhone"
+          Nullable="True"
+          Property="LightSwitchCommonModule:problem/Properties[CallerPhone]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="rep"
+          Nullable="True"
+          Property="LightSwitchCommonModule:problem/Properties[rep]"
+          Type="int" />
+        <SsdlProperty
+          Name="time_spent"
+          Nullable="True"
+          Property="LightSwitchCommonModule:problem/Properties[time_spent]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="title"
+          Nullable="True"
+          Property="LightSwitchCommonModule:problem/Properties[title]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="description"
+          Nullable="True"
+          Property="LightSwitchCommonModule:problem/Properties[description]"
+          Type="text" />
+        <SsdlProperty
+          Name="solution"
+          Nullable="True"
+          Property="LightSwitchCommonModule:problem/Properties[solution]"
+          Type="text" />
+        <SsdlProperty
+          Name="start_date"
+          Nullable="True"
+          Property="LightSwitchCommonModule:problem/Properties[start_date]"
+          Type="datetime" />
+        <SsdlProperty
+          Name="close_date"
+          Nullable="True"
+          Property="LightSwitchCommonModule:problem/Properties[close_date]"
+          Type="datetime" />
+        <SsdlProperty
+          Name="kb"
+          Nullable="True"
+          Property="LightSwitchCommonModule:problem/Properties[kb]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="500"
+          Name="Referer"
+          Nullable="True"
+          Property="LightSwitchCommonModule:problem/Properties[Referer]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="MeterNumber"
+          Nullable="True"
+          Property="LightSwitchCommonModule:problem/Properties[MeterNumber]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="ClientNumber"
+          Nullable="True"
+          Property="LightSwitchCommonModule:problem/Properties[ClientNumber]"
+          Type="nvarchar" />
+        <SsdlForeignKeyProperty
+          Name="category"
+          Nullable="True"
+          PropertyName="category"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="DealingID"
+          Nullable="True"
+          PropertyName="DealingID"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="department"
+          Nullable="True"
+          PropertyName="department"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="priority"
+          Nullable="True"
+          PropertyName="priority"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="SectorID"
+          Nullable="True"
+          PropertyName="SectorID"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="SectorGroupID"
+          Nullable="True"
+          PropertyName="SectorGroupID"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="status"
+          Nullable="True"
+          PropertyName="status"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="entered_by"
+          Nullable="True"
+          PropertyName="entered_by"
+          Type="int" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="ProblemsRelateds">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="ProblemsRelated" />
+        <SsdlProperty
+          Name="ID"
+          Nullable="False"
+          Property="LightSwitchCommonModule:ProblemsRelated/Properties[ID]"
+          StoreGeneratedPattern="Identity"
+          Type="int" />
+        <SsdlProperty
+          Name="IsActive"
+          Nullable="True"
+          Property="LightSwitchCommonModule:ProblemsRelated/Properties[IsActive]"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="ProblemsAID"
+          Nullable="True"
+          PropertyName="ProblemsAID"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="ProblemsBID"
+          Nullable="True"
+          PropertyName="ProblemsBID"
+          Type="int" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="Sectors">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="Sector" />
+        <SsdlProperty
+          Name="SectorID"
+          Nullable="False"
+          Property="LightSwitchCommonModule:Sector/Properties[SectorID]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="SectorName"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Sector/Properties[SectorName]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="500"
+          Name="Description"
+          Nullable="True"
+          Property="LightSwitchCommonModule:Sector/Properties[Description]"
+          Type="nvarchar" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="SectorGroups">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="SectorGroup" />
+        <SsdlProperty
+          Name="SectorGroupID"
+          Nullable="False"
+          Property="LightSwitchCommonModule:SectorGroup/Properties[SectorGroupID]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="SectorGroupName"
+          Nullable="False"
+          Property="LightSwitchCommonModule:SectorGroup/Properties[SectorGroupName]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="Description"
+          Nullable="True"
+          Property="LightSwitchCommonModule:SectorGroup/Properties[Description]"
+          Type="nvarchar" />
+        <SsdlForeignKeyProperty
+          Name="SectorID"
+          Nullable="True"
+          PropertyName="SectorID"
+          Type="int" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="States">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="States" />
+        <SsdlProperty
+          Name="StateID"
+          Nullable="False"
+          Property="LightSwitchCommonModule:State/Properties[StateID]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="StateTable"
+          Nullable="True"
+          Property="LightSwitchCommonModule:State/Properties[StateTable]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="StateColumn"
+          Nullable="True"
+          Property="LightSwitchCommonModule:State/Properties[StateColumn]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="StateField"
+          Nullable="True"
+          Property="LightSwitchCommonModule:State/Properties[StateField]"
+          Type="nvarchar" />
+        <SsdlProperty
+          MaxLength="500"
+          Name="StateDescription"
+          Nullable="True"
+          Property="LightSwitchCommonModule:State/Properties[StateDescription]"
+          Type="nvarchar" />
+        <SsdlProperty
+          Name="IsActive"
+          Nullable="True"
+          Property="LightSwitchCommonModule:State/Properties[IsActive]"
+          Type="int" />
+        <SsdlProperty
+          Name="DisplayOrder"
+          Nullable="True"
+          Property="LightSwitchCommonModule:State/Properties[DisplayOrder]"
+          Type="int" />
+        <SsdlProperty
+          Name="Schedule"
+          Nullable="True"
+          Property="LightSwitchCommonModule:State/Properties[Schedule]"
+          Type="int" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="status">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="status" />
+        <SsdlProperty
+          Name="status_id"
+          Nullable="False"
+          Property="LightSwitchCommonModule:status/Properties[status_id]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="sname"
+          Nullable="True"
+          Property="LightSwitchCommonModule:status/Properties[sname]"
+          Type="varchar" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="tblConfigs">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="tblConfig" />
+        <SsdlProperty
+          Name="ID"
+          Nullable="False"
+          Property="LightSwitchCommonModule:tblConfig/Properties[ID]"
+          StoreGeneratedPattern="Identity"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="SiteName"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig/Properties[SiteName]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="BaseURL"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig/Properties[BaseURL]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="AdminPass"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig/Properties[AdminPass]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="EmailType"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig/Properties[EmailType]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="SMTPServer"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig/Properties[SMTPServer]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="HDName"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig/Properties[HDName]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="HDReply"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig/Properties[HDReply]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="BaseEmail"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig/Properties[BaseEmail]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="EnablePager"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig/Properties[EnablePager]"
+          Type="int" />
+        <SsdlProperty
+          Name="NotifyUser"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig/Properties[NotifyUser]"
+          Type="int" />
+        <SsdlProperty
+          Name="EnableKB"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig/Properties[EnableKB]"
+          Type="int" />
+        <SsdlProperty
+          Name="DefaultPriority"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig/Properties[DefaultPriority]"
+          Type="int" />
+        <SsdlProperty
+          Name="DefaultStatus"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig/Properties[DefaultStatus]"
+          Type="int" />
+        <SsdlProperty
+          Name="CloseStatus"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig/Properties[CloseStatus]"
+          Type="int" />
+        <SsdlProperty
+          Name="AuthType"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig/Properties[AuthType]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="6"
+          Name="Version"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig/Properties[Version]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="UseSelectUser"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig/Properties[UseSelectUser]"
+          Type="int" />
+        <SsdlProperty
+          Name="UseInoutBoard"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig/Properties[UseInoutBoard]"
+          Type="int" />
+        <SsdlProperty
+          Name="KBFreeText"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig/Properties[KBFreeText]"
+          Type="int" />
+        <SsdlProperty
+          Name="DefaultLanguage"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig/Properties[DefaultLanguage]"
+          Type="int" />
+        <SsdlProperty
+          Name="AllowImageUpload"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig/Properties[AllowImageUpload]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="20"
+          Name="MaxImageSize"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig/Properties[MaxImageSize]"
+          Type="varchar" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="tblConfig_Auths">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="tblConfig_Auth" />
+        <SsdlProperty
+          Name="ID"
+          Nullable="False"
+          Property="LightSwitchCommonModule:tblConfig_Auth/Properties[ID]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="Type"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig_Auth/Properties[Type]"
+          Type="varchar" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="tblConfig_Emails">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="tblConfig_Email" />
+        <SsdlProperty
+          Name="ID"
+          Nullable="False"
+          Property="LightSwitchCommonModule:tblConfig_Email/Properties[ID]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="Type"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblConfig_Email/Properties[Type]"
+          Type="varchar" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="tblEmailMsgs">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="tblEmailMsg" />
+        <SsdlProperty
+          Name="ID"
+          Nullable="False"
+          Property="LightSwitchCommonModule:tblEmailMsg/Properties[ID]"
+          StoreGeneratedPattern="Identity"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="type"
+          Nullable="False"
+          Property="LightSwitchCommonModule:tblEmailMsg/Properties[type]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="subject"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblEmailMsg/Properties[subject]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="body"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblEmailMsg/Properties[body]"
+          Type="text" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="tblLangStrings">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="tblLangStrings" />
+        <SsdlProperty
+          Name="id"
+          Nullable="False"
+          Property="LightSwitchCommonModule:tblLangString/Properties[id]"
+          StoreGeneratedPattern="Identity"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="variable"
+          Nullable="False"
+          Property="LightSwitchCommonModule:tblLangString/Properties[variable]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="LangText"
+          Nullable="False"
+          Property="LightSwitchCommonModule:tblLangString/Properties[LangText]"
+          Type="text" />
+        <SsdlForeignKeyProperty
+          Name="Language"
+          Nullable="False"
+          PropertyName="Language"
+          Type="int" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="tblLanguages">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="tblLanguage" />
+        <SsdlProperty
+          Name="id"
+          Nullable="False"
+          Property="LightSwitchCommonModule:tblLanguage/Properties[id]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="LangName"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblLanguage/Properties[LangName]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="Localized"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblLanguage/Properties[Localized]"
+          Type="varchar" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="tblNotes">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="tblNotes" />
+        <SsdlProperty
+          Name="NoteID"
+          Nullable="False"
+          Property="LightSwitchCommonModule:tblNote/Properties[NoteID]"
+          StoreGeneratedPattern="Identity"
+          Type="int" />
+        <SsdlProperty
+          Name="note"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblNote/Properties[note]"
+          Type="text" />
+        <SsdlProperty
+          Name="addDate"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblNote/Properties[addDate]"
+          Type="datetime" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="uid"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblNote/Properties[uid]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="IsPrivate"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblNote/Properties[IsPrivate]"
+          Type="int" />
+        <SsdlProperty
+          Name="IsFuture"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblNote/Properties[IsFuture]"
+          Type="int" />
+        <SsdlProperty
+          Name="FutureDate"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblNote/Properties[FutureDate]"
+          Type="date" />
+        <SsdlProperty
+          Name="NoteType"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblNote/Properties[NoteType]"
+          Type="int" />
+        <SsdlProperty
+          Name="Time"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblNote/Properties[Time]"
+          Type="int" />
+        <SsdlProperty
+          Name="DateModified"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblNote/Properties[DateModified]"
+          Type="datetime" />
+        <SsdlProperty
+          Name="RelatedTo"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblNote/Properties[RelatedTo]"
+          Type="int" />
+        <SsdlProperty
+          Name="RelatedFrom"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblNote/Properties[RelatedFrom]"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="id"
+          Nullable="False"
+          PropertyName="id"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="Status"
+          Nullable="True"
+          PropertyName="Status"
+          Type="int" />
+        <SsdlForeignKeyProperty
+          Name="entered_by"
+          Nullable="True"
+          PropertyName="entered_by"
+          Type="int" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="tblUsers">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="tblUsers" />
+        <SsdlProperty
+          Name="sid"
+          Nullable="False"
+          Property="LightSwitchCommonModule:tblUser/Properties[sid]"
+          StoreGeneratedPattern="Identity"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="uid"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblUser/Properties[uid]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="password"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblUser/Properties[password]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="fname"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblUser/Properties[fname]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="email1"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblUser/Properties[email1]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="email2"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblUser/Properties[email2]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="phone"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblUser/Properties[phone]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="location1"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblUser/Properties[location1]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="location2"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblUser/Properties[location2]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="department"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblUser/Properties[department]"
+          Type="int" />
+        <SsdlProperty
+          Name="IsRep"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblUser/Properties[IsRep]"
+          Type="int" />
+        <SsdlProperty
+          Name="dtCreated"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblUser/Properties[dtCreated]"
+          Type="datetime" />
+        <SsdlProperty
+          Name="dtLastAccess"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblUser/Properties[dtLastAccess]"
+          Type="datetime" />
+        <SsdlProperty
+          Name="ListOnInoutBoard"
+          Nullable="False"
+          Property="LightSwitchCommonModule:tblUser/Properties[ListOnInoutBoard]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="firstname"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblUser/Properties[firstname]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="lastname"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblUser/Properties[lastname]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="inoutadmin"
+          Nullable="False"
+          Property="LightSwitchCommonModule:tblUser/Properties[inoutadmin]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="phone_home"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblUser/Properties[phone_home]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="phone_mobile"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblUser/Properties[phone_mobile]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="jobfunction"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblUser/Properties[jobfunction]"
+          Type="text" />
+        <SsdlProperty
+          Name="userresume"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblUser/Properties[userresume]"
+          Type="text" />
+        <SsdlProperty
+          MaxLength="255"
+          Name="statustext"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblUser/Properties[statustext]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="statuscode"
+          Nullable="False"
+          Property="LightSwitchCommonModule:tblUser/Properties[statuscode]"
+          Type="int" />
+        <SsdlProperty
+          Name="statusdate"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblUser/Properties[statusdate]"
+          Type="datetime" />
+        <SsdlProperty
+          Name="Language"
+          Nullable="True"
+          Property="LightSwitchCommonModule:tblUser/Properties[Language]"
+          Type="int" />
+        <SsdlProperty
+          Name="RepAccess"
+          Nullable="False"
+          Property="LightSwitchCommonModule:tblUser/Properties[RepAccess]"
+          Type="int" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <EntitySetMapping
+      EntitySet="vwProblems">
+      <EntitySetMapping.Attributes>
+        <SsdlEntitySet
+          Schema="dbo"
+          Table="vwProblems" />
+        <SsdlProperty
+          Name="id"
+          Nullable="False"
+          Property="LightSwitchCommonModule:vwProblem/Properties[id]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="uid"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[uid]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="uemail"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[uemail]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="ulocation"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[ulocation]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="uphone"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[uphone]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="rep"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[rep]"
+          Type="int" />
+        <SsdlProperty
+          Name="status"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[status]"
+          Type="int" />
+        <SsdlProperty
+          Name="time_spent"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[time_spent]"
+          Type="int" />
+        <SsdlProperty
+          Name="category"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[category]"
+          Type="int" />
+        <SsdlProperty
+          Name="priority"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[priority]"
+          Type="int" />
+        <SsdlProperty
+          Name="department"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[department]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="title"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[title]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="description"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[description]"
+          Type="text" />
+        <SsdlProperty
+          Name="solution"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[solution]"
+          Type="text" />
+        <SsdlProperty
+          Name="Start_Date"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[Start_Date]"
+          Type="datetime" />
+        <SsdlProperty
+          Name="close_date"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[close_date]"
+          Type="datetime" />
+        <SsdlProperty
+          Name="entered_by"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[entered_by]"
+          Type="int" />
+        <SsdlProperty
+          Name="kb"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[kb]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="enteredBy"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[enteredBy]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="enteredBy_eMail1"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[enteredBy_eMail1]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="enteredBy_eMail2"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[enteredBy_eMail2]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="enteredBy_Phone"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[enteredBy_Phone]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="enteredBy_IsRep"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[enteredBy_IsRep]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="enteredBy_phone_mobile"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[enteredBy_phone_mobile]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="enteredBy_RepAccess"
+          Nullable="False"
+          Property="LightSwitchCommonModule:vwProblem/Properties[enteredBy_RepAccess]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="assignedTo"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[assignedTo]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="assignedTo_eMail1"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[assignedTo_eMail1]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="assignedTo_eMail2"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[assignedTo_eMail2]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="assignedTo_Phone"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[assignedTo_Phone]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="assignedTo_IsRep"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[assignedTo_IsRep]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="assignedTo_phone_mobile"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[assignedTo_phone_mobile]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="assignedTo_RepAccess"
+          Nullable="False"
+          Property="LightSwitchCommonModule:vwProblem/Properties[assignedTo_RepAccess]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="StatusName"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[StatusName]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="CategoryName"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[CategoryName]"
+          Type="varchar" />
+        <SsdlProperty
+          Name="Category_RepID"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[Category_RepID]"
+          Type="int" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="PriorityName"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[PriorityName]"
+          Type="varchar" />
+        <SsdlProperty
+          MaxLength="50"
+          Name="DepartmentName"
+          Nullable="True"
+          Property="LightSwitchCommonModule:vwProblem/Properties[DepartmentName]"
+          Type="varchar" />
+      </EntitySetMapping.Attributes>
+    </EntitySetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_Company_Contact">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_Company_Contact" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_Company_Contact]/Members[Contact]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="ID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_Company_Contact]/Members[Company]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="PrimaryContact" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_Company_Sector">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_Company_Sector" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_Company_Sector]/Members[Sector]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="SectorID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_Company_Sector]/Members[Company]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="SectorID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_Company_SectorGroup">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_Company_SectorGroup" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_Company_SectorGroup]/Members[SectorGroup]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="SectorGroupID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_Company_SectorGroup]/Members[Company]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="SectorGroupID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_Contact_Sector">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_Contact_Sector" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_Contact_Sector]/Members[Sector]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="SectorID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_Contact_Sector]/Members[Contact]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="SectorID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_Contact_SectorGroup">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_Contact_SectorGroup" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_Contact_SectorGroup]/Members[SectorGroup]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="SectorGroupID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_Contact_SectorGroup]/Members[Contact]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="SectorGroupID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_Dealing_Company">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_Dealing_Company" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_Dealing_Company]/Members[Company]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="ID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_Dealing_Company]/Members[Dealing]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="Company" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_Dealing_Contact">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_Dealing_Contact" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_Dealing_Contact]/Members[Contact]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="ID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_Dealing_Contact]/Members[Dealing]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="Contact" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_Dealing_Sector">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_Dealing_Sector" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_Dealing_Sector]/Members[Sector]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="SectorID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_Dealing_Sector]/Members[Dealing]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="SectorID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_Dealing_SectorGroup">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_Dealing_SectorGroup" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_Dealing_SectorGroup]/Members[SectorGroup]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="SectorGroupID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_Dealing_SectorGroup]/Members[Dealing]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="SectorGroupID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_Dealing_tblUsers">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_Dealing_tblUsers" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_Dealing_tblUsers]/Members[tblUsers]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="sid" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_Dealing_tblUsers]/Members[Dealing]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="Rep" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_problems_categories">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_problems_categories" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_problems_categories]/Members[categories]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="category_id" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_problems_categories]/Members[problems]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="category" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_problems_Dealing">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_problems_Dealing" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_problems_Dealing]/Members[Dealing]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="ID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_problems_Dealing]/Members[problems]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="DealingID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_problems_departments">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_problems_departments" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_problems_departments]/Members[departments]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="department_id" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_problems_departments]/Members[problems]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="department" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_problems_priority">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_problems_priority" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_problems_priority]/Members[priority]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="priority_id" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_problems_priority]/Members[problems]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="priority" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_problems_Sector">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_problems_Sector" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_problems_Sector]/Members[Sector]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="SectorID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_problems_Sector]/Members[problems]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="SectorID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_problems_SectorGroup">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_problems_SectorGroup" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_problems_SectorGroup]/Members[SectorGroup]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="SectorGroupID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_problems_SectorGroup]/Members[problems]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="SectorGroupID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_problems_status">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_problems_status" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_problems_status]/Members[status]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="status_id" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_problems_status]/Members[problems]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="status" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_problems_tblUsers">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_problems_tblUsers" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_problems_tblUsers]/Members[tblUsers]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="sid" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_problems_tblUsers]/Members[problems]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="entered_by" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_ProblemsRelated_problems">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_ProblemsRelated_problems" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_ProblemsRelated_problems]/Members[problems]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="id" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_ProblemsRelated_problems]/Members[ProblemsRelated]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="ProblemsAID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_ProblemsRelated_problems1">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_ProblemsRelated_problems1" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_ProblemsRelated_problems1]/Members[problems]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="id" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_ProblemsRelated_problems1]/Members[ProblemsRelated]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="ProblemsBID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_SectorGroup_Sector">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_SectorGroup_Sector" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_SectorGroup_Sector]/Members[Sector]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="SectorID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_SectorGroup_Sector]/Members[SectorGroup]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="SectorID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_tblLangStrings_ID">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_tblLangStrings_ID" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_tblLangStrings_ID]/Members[tblLanguage]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="id" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_tblLangStrings_ID]/Members[tblLangStrings]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="Language" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_tblNotes_problems">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_tblNotes_problems" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_tblNotes_problems]/Members[problems]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="id" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_tblNotes_problems]/Members[tblNotes]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="id" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_tblNotes_States">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_tblNotes_States" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_tblNotes_States]/Members[States]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="StateID" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_tblNotes_States]/Members[tblNotes]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="Status" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+    <AssociationSetMapping
+      AssociationSet="FK_tblNotes_tblUsers">
+      <AssociationSetMapping.Attributes>
+        <SsdlAssociationSet
+          Name="FK_tblNotes_tblUsers" />
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_tblNotes_tblUsers]/Members[tblUsers]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="sid" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+        <SsdlAssociationSetEnd
+          End="LightSwitchCommonModule:HelpDeskCRMData/Members[FK_tblNotes_tblUsers]/Members[tblNotes]">
+          <SsdlAssociationSetEnd.Attributes>
+            <SsdlPropertyRef
+              Name="entered_by" />
+          </SsdlAssociationSetEnd.Attributes>
+        </SsdlAssociationSetEnd>
+      </AssociationSetMapping.Attributes>
+    </AssociationSetMapping>
+  </DataService>
+</ModelFragment>

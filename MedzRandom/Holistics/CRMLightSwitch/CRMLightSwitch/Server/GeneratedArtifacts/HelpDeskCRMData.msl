@@ -1,0 +1,429 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping CdmEntityContainer="HelpDeskCRMDataObjectContext" StorageEntityContainer="HelpDeskCRMDataStore">
+    <EntitySetMapping Name="Addresses">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.Address)">
+        <MappingFragment StoreEntitySet="Addresses">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TableName" ColumnName="TableName" />
+          <ScalarProperty Name="TableReference" ColumnName="TableReference" />
+          <ScalarProperty Name="AddressType" ColumnName="AddressType" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+          <ScalarProperty Name="AddressTitle" ColumnName="AddressTitle" />
+          <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+          <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Zip" ColumnName="Zip" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="categories">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.category)">
+        <MappingFragment StoreEntitySet="categories">
+          <ScalarProperty Name="category_id" ColumnName="category_id" />
+          <ScalarProperty Name="cname" ColumnName="cname" />
+          <ScalarProperty Name="rep_id" ColumnName="rep_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Companies">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.Company)">
+        <MappingFragment StoreEntitySet="Companies">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Stage" ColumnName="Stage" />
+          <ScalarProperty Name="Industry" ColumnName="Industry" />
+          <ScalarProperty Name="IsInstallerElectrical" ColumnName="IsInstallerElectrical" />
+          <ScalarProperty Name="IsInstallerWater" ColumnName="IsInstallerWater" />
+          <ScalarProperty Name="IsInstallerGas" ColumnName="IsInstallerGas" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="TaxNumber" ColumnName="TaxNumber" />
+          <ScalarProperty Name="Tel" ColumnName="Tel" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="Website" ColumnName="Website" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="ParentCompany" ColumnName="ParentCompany" />
+          <ScalarProperty Name="Rep" ColumnName="Rep" />
+          <ScalarProperty Name="Tags" ColumnName="Tags" />
+          <ScalarProperty Name="PrimaryContact" ColumnName="PrimaryContact" />
+          <ScalarProperty Name="SectorID" ColumnName="SectorID" />
+          <ScalarProperty Name="SectorGroupID" ColumnName="SectorGroupID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Contacts">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.Contact)">
+        <MappingFragment StoreEntitySet="Contacts">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="eMail" ColumnName="eMail" />
+          <ScalarProperty Name="eMailAlternates" ColumnName="eMailAlternates" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="KnownName" ColumnName="KnownName" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="TelMobile" ColumnName="TelMobile" />
+          <ScalarProperty Name="TelHome" ColumnName="TelHome" />
+          <ScalarProperty Name="TelWork" ColumnName="TelWork" />
+          <ScalarProperty Name="TelFax" ColumnName="TelFax" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Stage" ColumnName="Stage" />
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="Referredby" ColumnName="Referredby" />
+          <ScalarProperty Name="Rep" ColumnName="Rep" />
+          <ScalarProperty Name="ContactType" ColumnName="ContactType" />
+          <ScalarProperty Name="ReceiveEmail" ColumnName="ReceiveEmail" />
+          <ScalarProperty Name="ReceiveSMS" ColumnName="ReceiveSMS" />
+          <ScalarProperty Name="MessengerNetwork" ColumnName="MessengerNetwork" />
+          <ScalarProperty Name="MessengerName" ColumnName="MessengerName" />
+          <ScalarProperty Name="Source" ColumnName="Source" />
+          <ScalarProperty Name="TimeZone" ColumnName="TimeZone" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="IsInstallerElectrical" ColumnName="IsInstallerElectrical" />
+          <ScalarProperty Name="IsInstallerWater" ColumnName="IsInstallerWater" />
+          <ScalarProperty Name="IsInstallerGas" ColumnName="IsInstallerGas" />
+          <ScalarProperty Name="Tags" ColumnName="Tags" />
+          <ScalarProperty Name="SectorID" ColumnName="SectorID" />
+          <ScalarProperty Name="SectorGroupID" ColumnName="SectorGroupID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="db_keys">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.db_key)">
+        <MappingFragment StoreEntitySet="db_keys">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="problems" ColumnName="problems" />
+          <ScalarProperty Name="departments" ColumnName="departments" />
+          <ScalarProperty Name="categories" ColumnName="categories" />
+          <ScalarProperty Name="users" ColumnName="users" />
+          <ScalarProperty Name="Lang" ColumnName="Lang" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Dealings">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.Dealing)">
+        <MappingFragment StoreEntitySet="Dealings">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Prospect" ColumnName="Prospect" />
+          <ScalarProperty Name="Product" ColumnName="Product" />
+          <ScalarProperty Name="ProjectedQty" ColumnName="ProjectedQty" />
+          <ScalarProperty Name="ProjectedRevenue" ColumnName="ProjectedRevenue" />
+          <ScalarProperty Name="ProjectedActualiztion" ColumnName="ProjectedActualiztion" />
+          <ScalarProperty Name="Stage" ColumnName="Stage" />
+          <ScalarProperty Name="Actualized" ColumnName="Actualized" />
+          <ScalarProperty Name="ActualizedQty" ColumnName="ActualizedQty" />
+          <ScalarProperty Name="ActualizedDate" ColumnName="ActualizedDate" />
+          <ScalarProperty Name="ExcludeFromReports" ColumnName="ExcludeFromReports" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+          <ScalarProperty Name="SectorID" ColumnName="SectorID" />
+          <ScalarProperty Name="SectorGroupID" ColumnName="SectorGroupID" />
+          <ScalarProperty Name="Rep" ColumnName="Rep" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="departments">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.department)">
+        <MappingFragment StoreEntitySet="departments">
+          <ScalarProperty Name="department_id" ColumnName="department_id" />
+          <ScalarProperty Name="dname" ColumnName="dname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Items">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.Item)">
+        <MappingFragment StoreEntitySet="Items">
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="ItemType" ColumnName="ItemType" />
+          <ScalarProperty Name="ItemNumber" ColumnName="ItemNumber" />
+          <ScalarProperty Name="ItemSerial" ColumnName="ItemSerial" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ItemLinks">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.ItemLink)">
+        <MappingFragment StoreEntitySet="ItemLinks">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+          <ScalarProperty Name="LinkTableName" ColumnName="LinkTableName" />
+          <ScalarProperty Name="LinkTableID" ColumnName="LinkTableID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="priorities">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.priority)">
+        <MappingFragment StoreEntitySet="priorities">
+          <ScalarProperty Name="priority_id" ColumnName="priority_id" />
+          <ScalarProperty Name="pname" ColumnName="pname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="problems">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.problem)">
+        <MappingFragment StoreEntitySet="problems">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="ContactID" ColumnName="ContactID" />
+          <ScalarProperty Name="CallerName" ColumnName="CallerName" />
+          <ScalarProperty Name="CallerEmail" ColumnName="CallerEmail" />
+          <ScalarProperty Name="CallerLocation" ColumnName="CallerLocation" />
+          <ScalarProperty Name="CallerPhone" ColumnName="CallerPhone" />
+          <ScalarProperty Name="rep" ColumnName="rep" />
+          <ScalarProperty Name="time_spent" ColumnName="time_spent" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="solution" ColumnName="solution" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+          <ScalarProperty Name="close_date" ColumnName="close_date" />
+          <ScalarProperty Name="kb" ColumnName="kb" />
+          <ScalarProperty Name="Referer" ColumnName="Referer" />
+          <ScalarProperty Name="MeterNumber" ColumnName="MeterNumber" />
+          <ScalarProperty Name="ClientNumber" ColumnName="ClientNumber" />
+          <ScalarProperty Name="category" ColumnName="category" />
+          <ScalarProperty Name="DealingID" ColumnName="DealingID" />
+          <ScalarProperty Name="department" ColumnName="department" />
+          <ScalarProperty Name="priority" ColumnName="priority" />
+          <ScalarProperty Name="SectorID" ColumnName="SectorID" />
+          <ScalarProperty Name="SectorGroupID" ColumnName="SectorGroupID" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="entered_by" ColumnName="entered_by" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProblemsRelateds">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.ProblemsRelated)">
+        <MappingFragment StoreEntitySet="ProblemsRelateds">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ProblemsAID" ColumnName="ProblemsAID" />
+          <ScalarProperty Name="ProblemsBID" ColumnName="ProblemsBID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sectors">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.Sector)">
+        <MappingFragment StoreEntitySet="Sectors">
+          <ScalarProperty Name="SectorID" ColumnName="SectorID" />
+          <ScalarProperty Name="SectorName" ColumnName="SectorName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SectorGroups">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.SectorGroup)">
+        <MappingFragment StoreEntitySet="SectorGroups">
+          <ScalarProperty Name="SectorGroupID" ColumnName="SectorGroupID" />
+          <ScalarProperty Name="SectorGroupName" ColumnName="SectorGroupName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="SectorID" ColumnName="SectorID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="States">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.State)">
+        <MappingFragment StoreEntitySet="States">
+          <ScalarProperty Name="StateID" ColumnName="StateID" />
+          <ScalarProperty Name="StateTable" ColumnName="StateTable" />
+          <ScalarProperty Name="StateColumn" ColumnName="StateColumn" />
+          <ScalarProperty Name="StateField" ColumnName="StateField" />
+          <ScalarProperty Name="StateDescription" ColumnName="StateDescription" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+          <ScalarProperty Name="Schedule" ColumnName="Schedule" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="status">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.status)">
+        <MappingFragment StoreEntitySet="status">
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="sname" ColumnName="sname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblConfigs">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.tblConfig)">
+        <MappingFragment StoreEntitySet="tblConfigs">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SiteName" ColumnName="SiteName" />
+          <ScalarProperty Name="BaseURL" ColumnName="BaseURL" />
+          <ScalarProperty Name="AdminPass" ColumnName="AdminPass" />
+          <ScalarProperty Name="EmailType" ColumnName="EmailType" />
+          <ScalarProperty Name="SMTPServer" ColumnName="SMTPServer" />
+          <ScalarProperty Name="HDName" ColumnName="HDName" />
+          <ScalarProperty Name="HDReply" ColumnName="HDReply" />
+          <ScalarProperty Name="BaseEmail" ColumnName="BaseEmail" />
+          <ScalarProperty Name="EnablePager" ColumnName="EnablePager" />
+          <ScalarProperty Name="NotifyUser" ColumnName="NotifyUser" />
+          <ScalarProperty Name="EnableKB" ColumnName="EnableKB" />
+          <ScalarProperty Name="DefaultPriority" ColumnName="DefaultPriority" />
+          <ScalarProperty Name="DefaultStatus" ColumnName="DefaultStatus" />
+          <ScalarProperty Name="CloseStatus" ColumnName="CloseStatus" />
+          <ScalarProperty Name="AuthType" ColumnName="AuthType" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="UseSelectUser" ColumnName="UseSelectUser" />
+          <ScalarProperty Name="UseInoutBoard" ColumnName="UseInoutBoard" />
+          <ScalarProperty Name="KBFreeText" ColumnName="KBFreeText" />
+          <ScalarProperty Name="DefaultLanguage" ColumnName="DefaultLanguage" />
+          <ScalarProperty Name="AllowImageUpload" ColumnName="AllowImageUpload" />
+          <ScalarProperty Name="MaxImageSize" ColumnName="MaxImageSize" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblConfig_Auths">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.tblConfig_Auth)">
+        <MappingFragment StoreEntitySet="tblConfig_Auths">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblConfig_Emails">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.tblConfig_Email)">
+        <MappingFragment StoreEntitySet="tblConfig_Emails">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEmailMsgs">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.tblEmailMsg)">
+        <MappingFragment StoreEntitySet="tblEmailMsgs">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="subject" ColumnName="subject" />
+          <ScalarProperty Name="body" ColumnName="body" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblLangStrings">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.tblLangString)">
+        <MappingFragment StoreEntitySet="tblLangStrings">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="variable" ColumnName="variable" />
+          <ScalarProperty Name="LangText" ColumnName="LangText" />
+          <ScalarProperty Name="Language" ColumnName="Language" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblLanguages">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.tblLanguage)">
+        <MappingFragment StoreEntitySet="tblLanguages">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="LangName" ColumnName="LangName" />
+          <ScalarProperty Name="Localized" ColumnName="Localized" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblNotes">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.tblNote)">
+        <MappingFragment StoreEntitySet="tblNotes">
+          <ScalarProperty Name="NoteID" ColumnName="NoteID" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="addDate" ColumnName="addDate" />
+          <ScalarProperty Name="uid" ColumnName="uid" />
+          <ScalarProperty Name="IsPrivate" ColumnName="IsPrivate" />
+          <ScalarProperty Name="IsFuture" ColumnName="IsFuture" />
+          <ScalarProperty Name="FutureDate" ColumnName="FutureDate" />
+          <ScalarProperty Name="NoteType" ColumnName="NoteType" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+          <ScalarProperty Name="RelatedTo" ColumnName="RelatedTo" />
+          <ScalarProperty Name="RelatedFrom" ColumnName="RelatedFrom" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="entered_by" ColumnName="entered_by" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUsers">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.tblUser)">
+        <MappingFragment StoreEntitySet="tblUsers">
+          <ScalarProperty Name="sid" ColumnName="sid" />
+          <ScalarProperty Name="uid" ColumnName="uid" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="fname" ColumnName="fname" />
+          <ScalarProperty Name="email1" ColumnName="email1" />
+          <ScalarProperty Name="email2" ColumnName="email2" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="location1" ColumnName="location1" />
+          <ScalarProperty Name="location2" ColumnName="location2" />
+          <ScalarProperty Name="department" ColumnName="department" />
+          <ScalarProperty Name="IsRep" ColumnName="IsRep" />
+          <ScalarProperty Name="dtCreated" ColumnName="dtCreated" />
+          <ScalarProperty Name="dtLastAccess" ColumnName="dtLastAccess" />
+          <ScalarProperty Name="ListOnInoutBoard" ColumnName="ListOnInoutBoard" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="inoutadmin" ColumnName="inoutadmin" />
+          <ScalarProperty Name="phone_home" ColumnName="phone_home" />
+          <ScalarProperty Name="phone_mobile" ColumnName="phone_mobile" />
+          <ScalarProperty Name="jobfunction" ColumnName="jobfunction" />
+          <ScalarProperty Name="userresume" ColumnName="userresume" />
+          <ScalarProperty Name="statustext" ColumnName="statustext" />
+          <ScalarProperty Name="statuscode" ColumnName="statuscode" />
+          <ScalarProperty Name="statusdate" ColumnName="statusdate" />
+          <ScalarProperty Name="Language" ColumnName="Language" />
+          <ScalarProperty Name="RepAccess" ColumnName="RepAccess" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vwProblems">
+      <EntityTypeMapping TypeName="IsTypeOf(LightSwitchApplication.vwProblem)">
+        <MappingFragment StoreEntitySet="vwProblems">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="uid" ColumnName="uid" />
+          <ScalarProperty Name="uemail" ColumnName="uemail" />
+          <ScalarProperty Name="ulocation" ColumnName="ulocation" />
+          <ScalarProperty Name="uphone" ColumnName="uphone" />
+          <ScalarProperty Name="rep" ColumnName="rep" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="time_spent" ColumnName="time_spent" />
+          <ScalarProperty Name="category" ColumnName="category" />
+          <ScalarProperty Name="priority" ColumnName="priority" />
+          <ScalarProperty Name="department" ColumnName="department" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="solution" ColumnName="solution" />
+          <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+          <ScalarProperty Name="close_date" ColumnName="close_date" />
+          <ScalarProperty Name="entered_by" ColumnName="entered_by" />
+          <ScalarProperty Name="kb" ColumnName="kb" />
+          <ScalarProperty Name="enteredBy" ColumnName="enteredBy" />
+          <ScalarProperty Name="enteredBy_eMail1" ColumnName="enteredBy_eMail1" />
+          <ScalarProperty Name="enteredBy_eMail2" ColumnName="enteredBy_eMail2" />
+          <ScalarProperty Name="enteredBy_Phone" ColumnName="enteredBy_Phone" />
+          <ScalarProperty Name="enteredBy_IsRep" ColumnName="enteredBy_IsRep" />
+          <ScalarProperty Name="enteredBy_phone_mobile" ColumnName="enteredBy_phone_mobile" />
+          <ScalarProperty Name="enteredBy_RepAccess" ColumnName="enteredBy_RepAccess" />
+          <ScalarProperty Name="assignedTo" ColumnName="assignedTo" />
+          <ScalarProperty Name="assignedTo_eMail1" ColumnName="assignedTo_eMail1" />
+          <ScalarProperty Name="assignedTo_eMail2" ColumnName="assignedTo_eMail2" />
+          <ScalarProperty Name="assignedTo_Phone" ColumnName="assignedTo_Phone" />
+          <ScalarProperty Name="assignedTo_IsRep" ColumnName="assignedTo_IsRep" />
+          <ScalarProperty Name="assignedTo_phone_mobile" ColumnName="assignedTo_phone_mobile" />
+          <ScalarProperty Name="assignedTo_RepAccess" ColumnName="assignedTo_RepAccess" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="Category_RepID" ColumnName="Category_RepID" />
+          <ScalarProperty Name="PriorityName" ColumnName="PriorityName" />
+          <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
