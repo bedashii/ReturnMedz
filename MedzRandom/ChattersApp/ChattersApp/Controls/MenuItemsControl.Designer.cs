@@ -59,6 +59,7 @@
             this.labelFilterByMenu = new System.Windows.Forms.Label();
             this.comboBoxMenuListFilter = new System.Windows.Forms.ComboBox();
             this.menuListBindingSourceFilter = new System.Windows.Forms.BindingSource(this.components);
+            this.buttonBullet = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMenuItems)).BeginInit();
             this.splitContainerMenuItems.Panel1.SuspendLayout();
             this.splitContainerMenuItems.Panel2.SuspendLayout();
@@ -85,6 +86,7 @@
             // 
             // splitContainerMenuItems.Panel2
             // 
+            this.splitContainerMenuItems.Panel2.Controls.Add(this.buttonBullet);
             this.splitContainerMenuItems.Panel2.Controls.Add(this.comboBox1);
             this.splitContainerMenuItems.Panel2.Controls.Add(this.labelPicture);
             this.splitContainerMenuItems.Panel2.Controls.Add(this.comboBoxMenu);
@@ -97,8 +99,8 @@
             this.splitContainerMenuItems.Panel2.Controls.Add(this.textBoxPrice);
             this.splitContainerMenuItems.Panel2.Controls.Add(this.textBoxDescription);
             this.splitContainerMenuItems.Panel2.Controls.Add(this.textBoxTitle);
-            this.splitContainerMenuItems.Size = new System.Drawing.Size(662, 494);
-            this.splitContainerMenuItems.SplitterDistance = 314;
+            this.splitContainerMenuItems.Size = new System.Drawing.Size(662, 541);
+            this.splitContainerMenuItems.SplitterDistance = 234;
             this.splitContainerMenuItems.TabIndex = 0;
             // 
             // dataGridViewMenuItems
@@ -124,7 +126,7 @@
             this.dataGridViewMenuItems.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewMenuItems.Name = "dataGridViewMenuItems";
             this.dataGridViewMenuItems.ReadOnly = true;
-            this.dataGridViewMenuItems.Size = new System.Drawing.Size(656, 308);
+            this.dataGridViewMenuItems.Size = new System.Drawing.Size(656, 228);
             this.dataGridViewMenuItems.TabIndex = 0;
             this.dataGridViewMenuItems.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMenuItems_CellContentClick);
             // 
@@ -204,7 +206,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(69, 108);
+            this.comboBox1.Location = new System.Drawing.Point(69, 201);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(590, 21);
             this.comboBox1.TabIndex = 4;
@@ -212,7 +214,7 @@
             // labelPicture
             // 
             this.labelPicture.AutoSize = true;
-            this.labelPicture.Location = new System.Drawing.Point(3, 111);
+            this.labelPicture.Location = new System.Drawing.Point(3, 204);
             this.labelPicture.Name = "labelPicture";
             this.labelPicture.Size = new System.Drawing.Size(40, 13);
             this.labelPicture.TabIndex = 14;
@@ -249,7 +251,7 @@
             // buttonNew
             // 
             this.buttonNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonNew.Location = new System.Drawing.Point(503, 150);
+            this.buttonNew.Location = new System.Drawing.Point(503, 277);
             this.buttonNew.Name = "buttonNew";
             this.buttonNew.Size = new System.Drawing.Size(75, 23);
             this.buttonNew.TabIndex = 6;
@@ -260,7 +262,7 @@
             // buttonSave
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.Location = new System.Drawing.Point(584, 150);
+            this.buttonSave.Location = new System.Drawing.Point(584, 277);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 5;
@@ -271,7 +273,7 @@
             // labelPrice
             // 
             this.labelPrice.AutoSize = true;
-            this.labelPrice.Location = new System.Drawing.Point(3, 85);
+            this.labelPrice.Location = new System.Drawing.Point(3, 178);
             this.labelPrice.Name = "labelPrice";
             this.labelPrice.Size = new System.Drawing.Size(31, 13);
             this.labelPrice.TabIndex = 5;
@@ -280,7 +282,7 @@
             // labelDescription
             // 
             this.labelDescription.AutoSize = true;
-            this.labelDescription.Location = new System.Drawing.Point(3, 59);
+            this.labelDescription.Location = new System.Drawing.Point(3, 92);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(60, 13);
             this.labelDescription.TabIndex = 4;
@@ -300,7 +302,7 @@
             this.textBoxPrice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxPrice.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.menuItemListBindingSource, "Price", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "C2"));
-            this.textBoxPrice.Location = new System.Drawing.Point(69, 82);
+            this.textBoxPrice.Location = new System.Drawing.Point(69, 175);
             this.textBoxPrice.Name = "textBoxPrice";
             this.textBoxPrice.Size = new System.Drawing.Size(590, 20);
             this.textBoxPrice.TabIndex = 3;
@@ -310,9 +312,10 @@
             this.textBoxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxDescription.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.menuItemListBindingSource, "Description", true));
-            this.textBoxDescription.Location = new System.Drawing.Point(69, 56);
+            this.textBoxDescription.Location = new System.Drawing.Point(69, 85);
+            this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.Size = new System.Drawing.Size(590, 20);
+            this.textBoxDescription.Size = new System.Drawing.Size(590, 84);
             this.textBoxDescription.TabIndex = 2;
             // 
             // textBoxTitle
@@ -380,6 +383,16 @@
             // 
             this.menuListBindingSourceFilter.DataSource = typeof(ChattersLib.ChattersDBLists.MenuList);
             // 
+            // buttonBullet
+            // 
+            this.buttonBullet.Location = new System.Drawing.Point(69, 56);
+            this.buttonBullet.Name = "buttonBullet";
+            this.buttonBullet.Size = new System.Drawing.Size(23, 23);
+            this.buttonBullet.TabIndex = 15;
+            this.buttonBullet.Text = "•";
+            this.buttonBullet.UseVisualStyleBackColor = true;
+            this.buttonBullet.Click += new System.EventHandler(this.buttonBullet_Click);
+            // 
             // MenuItemsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -391,7 +404,7 @@
             this.Controls.Add(this.labelSearch);
             this.Controls.Add(this.splitContainerMenuItems);
             this.Name = "MenuItemsControl";
-            this.Size = new System.Drawing.Size(668, 555);
+            this.Size = new System.Drawing.Size(668, 602);
             this.Load += new System.EventHandler(this.MenuItemsControl_Load);
             this.splitContainerMenuItems.Panel1.ResumeLayout(false);
             this.splitContainerMenuItems.Panel2.ResumeLayout(false);
@@ -439,5 +452,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn anyPropertyChangedDataGridViewCheckBoxColumn;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label labelPicture;
+        private System.Windows.Forms.Button buttonBullet;
     }
 }

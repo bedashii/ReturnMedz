@@ -38,6 +38,7 @@ namespace ChattersApp.Controls
 
             menuItemList = new ChattersLib.ChattersDBLists.MenuItemList();
             menuItemList.GetAll();
+            ConvertToView();
 
             menuItemListBindingSource.DataSource = menuItemList;
         }
@@ -62,17 +63,40 @@ namespace ChattersApp.Controls
 
             menuItemList = new ChattersLib.ChattersDBLists.MenuItemList();
             menuItemList.GetAll();
+            ConvertToView();
 
             menuItemListBindingSource.DataSource = menuItemList;
 
             refresh();
         }
 
+        private void ConvertToSave()
+        {
+            menuItemList.ForEach(x =>
+            {
+                x.Description = x.Description.Replace("\r\n", "<BR>");
+                x.Description = x.Description.Replace("\u2022", "&bull;");
+
+            });
+        }
+
+        private void ConvertToView()
+        {
+            menuItemList.ForEach(x =>
+            {
+                x.Description = x.Description.Replace("<BR>", "\r\n");
+                x.Description = x.Description.Replace("&bull;", "\u2022");
+            });
+        }
+
         private void buttonSave_Click(object sender, EventArgs e)
         {
+            ConvertToSave();
             menuItemList.UpdateAll();
 
             menuItemList.GetAll();
+            ConvertToView();
+
             menuItemListBindingSource.DataSource = menuItemList;
 
             refresh();
@@ -175,6 +199,13 @@ namespace ChattersApp.Controls
             menuList.Insert(0, new ChattersLib.ChattersDBBusiness.Menu() { ID = 0, Title = "None" });
 
             menuListBindingSource.DataSource = menuList;
+        }
+
+        private void buttonBullet_Click(object sender, EventArgs e)
+        {
+            int selectionIndex = textBoxDescription.SelectionStart;
+            textBoxDescription.Text = textBoxDescription.Text.Insert(selectionIndex, "\u2022");
+            textBoxDescription.SelectionStart = selectionIndex + "\u2022".Length;
         }
     }
 }
