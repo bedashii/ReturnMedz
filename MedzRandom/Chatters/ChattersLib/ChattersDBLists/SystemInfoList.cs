@@ -34,5 +34,11 @@ namespace ChattersLib.ChattersDBLists
             Clear();
             _data.GetAll(likeKey, this);
         }
+
+        public void GetByKey(string key)
+        {
+            Clear();
+            _data.GetByKey(key, this);
+        }
     }
 }
