@@ -14,15 +14,18 @@ namespace HolisticsCommander
         string _serverIP = null;
         int _serverSocket = 0;
 
-        public ServerProcessor()
+        internal string ServerDetails
         {
-
+            get
+            {
+                return " [" + _serverIP + ": " + _serverSocket + "]";
+            }
         }
 
-        public void Initialize()
+        public ServerProcessor()
         {
             if (System.Configuration.ConfigurationManager.AppSettings.Get("ServerIP") != null)
-                _serverIP = System.Configuration.ConfigurationManager.AppSettings.Get("ServerIP");
+                _serverIP = System.Configuration.ConfigurationManager.AppSettings.Get("ServerIP").Split(',')[0];
             else
                 _serverIP = "127.0.0.1";
 
@@ -30,7 +33,10 @@ namespace HolisticsCommander
                 _serverSocket = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings.Get("ServerSocket"));
             else
                 _serverSocket = 8001;
+        }
 
+        public void Initialize()
+        {
             RunServer();
         }
 

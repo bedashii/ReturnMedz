@@ -18,14 +18,23 @@ namespace HolisticsCommander
         CommApplication _selectedApplication;
         string _serverIP = null;
         int _serverSocket = 0;
+        string[] _serverIPs;
 
+        internal string ServerDetails
+        {
+            get
+            {
+                return " [" + _serverIP + ": " + _serverSocket + "]";
+            }
+        }
 
         public ClientProcessor()
         {
             RefreshDataSource();
+            _serverIPs = System.Configuration.ConfigurationManager.AppSettings.Get("ServerIP").Split(',');
 
             if (System.Configuration.ConfigurationManager.AppSettings.Get("ServerIP") != null)
-                _serverIP = System.Configuration.ConfigurationManager.AppSettings.Get("ServerIP").ToString();
+                _serverIP = _serverIPs[0];
             else
                 _serverIP = "127.0.0.1";
 

@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ServerForm));
             this.TextBoxRServerForm = new System.Windows.Forms.RichTextBox();
+            this.NotifyIconServer = new System.Windows.Forms.NotifyIcon(this.components);
             this.SuspendLayout();
             // 
             // TextBoxRServerForm
@@ -42,6 +44,12 @@
             this.TextBoxRServerForm.TabIndex = 0;
             this.TextBoxRServerForm.Text = "";
             // 
+            // NotifyIconServer
+            // 
+            this.NotifyIconServer.Icon = ((System.Drawing.Icon)(resources.GetObject("NotifyIconServer.Icon")));
+            this.NotifyIconServer.Text = "notifyIcon1";
+            this.NotifyIconServer.Visible = true;
+            // 
             // ServerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -52,6 +60,7 @@
             this.Name = "ServerForm";
             this.Text = "Holistics Commander Server";
             this.Load += new System.EventHandler(this.ServerForm_Load);
+            this.Resize += new System.EventHandler(this.ServerForm_Resize);
             this.ResumeLayout(false);
 
         }
@@ -59,5 +68,6 @@
         #endregion
 
         private System.Windows.Forms.RichTextBox TextBoxRServerForm;
+        private System.Windows.Forms.NotifyIcon NotifyIconServer;
     }
 }

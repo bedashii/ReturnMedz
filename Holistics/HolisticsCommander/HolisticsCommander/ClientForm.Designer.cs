@@ -49,10 +49,13 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStripCommands = new System.Windows.Forms.MenuStrip();
+            this.restartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TSM2TextBoxApplication = new System.Windows.Forms.ToolStripTextBox();
             this.executeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TSMTextBoxApplication = new System.Windows.Forms.ToolStripTextBox();
             this.killToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PanelSplitMain = new System.Windows.Forms.SplitContainer();
+            this.NotifyIconClient = new System.Windows.Forms.NotifyIcon(this.components);
+            this.MenuStripServers = new System.Windows.Forms.MenuStrip();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BindingSourceCommApplicationList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BindingSourceSelectedItem)).BeginInit();
@@ -87,7 +90,7 @@
             this.DataGridViewMain.ReadOnly = true;
             this.DataGridViewMain.RowHeadersVisible = false;
             this.DataGridViewMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DataGridViewMain.Size = new System.Drawing.Size(768, 406);
+            this.DataGridViewMain.Size = new System.Drawing.Size(756, 354);
             this.DataGridViewMain.TabIndex = 0;
             this.DataGridViewMain.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewMain_RowEnter);
             // 
@@ -137,7 +140,7 @@
             this.TextBoxName.Location = new System.Drawing.Point(42, 3);
             this.TextBoxName.Name = "TextBoxName";
             this.TextBoxName.ReadOnly = true;
-            this.TextBoxName.Size = new System.Drawing.Size(14, 20);
+            this.TextBoxName.Size = new System.Drawing.Size(257, 20);
             this.TextBoxName.TabIndex = 2;
             // 
             // BindingSourceSelectedItem
@@ -161,7 +164,7 @@
             this.TextBoxPath.Location = new System.Drawing.Point(38, 3);
             this.TextBoxPath.Name = "TextBoxPath";
             this.TextBoxPath.ReadOnly = true;
-            this.TextBoxPath.Size = new System.Drawing.Size(46, 20);
+            this.TextBoxPath.Size = new System.Drawing.Size(421, 20);
             this.TextBoxPath.TabIndex = 2;
             // 
             // PanelSplitProperties
@@ -179,12 +182,15 @@
             // 
             this.PanelSplitProperties.Panel2.Controls.Add(this.LabelPath);
             this.PanelSplitProperties.Panel2.Controls.Add(this.TextBoxPath);
-            this.PanelSplitProperties.Size = new System.Drawing.Size(150, 26);
-            this.PanelSplitProperties.SplitterDistance = 59;
+            this.PanelSplitProperties.Size = new System.Drawing.Size(768, 26);
+            this.PanelSplitProperties.SplitterDistance = 302;
             this.PanelSplitProperties.TabIndex = 3;
             // 
             // MenuStripMain
             // 
+            this.MenuStripMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.MenuStripMain.Dock = System.Windows.Forms.DockStyle.None;
             this.MenuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem,
             this.editToolStripMenuItem,
@@ -194,7 +200,7 @@
             this.exitToolStripMenuItem});
             this.MenuStripMain.Location = new System.Drawing.Point(0, 0);
             this.MenuStripMain.Name = "MenuStripMain";
-            this.MenuStripMain.Size = new System.Drawing.Size(768, 24);
+            this.MenuStripMain.Size = new System.Drawing.Size(277, 24);
             this.MenuStripMain.TabIndex = 4;
             this.MenuStripMain.Text = "menuStrip1";
             // 
@@ -247,8 +253,9 @@
             this.MenuStripCommands.DataBindings.Add(new System.Windows.Forms.Binding("Tag", this.BindingSourceSelectedItem, "Name", true));
             this.MenuStripCommands.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.MenuStripCommands.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.restartToolStripMenuItem,
+            this.TSM2TextBoxApplication,
             this.executeToolStripMenuItem,
-            this.TSMTextBoxApplication,
             this.killToolStripMenuItem});
             this.MenuStripCommands.Location = new System.Drawing.Point(0, 430);
             this.MenuStripCommands.Name = "MenuStripCommands";
@@ -257,32 +264,38 @@
             this.MenuStripCommands.TabIndex = 5;
             this.MenuStripCommands.Text = "menuStrip1";
             // 
+            // restartToolStripMenuItem
+            // 
+            this.restartToolStripMenuItem.Name = "restartToolStripMenuItem";
+            this.restartToolStripMenuItem.Size = new System.Drawing.Size(55, 23);
+            this.restartToolStripMenuItem.Text = "Restart";
+            this.restartToolStripMenuItem.Click += new System.EventHandler(this.TSMI2_Restart_Click);
+            // 
+            // TSM2TextBoxApplication
+            // 
+            this.TSM2TextBoxApplication.Name = "TSM2TextBoxApplication";
+            this.TSM2TextBoxApplication.ReadOnly = true;
+            this.TSM2TextBoxApplication.Size = new System.Drawing.Size(200, 23);
+            this.TSM2TextBoxApplication.Text = "Application";
+            this.TSM2TextBoxApplication.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // executeToolStripMenuItem
             // 
             this.executeToolStripMenuItem.Name = "executeToolStripMenuItem";
             this.executeToolStripMenuItem.Size = new System.Drawing.Size(59, 23);
             this.executeToolStripMenuItem.Text = "Execute";
-            this.executeToolStripMenuItem.Click += new System.EventHandler(this.executeToolStripMenuItem_Click);
-            // 
-            // TSMTextBoxApplication
-            // 
-            this.TSMTextBoxApplication.Name = "TSMTextBoxApplication";
-            this.TSMTextBoxApplication.ReadOnly = true;
-            this.TSMTextBoxApplication.Size = new System.Drawing.Size(200, 23);
-            this.TSMTextBoxApplication.Text = "Application";
-            this.TSMTextBoxApplication.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.executeToolStripMenuItem.Click += new System.EventHandler(this.TSMI2_Execute_Click);
             // 
             // killToolStripMenuItem
             // 
             this.killToolStripMenuItem.Name = "killToolStripMenuItem";
             this.killToolStripMenuItem.Size = new System.Drawing.Size(35, 23);
             this.killToolStripMenuItem.Text = "Kill";
-            this.killToolStripMenuItem.Click += new System.EventHandler(this.killToolStripMenuItem_Click);
+            this.killToolStripMenuItem.Click += new System.EventHandler(this.TSMI2_Kill_Click);
             // 
             // PanelSplitMain
             // 
-            this.PanelSplitMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PanelSplitMain.Location = new System.Drawing.Point(0, 24);
+            this.PanelSplitMain.Location = new System.Drawing.Point(0, 76);
             this.PanelSplitMain.Name = "PanelSplitMain";
             this.PanelSplitMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -294,9 +307,25 @@
             // PanelSplitMain.Panel2
             // 
             this.PanelSplitMain.Panel2.Controls.Add(this.DataGridViewMain);
-            this.PanelSplitMain.Size = new System.Drawing.Size(768, 406);
+            this.PanelSplitMain.Size = new System.Drawing.Size(756, 354);
             this.PanelSplitMain.SplitterDistance = 26;
             this.PanelSplitMain.TabIndex = 6;
+            // 
+            // NotifyIconClient
+            // 
+            this.NotifyIconClient.Icon = ((System.Drawing.Icon)(resources.GetObject("NotifyIconClient.Icon")));
+            this.NotifyIconClient.Text = "Holistics Commander";
+            this.NotifyIconClient.DoubleClick += new System.EventHandler(this.NotifyIconClient_DoubleClick);
+            // 
+            // MenuStripServers
+            // 
+            this.MenuStripServers.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.MenuStripServers.Dock = System.Windows.Forms.DockStyle.None;
+            this.MenuStripServers.Location = new System.Drawing.Point(656, 0);
+            this.MenuStripServers.Name = "MenuStripServers";
+            this.MenuStripServers.Size = new System.Drawing.Size(100, 24);
+            this.MenuStripServers.TabIndex = 7;
+            this.MenuStripServers.Text = "menuStrip1";
             // 
             // ClientForm
             // 
@@ -306,12 +335,14 @@
             this.Controls.Add(this.PanelSplitMain);
             this.Controls.Add(this.MenuStripMain);
             this.Controls.Add(this.MenuStripCommands);
+            this.Controls.Add(this.MenuStripServers);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MenuStripMain;
             this.Name = "ClientForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Holistics Commander";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Resize += new System.EventHandler(this.ClientForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BindingSourceCommApplicationList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BindingSourceSelectedItem)).EndInit();
@@ -356,9 +387,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn pathDataGridViewTextBoxColumn;
         private System.Windows.Forms.MenuStrip MenuStripCommands;
         private System.Windows.Forms.ToolStripMenuItem executeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripTextBox TSMTextBoxApplication;
+        private System.Windows.Forms.ToolStripTextBox TSM2TextBoxApplication;
         private System.Windows.Forms.ToolStripMenuItem killToolStripMenuItem;
         private System.Windows.Forms.SplitContainer PanelSplitMain;
+        private System.Windows.Forms.ToolStripMenuItem restartToolStripMenuItem;
+        private System.Windows.Forms.NotifyIcon NotifyIconClient;
+        private System.Windows.Forms.MenuStrip MenuStripServers;
     }
 }
 

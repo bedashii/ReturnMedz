@@ -15,7 +15,7 @@ namespace HolisticsCommander
     {
         ClientProcessor _processor;
         Lib.Business.CommApplication _selectedItem;
-        bool _newItem = false;
+        bool _newItem = false, _restartCommand = true;
 
         public ClientForm()
         {
@@ -27,11 +27,17 @@ namespace HolisticsCommander
             if (Message != null)
             {
                 bool succesful = Convert.ToBoolean(Message);
-                TSMTextBoxApplication.BackColor = succesful ? System.Drawing.Color.Green : System.Drawing.Color.Red;
+                TSM2TextBoxApplication.BackColor = succesful ? System.Drawing.Color.Green : System.Drawing.Color.Red;
             }
             else
             {
-                TSMTextBoxApplication.BackColor = System.Drawing.Color.OrangeRed;
+                TSM2TextBoxApplication.BackColor = System.Drawing.Color.OrangeRed;
+            }
+
+            if (_restartCommand && TSM2TextBoxApplication.BackColor == System.Drawing.Color.Green)
+            {
+                _restartCommand = false;
+                _processor.Command_Execute(_selectedItem.Path);
             }
         }
 
@@ -42,6 +48,18 @@ namespace HolisticsCommander
 
             BindingSourceCommApplicationList.DataSource = _processor.CommApplicationsList;
             BindingSourceCommApplicationList.ResetBindings(false);
+
+            this.Text += " " + _processor.ServerDetails;
+            NotifyIconClient.Text = _processor.ServerDetails;
+
+            AddServerToTSM(_processor.ServerDetails);
+        }
+
+        private void AddServerToTSM(string serverDetails)
+        {
+            ToolStripMenuItem item = new ToolStripMenuItem(serverDetails);
+            item.Name = "TSMIServers" + (MenuStripServers.Items.Count + 1).ToString();
+            MenuStripServers.Items.Add(item);
         }
 
         void EnterEditMode(object sender)
@@ -117,7 +135,7 @@ namespace HolisticsCommander
             if (e.RowIndex >= 0)
             {
                 SetSelectedItemData((Lib.Business.CommApplication)DataGridViewMain.Rows[e.RowIndex].DataBoundItem);
-                TSMTextBoxApplication.Text = _selectedItem.Name;
+                TSM2TextBoxApplication.Text = _selectedItem.Name;
             }
         }
 
@@ -146,14 +164,39 @@ namespace HolisticsCommander
             this.Close();
         }
 
-        private void killToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TSMI2_Kill_Click(object sender, EventArgs e)
         {
             _processor.Command_Kill(_selectedItem.Name);
         }
 
-        private void executeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TSMI2_Execute_Click(object sender, EventArgs e)
         {
             _processor.Command_Execute(_selectedItem.Path);
+        }
+
+        private void TSMI2_Restart_Click(object sender, EventArgs e)
+        {
+            _restartCommand = true;
+            _processor.Command_Kill(_selectedItem.Name);
+        }
+
+        private void ClientForm_Resize(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                ShowInTaskbar = false;
+                NotifyIconClient.Visible = true;
+            }
+            else
+            {
+                ShowInTaskbar = true;
+                NotifyIconClient.Visible = false;
+            }
+        }
+
+        private void NotifyIconClient_DoubleClick(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Normal;
         }
     }
 }
