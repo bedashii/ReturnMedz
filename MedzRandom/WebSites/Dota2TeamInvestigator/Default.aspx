@@ -16,7 +16,7 @@
         <asp:Panel runat="server" ID="PanelTeamSearch">
             <asp:Label runat="server" ID="LabelTeamSearch" Text="Team Name" />
             <asp:TextBox runat="server" ID="TextBoxTeamName" />
-            <asp:Button runat="server" ID="ButtonTeamSearch" Width="60px" Text="Search" />
+            <asp:Button runat="server" ID="ButtonTeamSearch" Width="60px" Text="Search" OnClick="ButtonTeamSearch_Click" />
         </asp:Panel>
         <br/>
         <asp:Panel runat="server" ID="PanelPlayers" />

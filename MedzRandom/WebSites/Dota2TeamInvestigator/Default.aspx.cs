@@ -22,4 +22,13 @@ public partial class _Default : System.Web.UI.Page
             }
         }
     }
+    protected void ButtonTeamSearch_Click(object sender, EventArgs e)
+    {
+        // TODO
+        // Search Team Name
+
+        // If one team found display players
+
+        // If zero or more than one team found, go to advances search page.
+    }
 }

@@ -7,6 +7,9 @@ using System.Web.UI.WebControls;
 
 public partial class MatchControl : System.Web.UI.UserControl
 {
+    private string _matchID;
+    private int _heroID;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         ImageButtonHero.ImageUrl = @"http://media.steampowered.com/apps/dota2/images/heroes/elder_titan_sb.png";
@@ -19,5 +22,33 @@ public partial class MatchControl : System.Web.UI.UserControl
         ImageButtonItem6.ImageUrl = @"http://media.steampowered.com/apps/dota2/images/items/recipe_rapier_lg.png";
     }
 
-    public string MatchID { get; set; }
+    public string MatchID
+    {
+        get { return _matchID; }
+        set
+        {
+            _matchID = value;
+
+            // TODO
+            // Find Match Details based on Match ID.
+            // Get Player Hero details in match.
+            // Win/Lose;KDA;Items
+        }
+    }
+
+    public int HeroID
+    {
+        get { return _heroID; }
+        set
+        {
+            if (_heroID != value)
+            {
+                _heroID = value;
+
+                // TODO
+                // Set Hero Image
+                //ImageButtonHero.ImageUrl = "";
+            }
+        }
+    }
 }
