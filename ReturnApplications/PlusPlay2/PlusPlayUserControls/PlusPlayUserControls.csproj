@@ -36,6 +36,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -57,8 +59,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ucPictureBox.xaml.cs">
-      <DependentUpon>ucPictureBox.xaml</DependentUpon>
+    <Compile Include="ucControls\ucPictureBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucControls\ucPictureBox.Designer.cs">
+      <DependentUpon>ucPictureBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WFControls\ModelViewerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WFControls\ModelViewerControl.Designer.cs">
+      <DependentUpon>ModelViewerControl.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +90,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="ucControls\ucPictureBox.resx">
+      <DependentUpon>ucPictureBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WFControls\ModelViewerControl.resx">
+      <DependentUpon>ModelViewerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\DataSources\PlusPlayDBGenLib.Business.Models.datasource" />
+    <None Include="Properties\DataSources\PlusPlayDBGenLib.Lists.GalleriesList.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -86,10 +105,17 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="ucPictureBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Folder Include="WPFControls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\RetLib\PlusPlayLib\PlusPlayLib\PlusPlayLib.csproj">
+      <Project>{b1f60181-442b-46d6-92f5-25f68aaef545}</Project>
+      <Name>PlusPlayLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlusPlayProcessors\PlusPlayProcessors.csproj">
+      <Project>{f50553ee-c7df-4cae-9958-b326f6509c55}</Project>
+      <Name>PlusPlayProcessors</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
