@@ -119,12 +119,12 @@ namespace PlusPlayDBGenLib.Data
 
             cmd.Parameters.Add("@ID", SqlDbType.Int, 4).Value = ID;
 			cmd.Parameters.Add("@Model", SqlDbType.Int, 4).Value = Model;
-			cmd.Parameters.Add("@GalleryName", SqlDbType.VarChar, 100).Value = GalleryName;
+			cmd.Parameters.Add("@GalleryName", SqlDbType.NVarChar, 100).Value = GalleryName;
 			
 			if (CoverPhoto == null)
-				cmd.Parameters.Add("@CoverPhoto", SqlDbType.VarChar, 256).Value = DBNull.Value;
+                cmd.Parameters.Add("@CoverPhoto", SqlDbType.NVarChar, 256).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@CoverPhoto", SqlDbType.VarChar, 256).Value = CoverPhoto;
+                cmd.Parameters.Add("@CoverPhoto", SqlDbType.NVarChar, 256).Value = CoverPhoto;
 			
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
@@ -140,12 +140,12 @@ namespace PlusPlayDBGenLib.Data
             SqlCommand cmd = dataHelper.CreateCommand(q);
             
             cmd.Parameters.Add("@Model", SqlDbType.Int, 4).Value = Model;
-			cmd.Parameters.Add("@GalleryName", SqlDbType.VarChar, 100).Value = GalleryName;
+			cmd.Parameters.Add("@GalleryName", SqlDbType.NVarChar, 100).Value = GalleryName;
 			
 			if (CoverPhoto == null)
-				cmd.Parameters.Add("@CoverPhoto", SqlDbType.VarChar, 256).Value = DBNull.Value;
+				cmd.Parameters.Add("@CoverPhoto", SqlDbType.NVarChar, 256).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@CoverPhoto", SqlDbType.VarChar, 256).Value = CoverPhoto;
+				cmd.Parameters.Add("@CoverPhoto", SqlDbType.NVarChar, 256).Value = CoverPhoto;
 			
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);

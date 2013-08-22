@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlusPlay2_WPF", "PlusPlay2\PlusPlay2_WPF.csproj", "{1C9A9542-7598-47F2-894B-E0A86D8B6F6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlusPlayLib", "..\..\RetLib\PlusPlayLib\PlusPlayLib\PlusPlayLib.csproj", "{B1F60181-442B-46D6-92F5-25F68AAEF545}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlusPlay_WF", "PlusPlay_WinForms\PlusPlay_WF.csproj", "{6299E980-502D-40AB-8C6C-E3BA166FB50F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlusPlayUserControls", "PlusPlayUserControls\PlusPlayUserControls.csproj", "{2D3F3F86-927C-468B-AF6E-EBB772AFFADF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C9A9542-7598-47F2-894B-E0A86D8B6F6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C9A9542-7598-47F2-894B-E0A86D8B6F6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C9A9542-7598-47F2-894B-E0A86D8B6F6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C9A9542-7598-47F2-894B-E0A86D8B6F6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1F60181-442B-46D6-92F5-25F68AAEF545}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1F60181-442B-46D6-92F5-25F68AAEF545}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1F60181-442B-46D6-92F5-25F68AAEF545}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1F60181-442B-46D6-92F5-25F68AAEF545}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6299E980-502D-40AB-8C6C-E3BA166FB50F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6299E980-502D-40AB-8C6C-E3BA166FB50F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6299E980-502D-40AB-8C6C-E3BA166FB50F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6299E980-502D-40AB-8C6C-E3BA166FB50F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D3F3F86-927C-468B-AF6E-EBB772AFFADF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D3F3F86-927C-468B-AF6E-EBB772AFFADF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D3F3F86-927C-468B-AF6E-EBB772AFFADF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D3F3F86-927C-468B-AF6E-EBB772AFFADF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

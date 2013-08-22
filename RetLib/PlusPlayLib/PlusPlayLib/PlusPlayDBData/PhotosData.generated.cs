@@ -114,7 +114,7 @@ namespace PlusPlayDBGenLib.Data
 
             cmd.Parameters.Add("@ID", SqlDbType.Int, 4).Value = ID;
 			cmd.Parameters.Add("@Gallery", SqlDbType.Int, 4).Value = Gallery;
-			cmd.Parameters.Add("@PhotoFile", SqlDbType.VarChar, 256).Value = PhotoFile;
+			cmd.Parameters.Add("@PhotoFile", SqlDbType.NVarChar, 256).Value = PhotoFile;
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             base.AnyPropertyChanged = false; //After update Change is false since it's changes have been applied to the database
@@ -129,7 +129,7 @@ namespace PlusPlayDBGenLib.Data
             SqlCommand cmd = dataHelper.CreateCommand(q);
             
             cmd.Parameters.Add("@Gallery", SqlDbType.Int, 4).Value = Gallery;
-			cmd.Parameters.Add("@PhotoFile", SqlDbType.VarChar, 256).Value = PhotoFile;
+			cmd.Parameters.Add("@PhotoFile", SqlDbType.NVarChar, 256).Value = PhotoFile;
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             ID = up.Identity;
