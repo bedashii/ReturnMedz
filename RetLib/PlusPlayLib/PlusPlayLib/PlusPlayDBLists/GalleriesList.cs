@@ -12,5 +12,10 @@ namespace PlusPlayDBGenLib.Lists
         {
 
         }
+
+        public void GetByModel(int model)
+        {
+            _data.LoadByModel(this,model);
+        }
     }
 }

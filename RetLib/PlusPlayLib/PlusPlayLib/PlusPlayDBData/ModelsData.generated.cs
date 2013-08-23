@@ -5,6 +5,7 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using PlusPlayDBGenLib.Business;
+using System.Data.SqlServerCe;
 
 
 /*****************************************************************************
@@ -19,7 +20,7 @@ namespace PlusPlayDBGenLib.Data
 {
     public partial class ModelsData : Properties.ModelsProperties
     {
-        private DataProcessHelper dataHelper = new DataProcessHelper();
+        private DataHelper dataHelper = new DataHelper();
 
         private string _selectColumnNames = "M.[ID], M.[ModelName], M.[CoverPhoto]";
 
@@ -32,7 +33,7 @@ namespace PlusPlayDBGenLib.Data
             string q = "SELECT " + _selectColumnNames + " FROM dbo.Models M\n";
             q += "WHERE M.ID = @ID\n";
 
-            SqlCommand cmd = dataHelper.CreateCommand(q);
+            SqlCeCommand cmd = dataHelper.CreateCommand(q);
 
             cmd.Parameters.Add("@ID", SqlDbType.Int, 4).Value = iD;
             DataTable dt = dataHelper.ExecuteQuery(cmd);
@@ -61,7 +62,7 @@ namespace PlusPlayDBGenLib.Data
             string q = "DELETE FROM dbo.Models \n";
             q += "WHERE ID = @ID\n";
 
-            SqlCommand cmd = dataHelper.CreateCommand(q);
+            SqlCeCommand cmd = dataHelper.CreateCommand(q);
             
             cmd.Parameters.Add("@ID", SqlDbType.Int, 4).Value = iD;
             
@@ -114,15 +115,15 @@ namespace PlusPlayDBGenLib.Data
             q += "WHERE ID = @ID\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
 
-            SqlCommand cmd = dataHelper.CreateCommand(q);
+            SqlCeCommand cmd = dataHelper.CreateCommand(q);
 
             cmd.Parameters.Add("@ID", SqlDbType.Int, 4).Value = ID;
-			cmd.Parameters.Add("@ModelName", SqlDbType.VarChar, 50).Value = ModelName;
+			cmd.Parameters.Add("@ModelName", SqlDbType.NVarChar, 50).Value = ModelName;
 			
 			if (CoverPhoto == null)
-				cmd.Parameters.Add("@CoverPhoto", SqlDbType.VarChar, 256).Value = DBNull.Value;
+				cmd.Parameters.Add("@CoverPhoto", SqlDbType.NVarChar, 256).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@CoverPhoto", SqlDbType.VarChar, 256).Value = CoverPhoto;
+				cmd.Parameters.Add("@CoverPhoto", SqlDbType.NVarChar, 256).Value = CoverPhoto;
 			
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
@@ -135,14 +136,14 @@ namespace PlusPlayDBGenLib.Data
             string q = "INSERT INTO dbo.Models ( [ModelName], [CoverPhoto] )\n";
             q += "VALUES  ( @ModelName, @CoverPhoto )\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
-            SqlCommand cmd = dataHelper.CreateCommand(q);
+            SqlCeCommand cmd = dataHelper.CreateCommand(q);
             
-            cmd.Parameters.Add("@ModelName", SqlDbType.VarChar, 50).Value = ModelName;
+            cmd.Parameters.Add("@ModelName", SqlDbType.NVarChar, 50).Value = ModelName;
 			
 			if (CoverPhoto == null)
-				cmd.Parameters.Add("@CoverPhoto", SqlDbType.VarChar, 256).Value = DBNull.Value;
+				cmd.Parameters.Add("@CoverPhoto", SqlDbType.NVarChar, 256).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@CoverPhoto", SqlDbType.VarChar, 256).Value = CoverPhoto;
+				cmd.Parameters.Add("@CoverPhoto", SqlDbType.NVarChar, 256).Value = CoverPhoto;
 			
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
