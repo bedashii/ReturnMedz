@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dota2DataMinerApp", "Dota2DataMinerApp\Dota2DataMinerApp.csproj", "{A8804538-C699-42E6-A451-BE7A442EE256}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dota2DataMiner", "..\WebSites\Dota2TeamInvestigator\Dota2DataMiner\Dota2DataMiner.csproj", "{9FA2D1E9-65FB-4DBE-85DC-31F0C54EE518}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotaLib", "..\WebSites\Dota2TeamInvestigator\DotaLib\DotaLib.csproj", "{DDAD765A-8462-4205-9C05-4DEBF2294BC6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A8804538-C699-42E6-A451-BE7A442EE256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8804538-C699-42E6-A451-BE7A442EE256}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8804538-C699-42E6-A451-BE7A442EE256}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8804538-C699-42E6-A451-BE7A442EE256}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FA2D1E9-65FB-4DBE-85DC-31F0C54EE518}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FA2D1E9-65FB-4DBE-85DC-31F0C54EE518}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FA2D1E9-65FB-4DBE-85DC-31F0C54EE518}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FA2D1E9-65FB-4DBE-85DC-31F0C54EE518}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDAD765A-8462-4205-9C05-4DEBF2294BC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDAD765A-8462-4205-9C05-4DEBF2294BC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDAD765A-8462-4205-9C05-4DEBF2294BC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDAD765A-8462-4205-9C05-4DEBF2294BC6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
