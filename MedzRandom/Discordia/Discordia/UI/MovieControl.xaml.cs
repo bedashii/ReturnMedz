@@ -259,9 +259,12 @@ namespace Discordia.UI
 
         private FileInfo setMovieInfo(FileInfo fi, WatTmdb.V3.TmdbMovieSearch movieSearch)
         {
+            
             Movie.TMDBID = movieSearch.results[0].id;
             Movie.Title = movieSearch.results[0].title.Replace(":", string.Empty).Replace("'", string.Empty);
             Movie.Rating = movieSearch.results[0].popularity;
+            WatTmdb.V3.TmdbMovie movie = TMDBHelper.TMDB.GetMovieInfo(movieSearch.results[0].id);
+            Movie.Synopsis = movie.overview;
             int year = 0;
             if (Int32.TryParse(movieSearch.results[0].release_date, out year))
                 Movie.Year = year;
@@ -383,6 +386,7 @@ namespace Discordia.UI
         {
             // TODO
             Title = Movie.Title;
+            Synopsis = Movie.Synopsis;
             updatePosterUI();
         }
 
