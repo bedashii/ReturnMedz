@@ -341,5 +341,20 @@ namespace DotaDbGenLib.Properties
 			}
 		}
 
+		partial void OnSteamID64Changing();
+		partial void OnSteamID64Changed();
+		protected long? _steamID64;
+		public virtual long? SteamID64
+		{
+			get { return _steamID64; }
+			set
+			{
+				OnSteamID64Changing();
+				_steamID64 = value;
+				base.AnyPropertyChanged = true;
+				OnSteamID64Changed();
+			}
+		}
+
     }
 }

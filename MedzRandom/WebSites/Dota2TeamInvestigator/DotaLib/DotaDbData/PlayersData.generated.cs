@@ -21,7 +21,7 @@ namespace DotaDbGenLib.Data
     {
         private DataProcessHelper dataHelper = new DataProcessHelper();
 
-        private string _selectColumnNames = "P.[SteamID], P.[TeamID], P.[PersonaName], P.[ProfileURL], P.[Avatar], P.[AvatarMedium], P.[AvatarFull], P.[PersonaState], P.[CommunityVisibilityState], P.[ProfileState], P.[LastLogOff], P.[CommentPermission], P.[RealName], P.[PrimaryClanID], P.[TimeCreated], P.[GameID], P.[GameServerID], P.[GameExtraInfo], P.[CityID], P.[LocCountyCode], P.[LocStateCode], P.[LocCityID]";
+        private string _selectColumnNames = "P.[SteamID], P.[TeamID], P.[PersonaName], P.[ProfileURL], P.[Avatar], P.[AvatarMedium], P.[AvatarFull], P.[PersonaState], P.[CommunityVisibilityState], P.[ProfileState], P.[LastLogOff], P.[CommentPermission], P.[RealName], P.[PrimaryClanID], P.[TimeCreated], P.[GameID], P.[GameServerID], P.[GameExtraInfo], P.[CityID], P.[LocCountyCode], P.[LocStateCode], P.[LocCityID], P.[SteamID64]";
 
         public PlayersData()
         {
@@ -184,6 +184,11 @@ namespace DotaDbGenLib.Data
 				else
 					row.LocCityID = Convert.ToString(dr["LocCityID"]);
 
+				if ((dr["SteamID64"]) == DBNull.Value)
+					row.SteamID64 = null;
+				else
+					row.SteamID64 = Convert.ToInt64(dr["SteamID64"]);
+
                 row.RecordExists = true;
                 row.AnyPropertyChanged = false;
             }
@@ -209,7 +214,7 @@ namespace DotaDbGenLib.Data
         private UpdateProperties UpdateData()
         {
 
-            string q = "UPDATE dbo.Players SET [TeamID] = @TeamID, [PersonaName] = @PersonaName, [ProfileURL] = @ProfileURL, [Avatar] = @Avatar, [AvatarMedium] = @AvatarMedium, [AvatarFull] = @AvatarFull, [PersonaState] = @PersonaState, [CommunityVisibilityState] = @CommunityVisibilityState, [ProfileState] = @ProfileState, [LastLogOff] = @LastLogOff, [CommentPermission] = @CommentPermission, [RealName] = @RealName, [PrimaryClanID] = @PrimaryClanID, [TimeCreated] = @TimeCreated, [GameID] = @GameID, [GameServerID] = @GameServerID, [GameExtraInfo] = @GameExtraInfo, [CityID] = @CityID, [LocCountyCode] = @LocCountyCode, [LocStateCode] = @LocStateCode, [LocCityID] = @LocCityID\n";
+            string q = "UPDATE dbo.Players SET [TeamID] = @TeamID, [PersonaName] = @PersonaName, [ProfileURL] = @ProfileURL, [Avatar] = @Avatar, [AvatarMedium] = @AvatarMedium, [AvatarFull] = @AvatarFull, [PersonaState] = @PersonaState, [CommunityVisibilityState] = @CommunityVisibilityState, [ProfileState] = @ProfileState, [LastLogOff] = @LastLogOff, [CommentPermission] = @CommentPermission, [RealName] = @RealName, [PrimaryClanID] = @PrimaryClanID, [TimeCreated] = @TimeCreated, [GameID] = @GameID, [GameServerID] = @GameServerID, [GameExtraInfo] = @GameExtraInfo, [CityID] = @CityID, [LocCountyCode] = @LocCountyCode, [LocStateCode] = @LocStateCode, [LocCityID] = @LocCityID, [SteamID64] = @SteamID64\n";
             q += "WHERE SteamID = @SteamID\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
 
@@ -343,6 +348,12 @@ namespace DotaDbGenLib.Data
 				cmd.Parameters.Add("@LocCityID", SqlDbType.VarChar, 100).Value = LocCityID;
 			
 			
+			if (SteamID64 == null)
+				cmd.Parameters.Add("@SteamID64", SqlDbType.BigInt, 8).Value = DBNull.Value;
+			else
+				cmd.Parameters.Add("@SteamID64", SqlDbType.BigInt, 8).Value = SteamID64;
+			
+			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             base.AnyPropertyChanged = false; //After update Change is false since it's changes have been applied to the database
             return up;
@@ -350,8 +361,8 @@ namespace DotaDbGenLib.Data
 
         private UpdateProperties InsertData()
         {
-            string q = "INSERT INTO dbo.Players ( [SteamID], [TeamID], [PersonaName], [ProfileURL], [Avatar], [AvatarMedium], [AvatarFull], [PersonaState], [CommunityVisibilityState], [ProfileState], [LastLogOff], [CommentPermission], [RealName], [PrimaryClanID], [TimeCreated], [GameID], [GameServerID], [GameExtraInfo], [CityID], [LocCountyCode], [LocStateCode], [LocCityID] )\n";
-            q += "VALUES  ( @SteamID, @TeamID, @PersonaName, @ProfileURL, @Avatar, @AvatarMedium, @AvatarFull, @PersonaState, @CommunityVisibilityState, @ProfileState, @LastLogOff, @CommentPermission, @RealName, @PrimaryClanID, @TimeCreated, @GameID, @GameServerID, @GameExtraInfo, @CityID, @LocCountyCode, @LocStateCode, @LocCityID )\n";
+            string q = "INSERT INTO dbo.Players ( [SteamID], [TeamID], [PersonaName], [ProfileURL], [Avatar], [AvatarMedium], [AvatarFull], [PersonaState], [CommunityVisibilityState], [ProfileState], [LastLogOff], [CommentPermission], [RealName], [PrimaryClanID], [TimeCreated], [GameID], [GameServerID], [GameExtraInfo], [CityID], [LocCountyCode], [LocStateCode], [LocCityID], [SteamID64] )\n";
+            q += "VALUES  ( @SteamID, @TeamID, @PersonaName, @ProfileURL, @Avatar, @AvatarMedium, @AvatarFull, @PersonaState, @CommunityVisibilityState, @ProfileState, @LastLogOff, @CommentPermission, @RealName, @PrimaryClanID, @TimeCreated, @GameID, @GameServerID, @GameExtraInfo, @CityID, @LocCountyCode, @LocStateCode, @LocCityID, @SteamID64 )\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
             SqlCommand cmd = dataHelper.CreateCommand(q);
             
@@ -481,6 +492,12 @@ namespace DotaDbGenLib.Data
 				cmd.Parameters.Add("@LocCityID", SqlDbType.VarChar, 100).Value = DBNull.Value;
 			else
 				cmd.Parameters.Add("@LocCityID", SqlDbType.VarChar, 100).Value = LocCityID;
+			
+			
+			if (SteamID64 == null)
+				cmd.Parameters.Add("@SteamID64", SqlDbType.BigInt, 8).Value = DBNull.Value;
+			else
+				cmd.Parameters.Add("@SteamID64", SqlDbType.BigInt, 8).Value = SteamID64;
 			
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
