@@ -1,0 +1,28 @@
+CREATE TABLE Players
+(
+SteamID INT NOT NULL,
+TeamID INT NULL,
+PersonaName VARCHAR(100) NOT NULL,
+ProfileURL VARCHAR(100) NULL,
+Avatar VARCHAR(100) NULL,
+AvatarMedium VARCHAR(100) NULL,
+AvatarFull VARCHAR(100) NULL,
+PersonaState INT NULL,
+CommunityVisibilityState INT NULL,
+ProfileState INT NULL,
+LastLogOff DATETIME NULL,
+CommentPermission VARCHAR(100) NULL,
+RealName VARCHAR(100) NULL,
+PrimaryClanID INT NULL,
+TimeCreated DATETIME NULL,
+GameID INT NULL,
+GameServerID VARCHAR(100) NULL,
+GameExtraInfo VARCHAR(100) NULL,
+CityID INT NULL,
+LocCountyCode VARCHAR(100) NULL,
+LocStateCode VARCHAR(100) NULL,
+LocCityID VARCHAR(100) NULL,
+PRIMARY KEY (SteamID)
+)
+
+--DROP TABLE dbo.Players

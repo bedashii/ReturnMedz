@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -39,16 +40,84 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DotaDBBusiness\PlayerBusiness.cs" />
-    <Compile Include="DotaDBBusiness\TeamBusiness.cs" />
-    <Compile Include="DotaDBData\PlayerData.cs" />
-    <Compile Include="DotaDBData\TeamData.cs" />
-    <Compile Include="DotaDBLists\PlayerList.cs" />
-    <Compile Include="DotaDBLists\TeamList.cs" />
-    <Compile Include="DotaDBProperties\PlayerProperties.cs" />
-    <Compile Include="DotaDBProperties\TeamProperties.cs" />
-    <Compile Include="PropertiesBase.cs" />
+    <Compile Include="DotaDbBusiness\Players.cs" />
+    <Compile Include="DotaDbBusiness\Players.generated.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>Players.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbBusiness\SteamRequests.cs" />
+    <Compile Include="DotaDbBusiness\SteamRequests.generated.cs">
+      <DependentUpon>SteamRequests.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbBusiness\SystemConfig.cs" />
+    <Compile Include="DotaDbBusiness\SystemConfig.generated.cs">
+      <DependentUpon>SystemConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbBusiness\Teams.cs" />
+    <Compile Include="DotaDbBusiness\Teams.generated.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>Teams.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbData\DataProcessHelper.cs" />
+    <Compile Include="DotaDbData\PlayersData.cs" />
+    <Compile Include="DotaDbData\PlayersData.generated.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>PlayersData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbData\SteamRequestsData.cs" />
+    <Compile Include="DotaDbData\SteamRequestsData.generated.cs">
+      <DependentUpon>SteamRequestsData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbData\SystemConfigData.cs" />
+    <Compile Include="DotaDbData\SystemConfigData.generated.cs">
+      <DependentUpon>SystemConfigData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbData\TeamsData.cs" />
+    <Compile Include="DotaDbData\TeamsData.generated.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>TeamsData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbLists\PlayersList.cs" />
+    <Compile Include="DotaDbLists\PlayersList.generated.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>PlayersList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbLists\SteamRequestsList.cs" />
+    <Compile Include="DotaDbLists\SteamRequestsList.generated.cs">
+      <DependentUpon>SteamRequestsList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbLists\SystemConfigList.cs" />
+    <Compile Include="DotaDbLists\SystemConfigList.generated.cs">
+      <DependentUpon>SystemConfigList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbLists\TeamsList.cs" />
+    <Compile Include="DotaDbLists\TeamsList.generated.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>TeamsList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbProperties\PlayersProperties.cs" />
+    <Compile Include="DotaDbProperties\PlayersProperties.generated.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>PlayersProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbProperties\PropertiesBase.cs" />
+    <Compile Include="DotaDbProperties\SteamRequestsProperties.cs" />
+    <Compile Include="DotaDbProperties\SteamRequestsProperties.generated.cs">
+      <DependentUpon>SteamRequestsProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbProperties\SystemConfigProperties.cs" />
+    <Compile Include="DotaDbProperties\SystemConfigProperties.generated.cs">
+      <DependentUpon>SystemConfigProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbProperties\TeamsProperties.cs" />
+    <Compile Include="DotaDbProperties\TeamsProperties.generated.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>TeamsProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DotaTeamInvestigator.csp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
