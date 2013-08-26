@@ -12,5 +12,10 @@ namespace DotaDbGenLib.Lists
         {
 
         }
+
+        public void GetUnprocessedPlayers(int topCount)
+        {
+            _data.LoadUnprocessedPlayers(this, topCount);
+        }
     }
 }

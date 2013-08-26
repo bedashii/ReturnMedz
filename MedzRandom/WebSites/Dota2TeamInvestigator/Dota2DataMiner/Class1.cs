@@ -224,5 +224,127 @@ namespace Dota2DataMiner
             dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
             return dtDateTime;
         }
+
+        public void GetNewPlayerSummariesRecoverLocalData(PlayersList players)
+        {
+            if (players != null && players.Count > 0)
+            {
+                if (
+                    File.Exists("PlayerSummaryInfo" + players[0].SteamID + "(" +
+                                DateTime.Now.ToString("ddMMyyyy") + ").xml"))
+                {
+                    XmlDocument response = new XmlDocument();
+                    response.Load("PlayerSummaryInfo" + players[0].SteamID + "(" +
+                                DateTime.Now.ToString("ddMMyyyy") + ").xml");
+                    GetPlayers(response, players);
+                }
+            }
+        }
+
+        private bool GetPlayers(XmlDocument response, PlayersList players)
+        {
+            bool newPlayersAdded = false;
+
+            foreach (XmlNode subRootNode in response.DocumentElement.ChildNodes)
+            {
+                if (subRootNode.Name == "players")
+                {
+                    foreach (XmlNode playerNode in subRootNode)
+                    {
+                        Players player = new Players();
+                        if (playerNode["steamid"] != null)
+                        {
+                            player.LoadItem(Convert.ToInt32(playerNode["steamid"].InnerText));
+                            if (!player.RecordExists)
+                            {
+                                player = new Players();
+                            }
+                        }
+                        else
+                        {
+                            player = new Players();
+                        }
+
+                        if (playerNode["steamid"] != null)
+                            player.SteamID = Convert.ToInt32(playerNode["steamid"].InnerText);
+                        if (playerNode["communityvisibilitystate"] != null)
+                            player.CommunityVisibilityState = Convert.ToInt32(playerNode["communityvisibilitystate"].InnerText);
+                        if (playerNode["profilestate"] != null)
+                            player.ProfileState = Convert.ToInt32(playerNode["profilestate"].InnerText);
+                        if (playerNode["personaname"] != null)
+                            player.PersonaName = playerNode["personaname"].InnerText;
+                        if (playerNode["lastlogoff"] != null)
+                            player.LastLogOff = UnixTimeStampToDateTime(Convert.ToDouble(playerNode["lastlogoff"].InnerText));
+                        if (playerNode["profileurl"] != null)
+                            player.ProfileURL = playerNode["profileurl"].InnerText;
+                        if (playerNode["avatar"] != null)
+                            player.Avatar = playerNode["avatar"].InnerText;
+                        if (playerNode["avatarmedium"] != null)
+                            player.AvatarMedium = playerNode["avatarmedium"].InnerText;
+                        if (playerNode["avatarfull"] != null)
+                            player.AvatarFull = playerNode["avatarfull"].InnerText;
+                        if (playerNode["personastate"] != null)
+                            player.PersonaState = Convert.ToInt32(playerNode["personastate"].InnerText);
+                        if (playerNode["realname"] != null)
+                            player.RealName = playerNode["realname"].InnerText;
+
+                        if (playerNode["primaryclanid"] != null)
+                            player.PrimaryClanID = Convert.ToInt32(playerNode["primaryclanid"].InnerText);
+                        if (playerNode["timecreated"] != null)
+                            player.TimeCreated = UnixTimeStampToDateTime(Convert.ToDouble(playerNode["timecreated"].InnerText));
+                        if (playerNode["loccountrycode"] != null)
+                            player.LocCountyCode = playerNode["loccountrycode"].InnerText;
+                        if (playerNode["locstatecode"] != null)
+                            player.LocStateCode = playerNode["locstatecode"].InnerText;
+                        if (playerNode["loccityid"] != null)
+                            player.LocCityID = playerNode["loccityid"].InnerText;
+
+                        Console.WriteLine("Steam ID: " + player.SteamID + " Name: " + player.PersonaName + " Real Name: " + (player.RealName ?? ""));
+
+                        if (!player.RecordExists)
+                        {
+                            newPlayersAdded = true;
+                        }
+                    }
+                }
+            }
+
+            players.UpdateAll();
+
+            if (File.Exists("PlayerSummaryInfo" + players[0].SteamID + "(" +
+                                                DateTime.Now.ToString("ddMMyyyy") + ").xml"))
+            {
+                File.Delete("PlayerSummaryInfo" + players[0].SteamID + "(" +
+                            DateTime.Now.ToString("ddMMyyyy") + ").xml");
+            }
+
+            return newPlayersAdded;
+        }
+
+        public bool GetNewPlayerSummaries(PlayersList players)
+        {
+            if (players == null || players.Count == 0)
+                return false;
+
+            XmlDocument response = new XmlDocument();
+
+            string request = @"http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + steamAPIKey;
+
+            request += "&format=xml";
+
+            request += @"&SteamIDs=";
+
+            for (int i = 0; i < players.Count; i++)
+            {
+                if (i != 0)
+                    request += ",";
+                request += players[i].SteamID;
+            }
+
+            response = MakeRequest(request);
+            response.Save("PlayerSummaryInfo" + players[0].SteamID + "(" + DateTime.Now.ToString("ddMMyyyy") + ").xml");
+
+            return GetPlayers(response, players);
+        }
     }
 }

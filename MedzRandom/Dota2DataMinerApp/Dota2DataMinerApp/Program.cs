@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using DotaDbGenLib.Business;
 using DotaDbGenLib.Lists;
@@ -11,7 +12,8 @@ namespace Dota2DataMinerApp
         {
             do
             {
-                GetTeams();
+                //GetTeams();
+                GetPlayerSummaries();
             } while (true);
 
         }
@@ -31,8 +33,61 @@ namespace Dota2DataMinerApp
             // Get latest Team.
             teamID = teams.GetMaxTeamID();
 
+            // Get or Create And Increment SteamRequest
+            SteamRequests steamRequests;
+            GetAndIncrementSteamRequest(out steamRequests);
+
+            // Get Live Data.
+            if (d2Dm.GetNewTeams(teamID, 100))
+            {
+                // New Data Found, sleep for 1 seconds as steam requests before continuing.
+                Thread.Sleep(1000);
+            }
+            else
+            {
+                // No New Data Found, sleep for 60 seconds to save daily requests.
+                Console.WriteLine("No New Teams Found, Sleeping for 60 Seconds.");
+                Thread.Sleep(60000);
+            }
+        }
+
+        private static void GetPlayerSummaries()
+        {
+            Dota2DataMiner.Class1 d2Dm = new Dota2DataMiner.Class1();
+
+            PlayersList players = new PlayersList();
+
+            // Get Top 100 Unprocessed Players
+            players.GetUnprocessedPlayers(100);
+
+            // Check for and Recover Local Data.
+            d2Dm.GetNewPlayerSummariesRecoverLocalData(players);
+
+            // Get Top 100 Unprocessed Players
+            players.GetUnprocessedPlayers(100);
+
+            // Get or Create And Increment SteamRequest
+            SteamRequests steamRequests;
+            GetAndIncrementSteamRequest(out steamRequests);
+
+            // Get Live Data.
+            if (d2Dm.GetNewPlayerSummaries(players))
+            {
+                // New Data Found, sleep for 1 seconds as steam requests before continuing.
+                Thread.Sleep(1000);
+            }
+            else
+            {
+                // No New Data Found, sleep for 60 seconds to save daily requests.
+                Console.WriteLine("No New Teams Found, Sleeping for 60 Seconds.");
+                Thread.Sleep(60000);
+            }
+        }
+
+        private static void GetAndIncrementSteamRequest(out SteamRequests steamRequests)
+        {
             // Get Steam Requests record for today.
-            SteamRequests steamRequests = new SteamRequests();
+            steamRequests = new SteamRequests();
             steamRequests.GetByDate(DateTime.Now);
 
             // If steamRequest record doesn't exists (new day), create a new one.
@@ -48,7 +103,8 @@ namespace Dota2DataMinerApp
             {
                 Console.Write("Daily Steam Requests Exceeded, Sleeping till Tomorrow: ");
                 TimeSpan remainingTime = (DateTime.Now.Date.AddDays(1) - DateTime.Now);
-                Console.WriteLine(remainingTime.Hours + "h " + remainingTime.Minutes + "m " + remainingTime.Seconds + "s " + remainingTime.Milliseconds + "ms");
+                Console.WriteLine(remainingTime.Hours + "h " + remainingTime.Minutes + "m " + remainingTime.Seconds + "s " +
+                                  remainingTime.Milliseconds + "ms");
                 Thread.Sleep(1000);
                 return;
             }
@@ -57,19 +113,6 @@ namespace Dota2DataMinerApp
             Console.WriteLine("Steam request number : " + steamRequests.RequestNumber);
             steamRequests.RequestNumber++;
             steamRequests.InsertOrUpdate();
-
-            // Get Live Data.
-            if (d2Dm.GetNewTeams(teamID, 100))
-            {
-                // New Data Found, sleep for 1 seconds as steam requests before continuing.
-                Thread.Sleep(1000);
-            }
-            else
-            {
-                // No New Data Found, sleep for 60 seconds to save daily requests.
-                Console.WriteLine("No New Teams Found, Sleeping for 60 Seconds.");
-                Thread.Sleep(60000);
-            }
         }
     }
 }
