@@ -24,46 +24,37 @@ namespace Dota2DataMiner
 
         private int? previousTeamID = 0;
 
+        public void GetNewTeamsRecoverLocalData(int? teamID)
+        {
+            if (teamID != null)
+            {
+                if (
+                    File.Exists("GetTeamInfo" + (teamID != null ? teamID.ToString() : "") + "(" +
+                                DateTime.Now.ToString("ddMMyyyy") + ").xml"))
+                {
+                    XmlDocument response = new XmlDocument();
+                    response.Load("GetTeamInfo" + (teamID != null ? teamID.ToString() : "") + "(" +
+                                  DateTime.Now.ToString("ddMMyyyy") + ").xml");
+                    GetTeams(response, teamID);
+                }
+            }
+        }
+
         public bool GetNewTeams(int? teamID, int count)
         {
             XmlDocument response = new XmlDocument();
 
-            if (!File.Exists("GetTeamInfo" + (teamID != null ? teamID.ToString() : "") + "(" + DateTime.Now.ToString("ddMMyyyy") + ").xml"))
-            {
-                string request = @"https://api.steampowered.com/IDOTA2Match_570/GetTeamInfoByTeamID/v001/?key=" + steamAPIKey;
+            string request = @"https://api.steampowered.com/IDOTA2Match_570/GetTeamInfoByTeamID/v001/?key=" + steamAPIKey;
 
-                request += "&format=xml";
+            request += "&format=xml";
 
-                if (teamID != null)
-                    request += @"&start_at_team_id=" + teamID;
+            if (teamID != null)
+                request += @"&start_at_team_id=" + teamID;
 
-                request += "&teams_requested=" + count;
+            request += "&teams_requested=" + count;
 
-                response = MakeRequest(request);
-                response.Save("GetTeamInfo" + (teamID != null ? teamID.ToString() : "") + "(" + DateTime.Now.ToString("ddMMyyyy") + ").xml");
-            }
-            else
-            {
-                LocalRead = true;
-                if (previousTeamID == teamID)
-                {
-                    previousTeamID = teamID;
-                    LocalReads++;
-                    if (LocalReads >= 1)
-                    {
-                        LocalRead = false;
-                        LocalReads = 0;
-                        File.Delete("GetTeamInfo" + (teamID != null ? teamID.ToString() : "") + "(" +
-                                    DateTime.Now.ToString("ddMMyyyy") + ").xml");
-
-                        return GetNewTeams(teamID, count);
-                    }
-                }
-
-                previousTeamID = teamID;
-
-                response.Load("GetTeamInfo" + (teamID != null ? teamID.ToString() : "") + "(" + DateTime.Now.ToString("ddMMyyyy") + ").xml");
-            }
+            response = MakeRequest(request);
+            response.Save("GetTeamInfo" + (teamID != null ? teamID.ToString() : "") + "(" + DateTime.Now.ToString("ddMMyyyy") + ").xml");
 
             return GetTeams(response, teamID);
         }
