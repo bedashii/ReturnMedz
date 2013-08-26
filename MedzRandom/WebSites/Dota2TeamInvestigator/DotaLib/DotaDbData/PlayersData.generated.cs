@@ -21,7 +21,7 @@ namespace DotaDbGenLib.Data
     {
         private DataProcessHelper dataHelper = new DataProcessHelper();
 
-        private string _selectColumnNames = "P.[SteamID], P.[TeamID], P.[PersonaName], P.[ProfileURL], P.[Avatar], P.[AvatarMedium], P.[AvatarFull], P.[PersonaState], P.[CommunityVisibilityState], P.[ProfileState], P.[LastLogOff], P.[CommentPermission], P.[RealName], P.[PrimaryClanID], P.[TimeCreated], P.[GameID], P.[GameServerID], P.[GameExtraInfo], P.[CityID], P.[LocCountyCode], P.[LocStateCode], P.[LocCityID], P.[SteamID64]";
+        private string _selectColumnNames = "P.[SteamID], P.[TeamID], P.[PersonaName], P.[ProfileURL], P.[Avatar], P.[AvatarMedium], P.[AvatarFull], P.[PersonaState], P.[CommunityVisibilityState], P.[ProfileState], P.[LastLogOff], P.[CommentPermission], P.[RealName], P.[PrimaryClanID], P.[TimeCreated], P.[GameID], P.[GameServerID], P.[GameExtraInfo], P.[CityID], P.[LocCountyCode], P.[LocStateCode], P.[LocCityID], P.[SteamID64], P.[LastUpdated]";
 
         public PlayersData()
         {
@@ -142,7 +142,7 @@ namespace DotaDbGenLib.Data
 				if ((dr["PrimaryClanID"]) == DBNull.Value)
 					row.PrimaryClanID = null;
 				else
-					row.PrimaryClanID = Convert.ToInt32(dr["PrimaryClanID"]);
+					row.PrimaryClanID = Convert.ToInt64(dr["PrimaryClanID"]);
 
 				if ((dr["TimeCreated"]) == DBNull.Value)
 					row.TimeCreated = null;
@@ -189,6 +189,8 @@ namespace DotaDbGenLib.Data
 				else
 					row.SteamID64 = Convert.ToInt64(dr["SteamID64"]);
 
+				row.LastUpdated = Convert.ToDateTime(dr["LastUpdated"]);
+
                 row.RecordExists = true;
                 row.AnyPropertyChanged = false;
             }
@@ -214,7 +216,7 @@ namespace DotaDbGenLib.Data
         private UpdateProperties UpdateData()
         {
 
-            string q = "UPDATE dbo.Players SET [TeamID] = @TeamID, [PersonaName] = @PersonaName, [ProfileURL] = @ProfileURL, [Avatar] = @Avatar, [AvatarMedium] = @AvatarMedium, [AvatarFull] = @AvatarFull, [PersonaState] = @PersonaState, [CommunityVisibilityState] = @CommunityVisibilityState, [ProfileState] = @ProfileState, [LastLogOff] = @LastLogOff, [CommentPermission] = @CommentPermission, [RealName] = @RealName, [PrimaryClanID] = @PrimaryClanID, [TimeCreated] = @TimeCreated, [GameID] = @GameID, [GameServerID] = @GameServerID, [GameExtraInfo] = @GameExtraInfo, [CityID] = @CityID, [LocCountyCode] = @LocCountyCode, [LocStateCode] = @LocStateCode, [LocCityID] = @LocCityID, [SteamID64] = @SteamID64\n";
+            string q = "UPDATE dbo.Players SET [TeamID] = @TeamID, [PersonaName] = @PersonaName, [ProfileURL] = @ProfileURL, [Avatar] = @Avatar, [AvatarMedium] = @AvatarMedium, [AvatarFull] = @AvatarFull, [PersonaState] = @PersonaState, [CommunityVisibilityState] = @CommunityVisibilityState, [ProfileState] = @ProfileState, [LastLogOff] = @LastLogOff, [CommentPermission] = @CommentPermission, [RealName] = @RealName, [PrimaryClanID] = @PrimaryClanID, [TimeCreated] = @TimeCreated, [GameID] = @GameID, [GameServerID] = @GameServerID, [GameExtraInfo] = @GameExtraInfo, [CityID] = @CityID, [LocCountyCode] = @LocCountyCode, [LocStateCode] = @LocStateCode, [LocCityID] = @LocCityID, [SteamID64] = @SteamID64, [LastUpdated] = @LastUpdated\n";
             q += "WHERE SteamID = @SteamID\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
 
@@ -229,33 +231,33 @@ namespace DotaDbGenLib.Data
 			
 			
 			if (PersonaName == null)
-				cmd.Parameters.Add("@PersonaName", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@PersonaName", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@PersonaName", SqlDbType.VarChar, 100).Value = PersonaName;
+				cmd.Parameters.Add("@PersonaName", SqlDbType.VarChar, -1).Value = PersonaName;
 			
 			
 			if (ProfileURL == null)
-				cmd.Parameters.Add("@ProfileURL", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@ProfileURL", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@ProfileURL", SqlDbType.VarChar, 100).Value = ProfileURL;
+				cmd.Parameters.Add("@ProfileURL", SqlDbType.VarChar, -1).Value = ProfileURL;
 			
 			
 			if (Avatar == null)
-				cmd.Parameters.Add("@Avatar", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@Avatar", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@Avatar", SqlDbType.VarChar, 100).Value = Avatar;
+				cmd.Parameters.Add("@Avatar", SqlDbType.VarChar, -1).Value = Avatar;
 			
 			
 			if (AvatarMedium == null)
-				cmd.Parameters.Add("@AvatarMedium", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@AvatarMedium", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@AvatarMedium", SqlDbType.VarChar, 100).Value = AvatarMedium;
+				cmd.Parameters.Add("@AvatarMedium", SqlDbType.VarChar, -1).Value = AvatarMedium;
 			
 			
 			if (AvatarFull == null)
-				cmd.Parameters.Add("@AvatarFull", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@AvatarFull", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@AvatarFull", SqlDbType.VarChar, 100).Value = AvatarFull;
+				cmd.Parameters.Add("@AvatarFull", SqlDbType.VarChar, -1).Value = AvatarFull;
 			
 			
 			if (PersonaState == null)
@@ -283,21 +285,21 @@ namespace DotaDbGenLib.Data
 			
 			
 			if (CommentPermission == null)
-				cmd.Parameters.Add("@CommentPermission", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@CommentPermission", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@CommentPermission", SqlDbType.VarChar, 100).Value = CommentPermission;
+				cmd.Parameters.Add("@CommentPermission", SqlDbType.VarChar, -1).Value = CommentPermission;
 			
 			
 			if (RealName == null)
-				cmd.Parameters.Add("@RealName", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@RealName", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@RealName", SqlDbType.VarChar, 100).Value = RealName;
+				cmd.Parameters.Add("@RealName", SqlDbType.VarChar, -1).Value = RealName;
 			
 			
 			if (PrimaryClanID == null)
-				cmd.Parameters.Add("@PrimaryClanID", SqlDbType.Int, 4).Value = DBNull.Value;
+				cmd.Parameters.Add("@PrimaryClanID", SqlDbType.BigInt, 8).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@PrimaryClanID", SqlDbType.Int, 4).Value = PrimaryClanID;
+				cmd.Parameters.Add("@PrimaryClanID", SqlDbType.BigInt, 8).Value = PrimaryClanID;
 			
 			
 			if (TimeCreated == null)
@@ -313,15 +315,15 @@ namespace DotaDbGenLib.Data
 			
 			
 			if (GameServerID == null)
-				cmd.Parameters.Add("@GameServerID", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@GameServerID", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@GameServerID", SqlDbType.VarChar, 100).Value = GameServerID;
+				cmd.Parameters.Add("@GameServerID", SqlDbType.VarChar, -1).Value = GameServerID;
 			
 			
 			if (GameExtraInfo == null)
-				cmd.Parameters.Add("@GameExtraInfo", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@GameExtraInfo", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@GameExtraInfo", SqlDbType.VarChar, 100).Value = GameExtraInfo;
+				cmd.Parameters.Add("@GameExtraInfo", SqlDbType.VarChar, -1).Value = GameExtraInfo;
 			
 			
 			if (CityID == null)
@@ -331,21 +333,21 @@ namespace DotaDbGenLib.Data
 			
 			
 			if (LocCountyCode == null)
-				cmd.Parameters.Add("@LocCountyCode", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@LocCountyCode", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@LocCountyCode", SqlDbType.VarChar, 100).Value = LocCountyCode;
+				cmd.Parameters.Add("@LocCountyCode", SqlDbType.VarChar, -1).Value = LocCountyCode;
 			
 			
 			if (LocStateCode == null)
-				cmd.Parameters.Add("@LocStateCode", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@LocStateCode", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@LocStateCode", SqlDbType.VarChar, 100).Value = LocStateCode;
+				cmd.Parameters.Add("@LocStateCode", SqlDbType.VarChar, -1).Value = LocStateCode;
 			
 			
 			if (LocCityID == null)
-				cmd.Parameters.Add("@LocCityID", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@LocCityID", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@LocCityID", SqlDbType.VarChar, 100).Value = LocCityID;
+				cmd.Parameters.Add("@LocCityID", SqlDbType.VarChar, -1).Value = LocCityID;
 			
 			
 			if (SteamID64 == null)
@@ -353,6 +355,7 @@ namespace DotaDbGenLib.Data
 			else
 				cmd.Parameters.Add("@SteamID64", SqlDbType.BigInt, 8).Value = SteamID64;
 			
+			cmd.Parameters.Add("@LastUpdated", SqlDbType.DateTime, 8).Value = LastUpdated;
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             base.AnyPropertyChanged = false; //After update Change is false since it's changes have been applied to the database
@@ -361,8 +364,8 @@ namespace DotaDbGenLib.Data
 
         private UpdateProperties InsertData()
         {
-            string q = "INSERT INTO dbo.Players ( [SteamID], [TeamID], [PersonaName], [ProfileURL], [Avatar], [AvatarMedium], [AvatarFull], [PersonaState], [CommunityVisibilityState], [ProfileState], [LastLogOff], [CommentPermission], [RealName], [PrimaryClanID], [TimeCreated], [GameID], [GameServerID], [GameExtraInfo], [CityID], [LocCountyCode], [LocStateCode], [LocCityID], [SteamID64] )\n";
-            q += "VALUES  ( @SteamID, @TeamID, @PersonaName, @ProfileURL, @Avatar, @AvatarMedium, @AvatarFull, @PersonaState, @CommunityVisibilityState, @ProfileState, @LastLogOff, @CommentPermission, @RealName, @PrimaryClanID, @TimeCreated, @GameID, @GameServerID, @GameExtraInfo, @CityID, @LocCountyCode, @LocStateCode, @LocCityID, @SteamID64 )\n";
+            string q = "INSERT INTO dbo.Players ( [SteamID], [TeamID], [PersonaName], [ProfileURL], [Avatar], [AvatarMedium], [AvatarFull], [PersonaState], [CommunityVisibilityState], [ProfileState], [LastLogOff], [CommentPermission], [RealName], [PrimaryClanID], [TimeCreated], [GameID], [GameServerID], [GameExtraInfo], [CityID], [LocCountyCode], [LocStateCode], [LocCityID], [SteamID64], [LastUpdated] )\n";
+            q += "VALUES  ( @SteamID, @TeamID, @PersonaName, @ProfileURL, @Avatar, @AvatarMedium, @AvatarFull, @PersonaState, @CommunityVisibilityState, @ProfileState, @LastLogOff, @CommentPermission, @RealName, @PrimaryClanID, @TimeCreated, @GameID, @GameServerID, @GameExtraInfo, @CityID, @LocCountyCode, @LocStateCode, @LocCityID, @SteamID64, @LastUpdated )\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
             SqlCommand cmd = dataHelper.CreateCommand(q);
             
@@ -375,33 +378,33 @@ namespace DotaDbGenLib.Data
 			
 			
 			if (PersonaName == null)
-				cmd.Parameters.Add("@PersonaName", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@PersonaName", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@PersonaName", SqlDbType.VarChar, 100).Value = PersonaName;
+				cmd.Parameters.Add("@PersonaName", SqlDbType.VarChar, -1).Value = PersonaName;
 			
 			
 			if (ProfileURL == null)
-				cmd.Parameters.Add("@ProfileURL", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@ProfileURL", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@ProfileURL", SqlDbType.VarChar, 100).Value = ProfileURL;
+				cmd.Parameters.Add("@ProfileURL", SqlDbType.VarChar, -1).Value = ProfileURL;
 			
 			
 			if (Avatar == null)
-				cmd.Parameters.Add("@Avatar", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@Avatar", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@Avatar", SqlDbType.VarChar, 100).Value = Avatar;
+				cmd.Parameters.Add("@Avatar", SqlDbType.VarChar, -1).Value = Avatar;
 			
 			
 			if (AvatarMedium == null)
-				cmd.Parameters.Add("@AvatarMedium", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@AvatarMedium", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@AvatarMedium", SqlDbType.VarChar, 100).Value = AvatarMedium;
+				cmd.Parameters.Add("@AvatarMedium", SqlDbType.VarChar, -1).Value = AvatarMedium;
 			
 			
 			if (AvatarFull == null)
-				cmd.Parameters.Add("@AvatarFull", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@AvatarFull", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@AvatarFull", SqlDbType.VarChar, 100).Value = AvatarFull;
+				cmd.Parameters.Add("@AvatarFull", SqlDbType.VarChar, -1).Value = AvatarFull;
 			
 			
 			if (PersonaState == null)
@@ -429,21 +432,21 @@ namespace DotaDbGenLib.Data
 			
 			
 			if (CommentPermission == null)
-				cmd.Parameters.Add("@CommentPermission", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@CommentPermission", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@CommentPermission", SqlDbType.VarChar, 100).Value = CommentPermission;
+				cmd.Parameters.Add("@CommentPermission", SqlDbType.VarChar, -1).Value = CommentPermission;
 			
 			
 			if (RealName == null)
-				cmd.Parameters.Add("@RealName", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@RealName", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@RealName", SqlDbType.VarChar, 100).Value = RealName;
+				cmd.Parameters.Add("@RealName", SqlDbType.VarChar, -1).Value = RealName;
 			
 			
 			if (PrimaryClanID == null)
-				cmd.Parameters.Add("@PrimaryClanID", SqlDbType.Int, 4).Value = DBNull.Value;
+				cmd.Parameters.Add("@PrimaryClanID", SqlDbType.BigInt, 8).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@PrimaryClanID", SqlDbType.Int, 4).Value = PrimaryClanID;
+				cmd.Parameters.Add("@PrimaryClanID", SqlDbType.BigInt, 8).Value = PrimaryClanID;
 			
 			
 			if (TimeCreated == null)
@@ -459,15 +462,15 @@ namespace DotaDbGenLib.Data
 			
 			
 			if (GameServerID == null)
-				cmd.Parameters.Add("@GameServerID", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@GameServerID", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@GameServerID", SqlDbType.VarChar, 100).Value = GameServerID;
+				cmd.Parameters.Add("@GameServerID", SqlDbType.VarChar, -1).Value = GameServerID;
 			
 			
 			if (GameExtraInfo == null)
-				cmd.Parameters.Add("@GameExtraInfo", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@GameExtraInfo", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@GameExtraInfo", SqlDbType.VarChar, 100).Value = GameExtraInfo;
+				cmd.Parameters.Add("@GameExtraInfo", SqlDbType.VarChar, -1).Value = GameExtraInfo;
 			
 			
 			if (CityID == null)
@@ -477,21 +480,21 @@ namespace DotaDbGenLib.Data
 			
 			
 			if (LocCountyCode == null)
-				cmd.Parameters.Add("@LocCountyCode", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@LocCountyCode", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@LocCountyCode", SqlDbType.VarChar, 100).Value = LocCountyCode;
+				cmd.Parameters.Add("@LocCountyCode", SqlDbType.VarChar, -1).Value = LocCountyCode;
 			
 			
 			if (LocStateCode == null)
-				cmd.Parameters.Add("@LocStateCode", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@LocStateCode", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@LocStateCode", SqlDbType.VarChar, 100).Value = LocStateCode;
+				cmd.Parameters.Add("@LocStateCode", SqlDbType.VarChar, -1).Value = LocStateCode;
 			
 			
 			if (LocCityID == null)
-				cmd.Parameters.Add("@LocCityID", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@LocCityID", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@LocCityID", SqlDbType.VarChar, 100).Value = LocCityID;
+				cmd.Parameters.Add("@LocCityID", SqlDbType.VarChar, -1).Value = LocCityID;
 			
 			
 			if (SteamID64 == null)
@@ -499,6 +502,7 @@ namespace DotaDbGenLib.Data
 			else
 				cmd.Parameters.Add("@SteamID64", SqlDbType.BigInt, 8).Value = SteamID64;
 			
+			cmd.Parameters.Add("@LastUpdated", SqlDbType.DateTime, 8).Value = LastUpdated;
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             

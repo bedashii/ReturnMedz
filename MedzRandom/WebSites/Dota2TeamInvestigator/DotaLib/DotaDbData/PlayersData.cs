@@ -15,7 +15,8 @@ namespace DotaDbGenLib.Data
         {
             string q = "SELECT TOP 100 " + _selectColumnNames + " FROM dbo.Players P\n";
             q += "WHERE PersonaName IS NULL\n";
-            q += "ORDER BY SteamID DESC";
+            q += "OR LastUpdated < CONVERT(DATE, GETDATE())\n";
+            q += "ORDER BY SteamID";
 
             DataTable dt = dataHelper.ExecuteQuery(dataHelper.CreateCommand(q));
             PopulateList(playersList, dt);

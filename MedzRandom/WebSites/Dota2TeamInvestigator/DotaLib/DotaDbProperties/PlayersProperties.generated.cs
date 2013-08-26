@@ -208,8 +208,8 @@ namespace DotaDbGenLib.Properties
 
 		partial void OnPrimaryClanIDChanging();
 		partial void OnPrimaryClanIDChanged();
-		protected int? _primaryClanID;
-		public virtual int? PrimaryClanID
+		protected long? _primaryClanID;
+		public virtual long? PrimaryClanID
 		{
 			get { return _primaryClanID; }
 			set
@@ -353,6 +353,24 @@ namespace DotaDbGenLib.Properties
 				_steamID64 = value;
 				base.AnyPropertyChanged = true;
 				OnSteamID64Changed();
+			}
+		}
+
+		partial void OnLastUpdatedChanging();
+		partial void OnLastUpdatedChanged();
+		protected DateTime _lastUpdated = new DateTime(1900, 01, 01);
+		public virtual DateTime LastUpdated
+		{
+			get { return _lastUpdated; }
+			set
+			{
+				if (value == DateTime.MinValue)
+					_lastUpdated = new DateTime(1900, 01, 01);
+				else
+					OnLastUpdatedChanging();
+				_lastUpdated = value;
+				base.AnyPropertyChanged = true;
+				OnLastUpdatedChanged();
 			}
 		}
 

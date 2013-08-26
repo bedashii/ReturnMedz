@@ -254,19 +254,25 @@ namespace Dota2DataMiner
                         Players player = new Players();
                         if (playerNode["steamid"] != null)
                         {
-                            player.LoadItem(Convert.ToInt32(playerNode["steamid"].InnerText));
+                            player =
+                                players.Find(
+                                    x =>
+                                    x.SteamID ==
+                                    Convert.ToInt32(Convert.ToInt64(playerNode["steamid"].InnerText) - 76561197960265728));
                             if (!player.RecordExists)
                             {
                                 player = new Players();
+                                players.Add(player);
                             }
                         }
                         else
                         {
                             player = new Players();
+                            players.Add(player);
                         }
 
                         if (playerNode["steamid"] != null)
-                            player.SteamID = Convert.ToInt32(playerNode["steamid"].InnerText);
+                            player.SteamID64 = Convert.ToInt64(playerNode["steamid"].InnerText);
                         if (playerNode["communityvisibilitystate"] != null)
                             player.CommunityVisibilityState = Convert.ToInt32(playerNode["communityvisibilitystate"].InnerText);
                         if (playerNode["profilestate"] != null)
@@ -289,7 +295,7 @@ namespace Dota2DataMiner
                             player.RealName = playerNode["realname"].InnerText;
 
                         if (playerNode["primaryclanid"] != null)
-                            player.PrimaryClanID = Convert.ToInt32(playerNode["primaryclanid"].InnerText);
+                            player.PrimaryClanID = Convert.ToInt64(playerNode["primaryclanid"].InnerText);
                         if (playerNode["timecreated"] != null)
                             player.TimeCreated = UnixTimeStampToDateTime(Convert.ToDouble(playerNode["timecreated"].InnerText));
                         if (playerNode["loccountrycode"] != null)
@@ -301,14 +307,12 @@ namespace Dota2DataMiner
 
                         Console.WriteLine("Steam ID: " + player.SteamID + " Name: " + player.PersonaName + " Real Name: " + (player.RealName ?? ""));
 
-                        if (!player.RecordExists)
-                        {
-                            newPlayersAdded = true;
-                        }
+                        newPlayersAdded = true;
                     }
                 }
             }
 
+            players.ForEach(x => x.LastUpdated = DateTime.Now);
             players.UpdateAll();
 
             if (File.Exists("PlayerSummaryInfo" + players[0].SteamID + "(" +
@@ -338,7 +342,7 @@ namespace Dota2DataMiner
             {
                 if (i != 0)
                     request += ",";
-                request += players[i].SteamID;
+                request += (players[i].SteamID + 76561197960265728).ToString();
             }
 
             response = MakeRequest(request);
