@@ -21,7 +21,7 @@ namespace DotaDbGenLib.Data
     {
         private DataProcessHelper dataHelper = new DataProcessHelper();
 
-        private string _selectColumnNames = "S.[ID], S.[RequestNumber], S.[Date]";
+        private string _selectColumnNames = "S.[ID], S.[RequestNumber], S.[Date], S.[LastUpdated]";
 
         public SteamRequestsData()
         {
@@ -85,6 +85,8 @@ namespace DotaDbGenLib.Data
 				else
 					row.Date = Convert.ToDateTime(dr["Date"]);
 
+				row.LastUpdated = Convert.ToDateTime(dr["LastUpdated"]);
+
                 row.RecordExists = true;
                 row.AnyPropertyChanged = false;
             }
@@ -110,7 +112,7 @@ namespace DotaDbGenLib.Data
         private UpdateProperties UpdateData()
         {
 
-            string q = "UPDATE dbo.SteamRequests SET [RequestNumber] = @RequestNumber, [Date] = @Date\n";
+            string q = "UPDATE dbo.SteamRequests SET [RequestNumber] = @RequestNumber, [Date] = @Date, [LastUpdated] = @LastUpdated\n";
             q += "WHERE ID = @ID\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
 
@@ -124,6 +126,7 @@ namespace DotaDbGenLib.Data
 			else
 				cmd.Parameters.Add("@Date", SqlDbType.DateTime, 8).Value = Date;
 			
+			cmd.Parameters.Add("@LastUpdated", SqlDbType.DateTime, 8).Value = LastUpdated;
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             base.AnyPropertyChanged = false; //After update Change is false since it's changes have been applied to the database
@@ -132,8 +135,8 @@ namespace DotaDbGenLib.Data
 
         private UpdateProperties InsertData()
         {
-            string q = "INSERT INTO dbo.SteamRequests ( [RequestNumber], [Date] )\n";
-            q += "VALUES  ( @RequestNumber, @Date )\n";
+            string q = "INSERT INTO dbo.SteamRequests ( [RequestNumber], [Date], [LastUpdated] )\n";
+            q += "VALUES  ( @RequestNumber, @Date, @LastUpdated )\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
             SqlCommand cmd = dataHelper.CreateCommand(q);
             
@@ -144,6 +147,7 @@ namespace DotaDbGenLib.Data
 			else
 				cmd.Parameters.Add("@Date", SqlDbType.DateTime, 8).Value = Date;
 			
+			cmd.Parameters.Add("@LastUpdated", SqlDbType.DateTime, 8).Value = LastUpdated;
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             ID = up.Identity;

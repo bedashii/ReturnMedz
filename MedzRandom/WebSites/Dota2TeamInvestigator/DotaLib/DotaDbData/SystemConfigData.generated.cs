@@ -21,20 +21,20 @@ namespace DotaDbGenLib.Data
     {
         private DataProcessHelper dataHelper = new DataProcessHelper();
 
-        private string _selectColumnNames = "S.[SCKey], S.[SCValue]";
+        private string _selectColumnNames = "S.[ID], S.[SCKey], S.[SCValue]";
 
         public SystemConfigData()
         {
         }
         
-        internal void LoadItemData(int sCKey)
+        internal void LoadItemData(int iD)
         {
             string q = "SELECT " + _selectColumnNames + " FROM dbo.SystemConfig S\n";
-            q += "WHERE S.SCKey = @SCKey\n";
+            q += "WHERE S.ID = @ID\n";
 
             SqlCommand cmd = dataHelper.CreateCommand(q);
 
-            cmd.Parameters.Add("@SCKey", SqlDbType.Int, 4).Value = sCKey;
+            cmd.Parameters.Add("@ID", SqlDbType.Int, 4).Value = iD;
             DataTable dt = dataHelper.ExecuteQuery(cmd);
             if (dt.Rows.Count == 0)
                 base.RecordExists = false;
@@ -56,14 +56,14 @@ namespace DotaDbGenLib.Data
             PopulateList(list, this.GetData(orderBy));
         }
         
-        internal void DeleteItem(int sCKey)
+        internal void DeleteItem(int iD)
         {
             string q = "DELETE FROM dbo.SystemConfig \n";
-            q += "WHERE SCKey = @SCKey\n";
+            q += "WHERE ID = @ID\n";
 
             SqlCommand cmd = dataHelper.CreateCommand(q);
             
-            cmd.Parameters.Add("@SCKey", SqlDbType.Int, 4).Value = sCKey;
+            cmd.Parameters.Add("@ID", SqlDbType.Int, 4).Value = iD;
             
             dataHelper.ExecuteNonQuery(cmd);
         }        
@@ -77,7 +77,8 @@ namespace DotaDbGenLib.Data
         {
             try
             {
-				row.SCKey = Convert.ToInt32(dr["SCKey"]);
+				row.ID = Convert.ToInt32(dr["ID"]);
+				row.SCKey = Convert.ToString(dr["SCKey"]);
 				row.SCValue = Convert.ToString(dr["SCValue"]);
 
                 row.RecordExists = true;
@@ -105,13 +106,14 @@ namespace DotaDbGenLib.Data
         private UpdateProperties UpdateData()
         {
 
-            string q = "UPDATE dbo.SystemConfig SET [SCValue] = @SCValue\n";
-            q += "WHERE SCKey = @SCKey\n";
+            string q = "UPDATE dbo.SystemConfig SET [SCKey] = @SCKey, [SCValue] = @SCValue\n";
+            q += "WHERE ID = @ID\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
 
             SqlCommand cmd = dataHelper.CreateCommand(q);
 
-            cmd.Parameters.Add("@SCKey", SqlDbType.Int, 4).Value = SCKey;
+            cmd.Parameters.Add("@ID", SqlDbType.Int, 4).Value = ID;
+			cmd.Parameters.Add("@SCKey", SqlDbType.VarChar, -1).Value = SCKey;
 			cmd.Parameters.Add("@SCValue", SqlDbType.VarChar, 100).Value = SCValue;
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
@@ -121,15 +123,16 @@ namespace DotaDbGenLib.Data
 
         private UpdateProperties InsertData()
         {
-            string q = "INSERT INTO dbo.SystemConfig ( [SCValue] )\n";
-            q += "VALUES  ( @SCValue )\n";
+            string q = "INSERT INTO dbo.SystemConfig ( [SCKey], [SCValue] )\n";
+            q += "VALUES  ( @SCKey, @SCValue )\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
             SqlCommand cmd = dataHelper.CreateCommand(q);
             
-            cmd.Parameters.Add("@SCValue", SqlDbType.VarChar, 100).Value = SCValue;
+            cmd.Parameters.Add("@SCKey", SqlDbType.VarChar, -1).Value = SCKey;
+			cmd.Parameters.Add("@SCValue", SqlDbType.VarChar, 100).Value = SCValue;
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
-            SCKey = up.Identity;
+            ID = up.Identity;
 
 
             base.RecordExists = true; //After instert Exist must be true
@@ -178,7 +181,7 @@ namespace DotaDbGenLib.Data
         public string GetPrimaryKeyValues()
         {
             string pkValues = "PK:[";
-            pkValues += "SCKey=" + SCKey.ToString();
+            pkValues += "ID=" + ID.ToString();
             return pkValues + "]";
         }}
 }

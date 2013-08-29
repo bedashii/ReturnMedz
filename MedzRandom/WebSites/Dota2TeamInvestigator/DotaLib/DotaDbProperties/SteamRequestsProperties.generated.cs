@@ -56,5 +56,23 @@ namespace DotaDbGenLib.Properties
 			}
 		}
 
+		partial void OnLastUpdatedChanging();
+		partial void OnLastUpdatedChanged();
+		protected DateTime _lastUpdated = new DateTime(1900, 01, 01);
+		public virtual DateTime LastUpdated
+		{
+			get { return _lastUpdated; }
+			set
+			{
+				if (value == DateTime.MinValue)
+					_lastUpdated = new DateTime(1900, 01, 01);
+				else
+					OnLastUpdatedChanging();
+				_lastUpdated = value;
+				base.AnyPropertyChanged = true;
+				OnLastUpdatedChanged();
+			}
+		}
+
     }
 }

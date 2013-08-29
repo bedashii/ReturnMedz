@@ -34,12 +34,13 @@ namespace DotaDbGenLib.Business
             FinishAfterConstruction();
         }
        
-        public SteamRequests(int requestNumber, DateTime? date)
+        public SteamRequests(int requestNumber, DateTime? date, DateTime lastUpdated)
         {
             PrepareBeforeConstruction();
             
 			this.RequestNumber = requestNumber;
 			this.Date = date;
+			this.LastUpdated = lastUpdated;
 			
             FinishAfterConstruction();
         }
@@ -62,6 +63,7 @@ namespace DotaDbGenLib.Business
             this.ID = properties.ID;
 			this.RequestNumber = properties.RequestNumber;
 			this.Date = properties.Date;
+			this.LastUpdated = properties.LastUpdated;
 			this.RecordExists = properties.RecordExists;
 
         }

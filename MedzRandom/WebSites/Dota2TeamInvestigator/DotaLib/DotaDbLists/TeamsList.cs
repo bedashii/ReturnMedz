@@ -17,5 +17,10 @@ namespace DotaDbGenLib.Lists
         {
             return _data.GetMaxTeamID();
         }
+
+        public int? GetMinTeamIDForUpdate()
+        {
+            return _data.GetMinTeamIDForUpdate();
+        }
     }
 }

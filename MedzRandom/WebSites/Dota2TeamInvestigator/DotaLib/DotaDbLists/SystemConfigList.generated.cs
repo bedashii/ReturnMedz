@@ -55,9 +55,9 @@ namespace DotaDbGenLib.Lists
         /// Use this method to lookup a record and keep it in a cached internal list;
         /// </summary>
         /// <returns></returns>
-        public SystemConfig GetByPrimaryKey(int sCKey)
+        public SystemConfig GetByPrimaryKey(int iD)
         {
-            string pkKey = "PK:[SCKey=" + sCKey.ToString() + "]";
+            string pkKey = "PK:[ID=" + iD.ToString() + "]";
             lock (_lookupList)
             {
                 if (_lookupList.ContainsKey(pkKey))
@@ -68,7 +68,7 @@ namespace DotaDbGenLib.Lists
                         lookupItem.Refresh();
                         //_lookupList.Remove(pkKey);
                         //this.Remove(lookupItem);
-                        //return this.GetByPrimaryKey(sCKey);
+                        //return this.GetByPrimaryKey(iD);
                         return lookupItem;
                     }
                     else
@@ -78,7 +78,7 @@ namespace DotaDbGenLib.Lists
                 }
                 else
                 {
-                    SystemConfig lookupItem = new SystemConfig(sCKey);
+                    SystemConfig lookupItem = new SystemConfig(iD);
                     _lookupList.Add(pkKey, lookupItem);
                     this.Add(lookupItem);
                     return lookupItem;

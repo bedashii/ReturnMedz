@@ -21,7 +21,7 @@ namespace DotaDbGenLib.Data
     {
         private DataProcessHelper dataHelper = new DataProcessHelper();
 
-        private string _selectColumnNames = "T.[ID], T.[TeamName], T.[Tag], T.[TimeCreated], T.[Rating], T.[Logo], T.[LogoSponsor], T.[CountryCode], T.[URL], T.[GamesPlayed], T.[AdminAccount]";
+        private string _selectColumnNames = "T.[ID], T.[TeamName], T.[Tag], T.[TimeCreated], T.[Rating], T.[Logo], T.[LogoSponsor], T.[CountryCode], T.[URL], T.[GamesPlayed], T.[AdminAccount], T.[LastUpdated]";
 
         public TeamsData()
         {
@@ -125,6 +125,8 @@ namespace DotaDbGenLib.Data
 				else
 					row.AdminAccount = Convert.ToInt32(dr["AdminAccount"]);
 
+				row.LastUpdated = Convert.ToDateTime(dr["LastUpdated"]);
+
                 row.RecordExists = true;
                 row.AnyPropertyChanged = false;
             }
@@ -150,55 +152,55 @@ namespace DotaDbGenLib.Data
         private UpdateProperties UpdateData()
         {
 
-            string q = "UPDATE dbo.Teams SET [TeamName] = @TeamName, [Tag] = @Tag, [TimeCreated] = @TimeCreated, [Rating] = @Rating, [Logo] = @Logo, [LogoSponsor] = @LogoSponsor, [CountryCode] = @CountryCode, [URL] = @URL, [GamesPlayed] = @GamesPlayed, [AdminAccount] = @AdminAccount\n";
+            string q = "UPDATE dbo.Teams SET [TeamName] = @TeamName, [Tag] = @Tag, [TimeCreated] = @TimeCreated, [Rating] = @Rating, [Logo] = @Logo, [LogoSponsor] = @LogoSponsor, [CountryCode] = @CountryCode, [URL] = @URL, [GamesPlayed] = @GamesPlayed, [AdminAccount] = @AdminAccount, [LastUpdated] = @LastUpdated\n";
             q += "WHERE ID = @ID\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
 
             SqlCommand cmd = dataHelper.CreateCommand(q);
 
             cmd.Parameters.Add("@ID", SqlDbType.Int, 4).Value = ID;
-			cmd.Parameters.Add("@TeamName", SqlDbType.VarChar, 100).Value = TeamName;
+			cmd.Parameters.Add("@TeamName", SqlDbType.VarChar, -1).Value = TeamName;
 			
 			if (Tag == null)
-				cmd.Parameters.Add("@Tag", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@Tag", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@Tag", SqlDbType.VarChar, 100).Value = Tag;
+				cmd.Parameters.Add("@Tag", SqlDbType.VarChar, -1).Value = Tag;
 			
 			
 			if (TimeCreated == null)
-				cmd.Parameters.Add("@TimeCreated", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@TimeCreated", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@TimeCreated", SqlDbType.VarChar, 100).Value = TimeCreated;
+				cmd.Parameters.Add("@TimeCreated", SqlDbType.VarChar, -1).Value = TimeCreated;
 			
 			
 			if (Rating == null)
-				cmd.Parameters.Add("@Rating", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@Rating", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@Rating", SqlDbType.VarChar, 100).Value = Rating;
+				cmd.Parameters.Add("@Rating", SqlDbType.VarChar, -1).Value = Rating;
 			
 			
 			if (Logo == null)
-				cmd.Parameters.Add("@Logo", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@Logo", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@Logo", SqlDbType.VarChar, 100).Value = Logo;
+				cmd.Parameters.Add("@Logo", SqlDbType.VarChar, -1).Value = Logo;
 			
 			
 			if (LogoSponsor == null)
-				cmd.Parameters.Add("@LogoSponsor", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@LogoSponsor", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@LogoSponsor", SqlDbType.VarChar, 100).Value = LogoSponsor;
+				cmd.Parameters.Add("@LogoSponsor", SqlDbType.VarChar, -1).Value = LogoSponsor;
 			
 			
 			if (CountryCode == null)
-				cmd.Parameters.Add("@CountryCode", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@CountryCode", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@CountryCode", SqlDbType.VarChar, 100).Value = CountryCode;
+				cmd.Parameters.Add("@CountryCode", SqlDbType.VarChar, -1).Value = CountryCode;
 			
 			
 			if (URL == null)
-				cmd.Parameters.Add("@URL", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@URL", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@URL", SqlDbType.VarChar, 100).Value = URL;
+				cmd.Parameters.Add("@URL", SqlDbType.VarChar, -1).Value = URL;
 			
 			
 			if (GamesPlayed == null)
@@ -212,6 +214,7 @@ namespace DotaDbGenLib.Data
 			else
 				cmd.Parameters.Add("@AdminAccount", SqlDbType.Int, 4).Value = AdminAccount;
 			
+			cmd.Parameters.Add("@LastUpdated", SqlDbType.DateTime, 8).Value = LastUpdated;
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             base.AnyPropertyChanged = false; //After update Change is false since it's changes have been applied to the database
@@ -220,54 +223,54 @@ namespace DotaDbGenLib.Data
 
         private UpdateProperties InsertData()
         {
-            string q = "INSERT INTO dbo.Teams ( [ID], [TeamName], [Tag], [TimeCreated], [Rating], [Logo], [LogoSponsor], [CountryCode], [URL], [GamesPlayed], [AdminAccount] )\n";
-            q += "VALUES  ( @ID, @TeamName, @Tag, @TimeCreated, @Rating, @Logo, @LogoSponsor, @CountryCode, @URL, @GamesPlayed, @AdminAccount )\n";
+            string q = "INSERT INTO dbo.Teams ( [ID], [TeamName], [Tag], [TimeCreated], [Rating], [Logo], [LogoSponsor], [CountryCode], [URL], [GamesPlayed], [AdminAccount], [LastUpdated] )\n";
+            q += "VALUES  ( @ID, @TeamName, @Tag, @TimeCreated, @Rating, @Logo, @LogoSponsor, @CountryCode, @URL, @GamesPlayed, @AdminAccount, @LastUpdated )\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
             SqlCommand cmd = dataHelper.CreateCommand(q);
             
             cmd.Parameters.Add("@ID", SqlDbType.Int, 4).Value = ID;
-			cmd.Parameters.Add("@TeamName", SqlDbType.VarChar, 100).Value = TeamName;
+			cmd.Parameters.Add("@TeamName", SqlDbType.VarChar, -1).Value = TeamName;
 			
 			if (Tag == null)
-				cmd.Parameters.Add("@Tag", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@Tag", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@Tag", SqlDbType.VarChar, 100).Value = Tag;
+				cmd.Parameters.Add("@Tag", SqlDbType.VarChar, -1).Value = Tag;
 			
 			
 			if (TimeCreated == null)
-				cmd.Parameters.Add("@TimeCreated", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@TimeCreated", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@TimeCreated", SqlDbType.VarChar, 100).Value = TimeCreated;
+				cmd.Parameters.Add("@TimeCreated", SqlDbType.VarChar, -1).Value = TimeCreated;
 			
 			
 			if (Rating == null)
-				cmd.Parameters.Add("@Rating", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@Rating", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@Rating", SqlDbType.VarChar, 100).Value = Rating;
+				cmd.Parameters.Add("@Rating", SqlDbType.VarChar, -1).Value = Rating;
 			
 			
 			if (Logo == null)
-				cmd.Parameters.Add("@Logo", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@Logo", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@Logo", SqlDbType.VarChar, 100).Value = Logo;
+				cmd.Parameters.Add("@Logo", SqlDbType.VarChar, -1).Value = Logo;
 			
 			
 			if (LogoSponsor == null)
-				cmd.Parameters.Add("@LogoSponsor", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@LogoSponsor", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@LogoSponsor", SqlDbType.VarChar, 100).Value = LogoSponsor;
+				cmd.Parameters.Add("@LogoSponsor", SqlDbType.VarChar, -1).Value = LogoSponsor;
 			
 			
 			if (CountryCode == null)
-				cmd.Parameters.Add("@CountryCode", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@CountryCode", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@CountryCode", SqlDbType.VarChar, 100).Value = CountryCode;
+				cmd.Parameters.Add("@CountryCode", SqlDbType.VarChar, -1).Value = CountryCode;
 			
 			
 			if (URL == null)
-				cmd.Parameters.Add("@URL", SqlDbType.VarChar, 100).Value = DBNull.Value;
+				cmd.Parameters.Add("@URL", SqlDbType.VarChar, -1).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@URL", SqlDbType.VarChar, 100).Value = URL;
+				cmd.Parameters.Add("@URL", SqlDbType.VarChar, -1).Value = URL;
 			
 			
 			if (GamesPlayed == null)
@@ -281,6 +284,7 @@ namespace DotaDbGenLib.Data
 			else
 				cmd.Parameters.Add("@AdminAccount", SqlDbType.Int, 4).Value = AdminAccount;
 			
+			cmd.Parameters.Add("@LastUpdated", SqlDbType.DateTime, 8).Value = LastUpdated;
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             

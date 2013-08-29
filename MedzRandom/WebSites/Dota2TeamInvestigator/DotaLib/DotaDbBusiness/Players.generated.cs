@@ -34,12 +34,12 @@ namespace DotaDbGenLib.Business
             FinishAfterConstruction();
         }
        
-        public Players(int steamID, int? teamID, string personaName, string profileURL, string avatar, string avatarMedium, string avatarFull, int? personaState, int? communityVisibilityState, int? profileState, DateTime? lastLogOff, string commentPermission, string realName, long? primaryClanID, DateTime? timeCreated, int? gameID, string gameServerID, string gameExtraInfo, int? cityID, string locCountyCode, string locStateCode, string locCityID, long? steamID64, DateTime lastUpdated)
+        public Players(int steamID, long? steamID64, string personaName, string profileURL, string avatar, string avatarMedium, string avatarFull, int? personaState, int? communityVisibilityState, int? profileState, DateTime? lastLogOff, string commentPermission, string realName, long? primaryClanID, DateTime? timeCreated, int? gameID, string gameServerID, string gameExtraInfo, int? cityID, string locCountyCode, string locStateCode, string locCityID, DateTime lastUpdated, bool oldestMatchFound)
         {
             PrepareBeforeConstruction();
             
 			this.SteamID = steamID;
-			this.TeamID = teamID;
+			this.SteamID64 = steamID64;
 			this.PersonaName = personaName;
 			this.ProfileURL = profileURL;
 			this.Avatar = avatar;
@@ -60,8 +60,8 @@ namespace DotaDbGenLib.Business
 			this.LocCountyCode = locCountyCode;
 			this.LocStateCode = locStateCode;
 			this.LocCityID = locCityID;
-			this.SteamID64 = steamID64;
 			this.LastUpdated = lastUpdated;
+			this.OldestMatchFound = oldestMatchFound;
 			
             FinishAfterConstruction();
         }
@@ -82,7 +82,7 @@ namespace DotaDbGenLib.Business
         private void SetProperties(Properties.PlayersProperties properties)
         {
             this.SteamID = properties.SteamID;
-			this.TeamID = properties.TeamID;
+			this.SteamID64 = properties.SteamID64;
 			this.PersonaName = properties.PersonaName;
 			this.ProfileURL = properties.ProfileURL;
 			this.Avatar = properties.Avatar;
@@ -103,8 +103,8 @@ namespace DotaDbGenLib.Business
 			this.LocCountyCode = properties.LocCountyCode;
 			this.LocStateCode = properties.LocStateCode;
 			this.LocCityID = properties.LocCityID;
-			this.SteamID64 = properties.SteamID64;
 			this.LastUpdated = properties.LastUpdated;
+			this.OldestMatchFound = properties.OldestMatchFound;
 			this.RecordExists = properties.RecordExists;
 
         }

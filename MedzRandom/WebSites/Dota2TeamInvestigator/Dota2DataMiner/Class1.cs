@@ -53,15 +53,45 @@ namespace Dota2DataMiner
 
             request += "&teams_requested=" + count;
 
-            response = MakeRequest(request);
-            response.Save("GetTeamInfo" + (teamID != null ? teamID.ToString() : "") + "(" + DateTime.Now.ToString("ddMMyyyy") + ").xml");
+            response = MakeRequest("GetNewTeams", request);
+            if (response != null)
+            {
+                response.Save("GetTeamInfo" + (teamID != null ? teamID.ToString() : "") + "(" +
+                              DateTime.Now.ToString("ddMMyyyy") + ").xml");
 
-            return GetTeams(response, teamID);
+                return GetTeams(response, teamID);
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        public void UpdateTeam(int teamID)
+        public bool UpdateTeam(int? teamID, int count)
         {
+            XmlDocument response = new XmlDocument();
 
+            string request = @"https://api.steampowered.com/IDOTA2Match_570/GetTeamInfoByTeamID/v001/?key=" + steamAPIKey;
+
+            request += "&format=xml";
+
+            if (teamID != null)
+                request += @"&start_at_team_id=" + teamID;
+
+            request += "&teams_requested=" + count;
+
+            response = MakeRequest("UpdateTeams", request);
+            if (response != null)
+            {
+                response.Save("GetTeamInfo" + (teamID != null ? teamID.ToString() : "") + "(" +
+                              DateTime.Now.ToString("ddMMyyyy") + ").xml");
+
+                return GetTeams(response, teamID);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void GetPlayerSummary(List<long> SteamIDs)
@@ -88,29 +118,58 @@ namespace Dota2DataMiner
 
         public string steamAPIKey { get; set; }
 
-        public static XmlDocument MakeRequest(string requestUrl)
+        public static XmlDocument MakeRequest(string requestType, string requestUrl)
         {
             try
             {
+                // Track every request made.
+                RequestTracking requestTracking = new RequestTracking();
+                requestTracking.Request = requestUrl;
+                requestTracking.Date = DateTime.Now;
+                requestTracking.InsertOrUpdate();
+
                 HttpWebRequest request = WebRequest.Create(requestUrl) as HttpWebRequest;
                 HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+
+                SystemConfig systemConfig = new SystemConfig();
+                systemConfig.GetByKey(requestType);
+
+                if (!systemConfig.RecordExists)
+                    systemConfig.SCKey = requestType;
+                systemConfig.SCValue = DateTime.Now.ToString();
+                systemConfig.InsertOrUpdate();
 
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load(response.GetResponseStream());
                 return (xmlDoc);
-
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
 
-                Console.Read();
+                PlayerSummariesLimiter = 1;
+
                 return null;
             }
         }
 
         private bool GetTeams(XmlDocument response, int? teamID)
         {
+            TeamsList teamsList = new TeamsList();
+
+            if (teamID != null)
+            {
+                Teams tempTeams = new Teams((int)teamID);
+                if (!tempTeams.RecordExists)
+                {
+                    teamsList.Add(new Teams() { ID = Convert.ToInt32(teamID), TeamName = "UNKNOWN" });
+                }
+                else
+                {
+                    teamsList.Add(tempTeams);
+                }
+            }
+
             bool newTeamsAdded = false;
             PlayersList players = new PlayersList();
 
@@ -136,6 +195,16 @@ namespace Dota2DataMiner
 
                         if (teamNode["team_id"] != null)
                             team.ID = Convert.ToInt32(teamNode["team_id"].InnerText);
+
+                        if (team.ID == teamID)
+                        {
+                            Teams tempTeams = teamsList.Find(x => x.ID == teamID);
+                            if (tempTeams != null)
+                            {
+                                teamsList.Remove(tempTeams);
+                            }
+                        }
+
                         if (teamNode["name"] != null)
                             team.TeamName = teamNode["name"].InnerText;
                         if (teamNode["tag"] != null)
@@ -157,6 +226,8 @@ namespace Dota2DataMiner
                         if (teamNode["admin_account_id"] != null)
                             team.AdminAccount = Convert.ToInt32(teamNode["admin_account_id"].InnerText);
 
+                        team.LastUpdated = DateTime.Now;
+
                         Console.WriteLine("Team ID: " + team.ID + " Name: " + team.TeamName);
 
                         if (!team.RecordExists)
@@ -166,26 +237,38 @@ namespace Dota2DataMiner
 
                         team.InsertOrUpdate();
 
+                        TeamPlayersList teamPlayers = new TeamPlayersList();
+                        teamPlayers.GetByTeam(team.ID);
+
                         //Players
-                        addPlayer(players, team.ID, teamNode, "player_0_account_id");
-                        addPlayer(players, team.ID, teamNode, "player_1_account_id");
-                        addPlayer(players, team.ID, teamNode, "player_2_account_id");
-                        addPlayer(players, team.ID, teamNode, "player_3_account_id");
-                        addPlayer(players, team.ID, teamNode, "player_4_account_id");
+                        addPlayer(players, teamPlayers, team.ID, teamNode, "player_0_account_id");
+                        addPlayer(players, teamPlayers, team.ID, teamNode, "player_1_account_id");
+                        addPlayer(players, teamPlayers, team.ID, teamNode, "player_2_account_id");
+                        addPlayer(players, teamPlayers, team.ID, teamNode, "player_3_account_id");
+                        addPlayer(players, teamPlayers, team.ID, teamNode, "player_4_account_id");
 
                         // Reserves
-                        addPlayer(players, team.ID, teamNode, "player_5_account_id");
-                        addPlayer(players, team.ID, teamNode, "player_6_account_id");
-                        addPlayer(players, team.ID, teamNode, "player_7_account_id");
+                        addPlayer(players, teamPlayers, team.ID, teamNode, "player_5_account_id");
+                        addPlayer(players, teamPlayers, team.ID, teamNode, "player_6_account_id");
+                        addPlayer(players, teamPlayers, team.ID, teamNode, "player_7_account_id");
 
                         players.UpdateAll();
                         //leagues;
 
                         team = null;
                         players.Clear();
+
+                        teamPlayers.ForEach(x => x.Delete());
                     }
                 }
             }
+
+            if (teamsList.Count > 0)
+            {
+                teamsList.ForEach(x => x.LastUpdated = DateTime.Now);
+                teamsList.UpdateAll();
+            }
+
             if (File.Exists("GetTeamInfo" + (teamID != null ? teamID.ToString() : "") + "(" +
                                                 DateTime.Now.ToString("ddMMyyyy") + ").xml"))
             {
@@ -196,7 +279,7 @@ namespace Dota2DataMiner
             return newTeamsAdded;
         }
 
-        private void addPlayer(PlayersList players, int teamID, XmlNode teamNode, string playerAccountId)
+        private void addPlayer(PlayersList players, TeamPlayersList teamPlayersList, int teamID, XmlNode teamNode, string playerAccountId)
         {
             Players player = new Players();
             if (teamNode[playerAccountId] != null)
@@ -208,12 +291,23 @@ namespace Dota2DataMiner
                     player.LoadItem(steamID);
 
                     player.SteamID = steamID;
-                    player.TeamID = teamID;
+                    //player.TeamID = teamID;
 
                     players.Add(player);
 
+                    TeamPlayers teamPlayers = new TeamPlayers();
+                    teamPlayers.GetByTeamPlayer(teamID, steamID);
+
+                    teamPlayers.Team = teamID;
+                    teamPlayers.Player = steamID;
+                    teamPlayers.InsertOrUpdate();
+
                     Console.WriteLine("Player ID:" + player.SteamID);
                 }
+
+                TeamPlayers teamPlayer = teamPlayersList.Find(x => x.Player == steamID);
+                if (teamPlayer != null)
+                    teamPlayersList.Remove(teamPlayer);
             }
         }
 
@@ -345,10 +439,159 @@ namespace Dota2DataMiner
                 request += (players[i].SteamID + 76561197960265728).ToString();
             }
 
-            response = MakeRequest(request);
-            response.Save("PlayerSummaryInfo" + players[0].SteamID + "(" + DateTime.Now.ToString("ddMMyyyy") + ").xml");
+            response = MakeRequest("GetPlayerSummaries", request);
 
-            return GetPlayers(response, players);
+            if (response == null)
+            {
+                if (players.Count == 1 && PlayerSummariesLimiter == 1)
+                {
+                    players[0].PersonaName = "BROKEN";
+                    players[0].LastUpdated = new DateTime(2020, 1, 1);
+
+                    PlayerSummariesLimiter = 100;
+                    players[0].InsertOrUpdate();
+                }
+                return true;
+            }
+            else
+            {
+                response.Save("PlayerSummaryInfo" + players[0].SteamID + "(" + DateTime.Now.ToString("ddMMyyyy") + ").xml");
+
+                return GetPlayers(response, players);
+            }
+        }
+
+        public static int PlayerSummariesLimiter { get; set; }
+
+        public bool GetMatchPerPlayer(long steamId64, int matchID)
+        {
+            XmlDocument response = new XmlDocument();
+            //https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=4C539F404B4DE827341AE78E9E5B35C9&format=xml&account_id=76561198082150352&start_at_match_id=0
+            string request = @"https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=" + steamAPIKey;
+
+            request += "&format=xml";
+
+            request += @"&account_id=" + steamId64;
+
+            if (matchID != 0)
+                request += "&start_at_match_id=" + matchID;
+
+            response = MakeRequest("GetMatchPerPlayer", request);
+            if (response != null)
+            {
+                response.Save("GetMatchPerPlayer" + steamId64.ToString() + (matchID != 0 ? matchID.ToString() : "") + "(" +
+                              DateTime.Now.ToString("ddMMyyyy") + ").xml");
+
+                return GetMatchs(response, steamId64, matchID);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool GetMatchs(XmlDocument response, long steamId64, int recordMatchID)
+        {
+            bool lastMatch = false;
+            bool newPlayersAdded = false;
+
+            foreach (XmlNode subRootNode in response.DocumentElement.ChildNodes)
+            {
+                if (subRootNode.Name == "results_remaining" && subRootNode.InnerText == "0")
+                    lastMatch = true;
+
+                if (subRootNode.Name == "matches")
+                {
+                    foreach (XmlNode matchNode in subRootNode)
+                    {
+                        Matches matches = new Matches();
+                        if (matchNode["match_id"] != null)
+                        {
+                            int matchID = Convert.ToInt32(matchNode["match_id"].InnerText);
+                            matches.LoadItem(matchID);
+                            if (!matches.RecordExists)
+                            {
+                                matches = new Matches();
+                            }
+                        }
+                        else
+                        {
+                            matches = new Matches();
+                        }
+
+                        if (matchNode["match_id"] != null)
+                            matches.ID = Convert.ToInt32(matchNode["match_id"].InnerText);
+
+                        if (matchNode["match_seq_num"] != null)
+                            matches.SequenceNumber = Convert.ToInt32(matchNode["match_seq_num"].InnerText);
+
+                        if (matchNode["start_time"] != null)
+                            matches.StartTime = UnixTimeStampToDateTime(Convert.ToDouble(matchNode["start_time"].InnerText));
+
+                        if (matchNode["lobby_type"] != null)
+                            matches.LobbyType = Convert.ToInt32(matchNode["lobby_type"].InnerText);
+
+                        matches.InsertOrUpdate();
+
+                        if (matchNode["players"] != null)
+                        {
+                            MatchPlayerList matchPlayerList = new MatchPlayerList();
+                            foreach (XmlNode playerNode in matchNode["players"])
+                            {
+                                MatchPlayer matchPlayer = new MatchPlayer();
+                                matchPlayer.GetByMatchPlayer64(matches.ID, Convert.ToInt64(playerNode["account_id"]));
+
+                                if (!matchPlayer.RecordExists)
+                                {
+                                    matchPlayer.Match = matches.ID;
+                                    matchPlayer.Player64 = Convert.ToInt64(playerNode["account_id"]);
+                                    matchPlayer.Slot = Convert.ToInt32(playerNode["player_slot"]);
+                                    matchPlayer.Hero = Convert.ToInt32(playerNode["hero_id"]);
+                                    matchPlayerList.Add(matchPlayer);
+
+                                    Players player = new Players();
+                                    player.GetBySteamID64((long)matchPlayer.Player64);
+
+                                    if (!player.RecordExists)
+                                    {
+                                        // Shit shit the player doesn't exist and I've already used this seconds request!
+                                        // Make a plan!
+                                    }
+                                }
+                            }
+                        }
+
+                        Console.WriteLine("");
+
+                        newPlayersAdded = true;
+                    }
+                }
+            }
+
+            if (File.Exists("GetMatchPerPlayer" + steamId64.ToString() + (recordMatchID != 0 ? recordMatchID.ToString() : "") + "(" +
+                              DateTime.Now.ToString("ddMMyyyy") + ").xml"))
+            {
+                File.Delete("GetMatchPerPlayer" + steamId64.ToString() + (recordMatchID != 0 ? recordMatchID.ToString() : "") + "(" +
+                              DateTime.Now.ToString("ddMMyyyy") + ").xml");
+            }
+
+            return newPlayersAdded;
+        }
+
+        public void GetMatchPerPlayerLocalData(long steamId64, int recordMatchID)
+        {
+            if (steamId64 != -1)
+            {
+                if (File.Exists("GetMatchPerPlayer" + steamId64.ToString() + (recordMatchID != 0 ? recordMatchID.ToString() : "") + "(" +
+                              DateTime.Now.ToString("ddMMyyyy") + ").xml"))
+                {
+                    XmlDocument response = new XmlDocument();
+                    response.Load("GetMatchPerPlayer" + steamId64.ToString() + (recordMatchID != 0 ? recordMatchID.ToString() : "") + "(" +
+                              DateTime.Now.ToString("ddMMyyyy") + ").xml");
+                    if (response != null)
+                        GetMatchs(response, steamId64, recordMatchID);
+                }
+            }
         }
     }
 }

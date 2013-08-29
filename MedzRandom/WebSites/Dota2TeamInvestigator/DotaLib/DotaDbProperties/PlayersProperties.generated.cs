@@ -26,18 +26,18 @@ namespace DotaDbGenLib.Properties
 			}
 		}
 
-		partial void OnTeamIDChanging();
-		partial void OnTeamIDChanged();
-		protected int? _teamID;
-		public virtual int? TeamID
+		partial void OnSteamID64Changing();
+		partial void OnSteamID64Changed();
+		protected long? _steamID64;
+		public virtual long? SteamID64
 		{
-			get { return _teamID; }
+			get { return _steamID64; }
 			set
 			{
-				OnTeamIDChanging();
-				_teamID = value;
+				OnSteamID64Changing();
+				_steamID64 = value;
 				base.AnyPropertyChanged = true;
-				OnTeamIDChanged();
+				OnSteamID64Changed();
 			}
 		}
 
@@ -341,21 +341,6 @@ namespace DotaDbGenLib.Properties
 			}
 		}
 
-		partial void OnSteamID64Changing();
-		partial void OnSteamID64Changed();
-		protected long? _steamID64;
-		public virtual long? SteamID64
-		{
-			get { return _steamID64; }
-			set
-			{
-				OnSteamID64Changing();
-				_steamID64 = value;
-				base.AnyPropertyChanged = true;
-				OnSteamID64Changed();
-			}
-		}
-
 		partial void OnLastUpdatedChanging();
 		partial void OnLastUpdatedChanged();
 		protected DateTime _lastUpdated = new DateTime(1900, 01, 01);
@@ -371,6 +356,21 @@ namespace DotaDbGenLib.Properties
 				_lastUpdated = value;
 				base.AnyPropertyChanged = true;
 				OnLastUpdatedChanged();
+			}
+		}
+
+		partial void OnOldestMatchFoundChanging();
+		partial void OnOldestMatchFoundChanged();
+		protected bool _oldestMatchFound;
+		public virtual bool OldestMatchFound
+		{
+			get { return _oldestMatchFound; }
+			set
+			{
+				OnOldestMatchFoundChanging();
+				_oldestMatchFound = value;
+				base.AnyPropertyChanged = true;
+				OnOldestMatchFoundChanged();
 			}
 		}
 

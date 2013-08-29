@@ -11,10 +11,25 @@ namespace DotaDbGenLib.Properties
 {
     public partial class SystemConfigProperties : PropertiesBase
     {
+		partial void OnIDChanging();
+		partial void OnIDChanged();
+		protected int _iD;
+		public virtual int ID
+		{
+			get { return _iD; }
+			set
+			{
+				OnIDChanging();
+				_iD = value;
+				base.AnyPropertyChanged = true;
+				OnIDChanged();
+			}
+		}
+
 		partial void OnSCKeyChanging();
 		partial void OnSCKeyChanged();
-		protected int _sCKey;
-		public virtual int SCKey
+		protected string _sCKey;
+		public virtual string SCKey
 		{
 			get { return _sCKey; }
 			set

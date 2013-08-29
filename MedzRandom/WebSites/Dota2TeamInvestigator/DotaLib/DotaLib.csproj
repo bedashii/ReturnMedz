@@ -40,10 +40,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DotaDbBusiness\Matches.cs" />
+    <Compile Include="DotaDbBusiness\Matches.generated.cs">
+      <DependentUpon>Matches.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbBusiness\MatchPlayer.cs" />
+    <Compile Include="DotaDbBusiness\MatchPlayer.generated.cs">
+      <DependentUpon>MatchPlayer.cs</DependentUpon>
+    </Compile>
     <Compile Include="DotaDbBusiness\Players.cs" />
     <Compile Include="DotaDbBusiness\Players.generated.cs">
       <SubType>Code</SubType>
       <DependentUpon>Players.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbBusiness\RequestTracking.cs" />
+    <Compile Include="DotaDbBusiness\RequestTracking.generated.cs">
+      <DependentUpon>RequestTracking.cs</DependentUpon>
     </Compile>
     <Compile Include="DotaDbBusiness\SteamRequests.cs" />
     <Compile Include="DotaDbBusiness\SteamRequests.generated.cs">
@@ -53,16 +65,32 @@
     <Compile Include="DotaDbBusiness\SystemConfig.generated.cs">
       <DependentUpon>SystemConfig.cs</DependentUpon>
     </Compile>
+    <Compile Include="DotaDbBusiness\TeamPlayers.cs" />
+    <Compile Include="DotaDbBusiness\TeamPlayers.generated.cs">
+      <DependentUpon>TeamPlayers.cs</DependentUpon>
+    </Compile>
     <Compile Include="DotaDbBusiness\Teams.cs" />
     <Compile Include="DotaDbBusiness\Teams.generated.cs">
       <SubType>Code</SubType>
       <DependentUpon>Teams.cs</DependentUpon>
     </Compile>
     <Compile Include="DotaDbData\DataProcessHelper.cs" />
+    <Compile Include="DotaDbData\MatchesData.cs" />
+    <Compile Include="DotaDbData\MatchesData.generated.cs">
+      <DependentUpon>MatchesData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbData\MatchPlayerData.cs" />
+    <Compile Include="DotaDbData\MatchPlayerData.generated.cs">
+      <DependentUpon>MatchPlayerData.cs</DependentUpon>
+    </Compile>
     <Compile Include="DotaDbData\PlayersData.cs" />
     <Compile Include="DotaDbData\PlayersData.generated.cs">
       <SubType>Code</SubType>
       <DependentUpon>PlayersData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbData\RequestTrackingData.cs" />
+    <Compile Include="DotaDbData\RequestTrackingData.generated.cs">
+      <DependentUpon>RequestTrackingData.cs</DependentUpon>
     </Compile>
     <Compile Include="DotaDbData\SteamRequestsData.cs" />
     <Compile Include="DotaDbData\SteamRequestsData.generated.cs">
@@ -72,15 +100,31 @@
     <Compile Include="DotaDbData\SystemConfigData.generated.cs">
       <DependentUpon>SystemConfigData.cs</DependentUpon>
     </Compile>
+    <Compile Include="DotaDbData\TeamPlayersData.cs" />
+    <Compile Include="DotaDbData\TeamPlayersData.generated.cs">
+      <DependentUpon>TeamPlayersData.cs</DependentUpon>
+    </Compile>
     <Compile Include="DotaDbData\TeamsData.cs" />
     <Compile Include="DotaDbData\TeamsData.generated.cs">
       <SubType>Code</SubType>
       <DependentUpon>TeamsData.cs</DependentUpon>
     </Compile>
+    <Compile Include="DotaDbLists\MatchesList.cs" />
+    <Compile Include="DotaDbLists\MatchesList.generated.cs">
+      <DependentUpon>MatchesList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbLists\MatchPlayerList.cs" />
+    <Compile Include="DotaDbLists\MatchPlayerList.generated.cs">
+      <DependentUpon>MatchPlayerList.cs</DependentUpon>
+    </Compile>
     <Compile Include="DotaDbLists\PlayersList.cs" />
     <Compile Include="DotaDbLists\PlayersList.generated.cs">
       <SubType>Code</SubType>
       <DependentUpon>PlayersList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbLists\RequestTrackingList.cs" />
+    <Compile Include="DotaDbLists\RequestTrackingList.generated.cs">
+      <DependentUpon>RequestTrackingList.cs</DependentUpon>
     </Compile>
     <Compile Include="DotaDbLists\SteamRequestsList.cs" />
     <Compile Include="DotaDbLists\SteamRequestsList.generated.cs">
@@ -90,10 +134,22 @@
     <Compile Include="DotaDbLists\SystemConfigList.generated.cs">
       <DependentUpon>SystemConfigList.cs</DependentUpon>
     </Compile>
+    <Compile Include="DotaDbLists\TeamPlayersList.cs" />
+    <Compile Include="DotaDbLists\TeamPlayersList.generated.cs">
+      <DependentUpon>TeamPlayersList.cs</DependentUpon>
+    </Compile>
     <Compile Include="DotaDbLists\TeamsList.cs" />
     <Compile Include="DotaDbLists\TeamsList.generated.cs">
       <SubType>Code</SubType>
       <DependentUpon>TeamsList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbProperties\MatchesProperties.cs" />
+    <Compile Include="DotaDbProperties\MatchesProperties.generated.cs">
+      <DependentUpon>MatchesProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbProperties\MatchPlayerProperties.cs" />
+    <Compile Include="DotaDbProperties\MatchPlayerProperties.generated.cs">
+      <DependentUpon>MatchPlayerProperties.cs</DependentUpon>
     </Compile>
     <Compile Include="DotaDbProperties\PlayersProperties.cs" />
     <Compile Include="DotaDbProperties\PlayersProperties.generated.cs">
@@ -101,6 +157,10 @@
       <DependentUpon>PlayersProperties.cs</DependentUpon>
     </Compile>
     <Compile Include="DotaDbProperties\PropertiesBase.cs" />
+    <Compile Include="DotaDbProperties\RequestTrackingProperties.cs" />
+    <Compile Include="DotaDbProperties\RequestTrackingProperties.generated.cs">
+      <DependentUpon>RequestTrackingProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="DotaDbProperties\SteamRequestsProperties.cs" />
     <Compile Include="DotaDbProperties\SteamRequestsProperties.generated.cs">
       <DependentUpon>SteamRequestsProperties.cs</DependentUpon>
@@ -108,6 +168,10 @@
     <Compile Include="DotaDbProperties\SystemConfigProperties.cs" />
     <Compile Include="DotaDbProperties\SystemConfigProperties.generated.cs">
       <DependentUpon>SystemConfigProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbProperties\TeamPlayersProperties.cs" />
+    <Compile Include="DotaDbProperties\TeamPlayersProperties.generated.cs">
+      <DependentUpon>TeamPlayersProperties.cs</DependentUpon>
     </Compile>
     <Compile Include="DotaDbProperties\TeamsProperties.cs" />
     <Compile Include="DotaDbProperties\TeamsProperties.generated.cs">

@@ -27,8 +27,10 @@ namespace DotaDbGenLib.Business
         private void FinishAfterConstruction()
         {
         }
-    
-    }
-    
 
+        public void GetBySteamID64(long steamID64)
+        {
+            base.LoadBySteamID64(steamID64);
+        }
+    }
 }

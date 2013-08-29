@@ -17,5 +17,10 @@ namespace DotaDbGenLib.Lists
         {
             _data.LoadUnprocessedPlayers(this, topCount);
         }
+
+        public long GetPlayerWithNoMatchRecords()
+        {
+            return _data.GetPlayerWithNoMatchRecords();
+        }
     }
 }

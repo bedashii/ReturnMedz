@@ -20,10 +20,10 @@ namespace DotaDbGenLib.Business
                 
         #endregion
 
-        public SystemConfig(int sCKey)
+        public SystemConfig(int iD)
         {
             PrepareBeforeConstruction();
-            this.LoadItem(sCKey);
+            this.LoadItem(iD);
             FinishAfterConstruction();
         }
 
@@ -34,23 +34,33 @@ namespace DotaDbGenLib.Business
             FinishAfterConstruction();
         }
        
-        
-        public void LoadItem(int sCKey)
+        public SystemConfig(string sCKey, string sCValue)
         {
-            this.SCKey = sCKey;
+            PrepareBeforeConstruction();
+            
+			this.SCKey = sCKey;
+			this.SCValue = sCValue;
 			
-            base.LoadItemData(sCKey);
+            FinishAfterConstruction();
+        }
+        
+        public void LoadItem(int iD)
+        {
+            this.ID = iD;
+			
+            base.LoadItemData(iD);
         }
         
         
         public void Refresh()
         {
-            base.LoadItemData(this.SCKey);
+            base.LoadItemData(this.ID);
         }
         
         private void SetProperties(Properties.SystemConfigProperties properties)
         {
-            this.SCKey = properties.SCKey;
+            this.ID = properties.ID;
+			this.SCKey = properties.SCKey;
 			this.SCValue = properties.SCValue;
 			this.RecordExists = properties.RecordExists;
 

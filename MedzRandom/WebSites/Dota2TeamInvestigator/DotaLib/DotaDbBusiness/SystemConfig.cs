@@ -27,7 +27,12 @@ namespace DotaDbGenLib.Business
         private void FinishAfterConstruction()
         {
         }
-    
+
+
+        public void GetByKey(string key)
+        {
+            base.LoadItemDataByKey(key);
+        }
     }
     
 
