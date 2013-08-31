@@ -328,7 +328,8 @@ namespace DownloadSorter
                 {
                     if (x.Rename)
                     {
-                        string dest = x.FullPath.Replace(x.FileName, x.NewFileName);
+                        //string dest = x.FullPath.Replace(x.FileName, x.NewFileName);
+                        string dest = x.FullPath.Substring(0, x.FullPath.Length - (x.FileName.Length + x.Extention.Length)) + x.FileName + x.Extention;
                         if (!File.Exists(dest))
                             File.Move(x.FullPath, dest);
                         else
