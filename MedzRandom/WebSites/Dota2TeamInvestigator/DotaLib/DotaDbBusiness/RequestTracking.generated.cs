@@ -34,12 +34,13 @@ namespace DotaDbGenLib.Business
             FinishAfterConstruction();
         }
        
-        public RequestTracking(string request, DateTime date)
+        public RequestTracking(string request, DateTime date, bool? ignored)
         {
             PrepareBeforeConstruction();
             
 			this.Request = request;
 			this.Date = date;
+			this.Ignored = ignored;
 			
             FinishAfterConstruction();
         }
@@ -62,6 +63,7 @@ namespace DotaDbGenLib.Business
             this.ID = properties.ID;
 			this.Request = properties.Request;
 			this.Date = properties.Date;
+			this.Ignored = properties.Ignored;
 			this.RecordExists = properties.RecordExists;
 
         }

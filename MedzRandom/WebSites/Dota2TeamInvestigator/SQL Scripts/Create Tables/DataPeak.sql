@@ -1,5 +1,5 @@
-SELECT COUNT(*) Teams FROM dbo.Teams
-SELECT COUNT(*) Players FROM dbo.Players
+SELECT COUNT(*) 'Total Teams' FROM dbo.Teams
+SELECT COUNT(*) 'Total Players' FROM dbo.Players
 SELECT COUNT(*) TeamPlayers FROM dbo.TeamPlayers
 
 SELECT COUNT(*) BrokenPlayers FROM dbo.Players
@@ -24,3 +24,13 @@ ORDER BY COUNT(Request) DESC
 SELECT CONVERT(DATE,LastUpdated),COUNT(CONVERT(DATE,LastUpdated)) FROM dbo.Teams
 GROUP BY CONVERT(DATE,LastUpdated)
 ORDER BY CONVERT(DATE,LastUpdated) DESC
+
+SELECT  ( CONVERT(DECIMAL, ( SELECT COUNT(DISTINCT SteamID)
+                             FROM   dbo.Players P
+                                    JOIN dbo.MatchPlayer MP ON P.SteamID = MP.Player64
+                             WHERE  SteamID64 != -1
+                           ))
+          / CONVERT(DECIMAL, ( SELECT   COUNT(*)
+                               FROM     dbo.Players
+                               WHERE    PersonaName IS NOT NULL
+                             )) ) * 100 AS PercentageOfPlayersWithMatches

@@ -19,7 +19,7 @@ namespace Dota2DataMinerApp
 
                 UpdateTeams();
 
-                //GetMatchPerPlayer();
+                GetMatchPerPlayer();
             } while (true);
         }
 
@@ -202,7 +202,7 @@ namespace Dota2DataMinerApp
             {
                 // No New Data Found, sleep for 60 seconds to save daily requests.
                 Console.WriteLine("No New Teams Found.");
-                systemConfig.SCValue = DateTime.Now.AddMinutes(1).ToString();
+                systemConfig.SCValue = DateTime.Now.AddMinutes(30).ToString();
             }
 
             systemConfig.InsertOrUpdate();

@@ -21,7 +21,7 @@ namespace DotaDbGenLib.Data
     {
         private DataProcessHelper dataHelper = new DataProcessHelper();
 
-        private string _selectColumnNames = "P.[SteamID], P.[SteamID64], P.[PersonaName], P.[ProfileURL], P.[Avatar], P.[AvatarMedium], P.[AvatarFull], P.[PersonaState], P.[CommunityVisibilityState], P.[ProfileState], P.[LastLogOff], P.[CommentPermission], P.[RealName], P.[PrimaryClanID], P.[TimeCreated], P.[GameID], P.[GameServerID], P.[GameExtraInfo], P.[CityID], P.[LocCountyCode], P.[LocStateCode], P.[LocCityID], P.[LastUpdated], P.[OldestMatchFound]";
+        private string _selectColumnNames = "P.[SteamID], P.[SteamID64], P.[PersonaName], P.[ProfileURL], P.[Avatar], P.[AvatarMedium], P.[AvatarFull], P.[PersonaState], P.[CommunityVisibilityState], P.[ProfileState], P.[LastLogOff], P.[CommentPermission], P.[RealName], P.[PrimaryClanID], P.[TimeCreated], P.[GameID], P.[GameServerID], P.[GameExtraInfo], P.[CityID], P.[LocCountyCode], P.[LocStateCode], P.[LocCityID], P.[LastUpdated], P.[OldestMatchFound], P.[IsPrivate]";
 
         public PlayersData()
         {
@@ -187,6 +187,11 @@ namespace DotaDbGenLib.Data
 				row.LastUpdated = Convert.ToDateTime(dr["LastUpdated"]);
 				row.OldestMatchFound = Convert.ToBoolean(dr["OldestMatchFound"]);
 
+				if ((dr["IsPrivate"]) == DBNull.Value)
+					row.IsPrivate = null;
+				else
+					row.IsPrivate = Convert.ToBoolean(dr["IsPrivate"]);
+
                 row.RecordExists = true;
                 row.AnyPropertyChanged = false;
             }
@@ -212,7 +217,7 @@ namespace DotaDbGenLib.Data
         private UpdateProperties UpdateData()
         {
 
-            string q = "UPDATE dbo.Players SET [SteamID64] = @SteamID64, [PersonaName] = @PersonaName, [ProfileURL] = @ProfileURL, [Avatar] = @Avatar, [AvatarMedium] = @AvatarMedium, [AvatarFull] = @AvatarFull, [PersonaState] = @PersonaState, [CommunityVisibilityState] = @CommunityVisibilityState, [ProfileState] = @ProfileState, [LastLogOff] = @LastLogOff, [CommentPermission] = @CommentPermission, [RealName] = @RealName, [PrimaryClanID] = @PrimaryClanID, [TimeCreated] = @TimeCreated, [GameID] = @GameID, [GameServerID] = @GameServerID, [GameExtraInfo] = @GameExtraInfo, [CityID] = @CityID, [LocCountyCode] = @LocCountyCode, [LocStateCode] = @LocStateCode, [LocCityID] = @LocCityID, [LastUpdated] = @LastUpdated, [OldestMatchFound] = @OldestMatchFound\n";
+            string q = "UPDATE dbo.Players SET [SteamID64] = @SteamID64, [PersonaName] = @PersonaName, [ProfileURL] = @ProfileURL, [Avatar] = @Avatar, [AvatarMedium] = @AvatarMedium, [AvatarFull] = @AvatarFull, [PersonaState] = @PersonaState, [CommunityVisibilityState] = @CommunityVisibilityState, [ProfileState] = @ProfileState, [LastLogOff] = @LastLogOff, [CommentPermission] = @CommentPermission, [RealName] = @RealName, [PrimaryClanID] = @PrimaryClanID, [TimeCreated] = @TimeCreated, [GameID] = @GameID, [GameServerID] = @GameServerID, [GameExtraInfo] = @GameExtraInfo, [CityID] = @CityID, [LocCountyCode] = @LocCountyCode, [LocStateCode] = @LocStateCode, [LocCityID] = @LocCityID, [LastUpdated] = @LastUpdated, [OldestMatchFound] = @OldestMatchFound, [IsPrivate] = @IsPrivate\n";
             q += "WHERE SteamID = @SteamID\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
 
@@ -348,6 +353,12 @@ namespace DotaDbGenLib.Data
 			cmd.Parameters.Add("@LastUpdated", SqlDbType.DateTime, 8).Value = LastUpdated;
 			cmd.Parameters.Add("@OldestMatchFound", SqlDbType.Bit, 1).Value = OldestMatchFound;
 			
+			if (IsPrivate == null)
+				cmd.Parameters.Add("@IsPrivate", SqlDbType.Bit, 1).Value = DBNull.Value;
+			else
+				cmd.Parameters.Add("@IsPrivate", SqlDbType.Bit, 1).Value = IsPrivate;
+			
+			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             base.AnyPropertyChanged = false; //After update Change is false since it's changes have been applied to the database
             return up;
@@ -355,8 +366,8 @@ namespace DotaDbGenLib.Data
 
         private UpdateProperties InsertData()
         {
-            string q = "INSERT INTO dbo.Players ( [SteamID], [SteamID64], [PersonaName], [ProfileURL], [Avatar], [AvatarMedium], [AvatarFull], [PersonaState], [CommunityVisibilityState], [ProfileState], [LastLogOff], [CommentPermission], [RealName], [PrimaryClanID], [TimeCreated], [GameID], [GameServerID], [GameExtraInfo], [CityID], [LocCountyCode], [LocStateCode], [LocCityID], [LastUpdated], [OldestMatchFound] )\n";
-            q += "VALUES  ( @SteamID, @SteamID64, @PersonaName, @ProfileURL, @Avatar, @AvatarMedium, @AvatarFull, @PersonaState, @CommunityVisibilityState, @ProfileState, @LastLogOff, @CommentPermission, @RealName, @PrimaryClanID, @TimeCreated, @GameID, @GameServerID, @GameExtraInfo, @CityID, @LocCountyCode, @LocStateCode, @LocCityID, @LastUpdated, @OldestMatchFound )\n";
+            string q = "INSERT INTO dbo.Players ( [SteamID], [SteamID64], [PersonaName], [ProfileURL], [Avatar], [AvatarMedium], [AvatarFull], [PersonaState], [CommunityVisibilityState], [ProfileState], [LastLogOff], [CommentPermission], [RealName], [PrimaryClanID], [TimeCreated], [GameID], [GameServerID], [GameExtraInfo], [CityID], [LocCountyCode], [LocStateCode], [LocCityID], [LastUpdated], [OldestMatchFound], [IsPrivate] )\n";
+            q += "VALUES  ( @SteamID, @SteamID64, @PersonaName, @ProfileURL, @Avatar, @AvatarMedium, @AvatarFull, @PersonaState, @CommunityVisibilityState, @ProfileState, @LastLogOff, @CommentPermission, @RealName, @PrimaryClanID, @TimeCreated, @GameID, @GameServerID, @GameExtraInfo, @CityID, @LocCountyCode, @LocStateCode, @LocCityID, @LastUpdated, @OldestMatchFound, @IsPrivate )\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
             SqlCommand cmd = dataHelper.CreateCommand(q);
             
@@ -489,6 +500,12 @@ namespace DotaDbGenLib.Data
 			
 			cmd.Parameters.Add("@LastUpdated", SqlDbType.DateTime, 8).Value = LastUpdated;
 			cmd.Parameters.Add("@OldestMatchFound", SqlDbType.Bit, 1).Value = OldestMatchFound;
+			
+			if (IsPrivate == null)
+				cmd.Parameters.Add("@IsPrivate", SqlDbType.Bit, 1).Value = DBNull.Value;
+			else
+				cmd.Parameters.Add("@IsPrivate", SqlDbType.Bit, 1).Value = IsPrivate;
+			
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             

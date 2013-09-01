@@ -25,10 +25,10 @@ namespace DotaDbGenLib.Data
         public long GetPlayerWithNoMatchRecords()
         {
             string q = "SELECT TOP 1 P.SteamID64 FROM dbo.TeamPlayers TP\n";
-            q += "LEFT JOIN dbo.MatchPlayer MP ON TP.Player = MP.Player\n";
+            q += "LEFT JOIN dbo.MatchPlayer MP ON TP.Player = MP.Player64\n";
             q += "JOIN dbo.Players P ON TP.Player = P.SteamID\n";
             q += "WHERE MP.ID IS NULL\n";
-            q += "AND CommunityVisibilityState = 5";
+            q += "AND P.IsPrivate = 0";
 
             object result = dataHelper.ExecuteScalar(dataHelper.CreateCommand(q));
 

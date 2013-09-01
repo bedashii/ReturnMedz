@@ -59,5 +59,20 @@ namespace DotaDbGenLib.Properties
 			}
 		}
 
+		partial void OnIgnoredChanging();
+		partial void OnIgnoredChanged();
+		protected bool? _ignored;
+		public virtual bool? Ignored
+		{
+			get { return _ignored; }
+			set
+			{
+				OnIgnoredChanging();
+				_ignored = value;
+				base.AnyPropertyChanged = true;
+				OnIgnoredChanged();
+			}
+		}
+
     }
 }

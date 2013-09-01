@@ -32,6 +32,16 @@ namespace DotaDbGenLib.Business
         {
             base.LoadByMatchPlayer64(matchID, player64);
         }
+
+        public void GetByMatchPlayer(int matchID, int player)
+        {
+            base.LoadByMatchPlayer(matchID, player);
+        }
+
+        public void GetByMatchSlot(int matchID, int slot)
+        {
+            base.LoadByMatchSlot(matchID, slot);
+        }
     }
     
 

@@ -34,7 +34,7 @@ namespace DotaDbGenLib.Business
             FinishAfterConstruction();
         }
        
-        public Players(int steamID, long? steamID64, string personaName, string profileURL, string avatar, string avatarMedium, string avatarFull, int? personaState, int? communityVisibilityState, int? profileState, DateTime? lastLogOff, string commentPermission, string realName, long? primaryClanID, DateTime? timeCreated, int? gameID, string gameServerID, string gameExtraInfo, int? cityID, string locCountyCode, string locStateCode, string locCityID, DateTime lastUpdated, bool oldestMatchFound)
+        public Players(int steamID, long? steamID64, string personaName, string profileURL, string avatar, string avatarMedium, string avatarFull, int? personaState, int? communityVisibilityState, int? profileState, DateTime? lastLogOff, string commentPermission, string realName, long? primaryClanID, DateTime? timeCreated, int? gameID, string gameServerID, string gameExtraInfo, int? cityID, string locCountyCode, string locStateCode, string locCityID, DateTime lastUpdated, bool oldestMatchFound, bool? isPrivate)
         {
             PrepareBeforeConstruction();
             
@@ -62,6 +62,7 @@ namespace DotaDbGenLib.Business
 			this.LocCityID = locCityID;
 			this.LastUpdated = lastUpdated;
 			this.OldestMatchFound = oldestMatchFound;
+			this.IsPrivate = isPrivate;
 			
             FinishAfterConstruction();
         }
@@ -105,6 +106,7 @@ namespace DotaDbGenLib.Business
 			this.LocCityID = properties.LocCityID;
 			this.LastUpdated = properties.LastUpdated;
 			this.OldestMatchFound = properties.OldestMatchFound;
+			this.IsPrivate = properties.IsPrivate;
 			this.RecordExists = properties.RecordExists;
 
         }

@@ -21,7 +21,7 @@ namespace DotaDbGenLib.Data
     {
         private DataProcessHelper dataHelper = new DataProcessHelper();
 
-        private string _selectColumnNames = "R.[ID], R.[Request], R.[Date]";
+        private string _selectColumnNames = "R.[ID], R.[Request], R.[Date], R.[Ignored]";
 
         public RequestTrackingData()
         {
@@ -81,6 +81,11 @@ namespace DotaDbGenLib.Data
 				row.Request = Convert.ToString(dr["Request"]);
 				row.Date = Convert.ToDateTime(dr["Date"]);
 
+				if ((dr["Ignored"]) == DBNull.Value)
+					row.Ignored = null;
+				else
+					row.Ignored = Convert.ToBoolean(dr["Ignored"]);
+
                 row.RecordExists = true;
                 row.AnyPropertyChanged = false;
             }
@@ -106,7 +111,7 @@ namespace DotaDbGenLib.Data
         private UpdateProperties UpdateData()
         {
 
-            string q = "UPDATE dbo.RequestTracking SET [Request] = @Request, [Date] = @Date\n";
+            string q = "UPDATE dbo.RequestTracking SET [Request] = @Request, [Date] = @Date, [Ignored] = @Ignored\n";
             q += "WHERE ID = @ID\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
 
@@ -116,6 +121,12 @@ namespace DotaDbGenLib.Data
 			cmd.Parameters.Add("@Request", SqlDbType.VarChar, -1).Value = Request;
 			cmd.Parameters.Add("@Date", SqlDbType.DateTime, 8).Value = Date;
 			
+			if (Ignored == null)
+				cmd.Parameters.Add("@Ignored", SqlDbType.Bit, 1).Value = DBNull.Value;
+			else
+				cmd.Parameters.Add("@Ignored", SqlDbType.Bit, 1).Value = Ignored;
+			
+			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             base.AnyPropertyChanged = false; //After update Change is false since it's changes have been applied to the database
             return up;
@@ -123,13 +134,19 @@ namespace DotaDbGenLib.Data
 
         private UpdateProperties InsertData()
         {
-            string q = "INSERT INTO dbo.RequestTracking ( [Request], [Date] )\n";
-            q += "VALUES  ( @Request, @Date )\n";
+            string q = "INSERT INTO dbo.RequestTracking ( [Request], [Date], [Ignored] )\n";
+            q += "VALUES  ( @Request, @Date, @Ignored )\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
             SqlCommand cmd = dataHelper.CreateCommand(q);
             
             cmd.Parameters.Add("@Request", SqlDbType.VarChar, -1).Value = Request;
 			cmd.Parameters.Add("@Date", SqlDbType.DateTime, 8).Value = Date;
+			
+			if (Ignored == null)
+				cmd.Parameters.Add("@Ignored", SqlDbType.Bit, 1).Value = DBNull.Value;
+			else
+				cmd.Parameters.Add("@Ignored", SqlDbType.Bit, 1).Value = Ignored;
+			
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             ID = up.Identity;

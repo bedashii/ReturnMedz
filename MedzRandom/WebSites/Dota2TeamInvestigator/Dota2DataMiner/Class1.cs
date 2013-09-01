@@ -466,7 +466,6 @@ namespace Dota2DataMiner
         public bool GetMatchPerPlayer(long steamId64, int matchID)
         {
             XmlDocument response = new XmlDocument();
-            //https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=4C539F404B4DE827341AE78E9E5B35C9&format=xml&account_id=76561198082150352&start_at_match_id=0
             string request = @"https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=" + steamAPIKey;
 
             request += "&format=xml";
@@ -497,6 +496,27 @@ namespace Dota2DataMiner
 
             foreach (XmlNode subRootNode in response.DocumentElement.ChildNodes)
             {
+                if (subRootNode.Name == "status" && subRootNode.InnerText == "15")
+                {
+                    
+                    Players player = new Players();
+                    player.GetBySteamID64(steamId64);
+
+                    if (player.RecordExists)
+                    {
+                        Console.WriteLine(player.PersonaName + " likes his/her privacy.");
+                        player.IsPrivate = true;
+                        // Not really updating the player, more of testing his private. *snicker*
+                        //player.LastUpdated = DateTime.Now;
+                        player.InsertOrUpdate();
+                    }
+                    else
+                    {
+                        Console.WriteLine("ID: " + steamId64 + " likes his/her privacy.");
+                    }
+                    return true;
+                }
+
                 if (subRootNode.Name == "results_remaining" && subRootNode.InnerText == "0")
                     lastMatch = true;
 
@@ -532,6 +552,7 @@ namespace Dota2DataMiner
                             matches.LobbyType = Convert.ToInt32(matchNode["lobby_type"].InnerText);
 
                         matches.InsertOrUpdate();
+                        Console.WriteLine("Match Found: " + matches.ID + "; Sequence Number: " + matches.SequenceNumber + "; Start Time: " + matches.StartTime.ToString());
 
                         if (matchNode["players"] != null)
                         {
@@ -539,33 +560,68 @@ namespace Dota2DataMiner
                             foreach (XmlNode playerNode in matchNode["players"])
                             {
                                 MatchPlayer matchPlayer = new MatchPlayer();
-                                matchPlayer.GetByMatchPlayer64(matches.ID, Convert.ToInt64(playerNode["account_id"]));
 
-                                if (!matchPlayer.RecordExists)
+                                if (playerNode["account_id"] == null)
                                 {
-                                    matchPlayer.Match = matches.ID;
-                                    matchPlayer.Player64 = Convert.ToInt64(playerNode["account_id"]);
-                                    matchPlayer.Slot = Convert.ToInt32(playerNode["player_slot"]);
-                                    matchPlayer.Hero = Convert.ToInt32(playerNode["hero_id"]);
-                                    matchPlayerList.Add(matchPlayer);
+                                    //BOT
+                                    matchPlayer.GetByMatchSlot(matches.ID, Convert.ToInt32(playerNode["player_slot"].InnerText));
 
-                                    Players player = new Players();
-                                    player.GetBySteamID64((long)matchPlayer.Player64);
-
-                                    if (!player.RecordExists)
+                                    if (!matchPlayer.RecordExists)
                                     {
-                                        // Shit shit the player doesn't exist and I've already used this seconds request!
-                                        // Make a plan!
+                                        matchPlayer.Match = matches.ID;
+                                        matchPlayer.Player = -1;
+                                        matchPlayer.Player64 = -1;
+                                        matchPlayer.Slot = Convert.ToInt32(playerNode["player_slot"].InnerText);
+                                        matchPlayer.Hero = Convert.ToInt32(playerNode["hero_id"].InnerText);
+                                        matchPlayerList.Add(matchPlayer);
+
+                                        Console.WriteLine("Player: " + matchPlayer.Player64 + "; Playing hero: " +
+                                                          matchPlayer.Hero);
+                                    }
+                                }
+                                else
+                                {
+                                    matchPlayer.GetByMatchPlayer64(matches.ID,
+                                                                   Convert.ToInt64(playerNode["account_id"].InnerText));
+
+                                    if (!matchPlayer.RecordExists)
+                                    {
+                                        matchPlayer.Match = matches.ID;
+                                        matchPlayer.Player64 = Convert.ToInt64(playerNode["account_id"].InnerText);
+                                        matchPlayer.Slot = Convert.ToInt32(playerNode["player_slot"].InnerText);
+                                        matchPlayer.Hero = Convert.ToInt32(playerNode["hero_id"].InnerText);
+                                        matchPlayerList.Add(matchPlayer);
+
+                                        Console.WriteLine("Player: " + matchPlayer.Player64 + "; Playing hero: " +
+                                                          matchPlayer.Hero);
+
+                                        //Players player = new Players();
+                                        //player.GetBySteamID64((long)matchPlayer.Player64);
+
+                                        //if (!player.RecordExists)
+                                        //{
+                                        //    Console.WriteLine("; NOT FOUND!");
+                                        //    // Shit shit the player doesn't exist and I've already used this seconds request!
+                                        //    // Make a plan!
+                                        //}
+                                        //Console.WriteLine("");
                                     }
                                 }
                             }
+                            matchPlayerList.UpdateAll();
                         }
-
-                        Console.WriteLine("");
 
                         newPlayersAdded = true;
                     }
                 }
+            }
+
+            if (lastMatch)
+            {
+                Players playersLastMatch = new Players();
+                playersLastMatch.GetBySteamID64(steamId64);
+                playersLastMatch.OldestMatchFound = true;
+                playersLastMatch.InsertOrUpdate();
             }
 
             if (File.Exists("GetMatchPerPlayer" + steamId64.ToString() + (recordMatchID != 0 ? recordMatchID.ToString() : "") + "(" +

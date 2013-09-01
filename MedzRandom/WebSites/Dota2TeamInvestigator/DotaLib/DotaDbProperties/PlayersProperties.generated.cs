@@ -374,5 +374,20 @@ namespace DotaDbGenLib.Properties
 			}
 		}
 
+		partial void OnIsPrivateChanging();
+		partial void OnIsPrivateChanged();
+		protected bool? _isPrivate;
+		public virtual bool? IsPrivate
+		{
+			get { return _isPrivate; }
+			set
+			{
+				OnIsPrivateChanging();
+				_isPrivate = value;
+				base.AnyPropertyChanged = true;
+				OnIsPrivateChanged();
+			}
+		}
+
     }
 }
