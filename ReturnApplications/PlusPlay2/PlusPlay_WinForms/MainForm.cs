@@ -41,20 +41,25 @@ namespace PlusPlayWF
 
         private void TSMI_AddModel_Click(object sender, EventArgs e)
         {
-            using (var ofd = new FolderBrowserDialog())
+            using (var fbDialog = new FolderBrowserDialog())
             {
-                ofd.SelectedPath = _processor.InitialDirectory;
-                ofd.Description = "Select a Model";
-                ofd.ShowNewFolderButton = false;
+                fbDialog.SelectedPath = _processor.InitialDirectory;
+                fbDialog.Description = "Select a Model";
+                fbDialog.ShowNewFolderButton = false;
 
-                if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (fbDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    PlusPlayDBGenLib.Business.Models model = _processor.AddModel(ofd.SelectedPath);
+                    PlusPlayDBGenLib.Business.Models model = _processor.AddModel(fbDialog.SelectedPath);
                     BindingSourceModelsList.ResetBindings(false);
                     ShowModelControl(model);
                     PanelSplit.Panel1Collapsed = true;
                 }
             }
+        }
+
+        private void ListBoxModels_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            ShowModelControl((PlusPlayDBGenLib.Business.Models)ListBoxModels.SelectedItem);
         }
 
 

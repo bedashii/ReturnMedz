@@ -11,6 +11,8 @@ namespace PlusPlayUserControls.WFControls
 {
     public partial class GallleryEditorControl : UserControl
     {
+        PlusPlayProcessors.GalleryEditorProcessor _processor;
+
         public GallleryEditorControl()
         {
             InitializeComponent();
@@ -24,19 +26,23 @@ namespace PlusPlayUserControls.WFControls
             {
                 using (var ofd = new FolderBrowserDialog())
                 {
-                    
-                    //ofd.Description = "Select a Model";
-                    //ofd.ShowNewFolderButton = false;
+                    ofd.SelectedPath = model.ModelDirectory;
+                    ofd.Description = "Select a Gallery";
+                    ofd.ShowNewFolderButton = false;
 
-                    //if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    //{
-                    //    PlusPlayDBGenLib.Business.Models model = _processor.AddModel(ofd.SelectedPath);
-                    //    BindingSourceModelsList.ResetBindings(false);
-                    //    ShowModelControl(model);
-                    //    PanelSplit.Panel1Collapsed = true;
-                    //}
+                    if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        PlusPlayDBGenLib.Business.Galleries Gallery = new PlusPlayDBGenLib.Business.Galleries();
+                        BindingSourceGalleries.ResetBindings(false);
+                    }
                 }
             }
+        }
+
+        private void GallleryEditorControl_Load(object sender, EventArgs e)
+        {
+            _processor = new PlusPlayProcessors.GalleryEditorProcessor();
+            
         }
     }
 }

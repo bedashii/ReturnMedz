@@ -5,7 +5,6 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using PlusPlayDBGenLib.Business;
-using System.Data.SqlServerCe;
 
 
 /*****************************************************************************
@@ -20,9 +19,9 @@ namespace PlusPlayDBGenLib.Data
 {
     public partial class GalleriesData : Properties.GalleriesProperties
     {
-        private DataHelper dataHelper = new DataHelper();
+        private DataProcessHelper dataHelper = new DataProcessHelper();
 
-        private string _selectColumnNames = "G.[ID], G.[Model], G.[GalleryName], G.[CoverPhoto]";
+        private string _selectColumnNames = "G.[ID], G.[Model], G.[GalleryName], G.[GalleryDirectory], G.[CoverPhoto]";
 
         public GalleriesData()
         {
@@ -33,7 +32,7 @@ namespace PlusPlayDBGenLib.Data
             string q = "SELECT " + _selectColumnNames + " FROM dbo.Galleries G\n";
             q += "WHERE G.ID = @ID\n";
 
-            SqlCeCommand cmd = dataHelper.CreateCommand(q);
+            SqlCommand cmd = dataHelper.CreateCommand(q);
 
             cmd.Parameters.Add("@ID", SqlDbType.Int, 4).Value = iD;
             DataTable dt = dataHelper.ExecuteQuery(cmd);
@@ -62,14 +61,14 @@ namespace PlusPlayDBGenLib.Data
             string q = "DELETE FROM dbo.Galleries \n";
             q += "WHERE ID = @ID\n";
 
-            SqlCeCommand cmd = dataHelper.CreateCommand(q);
+            SqlCommand cmd = dataHelper.CreateCommand(q);
             
             cmd.Parameters.Add("@ID", SqlDbType.Int, 4).Value = iD;
             
             dataHelper.ExecuteNonQuery(cmd);
         }        
 /* FOR LATER REFACTORING:
-        private void AddPrimaryKeyParameters(SqlCeCommand cmd, int iD)
+        private void AddPrimaryKeyParameters(SqlCommand cmd, int iD)
         {
             cmd.Parameters.Add("@ID", SqlDbType.Int, 4).Value = iD;
         }
@@ -81,6 +80,7 @@ namespace PlusPlayDBGenLib.Data
 				row.ID = Convert.ToInt32(dr["ID"]);
 				row.Model = Convert.ToInt32(dr["Model"]);
 				row.GalleryName = Convert.ToString(dr["GalleryName"]);
+				row.GalleryDirectory = Convert.ToString(dr["GalleryDirectory"]);
 
 				if ((dr["CoverPhoto"]) == DBNull.Value)
 					row.CoverPhoto = null;
@@ -112,20 +112,21 @@ namespace PlusPlayDBGenLib.Data
         private UpdateProperties UpdateData()
         {
 
-            string q = "UPDATE dbo.Galleries SET [Model] = @Model, [GalleryName] = @GalleryName, [CoverPhoto] = @CoverPhoto\n";
+            string q = "UPDATE dbo.Galleries SET [Model] = @Model, [GalleryName] = @GalleryName, [GalleryDirectory] = @GalleryDirectory, [CoverPhoto] = @CoverPhoto\n";
             q += "WHERE ID = @ID\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
 
-            SqlCeCommand cmd = dataHelper.CreateCommand(q);
+            SqlCommand cmd = dataHelper.CreateCommand(q);
 
             cmd.Parameters.Add("@ID", SqlDbType.Int, 4).Value = ID;
 			cmd.Parameters.Add("@Model", SqlDbType.Int, 4).Value = Model;
-			cmd.Parameters.Add("@GalleryName", SqlDbType.NVarChar, 100).Value = GalleryName;
+			cmd.Parameters.Add("@GalleryName", SqlDbType.VarChar, 100).Value = GalleryName;
+			cmd.Parameters.Add("@GalleryDirectory", SqlDbType.VarChar, 256).Value = GalleryDirectory;
 			
 			if (CoverPhoto == null)
-                cmd.Parameters.Add("@CoverPhoto", SqlDbType.NVarChar, 256).Value = DBNull.Value;
+				cmd.Parameters.Add("@CoverPhoto", SqlDbType.VarChar, 256).Value = DBNull.Value;
 			else
-                cmd.Parameters.Add("@CoverPhoto", SqlDbType.NVarChar, 256).Value = CoverPhoto;
+				cmd.Parameters.Add("@CoverPhoto", SqlDbType.VarChar, 256).Value = CoverPhoto;
 			
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
@@ -135,18 +136,19 @@ namespace PlusPlayDBGenLib.Data
 
         private UpdateProperties InsertData()
         {
-            string q = "INSERT INTO dbo.Galleries ( [Model], [GalleryName], [CoverPhoto] )\n";
-            q += "VALUES  ( @Model, @GalleryName, @CoverPhoto )\n";
+            string q = "INSERT INTO dbo.Galleries ( [Model], [GalleryName], [GalleryDirectory], [CoverPhoto] )\n";
+            q += "VALUES  ( @Model, @GalleryName, @GalleryDirectory, @CoverPhoto )\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
-            SqlCeCommand cmd = dataHelper.CreateCommand(q);
+            SqlCommand cmd = dataHelper.CreateCommand(q);
             
             cmd.Parameters.Add("@Model", SqlDbType.Int, 4).Value = Model;
-			cmd.Parameters.Add("@GalleryName", SqlDbType.NVarChar, 100).Value = GalleryName;
+			cmd.Parameters.Add("@GalleryName", SqlDbType.VarChar, 100).Value = GalleryName;
+			cmd.Parameters.Add("@GalleryDirectory", SqlDbType.VarChar, 256).Value = GalleryDirectory;
 			
 			if (CoverPhoto == null)
-				cmd.Parameters.Add("@CoverPhoto", SqlDbType.NVarChar, 256).Value = DBNull.Value;
+				cmd.Parameters.Add("@CoverPhoto", SqlDbType.VarChar, 256).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@CoverPhoto", SqlDbType.NVarChar, 256).Value = CoverPhoto;
+				cmd.Parameters.Add("@CoverPhoto", SqlDbType.VarChar, 256).Value = CoverPhoto;
 			
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);

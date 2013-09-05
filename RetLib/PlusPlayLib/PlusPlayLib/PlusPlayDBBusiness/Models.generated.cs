@@ -34,11 +34,12 @@ namespace PlusPlayDBGenLib.Business
             FinishAfterConstruction();
         }
        
-        public Models(string modelName, string coverPhoto)
+        public Models(string modelName, string modelDirectory, string coverPhoto)
         {
             PrepareBeforeConstruction();
             
 			this.ModelName = modelName;
+			this.ModelDirectory = modelDirectory;
 			this.CoverPhoto = coverPhoto;
 			
             FinishAfterConstruction();
@@ -61,6 +62,7 @@ namespace PlusPlayDBGenLib.Business
         {
             this.ID = properties.ID;
 			this.ModelName = properties.ModelName;
+			this.ModelDirectory = properties.ModelDirectory;
 			this.CoverPhoto = properties.CoverPhoto;
 			this.RecordExists = properties.RecordExists;
 

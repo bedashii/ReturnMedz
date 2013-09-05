@@ -35,8 +35,8 @@
             this.TSMI_Cancel = new System.Windows.Forms.ToolStripMenuItem();
             this.TextBoxGalleryName = new System.Windows.Forms.TextBox();
             this.LabelGalleryName = new System.Windows.Forms.Label();
-            this.BindingSourceGalleries = new System.Windows.Forms.BindingSource(this.components);
             this.TSMI_Delete = new System.Windows.Forms.ToolStripMenuItem();
+            this.BindingSourceGalleries = new System.Windows.Forms.BindingSource(this.components);
             this.MenuStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BindingSourceGalleries)).BeginInit();
             this.SuspendLayout();
@@ -92,16 +92,16 @@
             this.LabelGalleryName.TabIndex = 3;
             this.LabelGalleryName.Text = "Gallery Name";
             // 
-            // BindingSourceGalleries
-            // 
-            this.BindingSourceGalleries.DataSource = typeof(PlusPlayDBGenLib.Business.Galleries);
-            // 
             // TSMI_Delete
             // 
             this.TSMI_Delete.Enabled = false;
             this.TSMI_Delete.Name = "TSMI_Delete";
             this.TSMI_Delete.Size = new System.Drawing.Size(52, 20);
             this.TSMI_Delete.Text = "Delete";
+            // 
+            // BindingSourceGalleries
+            // 
+            this.BindingSourceGalleries.DataSource = typeof(PlusPlayDBGenLib.Business.Galleries);
             // 
             // GallleryEditorControl
             // 
@@ -113,6 +113,7 @@
             this.Controls.Add(this.MenuStripMain);
             this.Name = "GallleryEditorControl";
             this.Size = new System.Drawing.Size(636, 362);
+            this.Load += new System.EventHandler(this.GallleryEditorControl_Load);
             this.MenuStripMain.ResumeLayout(false);
             this.MenuStripMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BindingSourceGalleries)).EndInit();

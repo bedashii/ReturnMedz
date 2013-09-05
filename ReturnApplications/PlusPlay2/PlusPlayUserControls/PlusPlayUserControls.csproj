@@ -64,6 +64,7 @@
     <Compile Include="ucControls\ucPictureBox.xaml.cs">
       <DependentUpon>ucPictureBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ucStatics.cs" />
     <Compile Include="WFControls\GallleryEditorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -111,6 +112,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ucComponents\" />
     <Folder Include="WPFControls\" />
   </ItemGroup>
   <ItemGroup>

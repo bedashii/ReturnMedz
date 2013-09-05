@@ -17,18 +17,18 @@ THIS CLASS IS PART OF GENERATED CODE - NEVER CHANGE ANYTHING INSIDE THIS FILE
 
 namespace PlusPlayDBGenLib.Data
 {
-    //public enum ExecuteTypes
-    //{
-    //    NonQuery,
-    //    Scalar,
-    //    Table
-    //}
-    
-    //public class UpdateProperties
-    //{
-    //    public int RowsAffected { get; set; }
-    //    public int Identity { get; set; }
-    //}
+    public enum ExecuteTypes
+    {
+        NonQuery,
+        Scalar,
+        Table
+    }
+
+    public class UpdateProperties
+    {
+        public int RowsAffected { get; set; }
+        public int Identity { get; set; }
+    }
     
     public class DataProcessHelper
     {

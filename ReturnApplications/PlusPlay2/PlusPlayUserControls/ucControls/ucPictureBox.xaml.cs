@@ -44,6 +44,12 @@ namespace PlusPlayUserControls.ucControls
             this.GridOuter.Background = Brushes.Transparent;
         }
 
+        public void SetImage(string filepath)
+        {
+            BitmapImage image = new BitmapImage(new Uri(filepath));
+            this.ImageMain.Source = image;
+        }
+
         public void SetImage(PlusPlayDBGenLib.Business.Photos photo)
         {
             BitmapImage image = new BitmapImage(new Uri(photo.PhotoFile));

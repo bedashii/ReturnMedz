@@ -97,6 +97,7 @@
             this.ListBoxModels.Size = new System.Drawing.Size(225, 535);
             this.ListBoxModels.TabIndex = 0;
             this.ListBoxModels.ValueMember = "ID";
+            this.ListBoxModels.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ListBoxModels_MouseDoubleClick);
             // 
             // BindingSourceModelsList
             // 

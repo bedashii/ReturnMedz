@@ -56,6 +56,21 @@ namespace PlusPlayDBGenLib.Properties
 			}
 		}
 
+		partial void OnGalleryDirectoryChanging();
+		partial void OnGalleryDirectoryChanged();
+		protected string _galleryDirectory;
+		public virtual string GalleryDirectory
+		{
+			get { return _galleryDirectory; }
+			set
+			{
+				OnGalleryDirectoryChanging();
+				_galleryDirectory = value;
+				base.AnyPropertyChanged = true;
+				OnGalleryDirectoryChanged();
+			}
+		}
+
 		partial void OnCoverPhotoChanging();
 		partial void OnCoverPhotoChanged();
 		protected string _coverPhoto;

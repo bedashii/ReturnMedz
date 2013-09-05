@@ -29,9 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModelViewerControl));
-            this.PictureBoxCoverPhoto = new System.Windows.Forms.PictureBox();
             this.ListBoxGalleries = new System.Windows.Forms.ListBox();
+            this.BindingSourceModelGalleriesList = new System.Windows.Forms.BindingSource(this.components);
             this.ButtonAddGallery = new System.Windows.Forms.Button();
             this.ButtonRemoveGallery = new System.Windows.Forms.Button();
             this.PanelFlowGalleryPhotos = new System.Windows.Forms.FlowLayoutPanel();
@@ -39,21 +38,12 @@
             this.LabelGalleries = new System.Windows.Forms.Label();
             this.TextBoxModelName = new System.Windows.Forms.TextBox();
             this.BindingSourceModel = new System.Windows.Forms.BindingSource(this.components);
-            this.BindingSourceModelGalleriesList = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBoxCoverPhoto)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BindingSourceModel)).BeginInit();
+            this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
+            this.PictureBoxModelCoverPhoto = new PlusPlayUserControls.ucControls.ucPictureBox();
+            this.LinkLabelChangeModelCoverPhoto = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.BindingSourceModelGalleriesList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BindingSourceModel)).BeginInit();
             this.SuspendLayout();
-            // 
-            // PictureBoxCoverPhoto
-            // 
-            this.PictureBoxCoverPhoto.Image = ((System.Drawing.Image)(resources.GetObject("PictureBoxCoverPhoto.Image")));
-            this.PictureBoxCoverPhoto.Location = new System.Drawing.Point(3, 3);
-            this.PictureBoxCoverPhoto.Name = "PictureBoxCoverPhoto";
-            this.PictureBoxCoverPhoto.Size = new System.Drawing.Size(196, 178);
-            this.PictureBoxCoverPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.PictureBoxCoverPhoto.TabIndex = 0;
-            this.PictureBoxCoverPhoto.TabStop = false;
             // 
             // ListBoxGalleries
             // 
@@ -62,11 +52,15 @@
             this.ListBoxGalleries.DataSource = this.BindingSourceModelGalleriesList;
             this.ListBoxGalleries.DisplayMember = "GalleryName";
             this.ListBoxGalleries.FormattingEnabled = true;
-            this.ListBoxGalleries.Location = new System.Drawing.Point(3, 187);
+            this.ListBoxGalleries.Location = new System.Drawing.Point(3, 200);
             this.ListBoxGalleries.Name = "ListBoxGalleries";
-            this.ListBoxGalleries.Size = new System.Drawing.Size(196, 225);
+            this.ListBoxGalleries.Size = new System.Drawing.Size(196, 212);
             this.ListBoxGalleries.TabIndex = 1;
             this.ListBoxGalleries.ValueMember = "ID";
+            // 
+            // BindingSourceModelGalleriesList
+            // 
+            this.BindingSourceModelGalleriesList.DataSource = typeof(PlusPlayDBGenLib.Lists.GalleriesList);
             // 
             // ButtonAddGallery
             // 
@@ -138,14 +132,33 @@
             // 
             this.BindingSourceModel.DataSource = typeof(PlusPlayDBGenLib.Business.Models);
             // 
-            // BindingSourceModelGalleriesList
+            // elementHost1
             // 
-            this.BindingSourceModelGalleriesList.DataSource = typeof(PlusPlayDBGenLib.Lists.GalleriesList);
+            this.elementHost1.Location = new System.Drawing.Point(3, 14);
+            this.elementHost1.Name = "elementHost1";
+            this.elementHost1.Size = new System.Drawing.Size(196, 167);
+            this.elementHost1.TabIndex = 7;
+            this.elementHost1.Text = "elementHost1";
+            this.elementHost1.Child = this.PictureBoxModelCoverPhoto;
+            // 
+            // LinkLabelChangeModelCoverPhoto
+            // 
+            this.LinkLabelChangeModelCoverPhoto.AutoSize = true;
+            this.LinkLabelChangeModelCoverPhoto.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.LinkLabelChangeModelCoverPhoto.Location = new System.Drawing.Point(61, 184);
+            this.LinkLabelChangeModelCoverPhoto.Name = "LinkLabelChangeModelCoverPhoto";
+            this.LinkLabelChangeModelCoverPhoto.Size = new System.Drawing.Size(138, 13);
+            this.LinkLabelChangeModelCoverPhoto.TabIndex = 8;
+            this.LinkLabelChangeModelCoverPhoto.TabStop = true;
+            this.LinkLabelChangeModelCoverPhoto.Text = "Change Model Cover Photo";
+            this.LinkLabelChangeModelCoverPhoto.Click += new System.EventHandler(this.LinkLabelChangeModelCoverPhoto_Click);
             // 
             // ModelViewerControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.LinkLabelChangeModelCoverPhoto);
+            this.Controls.Add(this.elementHost1);
             this.Controls.Add(this.TextBoxModelName);
             this.Controls.Add(this.LabelGalleries);
             this.Controls.Add(this.PanelFlowGalleryPhotos);
@@ -153,12 +166,10 @@
             this.Controls.Add(this.ButtonRemoveGallery);
             this.Controls.Add(this.ButtonAddGallery);
             this.Controls.Add(this.ListBoxGalleries);
-            this.Controls.Add(this.PictureBoxCoverPhoto);
             this.Name = "ModelViewerControl";
             this.Size = new System.Drawing.Size(674, 446);
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBoxCoverPhoto)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BindingSourceModel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BindingSourceModelGalleriesList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BindingSourceModel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -166,7 +177,6 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox PictureBoxCoverPhoto;
         private System.Windows.Forms.ListBox ListBoxGalleries;
         private System.Windows.Forms.Button ButtonAddGallery;
         private System.Windows.Forms.Button ButtonRemoveGallery;
@@ -176,5 +186,8 @@
         private System.Windows.Forms.TextBox TextBoxModelName;
         private System.Windows.Forms.BindingSource BindingSourceModelGalleriesList;
         private System.Windows.Forms.BindingSource BindingSourceModel;
+        private System.Windows.Forms.Integration.ElementHost elementHost1;
+        private ucControls.ucPictureBox PictureBoxModelCoverPhoto;
+        private System.Windows.Forms.LinkLabel LinkLabelChangeModelCoverPhoto;
     }
 }
