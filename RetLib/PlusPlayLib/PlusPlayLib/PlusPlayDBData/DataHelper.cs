@@ -7,18 +7,18 @@ using System.Data.SqlServerCe;
 
 namespace PlusPlayDBGenLib.Data
 {
-    public enum ExecuteTypes
-    {
-        NonQuery,
-        Scalar,
-        Table
-    }
+    //public enum ExecuteTypes
+    //{
+    //    NonQuery,
+    //    Scalar,
+    //    Table
+    //}
 
-    public class UpdateProperties
-    {
-        public int RowsAffected { get; set; }
-        public int Identity { get; set; }
-    }
+    //public class UpdateProperties
+    //{
+    //    public int RowsAffected { get; set; }
+    //    public int Identity { get; set; }
+    //}
 
     //public delegate void DataHelper_XQuery(SqlCeDataReader Reader);
 
@@ -30,6 +30,7 @@ namespace PlusPlayDBGenLib.Data
     {
         public SqlCeConnection Conn { get; private set; }
         public static SqlCeTransaction SqlCeTran { get; private set; }
+        public static System.Data.SqlClient.SqlTransaction SqlTran { get; private set; }
         private static string _connectionString = null;
         public static string ConnectionString
         {
@@ -205,5 +206,21 @@ namespace PlusPlayDBGenLib.Data
             cmd.CommandType = System.Data.CommandType.Text;
             return cmd;
         }
+
+        //public System.Data.SqlClient.SqlCommand CreateCommand(string q)
+        //{
+        //    System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(q);
+
+        //    if (SqlTran != null)
+        //    {
+        //        cmd.Connection = SqlTran.Connection;
+        //        cmd.Transaction = SqlTran;
+        //    }
+        //    else
+        //        cmd.Connection = new System.Data.SqlClient.SqlConnection(_connectionString);
+
+        //    cmd.CommandType = System.Data.CommandType.Text;
+        //    return cmd;
+        //}
     }
 }

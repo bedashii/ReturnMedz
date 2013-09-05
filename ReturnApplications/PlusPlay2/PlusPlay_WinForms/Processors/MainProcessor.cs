@@ -38,8 +38,11 @@ namespace PlusPlayWF.Processors
         internal Models AddModel(string selectedPath)
         {
             var di = new DirectoryInfo(selectedPath);
-            var model = new Models(di.Name, null);
+            var model = new Models();
+            model.ModelName = di.Name;
+            model.ModelDirectory = di.FullName;
             ModelsList.Add(model);
+            ModelsList.UpdateAll();
             return model;
         }
     }

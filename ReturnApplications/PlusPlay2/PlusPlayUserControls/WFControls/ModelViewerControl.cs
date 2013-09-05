@@ -31,6 +31,9 @@ namespace PlusPlayUserControls.WFControls
 
             BindingSourceModelGalleriesList.DataSource = _processor.ModelGalleries;
             BindingSourceModelGalleriesList.ResetBindings(false);
+
+            if (!String.IsNullOrEmpty(model.CoverPhoto))
+                PictureBoxModelCoverPhoto.SetImage(model.CoverPhoto);
         }
 
         void TextBoxChangeMode(ChangeMode mode)
@@ -47,6 +50,18 @@ namespace PlusPlayUserControls.WFControls
                     TextBoxModelName.BorderStyle = BorderStyle.Fixed3D;
                     TextBoxModelName.BackColor = Color.White;
                     break;
+            }
+        }
+
+        private void LinkLabelChangeModelCoverPhoto_Click(object sender, EventArgs e)
+        {
+            using (var ofd = ucStatics.GetImageOpenFileDialog(_processor.CurrentModel.ModelDirectory, "Select a Cover Photo"))
+            {
+                if (ofd.ShowDialog() == DialogResult.OK && ofd.CheckFileExists)
+                {
+                    _processor.UpdateModelCoverPhoto(ofd.FileName);
+                    PictureBoxModelCoverPhoto.SetImage(ofd.FileName);
+                }
             }
         }
     }

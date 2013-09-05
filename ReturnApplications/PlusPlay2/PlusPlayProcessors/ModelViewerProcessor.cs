@@ -20,5 +20,11 @@ namespace PlusPlayProcessors
             ModelGalleries = new GalleriesList();
             ModelGalleries.GetByModel(model.ID);
         }
+
+        public void UpdateModelCoverPhoto(string filepath)
+        {
+            CurrentModel.CoverPhoto = filepath;
+            CurrentModel.Update();
+        }
     }
 }

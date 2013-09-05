@@ -6,25 +6,25 @@
     <add key="ConnectionString2" value="Data Source=.;Initial Catalog=PlusPlayDB;User ID=Operator;Password=Operator" />
   </variables>
   <propertySets>
-    <propertySet name="Generate Properties" template="..\..\..\..\Utilities\CodeSmith\HolFrame\GenAllTableProperties.cst">
+    <propertySet name="Generate Properties" template="..\..\..\Git-Dev\Utilities\CodeSmith\HolFrame\GenAllTableProperties.cst">
       <property name="SourceDatabase">
         <connectionString>$(ConnectionString2)</connectionString>
         <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
       </property>
     </propertySet>
-    <propertySet name="Generate Data Access" template="..\..\..\..\Utilities\CodeSmith\HolFrame\GenAllTableAccess.cst">
+    <propertySet name="Generate Data Access" template="..\..\..\Git-Dev\Utilities\CodeSmith\HolFrame\GenAllTableAccess.cst">
       <property name="SourceDatabase">
         <connectionString>$(ConnectionString2)</connectionString>
         <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
       </property>
     </propertySet>
-    <propertySet name="Generate Business" template="..\..\..\..\Utilities\CodeSmith\HolFrame\Business\GenAllBusinessClasses.cst">
+    <propertySet name="Generate Business" template="..\..\..\Git-Dev\Utilities\CodeSmith\HolFrame\Business\GenAllBusinessClasses.cst">
       <property name="SourceDatabase">
         <connectionString>$(ConnectionString2)</connectionString>
         <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
       </property>
     </propertySet>
-    <propertySet name="Generate Lists" template="..\..\..\..\Utilities\CodeSmith\HolFrame\Lists\GenAllTableLists.cst">
+    <propertySet name="Generate Lists" template="..\..\..\Git-Dev\Utilities\CodeSmith\HolFrame\Lists\GenAllTableLists.cst">
       <property name="SourceDatabase">
         <connectionString>$(ConnectionString2)</connectionString>
         <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>

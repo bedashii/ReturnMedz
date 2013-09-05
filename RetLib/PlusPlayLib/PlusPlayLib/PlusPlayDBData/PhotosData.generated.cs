@@ -5,7 +5,6 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using PlusPlayDBGenLib.Business;
-using System.Data.SqlServerCe;
 
 
 /*****************************************************************************
@@ -20,7 +19,7 @@ namespace PlusPlayDBGenLib.Data
 {
     public partial class PhotosData : Properties.PhotosProperties
     {
-        private DataHelper dataHelper = new DataHelper();
+        private DataProcessHelper dataHelper = new DataProcessHelper();
 
         private string _selectColumnNames = "P.[ID], P.[Gallery], P.[PhotoFile]";
 
@@ -33,7 +32,7 @@ namespace PlusPlayDBGenLib.Data
             string q = "SELECT " + _selectColumnNames + " FROM dbo.Photos P\n";
             q += "WHERE P.ID = @ID\n";
 
-            SqlCeCommand cmd = dataHelper.CreateCommand(q);
+            SqlCommand cmd = dataHelper.CreateCommand(q);
 
             cmd.Parameters.Add("@ID", SqlDbType.Int, 4).Value = iD;
             DataTable dt = dataHelper.ExecuteQuery(cmd);
@@ -62,14 +61,14 @@ namespace PlusPlayDBGenLib.Data
             string q = "DELETE FROM dbo.Photos \n";
             q += "WHERE ID = @ID\n";
 
-            SqlCeCommand cmd = dataHelper.CreateCommand(q);
+            SqlCommand cmd = dataHelper.CreateCommand(q);
             
             cmd.Parameters.Add("@ID", SqlDbType.Int, 4).Value = iD;
             
             dataHelper.ExecuteNonQuery(cmd);
         }        
 /* FOR LATER REFACTORING:
-        private void AddPrimaryKeyParameters(SqlCeCommand cmd, int iD)
+        private void AddPrimaryKeyParameters(SqlCommand cmd, int iD)
         {
             cmd.Parameters.Add("@ID", SqlDbType.Int, 4).Value = iD;
         }
@@ -111,11 +110,11 @@ namespace PlusPlayDBGenLib.Data
             q += "WHERE ID = @ID\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
 
-            SqlCeCommand cmd = dataHelper.CreateCommand(q);
+            SqlCommand cmd = dataHelper.CreateCommand(q);
 
             cmd.Parameters.Add("@ID", SqlDbType.Int, 4).Value = ID;
 			cmd.Parameters.Add("@Gallery", SqlDbType.Int, 4).Value = Gallery;
-			cmd.Parameters.Add("@PhotoFile", SqlDbType.NVarChar, 256).Value = PhotoFile;
+			cmd.Parameters.Add("@PhotoFile", SqlDbType.VarChar, 256).Value = PhotoFile;
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             base.AnyPropertyChanged = false; //After update Change is false since it's changes have been applied to the database
@@ -127,10 +126,10 @@ namespace PlusPlayDBGenLib.Data
             string q = "INSERT INTO dbo.Photos ( [Gallery], [PhotoFile] )\n";
             q += "VALUES  ( @Gallery, @PhotoFile )\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
-            SqlCeCommand cmd = dataHelper.CreateCommand(q);
+            SqlCommand cmd = dataHelper.CreateCommand(q);
             
             cmd.Parameters.Add("@Gallery", SqlDbType.Int, 4).Value = Gallery;
-			cmd.Parameters.Add("@PhotoFile", SqlDbType.NVarChar, 256).Value = PhotoFile;
+			cmd.Parameters.Add("@PhotoFile", SqlDbType.VarChar, 256).Value = PhotoFile;
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             ID = up.Identity;

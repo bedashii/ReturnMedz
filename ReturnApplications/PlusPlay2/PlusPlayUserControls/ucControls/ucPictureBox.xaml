@@ -1,0 +1,11 @@
+﻿<UserControl x:Class="PlusPlayUserControls.ucControls.ucPictureBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Height="220" Width="220"
+             Background="#FF4B8BF8" Loaded="UserControl_Loaded">
+    <Grid Background="Green" Name="GridOuter" Margin="10" MouseDown="GridOuter_MouseDown">
+        <Image Name="ImageMain" Stretch="UniformToFill" UseLayoutRounding="False"/>
+    </Grid>
+</UserControl>

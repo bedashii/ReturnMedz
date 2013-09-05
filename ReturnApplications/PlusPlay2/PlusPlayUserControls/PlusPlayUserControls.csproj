@@ -46,9 +46,11 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -59,11 +61,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ucControls\ucPictureBox.cs">
+    <Compile Include="ucControls\ucPictureBox.xaml.cs">
+      <DependentUpon>ucPictureBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ucStatics.cs" />
+    <Compile Include="WFControls\GallleryEditorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ucControls\ucPictureBox.Designer.cs">
-      <DependentUpon>ucPictureBox.cs</DependentUpon>
+    <Compile Include="WFControls\GallleryEditorControl.Designer.cs">
+      <DependentUpon>GallleryEditorControl.cs</DependentUpon>
     </Compile>
     <Compile Include="WFControls\ModelViewerControl.cs">
       <SubType>UserControl</SubType>
@@ -90,12 +96,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="ucControls\ucPictureBox.resx">
-      <DependentUpon>ucPictureBox.cs</DependentUpon>
+    <EmbeddedResource Include="WFControls\GallleryEditorControl.resx">
+      <DependentUpon>GallleryEditorControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WFControls\ModelViewerControl.resx">
       <DependentUpon>ModelViewerControl.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Properties\DataSources\PlusPlayDBGenLib.Business.Galleries.datasource" />
     <None Include="Properties\DataSources\PlusPlayDBGenLib.Business.Models.datasource" />
     <None Include="Properties\DataSources\PlusPlayDBGenLib.Lists.GalleriesList.datasource" />
     <None Include="Properties\Settings.settings">
@@ -105,6 +112,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ucComponents\" />
     <Folder Include="WPFControls\" />
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +124,12 @@
       <Project>{f50553ee-c7df-4cae-9958-b326f6509c55}</Project>
       <Name>PlusPlayProcessors</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="ucControls\ucPictureBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
