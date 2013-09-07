@@ -21,7 +21,7 @@ namespace DiscordiaGenLib.GenLib.Data
         internal void Insert()
         {
             string q = "Insert INTO Movies(Title,Synopsis,Year,Duration,Rating,AgeRestriction,TMDBID)\n";
-            q += "VALUES('" + Title + "','" + Synopsis.Replace("'", string.Empty) + "'," + Year + "," + Duration + "," + Rating.ToString().Replace(',', '.') + ",'" + (AgeRestriction ?? "") + "'," + TMDBID + ")";
+            q += "VALUES('" + Title + "','" + (Synopsis != null ? Synopsis.Replace("'", string.Empty) : "") + "'," + Year + "," + Duration + "," + Rating.ToString().Replace(',', '.') + ",'" + (AgeRestriction != null ? AgeRestriction : "") + "'," + TMDBID + ")";
 
             this.RecordExists = true;
 
