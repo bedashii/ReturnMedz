@@ -25,7 +25,16 @@ namespace DotaDbGenLib.Lists
             _data.LoadAll(this);
         }
         
-        
+        public void GetByPlayer(int player)
+		{
+			_data.LoadItemDataByPlayer(this, player);
+		}
+
+		public void GetByTeam(int team)
+		{
+			_data.LoadItemDataByTeam(this, team);
+		}
+
         
         public void ValidateAll()
         {

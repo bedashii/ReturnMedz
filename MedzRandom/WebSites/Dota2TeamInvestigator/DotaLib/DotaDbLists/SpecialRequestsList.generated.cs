@@ -15,19 +15,19 @@ THIS CLASS IS PART OF GENERATED CODE - NEVER CHANGE ANYTHING INSIDE THIS FILE
 
 namespace DotaDbGenLib.Lists
 {
-    public partial class PlayersList : List<Business.Players>
+    public partial class SpecialRequestsList : List<Business.SpecialRequests>
     {
-        Data.PlayersData _data = new Data.PlayersData();
-        private static Dictionary<string, Players> _lookupList = new Dictionary<string, Players>();
+        Data.SpecialRequestsData _data = new Data.SpecialRequestsData();
+        private static Dictionary<string, SpecialRequests> _lookupList = new Dictionary<string, SpecialRequests>();
 
         public void GetAll()
         {
             _data.LoadAll(this);
         }
         
-        public void GetBySteamID64(long steamID64)
+        public void GetByDateResponded(DateTime dateResponded)
 		{
-			_data.LoadItemDataBySteamID64(this, steamID64);
+			_data.LoadItemDataByDateResponded(this, dateResponded);
 		}
 
 		
@@ -60,20 +60,20 @@ namespace DotaDbGenLib.Lists
         /// Use this method to lookup a record and keep it in a cached internal list;
         /// </summary>
         /// <returns></returns>
-        public Players GetByPrimaryKey(int steamID)
+        public SpecialRequests GetByPrimaryKey(int iD)
         {
-            string pkKey = "PK:[SteamID=" + steamID.ToString() + "]";
+            string pkKey = "PK:[ID=" + iD.ToString() + "]";
             lock (_lookupList)
             {
                 if (_lookupList.ContainsKey(pkKey))
                 {
-                    Players lookupItem = _lookupList[pkKey];
+                    SpecialRequests lookupItem = _lookupList[pkKey];
                     if (lookupItem.ObjectLifetimeExpired)
                     {
                         lookupItem.Refresh();
                         //_lookupList.Remove(pkKey);
                         //this.Remove(lookupItem);
-                        //return this.GetByPrimaryKey(steamID);
+                        //return this.GetByPrimaryKey(iD);
                         return lookupItem;
                     }
                     else
@@ -83,7 +83,7 @@ namespace DotaDbGenLib.Lists
                 }
                 else
                 {
-                    Players lookupItem = new Players(steamID);
+                    SpecialRequests lookupItem = new SpecialRequests(iD);
                     _lookupList.Add(pkKey, lookupItem);
                     this.Add(lookupItem);
                     return lookupItem;

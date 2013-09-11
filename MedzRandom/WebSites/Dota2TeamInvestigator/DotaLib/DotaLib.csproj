@@ -57,6 +57,10 @@
     <Compile Include="DotaDbBusiness\RequestTracking.generated.cs">
       <DependentUpon>RequestTracking.cs</DependentUpon>
     </Compile>
+    <Compile Include="DotaDbBusiness\SpecialRequests.cs" />
+    <Compile Include="DotaDbBusiness\SpecialRequests.generated.cs">
+      <DependentUpon>SpecialRequests.cs</DependentUpon>
+    </Compile>
     <Compile Include="DotaDbBusiness\SteamRequests.cs" />
     <Compile Include="DotaDbBusiness\SteamRequests.generated.cs">
       <DependentUpon>SteamRequests.cs</DependentUpon>
@@ -92,6 +96,10 @@
     <Compile Include="DotaDbData\RequestTrackingData.generated.cs">
       <DependentUpon>RequestTrackingData.cs</DependentUpon>
     </Compile>
+    <Compile Include="DotaDbData\SpecialRequestsData.cs" />
+    <Compile Include="DotaDbData\SpecialRequestsData.generated.cs">
+      <DependentUpon>SpecialRequestsData.cs</DependentUpon>
+    </Compile>
     <Compile Include="DotaDbData\SteamRequestsData.cs" />
     <Compile Include="DotaDbData\SteamRequestsData.generated.cs">
       <DependentUpon>SteamRequestsData.cs</DependentUpon>
@@ -125,6 +133,10 @@
     <Compile Include="DotaDbLists\RequestTrackingList.cs" />
     <Compile Include="DotaDbLists\RequestTrackingList.generated.cs">
       <DependentUpon>RequestTrackingList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbLists\SpecialRequestsList.cs" />
+    <Compile Include="DotaDbLists\SpecialRequestsList.generated.cs">
+      <DependentUpon>SpecialRequestsList.cs</DependentUpon>
     </Compile>
     <Compile Include="DotaDbLists\SteamRequestsList.cs" />
     <Compile Include="DotaDbLists\SteamRequestsList.generated.cs">
@@ -160,6 +172,10 @@
     <Compile Include="DotaDbProperties\RequestTrackingProperties.cs" />
     <Compile Include="DotaDbProperties\RequestTrackingProperties.generated.cs">
       <DependentUpon>RequestTrackingProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DotaDbProperties\SpecialRequestsProperties.cs" />
+    <Compile Include="DotaDbProperties\SpecialRequestsProperties.generated.cs">
+      <DependentUpon>SpecialRequestsProperties.cs</DependentUpon>
     </Compile>
     <Compile Include="DotaDbProperties\SteamRequestsProperties.cs" />
     <Compile Include="DotaDbProperties\SteamRequestsProperties.generated.cs">

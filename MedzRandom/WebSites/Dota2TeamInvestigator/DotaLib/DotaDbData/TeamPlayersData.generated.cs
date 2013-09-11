@@ -44,7 +44,30 @@ namespace DotaDbGenLib.Data
         
         
         
-        
+        internal void LoadItemDataByPlayer(List<TeamPlayers> list,int player)
+		{
+			string q = "SELECT " + _selectColumnNames + " FROM dbo.TeamPlayers T\n";
+			q += "WHERE T.Player = @Player"; 
+
+			SqlCommand cmd = dataHelper.CreateCommand(q);
+
+			cmd.Parameters.Add("@Player", SqlDbType.Int, 4).Value = player;
+
+			PopulateList(list, dataHelper.ExecuteQuery(cmd));
+		}
+
+		internal void LoadItemDataByTeam(List<TeamPlayers> list,int team)
+		{
+			string q = "SELECT " + _selectColumnNames + " FROM dbo.TeamPlayers T\n";
+			q += "WHERE T.Team = @Team"; 
+
+			SqlCommand cmd = dataHelper.CreateCommand(q);
+
+			cmd.Parameters.Add("@Team", SqlDbType.Int, 4).Value = team;
+
+			PopulateList(list, dataHelper.ExecuteQuery(cmd));
+		}
+
 
         internal void LoadAll(List<TeamPlayers> list)
         {

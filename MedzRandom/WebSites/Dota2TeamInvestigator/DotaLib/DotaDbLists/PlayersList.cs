@@ -22,5 +22,20 @@ namespace DotaDbGenLib.Lists
         {
             return _data.GetPlayerWithNoMatchRecords();
         }
+
+        public bool LastMatchFound(long steamId64, out int matchId)
+        {
+            return _data.LastMatchFound(steamId64, out matchId);
+        }
+
+        public void GetByLikeName(string searchString)
+        {
+            _data.GetByLikeName(searchString, this);
+        }
+
+        public void GetAll(int count)
+        {
+            _data.LoadAll(this, count);
+        }
     }
 }

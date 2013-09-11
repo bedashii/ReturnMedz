@@ -17,12 +17,14 @@ namespace Dota2DataMiner
         public Class1()
         {
             steamAPIKey = "4C539F404B4DE827341AE78E9E5B35C9";
+            QuiteMode = Convert.ToBoolean(System.Configuration.ConfigurationManager.AppSettings.Get("QuiteMode"));
         }
 
         public static bool LocalRead = false;
         public static int LocalReads = 0;
 
         private int? previousTeamID = 0;
+        private bool QuiteMode = false;
 
         public void GetNewTeamsRecoverLocalData(int? teamID)
         {
@@ -228,7 +230,8 @@ namespace Dota2DataMiner
 
                         team.LastUpdated = DateTime.Now;
 
-                        Console.WriteLine("Team ID: " + team.ID + " Name: " + team.TeamName);
+                        if (!QuiteMode)
+                            Console.WriteLine("Team ID: " + team.ID + " Name: " + team.TeamName);
 
                         if (!team.RecordExists)
                         {
@@ -302,7 +305,8 @@ namespace Dota2DataMiner
                     teamPlayers.Player = steamID;
                     teamPlayers.InsertOrUpdate();
 
-                    Console.WriteLine("Player ID:" + player.SteamID);
+                    if (!QuiteMode)
+                        Console.WriteLine("Player ID:" + player.SteamID);
                 }
 
                 TeamPlayers teamPlayer = teamPlayersList.Find(x => x.Player == steamID);
@@ -399,7 +403,8 @@ namespace Dota2DataMiner
                         if (playerNode["loccityid"] != null)
                             player.LocCityID = playerNode["loccityid"].InnerText;
 
-                        Console.WriteLine("Steam ID: " + player.SteamID + " Name: " + player.PersonaName + " Real Name: " + (player.RealName ?? ""));
+                        if (!QuiteMode)
+                            Console.WriteLine("Steam ID: " + player.SteamID + " Name: " + player.PersonaName + " Real Name: " + (player.RealName ?? ""));
 
                         newPlayersAdded = true;
                     }
@@ -463,7 +468,7 @@ namespace Dota2DataMiner
 
         public static int PlayerSummariesLimiter { get; set; }
 
-        public bool GetMatchPerPlayer(long steamId64, int matchID)
+        public bool GetMatchPerPlayer(long steamId64, int matchID, string requestType)
         {
             XmlDocument response = new XmlDocument();
             string request = @"https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=" + steamAPIKey;
@@ -475,7 +480,7 @@ namespace Dota2DataMiner
             if (matchID != 0)
                 request += "&start_at_match_id=" + matchID;
 
-            response = MakeRequest("GetMatchPerPlayer", request);
+            response = MakeRequest(requestType, request);
             if (response != null)
             {
                 response.Save("GetMatchPerPlayer" + steamId64.ToString() + (matchID != 0 ? matchID.ToString() : "") + "(" +
@@ -498,13 +503,14 @@ namespace Dota2DataMiner
             {
                 if (subRootNode.Name == "status" && subRootNode.InnerText == "15")
                 {
-                    
+
                     Players player = new Players();
                     player.GetBySteamID64(steamId64);
 
                     if (player.RecordExists)
                     {
-                        Console.WriteLine(player.PersonaName + " likes his/her privacy.");
+                        if (!QuiteMode)
+                            Console.WriteLine(player.PersonaName + " likes his/her privacy.");
                         player.IsPrivate = true;
                         // Not really updating the player, more of testing his private. *snicker*
                         //player.LastUpdated = DateTime.Now;
@@ -512,7 +518,8 @@ namespace Dota2DataMiner
                     }
                     else
                     {
-                        Console.WriteLine("ID: " + steamId64 + " likes his/her privacy.");
+                        if (!QuiteMode)
+                            Console.WriteLine("ID: " + steamId64 + " likes his/her privacy.");
                     }
                     return true;
                 }
@@ -552,7 +559,8 @@ namespace Dota2DataMiner
                             matches.LobbyType = Convert.ToInt32(matchNode["lobby_type"].InnerText);
 
                         matches.InsertOrUpdate();
-                        Console.WriteLine("Match Found: " + matches.ID + "; Sequence Number: " + matches.SequenceNumber + "; Start Time: " + matches.StartTime.ToString());
+                        if (!QuiteMode)
+                            Console.WriteLine("Match Found: " + matches.ID + "; Sequence Number: " + matches.SequenceNumber + "; Start Time: " + matches.StartTime.ToString());
 
                         if (matchNode["players"] != null)
                         {
@@ -575,8 +583,9 @@ namespace Dota2DataMiner
                                         matchPlayer.Hero = Convert.ToInt32(playerNode["hero_id"].InnerText);
                                         matchPlayerList.Add(matchPlayer);
 
-                                        Console.WriteLine("Player: " + matchPlayer.Player64 + "; Playing hero: " +
-                                                          matchPlayer.Hero);
+                                        if (!QuiteMode)
+                                            Console.WriteLine("Player: " + matchPlayer.Player64 + "; Playing hero: " +
+                                                              matchPlayer.Hero);
                                     }
                                 }
                                 else
@@ -592,8 +601,9 @@ namespace Dota2DataMiner
                                         matchPlayer.Hero = Convert.ToInt32(playerNode["hero_id"].InnerText);
                                         matchPlayerList.Add(matchPlayer);
 
-                                        Console.WriteLine("Player: " + matchPlayer.Player64 + "; Playing hero: " +
-                                                          matchPlayer.Hero);
+                                        if (!QuiteMode)
+                                            Console.WriteLine("Player: " + matchPlayer.Player64 + "; Playing hero: " +
+                                                              matchPlayer.Hero);
 
                                         //Players player = new Players();
                                         //player.GetBySteamID64((long)matchPlayer.Player64);

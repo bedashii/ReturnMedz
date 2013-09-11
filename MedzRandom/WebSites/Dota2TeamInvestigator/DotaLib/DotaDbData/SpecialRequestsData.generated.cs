@@ -17,20 +17,20 @@ THIS CLASS IS PART OF GENERATED CODE - NEVER CHANGE ANYTHING INSIDE THIS FILE
 
 namespace DotaDbGenLib.Data
 {
-    public partial class MatchPlayerData : Properties.MatchPlayerProperties
+    public partial class SpecialRequestsData : Properties.SpecialRequestsProperties
     {
         private DataProcessHelper dataHelper = new DataProcessHelper();
 
-        private string _selectColumnNames = "M.[ID], M.[Match], M.[Player], M.[Player64], M.[Slot], M.[Hero]";
+        private string _selectColumnNames = "S.[ID], S.[Team], S.[Player64], S.[DateRequested], S.[DateResponded]";
 
-        public MatchPlayerData()
+        public SpecialRequestsData()
         {
         }
         
         internal void LoadItemData(int iD)
         {
-            string q = "SELECT " + _selectColumnNames + " FROM dbo.MatchPlayer M\n";
-            q += "WHERE M.ID = @ID\n";
+            string q = "SELECT " + _selectColumnNames + " FROM dbo.SpecialRequests S\n";
+            q += "WHERE S.ID = @ID\n";
 
             SqlCommand cmd = dataHelper.CreateCommand(q);
 
@@ -44,44 +44,33 @@ namespace DotaDbGenLib.Data
         
         
         
-        internal void LoadItemDataByMatch(List<MatchPlayer> list,int match)
+        internal void LoadItemDataByDateResponded(List<SpecialRequests> list,DateTime dateResponded)
 		{
-			string q = "SELECT " + _selectColumnNames + " FROM dbo.MatchPlayer M\n";
-			q += "WHERE M.Match = @Match"; 
+			string q = "SELECT " + _selectColumnNames + " FROM dbo.SpecialRequests S\n";
+			q += "WHERE S.DateResponded = @DateResponded"; 
 
 			SqlCommand cmd = dataHelper.CreateCommand(q);
 
-			cmd.Parameters.Add("@Match", SqlDbType.Int, 4).Value = match;
+			cmd.Parameters.Add("@DateResponded", SqlDbType.DateTime, 8).Value = dateResponded;
 
 			PopulateList(list, dataHelper.ExecuteQuery(cmd));
 		}
 
-		internal void LoadItemDataByPlayer64(List<MatchPlayer> list,long player64)
-		{
-			string q = "SELECT " + _selectColumnNames + " FROM dbo.MatchPlayer M\n";
-			q += "WHERE M.Player64 = @Player64"; 
+		
 
-			SqlCommand cmd = dataHelper.CreateCommand(q);
-
-			cmd.Parameters.Add("@Player64", SqlDbType.BigInt, 8).Value = player64;
-
-			PopulateList(list, dataHelper.ExecuteQuery(cmd));
-		}
-
-
-        internal void LoadAll(List<MatchPlayer> list)
+        internal void LoadAll(List<SpecialRequests> list)
         {
             PopulateList(list, this.GetData(""));
         }
 
-        internal void LoadAll(List<MatchPlayer> list, string orderBy)
+        internal void LoadAll(List<SpecialRequests> list, string orderBy)
         {
             PopulateList(list, this.GetData(orderBy));
         }
         
         internal void DeleteItem(int iD)
         {
-            string q = "DELETE FROM dbo.MatchPlayer \n";
+            string q = "DELETE FROM dbo.SpecialRequests \n";
             q += "WHERE ID = @ID\n";
 
             SqlCommand cmd = dataHelper.CreateCommand(q);
@@ -96,25 +85,19 @@ namespace DotaDbGenLib.Data
             cmd.Parameters.Add("@ID", SqlDbType.Int, 4).Value = iD;
         }
 */        
-        internal void SetRowProperties(DataRow dr, Properties.MatchPlayerProperties row)
+        internal void SetRowProperties(DataRow dr, Properties.SpecialRequestsProperties row)
         {
             try
             {
 				row.ID = Convert.ToInt32(dr["ID"]);
-				row.Match = Convert.ToInt32(dr["Match"]);
+				row.Team = Convert.ToInt32(dr["Team"]);
+				row.Player64 = Convert.ToInt64(dr["Player64"]);
+				row.DateRequested = Convert.ToDateTime(dr["DateRequested"]);
 
-				if ((dr["Player"]) == DBNull.Value)
-					row.Player = null;
+				if ((dr["DateResponded"]) == DBNull.Value)
+					row.DateResponded = null;
 				else
-					row.Player = Convert.ToInt32(dr["Player"]);
-
-				if ((dr["Player64"]) == DBNull.Value)
-					row.Player64 = null;
-				else
-					row.Player64 = Convert.ToInt64(dr["Player64"]);
-
-				row.Slot = Convert.ToInt32(dr["Slot"]);
-				row.Hero = Convert.ToInt32(dr["Hero"]);
+					row.DateResponded = Convert.ToDateTime(dr["DateResponded"]);
 
                 row.RecordExists = true;
                 row.AnyPropertyChanged = false;
@@ -131,7 +114,7 @@ namespace DotaDbGenLib.Data
             if (dataHelper.MaxRows != 0)
                 q += " TOP " + dataHelper.MaxRows.ToString() + " ";
             q += _selectColumnNames + "\n";
-            q += "FROM MatchPlayer AS M\n";
+            q += "FROM SpecialRequests AS S\n";
             if (orderBy != "")
                 q += "ORDER BY " + orderBy;
 
@@ -141,28 +124,22 @@ namespace DotaDbGenLib.Data
         private UpdateProperties UpdateData()
         {
 
-            string q = "UPDATE dbo.MatchPlayer SET [Match] = @Match, [Player] = @Player, [Player64] = @Player64, [Slot] = @Slot, [Hero] = @Hero\n";
+            string q = "UPDATE dbo.SpecialRequests SET [Team] = @Team, [Player64] = @Player64, [DateRequested] = @DateRequested, [DateResponded] = @DateResponded\n";
             q += "WHERE ID = @ID\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
 
             SqlCommand cmd = dataHelper.CreateCommand(q);
 
             cmd.Parameters.Add("@ID", SqlDbType.Int, 4).Value = ID;
-			cmd.Parameters.Add("@Match", SqlDbType.Int, 4).Value = Match;
+			cmd.Parameters.Add("@Team", SqlDbType.Int, 4).Value = Team;
+			cmd.Parameters.Add("@Player64", SqlDbType.BigInt, 8).Value = Player64;
+			cmd.Parameters.Add("@DateRequested", SqlDbType.DateTime, 8).Value = DateRequested;
 			
-			if (Player == null)
-				cmd.Parameters.Add("@Player", SqlDbType.Int, 4).Value = DBNull.Value;
+			if (DateResponded == null)
+				cmd.Parameters.Add("@DateResponded", SqlDbType.DateTime, 8).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@Player", SqlDbType.Int, 4).Value = Player;
+				cmd.Parameters.Add("@DateResponded", SqlDbType.DateTime, 8).Value = DateResponded;
 			
-			
-			if (Player64 == null)
-				cmd.Parameters.Add("@Player64", SqlDbType.BigInt, 8).Value = DBNull.Value;
-			else
-				cmd.Parameters.Add("@Player64", SqlDbType.BigInt, 8).Value = Player64;
-			
-			cmd.Parameters.Add("@Slot", SqlDbType.Int, 4).Value = Slot;
-			cmd.Parameters.Add("@Hero", SqlDbType.Int, 4).Value = Hero;
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             base.AnyPropertyChanged = false; //After update Change is false since it's changes have been applied to the database
@@ -171,26 +148,20 @@ namespace DotaDbGenLib.Data
 
         private UpdateProperties InsertData()
         {
-            string q = "INSERT INTO dbo.MatchPlayer ( [Match], [Player], [Player64], [Slot], [Hero] )\n";
-            q += "VALUES  ( @Match, @Player, @Player64, @Slot, @Hero )\n";
+            string q = "INSERT INTO dbo.SpecialRequests ( [Team], [Player64], [DateRequested], [DateResponded] )\n";
+            q += "VALUES  ( @Team, @Player64, @DateRequested, @DateResponded )\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
             SqlCommand cmd = dataHelper.CreateCommand(q);
             
-            cmd.Parameters.Add("@Match", SqlDbType.Int, 4).Value = Match;
+            cmd.Parameters.Add("@Team", SqlDbType.Int, 4).Value = Team;
+			cmd.Parameters.Add("@Player64", SqlDbType.BigInt, 8).Value = Player64;
+			cmd.Parameters.Add("@DateRequested", SqlDbType.DateTime, 8).Value = DateRequested;
 			
-			if (Player == null)
-				cmd.Parameters.Add("@Player", SqlDbType.Int, 4).Value = DBNull.Value;
+			if (DateResponded == null)
+				cmd.Parameters.Add("@DateResponded", SqlDbType.DateTime, 8).Value = DBNull.Value;
 			else
-				cmd.Parameters.Add("@Player", SqlDbType.Int, 4).Value = Player;
+				cmd.Parameters.Add("@DateResponded", SqlDbType.DateTime, 8).Value = DateResponded;
 			
-			
-			if (Player64 == null)
-				cmd.Parameters.Add("@Player64", SqlDbType.BigInt, 8).Value = DBNull.Value;
-			else
-				cmd.Parameters.Add("@Player64", SqlDbType.BigInt, 8).Value = Player64;
-			
-			cmd.Parameters.Add("@Slot", SqlDbType.Int, 4).Value = Slot;
-			cmd.Parameters.Add("@Hero", SqlDbType.Int, 4).Value = Hero;
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             ID = up.Identity;
@@ -202,13 +173,13 @@ namespace DotaDbGenLib.Data
             return up;
         }
 
-        private void PopulateList(List<Business.MatchPlayer> list, DataTable dt)
+        private void PopulateList(List<Business.SpecialRequests> list, DataTable dt)
         {
             list.Clear();
 
             foreach (DataRow dr in dt.Rows)
             {
-                Business.MatchPlayer p = new Business.MatchPlayer();
+                Business.SpecialRequests p = new Business.SpecialRequests();
                 SetRowProperties(dr, p);
                 list.Add(p);
             }
@@ -222,7 +193,7 @@ namespace DotaDbGenLib.Data
             ValidateFields();
             Data.UpdateProperties up = this.UpdateData();
             if (up.RowsAffected == 0)
-                throw new Exception(string.Format("MatchPlayer record {0} was not updated successfully. Reason unknown.", GetPrimaryKeyValues()));
+                throw new Exception(string.Format("SpecialRequests record {0} was not updated successfully. Reason unknown.", GetPrimaryKeyValues()));
         }
 
         public virtual void Insert()

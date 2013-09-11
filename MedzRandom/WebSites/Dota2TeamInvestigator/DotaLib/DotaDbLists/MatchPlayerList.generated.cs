@@ -25,7 +25,16 @@ namespace DotaDbGenLib.Lists
             _data.LoadAll(this);
         }
         
-        
+        public void GetByMatch(int match)
+		{
+			_data.LoadItemDataByMatch(this, match);
+		}
+
+		public void GetByPlayer64(long player64)
+		{
+			_data.LoadItemDataByPlayer64(this, player64);
+		}
+
         
         public void ValidateAll()
         {

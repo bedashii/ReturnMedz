@@ -12,10 +12,5 @@ namespace DotaDbGenLib.Lists
         {
 
         }
-
-        public void GetByTeam(int team)
-        {
-            _data.GetByTeam(this,team);
-        }
     }
 }

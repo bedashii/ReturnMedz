@@ -8,8 +8,8 @@ using DotaDbGenLib.Properties;
 
 namespace DotaDbGenLib.Properties
 {
-    public partial class PlayersProperties : PropertiesBase
+    public partial class SpecialRequestsProperties : PropertiesBase
     {
-        public int OldestMatchID { get; set; }
+
     }
 }

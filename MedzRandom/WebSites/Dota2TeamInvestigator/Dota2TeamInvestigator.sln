@@ -5,6 +5,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Dota2TeamInvestigator", "ht
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "true"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		ProjectReferences = "{ddad765a-8462-4205-9c05-4debf2294bc6}|DotaLib.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_59907"
 		Debug.AspNetCompiler.PhysicalPath = "..\Dota2TeamInvestigator\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_59907\"

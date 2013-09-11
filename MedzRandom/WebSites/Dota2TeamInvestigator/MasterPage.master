@@ -8,11 +8,11 @@
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
-<body>
+<body style="background-color: #8B3F24">
     <form id="form1" runat="server">
     <div>
-        <div id="header" style="text-align: center; margin-left: 14em">
-                <asp:Image runat="server" ID="imageHeader" AlternateText="" ImageUrl="" Height="96px"/>
+        <div id="header" style="text-align: center; ">
+                <asp:Image runat="server" ID="imageHeader" AlternateText="" ImageUrl="~\Images/DotaSpyLogo.png"/>
             </div>
         <div id="content">
         <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">

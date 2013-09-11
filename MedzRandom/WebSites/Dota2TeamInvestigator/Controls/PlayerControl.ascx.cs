@@ -4,12 +4,30 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using DotaDbGenLib.Business;
 
 public partial class PlayerControl : System.Web.UI.UserControl
 {
     private string _avatarUrl;
     private string _personaName;
     private string _wins;
+    private Players _player;
+
+    public DotaDbGenLib.Business.Players Player
+    {
+        get { return _player; }
+        set
+        {
+            if (_player != value)
+            {
+                _player = value;
+
+                AvatarUrl = _player.AvatarFull;
+                PersonaName = _player.PersonaName;
+                Wins = "0";
+            }
+        }
+    }
 
     public string AvatarUrl
     {
@@ -53,5 +71,9 @@ public partial class PlayerControl : System.Web.UI.UserControl
     protected void Page_Load(object sender, EventArgs e)
     {
 
+    }
+    protected void ImageButtonAvatar_Click(object sender, ImageClickEventArgs e)
+    {
+        Response.Redirect(AvatarUrl);
     }
 }

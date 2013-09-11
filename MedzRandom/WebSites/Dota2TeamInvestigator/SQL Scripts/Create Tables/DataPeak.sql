@@ -7,7 +7,7 @@ WHERE LastUpdated > GETDATE()
 
 SELECT SCKey,MAX(SCValue) FROM dbo.SystemConfig
 GROUP BY SCKey
-ORDER BY MAX(SCValue)
+ORDER BY MAX(SCValue) DESC
 
 SELECT * FROM dbo.SteamRequests
 ORDER BY ID DESC
@@ -34,3 +34,14 @@ SELECT  ( CONVERT(DECIMAL, ( SELECT COUNT(DISTINCT SteamID)
                                FROM     dbo.Players
                                WHERE    PersonaName IS NOT NULL
                              )) ) * 100 AS PercentageOfPlayersWithMatches
+
+SELECT  ( CONVERT(DECIMAL, ( SELECT COUNT(DISTINCT SteamID)
+                             FROM   dbo.Players P
+                                    JOIN dbo.MatchPlayer MP ON P.SteamID = MP.Player64
+                             WHERE  SteamID64 != -1
+							 AND OldestMatchFound = 1
+                           ))
+          / CONVERT(DECIMAL, ( SELECT   COUNT(*)
+                               FROM     dbo.Players
+                               WHERE    PersonaName IS NOT NULL
+                             )) ) * 100 AS PercentageOfPlayersWithAllMatches

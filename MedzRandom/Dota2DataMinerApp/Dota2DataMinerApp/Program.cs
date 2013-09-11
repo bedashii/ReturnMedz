@@ -8,22 +8,112 @@ namespace Dota2DataMinerApp
 {
     class Program
     {
+        private static bool QuiteMode=false;
         static void Main(string[] args)
         {
             Dota2DataMiner.Class1.PlayerSummariesLimiter = 100;
 
+            QuiteMode = Convert.ToBoolean(System.Configuration.ConfigurationManager.AppSettings.Get("QuiteMode"));
+
             do
             {
+                // If their are special requests do one and restart the loop else do normal routine.
+                if (GetSpecialRequest())
+                    continue;
+
                 GetTeams();
                 GetPlayerSummaries();
 
                 UpdateTeams();
 
-                GetMatchPerPlayer();
+                GetMatchesPerUndocumentedPlayer();
             } while (true);
         }
 
-        private static void GetMatchPerPlayer()
+        private static bool GetSpecialRequest()
+        {
+            SpecialRequestsList specialRequestsList = new SpecialRequestsList();
+            specialRequestsList.GetSpecialRequest();
+
+            if (specialRequestsList.Count > 0)
+            {
+                bool olderMatchesToFind = true;
+                do
+                {
+                    olderMatchesToFind = GetOlderMatchesPerPlayer(specialRequestsList[0].Player64);
+                } while (olderMatchesToFind);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private static bool GetOlderMatchesPerPlayer(long steamID64)
+        {
+            Dota2DataMiner.Class1 d2Dm = new Dota2DataMiner.Class1();
+
+            PlayersList playersList = new PlayersList();
+            int matchID = 0;
+            // Make sure there is older matches to find.
+            if (playersList.LastMatchFound(steamID64, out matchID))
+                return false;
+
+            // Check for and Recover Local Data.
+            d2Dm.GetMatchPerPlayerLocalData(steamID64, matchID);
+
+            // Check if System Config permits this method call.
+            SystemConfig systemConfig = new SystemConfig();
+            systemConfig.GetByKey("GetOlderMatchesPerPlayer");
+
+            if (systemConfig.RecordExists)
+            {
+                if (DateTime.Now < Convert.ToDateTime(systemConfig.SCValue).AddSeconds(1))
+                    return true;
+            }
+            else
+            {
+                systemConfig.SCKey = "GetOlderMatchesPerPlayer";
+            }
+
+            // Get or Create SteamRequest
+            SteamRequests steamRequests;
+            GetSteamRequest(out steamRequests);
+
+            // Check if API can be used else return
+            if (DateTime.Now < steamRequests.LastUpdated.AddSeconds(1))
+                return true;
+
+            // Increment the Steam Request Counter
+            Console.WriteLine("Steam request number : " + steamRequests.RequestNumber + " - Get Older Matches Per Player");
+            steamRequests.RequestNumber++;
+            steamRequests.LastUpdated = DateTime.Now;
+            steamRequests.InsertOrUpdate();
+
+            Players player = new Players();
+
+            // Get Live Data.
+            if (!d2Dm.GetMatchPerPlayer(steamID64, matchID, "GetOlderMatchesPerPlayer"))
+            {
+                if (!QuiteMode)
+                Console.WriteLine("Oldest Player match found.");
+
+                player.GetBySteamID64(steamID64);
+                player.OldestMatchFound = true;
+                player.Update();
+            }
+
+            systemConfig.SCValue = DateTime.Now.ToString();
+            systemConfig.InsertOrUpdate();
+
+            if (player.RecordExists && player.OldestMatchFound)
+                return false;
+            else
+                return true;
+        }
+
+        private static void GetMatchesPerUndocumentedPlayer()
         {
             Dota2DataMiner.Class1 d2Dm = new Dota2DataMiner.Class1();
 
@@ -48,7 +138,7 @@ namespace Dota2DataMinerApp
 
             // Check if System Config permits this method call.
             SystemConfig systemConfig = new SystemConfig();
-            systemConfig.GetByKey("GetMatchPerPlayer");
+            systemConfig.GetByKey("GetMatchesPerUndocumentedPlayer");
 
             if (systemConfig.RecordExists)
             {
@@ -57,7 +147,7 @@ namespace Dota2DataMinerApp
             }
             else
             {
-                systemConfig.SCKey = "GetMatchPerPlayer";
+                systemConfig.SCKey = "GetMatchesPerUndocumentedPlayer";
             }
 
             // Get or Create SteamRequest
@@ -69,13 +159,13 @@ namespace Dota2DataMinerApp
                 return;
 
             // Increment the Steam Request Counter
-            Console.WriteLine("Steam request number : " + steamRequests.RequestNumber);
+            Console.WriteLine("Steam request number : " + steamRequests.RequestNumber + " - Get Matches Per Undocumented Player");
             steamRequests.RequestNumber++;
             steamRequests.LastUpdated = DateTime.Now;
             steamRequests.InsertOrUpdate();
 
             // Get Live Data.
-            if (d2Dm.GetMatchPerPlayer(steamID64, 0))
+            if (d2Dm.GetMatchPerPlayer(steamID64, 0, "GetMatchesPerUndocumentedPlayer"))
             {
                 // New Data Found, sleep for 1 seconds as steam requests before continuing.
                 systemConfig.SCValue = DateTime.Now.ToString();
@@ -83,6 +173,7 @@ namespace Dota2DataMinerApp
             else
             {
                 // No New Data Found, sleep for 60 seconds to save daily requests.
+                if (!QuiteMode)
                 Console.WriteLine("No Match Per Player Found.");
                 systemConfig.SCValue = DateTime.Now.AddMinutes(1).ToString();
             }
@@ -187,7 +278,7 @@ namespace Dota2DataMinerApp
                 return;
 
             // Increment the Steam Request Counter
-            Console.WriteLine("Steam request number : " + steamRequests.RequestNumber);
+            Console.WriteLine("Steam request number : " + steamRequests.RequestNumber + " - GetTeams");
             steamRequests.RequestNumber++;
             steamRequests.LastUpdated = DateTime.Now;
             steamRequests.InsertOrUpdate();
@@ -201,6 +292,7 @@ namespace Dota2DataMinerApp
             else
             {
                 // No New Data Found, sleep for 60 seconds to save daily requests.
+                if (!QuiteMode)
                 Console.WriteLine("No New Teams Found.");
                 systemConfig.SCValue = DateTime.Now.AddMinutes(30).ToString();
             }
@@ -246,7 +338,7 @@ namespace Dota2DataMinerApp
                 return;
 
             // Increment the Steam Request Counter
-            Console.WriteLine("Steam request number : " + steamRequests.RequestNumber);
+            Console.WriteLine("Steam request number : " + steamRequests.RequestNumber + " - UpdateTeams");
             steamRequests.RequestNumber++;
             steamRequests.LastUpdated = DateTime.Now;
             steamRequests.InsertOrUpdate();
@@ -260,6 +352,7 @@ namespace Dota2DataMinerApp
             else
             {
                 // No New Data Found, sleep for 60 seconds to save daily requests.
+                if (!QuiteMode)
                 Console.WriteLine("No New Teams Found.");
                 systemConfig.SCValue = DateTime.Now.AddMinutes(1).ToString();
             }
@@ -303,7 +396,7 @@ namespace Dota2DataMinerApp
                 return;
 
             // Increment the Steam Request Counter
-            Console.WriteLine("Steam request number : " + steamRequests.RequestNumber);
+            Console.WriteLine("Steam request number : " + steamRequests.RequestNumber + " - Get Player Summaries");
             steamRequests.RequestNumber++;
             steamRequests.LastUpdated = DateTime.Now;
             steamRequests.InsertOrUpdate();
@@ -317,6 +410,7 @@ namespace Dota2DataMinerApp
             else
             {
                 // No New Data Found, sleep for 60 seconds to save daily requests.
+                if (!QuiteMode)
                 Console.WriteLine("No New Players Found.");
                 systemConfig.SCValue = DateTime.Now.AddMinutes(1).ToString();
             }
