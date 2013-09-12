@@ -28,14 +28,14 @@ namespace DotaDbGenLib.Lists
             return _data.LastMatchFound(steamId64, out matchId);
         }
 
-        public void GetByLikeName(string searchString)
+        public void GetByLikeName(string searchString, int skip, int count)
         {
-            _data.GetByLikeName(searchString, this);
+            _data.GetByLikeName(this, searchString, skip, count);
         }
 
-        public void GetAll(int count)
+        public void GetAll(int skip, int count)
         {
-            _data.LoadAll(this, count);
+            _data.LoadAll(this, skip, count);
         }
     }
 }

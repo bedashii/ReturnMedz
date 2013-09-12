@@ -100,29 +100,48 @@ namespace DotaDbGenLib.Data
             }
         }
 
-        public void GetByLikeName(string searchString, PlayersList list)
+        public void GetByLikeName(PlayersList list, string searchString, int skip, int count)
         {
-            string q = "SELECT ";
-            if (dataHelper.MaxRows != 0)
-                q += " TOP " + dataHelper.MaxRows.ToString() + " ";
+            string q = "WITH OrderedPlayer AS\n";
+            q += "(\n";
+            q += "SELECT \n";
             q += _selectColumnNames + "\n";
-            q += "FROM Players AS P\n";
+            q += ",ROW_NUMBER() OVER (ORDER BY P.PersonaName) AS 'RowNumber' FROM Players AS P\n";
             q += "WHERE P.PersonaName LIKE '%" + searchString + "%'\n";
-            q += "ORDER BY PersonaName";
+            q += ")\n";
+            q += "SELECT \n";
+            q += _selectColumnNames + "\n";
+            q += "FROM OrderedPlayer P\n";
+            q += "WHERE RowNumber BETWEEN @Start AND @End;";
 
-            PopulateList(list, dataHelper.ExecuteQuery(dataHelper.CreateCommand(q)));
+            SqlCommand cmd = dataHelper.CreateCommand(q);
+
+            cmd.Parameters.Add("@Start", SqlDbType.Int).Value = skip;
+            cmd.Parameters.Add("@End", SqlDbType.Int).Value = skip+count;
+
+            PopulateList(list, dataHelper.ExecuteQuery(cmd));
         }
 
-        internal void LoadAll(List<Players> list, int count)
+        internal void LoadAll(List<Players> list, int skip, int count)
         {
-            string q = "SELECT ";
-                q += " TOP " + count + " ";
+            string q = "WITH OrderedPlayer AS\n";
+            q += "(\n";
+            q += "SELECT \n";
             q += _selectColumnNames + "\n";
-            q += "FROM Players AS P\n";
+            q += ",ROW_NUMBER() OVER (ORDER BY P.PersonaName) AS 'RowNumber' FROM Players AS P\n";
             q += "WHERE P.PersonaName IS NOT NULL\n";
-            q += "ORDER BY PersonaName";
+            q += ")\n";
+            q += "SELECT \n";
+            q += _selectColumnNames + "\n";
+            q += "FROM OrderedPlayer P\n";
+            q += "WHERE RowNumber BETWEEN @Start AND @End;";
 
-            PopulateList(list, dataHelper.ExecuteQuery(dataHelper.CreateCommand(q)));
+            SqlCommand cmd = dataHelper.CreateCommand(q);
+
+            cmd.Parameters.Add("@Start", SqlDbType.Int).Value = skip;
+            cmd.Parameters.Add("@End", SqlDbType.Int).Value = skip + count;
+
+            PopulateList(list, dataHelper.ExecuteQuery(cmd));
         }
     }
 }
