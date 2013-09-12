@@ -27,7 +27,11 @@ namespace DotaDbGenLib.Business
         private void FinishAfterConstruction()
         {
         }
-    
+
+        public void GetByRequest(string request)
+        {
+            base.GetByRequest(request);
+        }
     }
     
 
