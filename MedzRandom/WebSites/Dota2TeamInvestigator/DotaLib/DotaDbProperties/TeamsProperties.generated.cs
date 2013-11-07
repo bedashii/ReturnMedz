@@ -194,5 +194,20 @@ namespace DotaDbGenLib.Properties
 			}
 		}
 
+		partial void OnDateRequestedChanging();
+		partial void OnDateRequestedChanged();
+		protected DateTime? _dateRequested;
+		public virtual DateTime? DateRequested
+		{
+			get { return _dateRequested; }
+			set
+			{
+				OnDateRequestedChanging();
+				_dateRequested = value;
+				base.AnyPropertyChanged = true;
+				OnDateRequestedChanged();
+			}
+		}
+
     }
 }

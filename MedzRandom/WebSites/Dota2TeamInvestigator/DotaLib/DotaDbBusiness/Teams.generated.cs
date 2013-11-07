@@ -34,7 +34,7 @@ namespace DotaDbGenLib.Business
             FinishAfterConstruction();
         }
        
-        public Teams(int iD, string teamName, string tag, string timeCreated, string rating, string logo, string logoSponsor, string countryCode, string uRL, int? gamesPlayed, int? adminAccount, DateTime lastUpdated)
+        public Teams(int iD, string teamName, string tag, string timeCreated, string rating, string logo, string logoSponsor, string countryCode, string uRL, int? gamesPlayed, int? adminAccount, DateTime lastUpdated, DateTime? dateRequested)
         {
             PrepareBeforeConstruction();
             
@@ -50,6 +50,7 @@ namespace DotaDbGenLib.Business
 			this.GamesPlayed = gamesPlayed;
 			this.AdminAccount = adminAccount;
 			this.LastUpdated = lastUpdated;
+			this.DateRequested = dateRequested;
 			
             FinishAfterConstruction();
         }
@@ -81,6 +82,7 @@ namespace DotaDbGenLib.Business
 			this.GamesPlayed = properties.GamesPlayed;
 			this.AdminAccount = properties.AdminAccount;
 			this.LastUpdated = properties.LastUpdated;
+			this.DateRequested = properties.DateRequested;
 			this.RecordExists = properties.RecordExists;
 
         }

@@ -25,7 +25,12 @@ namespace DotaDbGenLib.Lists
             _data.LoadAll(this);
         }
         
-        public void GetBySteamID64(long steamID64)
+        public void GetBySteamID(int steamID)
+		{
+			_data.LoadItemDataBySteamID(this, steamID);
+		}
+
+		public void GetBySteamID64(long steamID64)
 		{
 			_data.LoadItemDataBySteamID64(this, steamID64);
 		}

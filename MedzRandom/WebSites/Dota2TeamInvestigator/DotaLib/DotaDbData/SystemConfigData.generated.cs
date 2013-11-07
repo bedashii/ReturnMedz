@@ -21,7 +21,7 @@ namespace DotaDbGenLib.Data
     {
         private DataProcessHelper dataHelper = new DataProcessHelper();
 
-        private string _selectColumnNames = "S.[ID], S.[SCKey], S.[SCValue]";
+        private string _selectColumnNames = "S.[ID], S.[SCKey], S.[SCValue], S.[IsActive]";
 
         public SystemConfigData()
         {
@@ -80,6 +80,7 @@ namespace DotaDbGenLib.Data
 				row.ID = Convert.ToInt32(dr["ID"]);
 				row.SCKey = Convert.ToString(dr["SCKey"]);
 				row.SCValue = Convert.ToString(dr["SCValue"]);
+				row.IsActive = Convert.ToBoolean(dr["IsActive"]);
 
                 row.RecordExists = true;
                 row.AnyPropertyChanged = false;
@@ -106,7 +107,7 @@ namespace DotaDbGenLib.Data
         private UpdateProperties UpdateData()
         {
 
-            string q = "UPDATE dbo.SystemConfig SET [SCKey] = @SCKey, [SCValue] = @SCValue\n";
+            string q = "UPDATE dbo.SystemConfig SET [SCKey] = @SCKey, [SCValue] = @SCValue, [IsActive] = @IsActive\n";
             q += "WHERE ID = @ID\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
 
@@ -115,6 +116,7 @@ namespace DotaDbGenLib.Data
             cmd.Parameters.Add("@ID", SqlDbType.Int, 4).Value = ID;
 			cmd.Parameters.Add("@SCKey", SqlDbType.VarChar, -1).Value = SCKey;
 			cmd.Parameters.Add("@SCValue", SqlDbType.VarChar, 100).Value = SCValue;
+			cmd.Parameters.Add("@IsActive", SqlDbType.Bit, 1).Value = IsActive;
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             base.AnyPropertyChanged = false; //After update Change is false since it's changes have been applied to the database
@@ -123,13 +125,14 @@ namespace DotaDbGenLib.Data
 
         private UpdateProperties InsertData()
         {
-            string q = "INSERT INTO dbo.SystemConfig ( [SCKey], [SCValue] )\n";
-            q += "VALUES  ( @SCKey, @SCValue )\n";
+            string q = "INSERT INTO dbo.SystemConfig ( [SCKey], [SCValue], [IsActive] )\n";
+            q += "VALUES  ( @SCKey, @SCValue, @IsActive )\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
             SqlCommand cmd = dataHelper.CreateCommand(q);
             
             cmd.Parameters.Add("@SCKey", SqlDbType.VarChar, -1).Value = SCKey;
 			cmd.Parameters.Add("@SCValue", SqlDbType.VarChar, 100).Value = SCValue;
+			cmd.Parameters.Add("@IsActive", SqlDbType.Bit, 1).Value = IsActive;
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             ID = up.Identity;

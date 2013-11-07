@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Threading;
+using System.Xml;
+using Dota2DataMiner;
 using DotaDbGenLib.Business;
 using DotaDbGenLib.Lists;
 
@@ -8,12 +12,24 @@ namespace Dota2DataMinerApp
 {
     class Program
     {
-        private static bool QuiteMode=false;
+        private static bool QuiteMode = false;
         static void Main(string[] args)
         {
             Dota2DataMiner.Class1.PlayerSummariesLimiter = 100;
 
             QuiteMode = Convert.ToBoolean(System.Configuration.ConfigurationManager.AppSettings.Get("QuiteMode"));
+
+            BackgroundWorker _bgWorker = new BackgroundWorker();
+            _bgWorker.DoWork += delegate
+                                    {
+                                        Dota2DataMiner.Class1 d2Dm = new Dota2DataMiner.Class1();
+                                        do
+                                        {
+                                            DCNewTeams(d2Dm);
+                                        } while (true);
+                                    };
+
+            _bgWorker.RunWorkerAsync();
 
             do
             {
@@ -28,6 +44,33 @@ namespace Dota2DataMinerApp
 
                 GetMatchesPerUndocumentedPlayer();
             } while (true);
+        }
+
+        private static void DCNewTeams(Class1 d2Dm)
+        {
+            // Check if System Config permits this method call.
+            SystemConfig systemConfig = new SystemConfig();
+            systemConfig.GetByKey("GetNewTeams");
+
+            if (!systemConfig.RecordExists || systemConfig.IsActive)
+            {
+                return;
+            }
+
+            string[] files = Directory.GetFiles(".", "GetTeamInfo*.xml");
+
+            for (int i = 0; i < files.Length; i++)
+            {
+                files[i] = files[0].Substring(files[0].LastIndexOf("\\") + 1);
+
+                XmlDocument response = new XmlDocument();
+                response.Load(files[i]);
+                string teamID = files[i].Substring("GetTeamInfo".Length, files[i].IndexOf('(') - "GetTeamInfo".Length);
+                d2Dm.GetTeams(response, Convert.ToInt32(teamID));
+            }
+
+            systemConfig.IsActive = true;
+            systemConfig.InsertOrUpdate();
         }
 
         private static bool GetSpecialRequest()
@@ -94,18 +137,26 @@ namespace Dota2DataMinerApp
             Players player = new Players();
 
             // Get Live Data.
-            if (!d2Dm.GetMatchPerPlayer(steamID64, matchID, "GetOlderMatchesPerPlayer"))
+            try
             {
-                if (!QuiteMode)
-                Console.WriteLine("Oldest Player match found.");
+                if (!d2Dm.GetMatchPerPlayer(steamID64, matchID, "GetOlderMatchesPerPlayer", systemConfig))
+                {
+                    if (!QuiteMode)
+                        Console.WriteLine("Oldest Player match found.");
 
-                player.GetBySteamID64(steamID64);
-                player.OldestMatchFound = true;
-                player.Update();
+                    player.GetBySteamID64(steamID64);
+                    player.OldestMatchFound = true;
+                    player.Update();
+                }
+
+                systemConfig.SCValue = DateTime.Now.ToString();
+                systemConfig.InsertOrUpdate();
             }
-
-            systemConfig.SCValue = DateTime.Now.ToString();
-            systemConfig.InsertOrUpdate();
+            catch (Exception)
+            {
+                steamRequests.RequestNumber--;
+                steamRequests.InsertOrUpdate();
+            }
 
             if (player.RecordExists && player.OldestMatchFound)
                 return false;
@@ -165,7 +216,7 @@ namespace Dota2DataMinerApp
             steamRequests.InsertOrUpdate();
 
             // Get Live Data.
-            if (d2Dm.GetMatchPerPlayer(steamID64, 0, "GetMatchesPerUndocumentedPlayer"))
+            if (d2Dm.GetMatchPerPlayer(steamID64, 0, "GetMatchesPerUndocumentedPlayer", systemConfig))
             {
                 // New Data Found, sleep for 1 seconds as steam requests before continuing.
                 systemConfig.SCValue = DateTime.Now.ToString();
@@ -174,7 +225,7 @@ namespace Dota2DataMinerApp
             {
                 // No New Data Found, sleep for 60 seconds to save daily requests.
                 if (!QuiteMode)
-                Console.WriteLine("No Match Per Player Found.");
+                    Console.WriteLine("No Match Per Player Found.");
                 systemConfig.SCValue = DateTime.Now.AddMinutes(1).ToString();
             }
 
@@ -244,30 +295,24 @@ namespace Dota2DataMinerApp
         {
             Dota2DataMiner.Class1 d2Dm = new Dota2DataMiner.Class1();
 
-            TeamsList teams = new TeamsList();
-
-            // Get latest Team.
-            int? teamID = teams.GetMaxTeamID();
-
-            // Check for and Recover Local Data.
-            d2Dm.GetNewTeamsRecoverLocalData(teamID);
-
-            // Get latest Team.
-            teamID = teams.GetMaxTeamID();
-
             // Check if System Config permits this method call.
             SystemConfig systemConfig = new SystemConfig();
             systemConfig.GetByKey("GetNewTeams");
 
             if (systemConfig.RecordExists)
             {
-                if (DateTime.Now < Convert.ToDateTime(systemConfig.SCValue).AddSeconds(1))
+                if (!systemConfig.IsActive || DateTime.Now < Convert.ToDateTime(systemConfig.SCValue).AddSeconds(1))
                     return;
             }
             else
             {
                 systemConfig.SCKey = "GetNewTeams";
             }
+
+            TeamsList teams = new TeamsList();
+
+            // Get latest Team.
+            int? teamID = teams.GetMaxTeamID();
 
             // Get or Create And Increment SteamRequest
             SteamRequests steamRequests;
@@ -284,21 +329,83 @@ namespace Dota2DataMinerApp
             steamRequests.InsertOrUpdate();
 
             // Get Live Data.
-            if (d2Dm.GetNewTeams(teamID, 100))
+            if (d2Dm.GetNewTeams2(teamID, 100, systemConfig))
             {
                 // New Data Found, sleep for 1 seconds as steam requests before continuing.
-                systemConfig.SCValue = DateTime.Now.ToString();
+                //systemConfig.SCValue = DateTime.Now.ToString();
+                systemConfig.IsActive = false;
             }
             else
             {
                 // No New Data Found, sleep for 60 seconds to save daily requests.
                 if (!QuiteMode)
-                Console.WriteLine("No New Teams Found.");
+                    Console.WriteLine("No New Teams Found.");
                 systemConfig.SCValue = DateTime.Now.AddMinutes(30).ToString();
+                systemConfig.IsActive = true;
             }
 
             systemConfig.InsertOrUpdate();
         }
+
+        //private static void GetTeams()
+        //{
+        //    Dota2DataMiner.Class1 d2Dm = new Dota2DataMiner.Class1();
+
+        //    TeamsList teams = new TeamsList();
+
+        //    // Get latest Team.
+        //    int? teamID = teams.GetMaxTeamID();
+
+        //    // Check for and Recover Local Data.
+        //    d2Dm.GetNewTeamsRecoverLocalData(teamID);
+
+        //    // Get latest Team.
+        //    teamID = teams.GetMaxTeamID();
+
+        //    // Check if System Config permits this method call.
+        //    SystemConfig systemConfig = new SystemConfig();
+        //    systemConfig.GetByKey("GetNewTeams");
+
+        //    if (systemConfig.RecordExists)
+        //    {
+        //        if (DateTime.Now < Convert.ToDateTime(systemConfig.SCValue).AddSeconds(1))
+        //            return;
+        //    }
+        //    else
+        //    {
+        //        systemConfig.SCKey = "GetNewTeams";
+        //    }
+
+        //    // Get or Create And Increment SteamRequest
+        //    SteamRequests steamRequests;
+        //    GetSteamRequest(out steamRequests);
+
+        //    // Check if API can be used else return
+        //    if (DateTime.Now < steamRequests.LastUpdated.AddSeconds(1))
+        //        return;
+
+        //    // Increment the Steam Request Counter
+        //    Console.WriteLine("Steam request number : " + steamRequests.RequestNumber + " - GetTeams");
+        //    steamRequests.RequestNumber++;
+        //    steamRequests.LastUpdated = DateTime.Now;
+        //    steamRequests.InsertOrUpdate();
+
+        //    // Get Live Data.
+        //    if (d2Dm.GetNewTeams(teamID, 100))
+        //    {
+        //        // New Data Found, sleep for 1 seconds as steam requests before continuing.
+        //        systemConfig.SCValue = DateTime.Now.ToString();
+        //    }
+        //    else
+        //    {
+        //        // No New Data Found, sleep for 60 seconds to save daily requests.
+        //        if (!QuiteMode)
+        //            Console.WriteLine("No New Teams Found.");
+        //        systemConfig.SCValue = DateTime.Now.AddMinutes(30).ToString();
+        //    }
+
+        //    systemConfig.InsertOrUpdate();
+        //}
 
         private static void UpdateTeams()
         {
@@ -344,16 +451,11 @@ namespace Dota2DataMinerApp
             steamRequests.InsertOrUpdate();
 
             // Get Live Data.
-            if (d2Dm.GetNewTeams(teamID, 100))
-            {
-                // New Data Found, sleep for 1 seconds as steam requests before continuing.
-                systemConfig.SCValue = DateTime.Now.ToString();
-            }
-            else
+            if (!d2Dm.UpdateTeam(teamID, 100, systemConfig))
             {
                 // No New Data Found, sleep for 60 seconds to save daily requests.
                 if (!QuiteMode)
-                Console.WriteLine("No New Teams Found.");
+                    Console.WriteLine("No New Teams Found.");
                 systemConfig.SCValue = DateTime.Now.AddMinutes(1).ToString();
             }
 
@@ -402,7 +504,7 @@ namespace Dota2DataMinerApp
             steamRequests.InsertOrUpdate();
 
             // Get Live Data.
-            if (d2Dm.GetNewPlayerSummaries(players))
+            if (d2Dm.GetNewPlayerSummaries(players, systemConfig))
             {
                 // New Data Found, sleep for 1 seconds as steam requests before continuing.
                 systemConfig.SCValue = DateTime.Now.ToString();
@@ -411,7 +513,7 @@ namespace Dota2DataMinerApp
             {
                 // No New Data Found, sleep for 60 seconds to save daily requests.
                 if (!QuiteMode)
-                Console.WriteLine("No New Players Found.");
+                    Console.WriteLine("No New Players Found.");
                 systemConfig.SCValue = DateTime.Now.AddMinutes(1).ToString();
             }
 

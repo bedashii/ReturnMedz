@@ -21,7 +21,7 @@ namespace DotaDbGenLib.Data
     {
         private DataProcessHelper dataHelper = new DataProcessHelper();
 
-        private string _selectColumnNames = "T.[ID], T.[TeamName], T.[Tag], T.[TimeCreated], T.[Rating], T.[Logo], T.[LogoSponsor], T.[CountryCode], T.[URL], T.[GamesPlayed], T.[AdminAccount], T.[LastUpdated]";
+        private string _selectColumnNames = "T.[ID], T.[TeamName], T.[Tag], T.[TimeCreated], T.[Rating], T.[Logo], T.[LogoSponsor], T.[CountryCode], T.[URL], T.[GamesPlayed], T.[AdminAccount], T.[LastUpdated], T.[DateRequested]";
 
         public TeamsData()
         {
@@ -127,6 +127,11 @@ namespace DotaDbGenLib.Data
 
 				row.LastUpdated = Convert.ToDateTime(dr["LastUpdated"]);
 
+				if ((dr["DateRequested"]) == DBNull.Value)
+					row.DateRequested = null;
+				else
+					row.DateRequested = Convert.ToDateTime(dr["DateRequested"]);
+
                 row.RecordExists = true;
                 row.AnyPropertyChanged = false;
             }
@@ -152,7 +157,7 @@ namespace DotaDbGenLib.Data
         private UpdateProperties UpdateData()
         {
 
-            string q = "UPDATE dbo.Teams SET [TeamName] = @TeamName, [Tag] = @Tag, [TimeCreated] = @TimeCreated, [Rating] = @Rating, [Logo] = @Logo, [LogoSponsor] = @LogoSponsor, [CountryCode] = @CountryCode, [URL] = @URL, [GamesPlayed] = @GamesPlayed, [AdminAccount] = @AdminAccount, [LastUpdated] = @LastUpdated\n";
+            string q = "UPDATE dbo.Teams SET [TeamName] = @TeamName, [Tag] = @Tag, [TimeCreated] = @TimeCreated, [Rating] = @Rating, [Logo] = @Logo, [LogoSponsor] = @LogoSponsor, [CountryCode] = @CountryCode, [URL] = @URL, [GamesPlayed] = @GamesPlayed, [AdminAccount] = @AdminAccount, [LastUpdated] = @LastUpdated, [DateRequested] = @DateRequested\n";
             q += "WHERE ID = @ID\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
 
@@ -216,6 +221,12 @@ namespace DotaDbGenLib.Data
 			
 			cmd.Parameters.Add("@LastUpdated", SqlDbType.DateTime, 8).Value = LastUpdated;
 			
+			if (DateRequested == null)
+				cmd.Parameters.Add("@DateRequested", SqlDbType.DateTime, 8).Value = DBNull.Value;
+			else
+				cmd.Parameters.Add("@DateRequested", SqlDbType.DateTime, 8).Value = DateRequested;
+			
+			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             base.AnyPropertyChanged = false; //After update Change is false since it's changes have been applied to the database
             return up;
@@ -223,8 +234,8 @@ namespace DotaDbGenLib.Data
 
         private UpdateProperties InsertData()
         {
-            string q = "INSERT INTO dbo.Teams ( [ID], [TeamName], [Tag], [TimeCreated], [Rating], [Logo], [LogoSponsor], [CountryCode], [URL], [GamesPlayed], [AdminAccount], [LastUpdated] )\n";
-            q += "VALUES  ( @ID, @TeamName, @Tag, @TimeCreated, @Rating, @Logo, @LogoSponsor, @CountryCode, @URL, @GamesPlayed, @AdminAccount, @LastUpdated )\n";
+            string q = "INSERT INTO dbo.Teams ( [ID], [TeamName], [Tag], [TimeCreated], [Rating], [Logo], [LogoSponsor], [CountryCode], [URL], [GamesPlayed], [AdminAccount], [LastUpdated], [DateRequested] )\n";
+            q += "VALUES  ( @ID, @TeamName, @Tag, @TimeCreated, @Rating, @Logo, @LogoSponsor, @CountryCode, @URL, @GamesPlayed, @AdminAccount, @LastUpdated, @DateRequested )\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
             SqlCommand cmd = dataHelper.CreateCommand(q);
             
@@ -285,6 +296,12 @@ namespace DotaDbGenLib.Data
 				cmd.Parameters.Add("@AdminAccount", SqlDbType.Int, 4).Value = AdminAccount;
 			
 			cmd.Parameters.Add("@LastUpdated", SqlDbType.DateTime, 8).Value = LastUpdated;
+			
+			if (DateRequested == null)
+				cmd.Parameters.Add("@DateRequested", SqlDbType.DateTime, 8).Value = DBNull.Value;
+			else
+				cmd.Parameters.Add("@DateRequested", SqlDbType.DateTime, 8).Value = DateRequested;
+			
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             

@@ -13,7 +13,7 @@ SELECT * FROM dbo.SteamRequests
 ORDER BY ID DESC
 
 --Monitor duplicate requests per day
-SELECT Request,COUNT(Request) FROM dbo.RequestTracking
+SELECT Request,COUNT(Request) Duplicates FROM dbo.RequestTracking
 WHERE Date >= CONVERT(DATE,GETDATE())
 AND Ignored = 0
 GROUP BY Request
@@ -21,7 +21,7 @@ HAVING COUNT(Request) > 1
 ORDER BY COUNT(Request) DESC
 
 -- Monitor Last Updated teams per day
-SELECT CONVERT(DATE,LastUpdated),COUNT(CONVERT(DATE,LastUpdated)) FROM dbo.Teams
+SELECT CONVERT(DATE,LastUpdated) Date,COUNT(CONVERT(DATE,LastUpdated)) TeamsUpdatedPerDay FROM dbo.Teams
 GROUP BY CONVERT(DATE,LastUpdated)
 ORDER BY CONVERT(DATE,LastUpdated) DESC
 

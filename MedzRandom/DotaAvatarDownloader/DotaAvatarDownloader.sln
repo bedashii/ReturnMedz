@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotaAvatarDownloader", "DotaAvatarDownloader\DotaAvatarDownloader.csproj", "{011F891D-7507-4D53-8F5E-387C940F2398}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotaLib", "..\WebSites\Dota2TeamInvestigator\DotaLib\DotaLib.csproj", "{DDAD765A-8462-4205-9C05-4DEBF2294BC6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{011F891D-7507-4D53-8F5E-387C940F2398}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{011F891D-7507-4D53-8F5E-387C940F2398}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{011F891D-7507-4D53-8F5E-387C940F2398}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{011F891D-7507-4D53-8F5E-387C940F2398}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDAD765A-8462-4205-9C05-4DEBF2294BC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDAD765A-8462-4205-9C05-4DEBF2294BC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDAD765A-8462-4205-9C05-4DEBF2294BC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDAD765A-8462-4205-9C05-4DEBF2294BC6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

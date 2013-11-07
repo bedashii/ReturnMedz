@@ -10,6 +10,10 @@ namespace DotaDbGenLib.Properties
 {
     public partial class SystemConfigProperties : PropertiesBase
     {
-
+        public SystemConfigProperties()
+        {
+            // Defaults to IsActive = true.
+            IsActive = true;
+        }
     }
 }

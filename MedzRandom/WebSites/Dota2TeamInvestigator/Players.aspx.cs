@@ -31,14 +31,14 @@ public partial class Players : System.Web.UI.Page
 
     private void Search(string searchText)
     {
-        int current = Convert.ToInt32(HiddenFieldCurrentPage.Value)-1;
+        int current = Convert.ToInt32(HiddenFieldCurrentPage.Value) - 1;
         int total = Convert.ToInt32(HiddenFieldTotalPages.Value);
 
         PlayersList playersList = new PlayersList();
         if (TextBoxSearchBox.Text == "")
-            playersList.GetAll(current == 0 ? 0 : ((current * itemsPerPage) + 1), itemsPerPage);
+            playersList.GetAll(current == 0 ? 0 : ((current * itemsPerPage) + 1), current == 0 ? itemsPerPage : itemsPerPage - 1);
         else
-            playersList.GetByLikeName(TextBoxSearchBox.Text, current == 0 ? 0 : ((current * itemsPerPage) + 1), itemsPerPage);
+            playersList.GetByLikeName(TextBoxSearchBox.Text, current == 0 ? 0 : ((current * itemsPerPage) + 1), current == 0 ? itemsPerPage : itemsPerPage - 1);
 
         // If exact match found, move to the top of the list.
         DotaDbGenLib.Business.Players player = playersList.Find(x => x.PersonaName == TextBoxSearchBox.Text);

@@ -44,7 +44,19 @@ namespace DotaDbGenLib.Data
         
         
         
-        internal void LoadItemDataBySteamID64(List<Players> list,long steamID64)
+        internal void LoadItemDataBySteamID(List<Players> list,int steamID)
+		{
+			string q = "SELECT " + _selectColumnNames + " FROM dbo.Players P\n";
+			q += "WHERE P.SteamID = @SteamID"; 
+
+			SqlCommand cmd = dataHelper.CreateCommand(q);
+
+			cmd.Parameters.Add("@SteamID", SqlDbType.Int, 4).Value = steamID;
+
+			PopulateList(list, dataHelper.ExecuteQuery(cmd));
+		}
+
+		internal void LoadItemDataBySteamID64(List<Players> list,long steamID64)
 		{
 			string q = "SELECT " + _selectColumnNames + " FROM dbo.Players P\n";
 			q += "WHERE P.SteamID64 = @SteamID64"; 

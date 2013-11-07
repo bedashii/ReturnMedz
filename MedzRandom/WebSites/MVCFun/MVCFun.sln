@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Web
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eManager.Core", "eManager.Core\eManager.Core.csproj", "{98869371-89FA-414C-B7CD-8F048F0B173C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eManager.Web", "eManager.Web\eManager.Web.csproj", "{2C219E63-A816-43B7-87E9-8FD958C5BE8D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{98869371-89FA-414C-B7CD-8F048F0B173C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98869371-89FA-414C-B7CD-8F048F0B173C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98869371-89FA-414C-B7CD-8F048F0B173C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98869371-89FA-414C-B7CD-8F048F0B173C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C219E63-A816-43B7-87E9-8FD958C5BE8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C219E63-A816-43B7-87E9-8FD958C5BE8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C219E63-A816-43B7-87E9-8FD958C5BE8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C219E63-A816-43B7-87E9-8FD958C5BE8D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

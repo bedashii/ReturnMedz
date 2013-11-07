@@ -34,12 +34,13 @@ namespace DotaDbGenLib.Business
             FinishAfterConstruction();
         }
        
-        public SystemConfig(string sCKey, string sCValue)
+        public SystemConfig(string sCKey, string sCValue, bool isActive)
         {
             PrepareBeforeConstruction();
             
 			this.SCKey = sCKey;
 			this.SCValue = sCValue;
+			this.IsActive = isActive;
 			
             FinishAfterConstruction();
         }
@@ -62,6 +63,7 @@ namespace DotaDbGenLib.Business
             this.ID = properties.ID;
 			this.SCKey = properties.SCKey;
 			this.SCValue = properties.SCValue;
+			this.IsActive = properties.IsActive;
 			this.RecordExists = properties.RecordExists;
 
         }

@@ -23,7 +23,6 @@ namespace Dota2DataMiner
         public static bool LocalRead = false;
         public static int LocalReads = 0;
 
-        private int? previousTeamID = 0;
         private bool QuiteMode = false;
 
         public void GetNewTeamsRecoverLocalData(int? teamID)
@@ -42,7 +41,7 @@ namespace Dota2DataMiner
             }
         }
 
-        public bool GetNewTeams(int? teamID, int count)
+        public bool GetNewTeams(int? teamID, int count, SystemConfig systemConfig)
         {
             XmlDocument response = new XmlDocument();
 
@@ -55,7 +54,7 @@ namespace Dota2DataMiner
 
             request += "&teams_requested=" + count;
 
-            response = MakeRequest("GetNewTeams", request);
+            response = MakeRequest("GetNewTeams", request, systemConfig);
             if (response != null)
             {
                 response.Save("GetTeamInfo" + (teamID != null ? teamID.ToString() : "") + "(" +
@@ -69,7 +68,7 @@ namespace Dota2DataMiner
             }
         }
 
-        public bool UpdateTeam(int? teamID, int count)
+        public bool UpdateTeam(int? teamID, int count, SystemConfig systemConfig)
         {
             XmlDocument response = new XmlDocument();
 
@@ -82,13 +81,14 @@ namespace Dota2DataMiner
 
             request += "&teams_requested=" + count;
 
-            response = MakeRequest("UpdateTeams", request);
+            response = MakeRequest("UpdateTeams", request, systemConfig);
             if (response != null)
             {
                 response.Save("GetTeamInfo" + (teamID != null ? teamID.ToString() : "") + "(" +
                               DateTime.Now.ToString("ddMMyyyy") + ").xml");
 
-                return GetTeams(response, teamID);
+                GetTeams(response, teamID);
+                return checkIfTeamsFound(response);
             }
             else
             {
@@ -120,7 +120,7 @@ namespace Dota2DataMiner
 
         public string steamAPIKey { get; set; }
 
-        public static XmlDocument MakeRequest(string requestType, string requestUrl)
+        public static XmlDocument MakeRequest(string requestType, string requestUrl, SystemConfig systemConfig)
         {
             try
             {
@@ -133,8 +133,8 @@ namespace Dota2DataMiner
                 HttpWebRequest request = WebRequest.Create(requestUrl) as HttpWebRequest;
                 HttpWebResponse response = request.GetResponse() as HttpWebResponse;
 
-                SystemConfig systemConfig = new SystemConfig();
-                systemConfig.GetByKey(requestType);
+                if (systemConfig == null)
+                    systemConfig = new SystemConfig();
 
                 if (!systemConfig.RecordExists)
                     systemConfig.SCKey = requestType;
@@ -155,7 +155,7 @@ namespace Dota2DataMiner
             }
         }
 
-        private bool GetTeams(XmlDocument response, int? teamID)
+        public bool GetTeams(XmlDocument response, int? teamID)
         {
             TeamsList teamsList = new TeamsList();
 
@@ -424,7 +424,7 @@ namespace Dota2DataMiner
             return newPlayersAdded;
         }
 
-        public bool GetNewPlayerSummaries(PlayersList players)
+        public bool GetNewPlayerSummaries(PlayersList players, SystemConfig systemConfig)
         {
             if (players == null || players.Count == 0)
                 return false;
@@ -444,7 +444,7 @@ namespace Dota2DataMiner
                 request += (players[i].SteamID + 76561197960265728).ToString();
             }
 
-            response = MakeRequest("GetPlayerSummaries", request);
+            response = MakeRequest("GetPlayerSummaries", request, systemConfig);
 
             if (response == null)
             {
@@ -468,7 +468,7 @@ namespace Dota2DataMiner
 
         public static int PlayerSummariesLimiter { get; set; }
 
-        public bool GetMatchPerPlayer(long steamId64, int matchID, string requestType)
+        public bool GetMatchPerPlayer(long steamId64, int matchID, string requestType, SystemConfig systemConfig)
         {
             XmlDocument response = new XmlDocument();
             string request = @"https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=" + steamAPIKey;
@@ -480,7 +480,7 @@ namespace Dota2DataMiner
             if (matchID != 0)
                 request += "&start_at_match_id=" + matchID;
 
-            response = MakeRequest(requestType, request);
+            response = MakeRequest(requestType, request, systemConfig);
             if (response != null)
             {
                 response.Save("GetMatchPerPlayer" + steamId64.ToString() + (matchID != 0 ? matchID.ToString() : "") + "(" +
@@ -658,6 +658,50 @@ namespace Dota2DataMiner
                         GetMatchs(response, steamId64, recordMatchID);
                 }
             }
+        }
+
+        public bool GetNewTeams2(int? teamID, int count, SystemConfig systemConfig)
+        {
+            XmlDocument response = new XmlDocument();
+
+            string request = @"https://api.steampowered.com/IDOTA2Match_570/GetTeamInfoByTeamID/v001/?key=" + steamAPIKey;
+
+            request += "&format=xml";
+
+            if (teamID != null)
+                request += @"&start_at_team_id=" + teamID;
+
+            request += "&teams_requested=" + count;
+
+            response = MakeRequest("GetNewTeams", request, systemConfig);
+            if (response != null)
+            {
+                response.Save("GetTeamInfo" + (teamID != null ? teamID.ToString() : "") + "(" +
+                              DateTime.Now.ToString("ddMMyyyy") + ").xml");
+
+                //return GetTeams(response, teamID);
+                return checkIfNewTeamsFound(response);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool checkIfNewTeamsFound(XmlDocument response)
+        {
+            if (response.ChildNodes.Count > 2 && response.ChildNodes[2].ChildNodes.Count > 1)
+                if (response.ChildNodes[2].ChildNodes[1].ChildNodes.Count != 1)
+                    return true;
+            return false;
+        }
+
+        private bool checkIfTeamsFound(XmlDocument response)
+        {
+            if (response.ChildNodes.Count > 2 && response.ChildNodes[2].ChildNodes.Count > 1)
+                if (response.ChildNodes[2].ChildNodes[1].ChildNodes.Count != 0)
+                    return true;
+            return false;
         }
     }
 }

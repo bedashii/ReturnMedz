@@ -56,5 +56,20 @@ namespace DotaDbGenLib.Properties
 			}
 		}
 
+		partial void OnIsActiveChanging();
+		partial void OnIsActiveChanged();
+		protected bool _isActive;
+		public virtual bool IsActive
+		{
+			get { return _isActive; }
+			set
+			{
+				OnIsActiveChanging();
+				_isActive = value;
+				base.AnyPropertyChanged = true;
+				OnIsActiveChanged();
+			}
+		}
+
     }
 }
