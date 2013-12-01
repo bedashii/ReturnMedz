@@ -561,26 +561,33 @@ namespace Discordia.UI
 
                 bg.DoWork += delegate
                 {
-                    FileInfo fi = new FileInfo(FullPath);
-                    string newName = "";
-                    if (renameMovieWindow.textBoxNewName.Dispatcher.CheckAccess())
+                    try
                     {
-                        newName = fi.Directory + "\\" + renameMovieWindow.NewName + fi.Extension;
-                    }
-                    else
-                    {
-                        renameMovieWindow.textBoxNewName.Dispatcher.Invoke(delegate
+                        FileInfo fi = new FileInfo(FullPath);
+                        string newName = "";
+                        if (renameMovieWindow.textBoxNewName.Dispatcher.CheckAccess())
                         {
                             newName = fi.Directory + "\\" + renameMovieWindow.NewName + fi.Extension;
-                        });
+                        }
+                        else
+                        {
+                            renameMovieWindow.textBoxNewName.Dispatcher.Invoke(delegate
+                            {
+                                newName = fi.Directory + "\\" + renameMovieWindow.NewName + fi.Extension;
+                            });
+                        }
+                        File.Move(FullPath, newName);
+
+                        FullPath = newName;
+                        Movie = new DiscordiaGenLib.GenLib.Business.Movie();
+
+                        FindMovieInfo();
+                        UpdateUI();
                     }
-                    File.Move(FullPath, newName);
-
-                    FullPath = newName;
-                    Movie = new DiscordiaGenLib.GenLib.Business.Movie();
-
-                    FindMovieInfo();
-                    UpdateUI();
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message + Environment.NewLine + ex.ToString());
+                    }
                 };
 
                 bg.RunWorkerAsync();

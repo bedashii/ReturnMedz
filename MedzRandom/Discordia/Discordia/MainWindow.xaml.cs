@@ -96,13 +96,20 @@ namespace Discordia
 
         private void ButtonScan_Click(object sender, RoutedEventArgs e)
         {
-            if (movies == null)
-                movies = new MoviesControl();
-            else
-                movies.MovieControlList.Clear();
-            movies.MovieControlList = _processor.Scan();
+            try
+            {
+                if (movies == null)
+                    movies = new MoviesControl();
+                else
+                    movies.MovieControlList.Clear();
+                movies.MovieControlList = _processor.Scan();
 
-            setActiveControl(movies);
+                setActiveControl(movies);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + Environment.NewLine + ex.ToString());
+            }
         }
     }
 }
