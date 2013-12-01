@@ -259,7 +259,6 @@ namespace Discordia.UI
 
         private FileInfo setMovieInfo(FileInfo fi, WatTmdb.V3.TmdbMovieSearch movieSearch)
         {
-            
             Movie.TMDBID = movieSearch.results[0].id;
             Movie.Title = movieSearch.results[0].title.Replace(":", string.Empty).Replace("'", string.Empty);
             Movie.Rating = movieSearch.results[0].popularity;
@@ -385,14 +384,31 @@ namespace Discordia.UI
         public void UpdateUI()
         {
             // TODO
-            Title = Movie.Title;
-            Synopsis = Movie.Synopsis;
-            updatePosterUI();
+            BackgroundWorker bg = new BackgroundWorker();
+
+            bg.DoWork += delegate
+            {
+                Title = Movie.Title;
+                Synopsis = Movie.Synopsis;
+                updatePosterUI();
+            };
+
+            bg.RunWorkerAsync();
         }
 
         private void updateTitleUI()
         {
-            textBlockTitle.Text = Title;
+            if (buttonTitle.Dispatcher.CheckAccess())
+            {
+                buttonTitle.Content = Title;
+            }
+            else
+            {
+                buttonTitle.Dispatcher.Invoke(delegate
+                {
+                    buttonTitle.Content = Title;
+                });
+            }
         }
         private void updatePosterUI()
         {
@@ -425,22 +441,69 @@ namespace Discordia.UI
                         FileInfo fi = new FileInfo("Posters\\" + @Posters[0].Path);
                         if (fi.Exists)
                         {
-                            imagePoster.Source = new BitmapImage(new Uri(fi.FullName));
-                            imageMainPoster.Source = new BitmapImage(new Uri(fi.FullName));
+                            if (imagePoster.Dispatcher.CheckAccess())
+                            {
+                                imagePoster.Source = new BitmapImage(new Uri(fi.FullName));
+                            }
+                            else
+                            {
+                                imagePoster.Dispatcher.Invoke(delegate
+                                {
+                                    imagePoster.Source = new BitmapImage(new Uri(fi.FullName));
+                                });
+                            }
+                            if (imageMainPoster.Dispatcher.CheckAccess())
+                            {
+                                imageMainPoster.Source = new BitmapImage(new Uri(fi.FullName));
+                            }
+                            else
+                            {
+                                imageMainPoster.Dispatcher.Invoke(delegate
+                                {
+                                    imageMainPoster.Source = new BitmapImage(new Uri(fi.FullName));
+                                });
+                            }
                         }
                         fi = null;
                     }
                 }
 
+                int posterHeight = 0;
+                int mainHeight = 1;
+
                 if (Posters.Count == 0)
                 {
-                    Poster.Height = new GridLength(0, GridUnitType.Star);
-                    Main.Height = new GridLength(1, GridUnitType.Star);
+                    posterHeight = 0;
+                    mainHeight = 1;
                 }
                 else
                 {
-                    Poster.Height = new GridLength(1, GridUnitType.Star);
-                    Main.Height = new GridLength(0, GridUnitType.Star);
+                    posterHeight = 1;
+                    mainHeight = 0;
+                }
+
+                if (Poster.Dispatcher.CheckAccess())
+                {
+                    Poster.Height = new GridLength(posterHeight, GridUnitType.Star);
+                }
+                else
+                {
+                    Poster.Dispatcher.Invoke(delegate
+                    {
+                        Poster.Height = new GridLength(posterHeight, GridUnitType.Star);
+                    });
+                }
+
+                if (Main.Dispatcher.CheckAccess())
+                {
+                    Main.Height = new GridLength(mainHeight, GridUnitType.Star);
+                }
+                else
+                {
+                    Main.Dispatcher.Invoke(delegate
+                    {
+                        Main.Height = new GridLength(mainHeight, GridUnitType.Star);
+                    });
                 }
             }
             catch (Exception ex)
@@ -466,7 +529,17 @@ namespace Discordia.UI
         }
         private void updateSynopsisUI()
         {
-            textBlockSynopsis.Text = Synopsis;
+            if (textBlockSynopsis.Dispatcher.CheckAccess())
+            {
+                textBlockSynopsis.Text = Synopsis;
+            }
+            else
+            {
+                textBlockSynopsis.Dispatcher.Invoke(delegate
+                {
+                    textBlockSynopsis.Text = Synopsis;
+                });
+            }
         }
 
         internal void Save()
@@ -475,5 +548,48 @@ namespace Discordia.UI
             Movie.InsertOrUpdate();
         }
         #endregion
+
+        private void buttonTitle_Click(object sender, RoutedEventArgs e)
+        {
+            RenameMovieWindow renameMovieWindow = new RenameMovieWindow();
+            renameMovieWindow.OriginalName = Title;
+            renameMovieWindow.NewName = Title;
+
+            renameMovieWindow.Rename += delegate
+            {
+                BackgroundWorker bg = new BackgroundWorker();
+
+                bg.DoWork += delegate
+                {
+                    FileInfo fi = new FileInfo(FullPath);
+                    string newName = "";
+                    if (renameMovieWindow.textBoxNewName.Dispatcher.CheckAccess())
+                    {
+                        newName = fi.Directory + "\\" + renameMovieWindow.NewName + fi.Extension;
+                    }
+                    else
+                    {
+                        renameMovieWindow.textBoxNewName.Dispatcher.Invoke(delegate
+                        {
+                            newName = fi.Directory + "\\" + renameMovieWindow.NewName + fi.Extension;
+                        });
+                    }
+                    File.Move(FullPath, newName);
+
+                    FullPath = newName;
+                    Movie = new DiscordiaGenLib.GenLib.Business.Movie();
+
+                    FindMovieInfo();
+                    UpdateUI();
+                };
+
+                bg.RunWorkerAsync();
+            };
+
+            if (renameMovieWindow.ShowDialog() == true)
+            {
+
+            }
+        }
     }
 }

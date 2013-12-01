@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DiscordiaGenLib.GenLib;
+using System.ComponentModel;
+using System.Threading;
 
 namespace Discordia
 {
@@ -71,10 +73,10 @@ namespace Discordia
                 {
                     _files.Add(new FileInfo(x));
                 });
-            Directory.GetDirectories(path).ToList().ForEach(x =>
+            /*Directory.GetDirectories(path).ToList().ForEach(x =>
                 {
                     addFilesRecursive(x);
-                });
+                });*/
         }
 
         private List<MovieControl> _movieControls;
@@ -104,12 +106,44 @@ namespace Discordia
                 });
         }
 
+
         private void fetchMovieInfo()
         {
-            _movieControls.ForEach(x =>
+            AutoResetEvent doneEvent = new AutoResetEvent(false);
+
+            ProgressWindow pw = new ProgressWindow();
+
+            pw.ProgressAction = "Fetching Movie Info";
+            pw.ProgressValue = 0;
+            pw.ProgressMax = _movieControls.Count;
+
+            BackgroundWorker bgw = new BackgroundWorker();
+
+            bgw.DoWork += delegate
+            {
+                try
                 {
-                    x.FindMovieInfo();
-                });
+                    _movieControls.ForEach(x =>
+                    {
+                        x.FindMovieInfo();
+                        pw.ProgressStep();
+                    });
+                }
+                finally
+                {
+                    doneEvent.Set();
+                }
+            };
+
+            bgw.RunWorkerCompleted += delegate
+            {
+                pw.Close();
+            };
+
+            bgw.RunWorkerAsync();
+            pw.ShowDialog();
+
+            doneEvent.WaitOne();
         }
 
         private void updateDatabase()

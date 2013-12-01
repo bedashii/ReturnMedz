@@ -10,7 +10,7 @@
             <Setter Property="Padding" Value="0"/>
         </Style>
     </UserControl.Resources>
-    
+
     <Border BorderBrush="Black" BorderThickness="1">
         <Grid Name="gridMainPoster" FocusManager.IsFocusScope="True">
             <Grid.RowDefinitions>
@@ -27,8 +27,8 @@
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-
-                <TextBlock Name="textBlockTitle" Text="Title" Grid.Row="0" TextAlignment="Center" FontSize="24" TextWrapping="Wrap"/>
+                <Button Name="buttonTitle" Grid.Row="0" FontSize="24" Click="buttonTitle_Click">Title</Button>
+                <!--<TextBlock Name="textBlockTitle" Text="Title" Grid.Row="0" TextAlignment="Center" FontSize="24" TextWrapping="Wrap"/>-->
 
                 <Grid Name="gridPosterGenresActors" Grid.Row="1">
                     <Grid.ColumnDefinitions>
@@ -69,6 +69,6 @@
                 <TextBlock Name="textBlockSynopsis" Grid.Row="2" TextWrapping="Wrap"/>
                 <Button Name="buttonPlay" Grid.Row="3" Width="50" Height="40" Click="buttonPlay_Click">Play</Button>
             </Grid>
-        </Grid>        
+        </Grid>
     </Border>
 </UserControl>

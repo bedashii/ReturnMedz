@@ -1,0 +1,19 @@
+﻿<Window x:Class="Discordia.UI.ProgressWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ProgressWindow" Height="150" Width="300" WindowStartupLocation="CenterOwner" WindowStyle="None">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Loading"/>
+        <ProgressBar Grid.Row="1" Name="progressBarLoading" Maximum="100" Value="1"/>
+        <TextBlock Grid.Row="2" Name="textBlockProgress" Text="0 of n"/>
+        <TextBlock Grid.Row="3" Name="textBlockAction" Text="XYZ is happening"/>
+        <Button Grid.Row="4" Name="buttonExit" Width="60" Height="25" Click="buttonExit_Click">Exit</Button>
+    </Grid>
+</Window>
