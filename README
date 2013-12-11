@@ -1,1 +1,63 @@
-Test ReadMe
+MedzRandom/AutoClicker (C# WinForms) - Incomplete project
+Very stupid and simple little app that clicks once every 200ms, once it starts, good luck stopping it =P
+
+MedzRandom/BadReferenceFinder (C# WPF) - Incomplete project
+This is a application that scans folders for the csproj files. You can double click on project and it will search the project for it's references and attempt to determine if the references can be located.
+I haven't tested it at all.
+
+MedzRandom/Binder - Just an Idea
+Binder was meant to be an application that scans a folder for ebooks and then does research online about the ebooks so that more infomation can be given about the ebook and so that they can be organised.
+
+MedzRandom/Chatters - Compelete
+Chatters was a website I built for a coffee shop in Somerset West. After I had finished the website I couldn't get the client to view the website to sell it. Lame.
+
+MedzRandom/ChattersApp - Compelete
+A management application for the Chatters Website.
+
+MedzRandom/Discordia - In progress (stable'ish)
+Discordia is a movie viewer application that scans multiple folders to find all your movies and then displays a poster of the movie which can be clicked to show you more information about the movie.
+
+MedzRandom/DiscordiaWCF - Abandoned
+Discordia was meant to be a bigger application and this service was meant to gather movie data and store it in a central database so that we could reduce the internet searches to a minimum.
+
+MedzRandom/Dota2DataMinerApp - Abandoned
+This is a console application that attempts to populate the Dota2 Database with the information of all the players and all their data.
+
+MedzRandom/DotaAvatarDownloader - Complete
+This was just a stupid console app I created to download a bunch of the Avatars of Steam Users I collected with the Dota2DataMinerApp.
+
+MedzRandom/DownloadSorter - In Progress (stable'ish)
+This is an application I built for myself in order to speed up the sorting process of my downloads.
+
+MedzRandom/FTP Test - Complete
+Simple application that accepts ftp details and a filename and returns the file size of the filename if it can access the file.
+
+MedzRandom/Gaming/UnityBlox - In Progress
+A version of my first game I ever made, this time created using Unity3d
+
+MedzRandom/Gaming/Windows/Blox - Complete
+The first game I ever made, it's called Blox and is simply a high score game. The player controls a Block that needs to get a high score by collecting coins/mushrooms while avoiding enemy blocks.
+
+MedzRandom/Holistics/CRMLightSwitch - Abandoned
+A poor attempt at using lightswitch to replace the current Asp.Net CRM website. Spend hours/days/weeks building the CRM in Asp.Net so my heart wasn't in this one.
+
+MedzRandom/Holistics/FWSTrackingMonitor - Complete
+A small application that I built in order to assist me in monitoring the FWS tracking table.
+
+MedzRandom/Holistics/ProofClient + ProofServer - Compelete
+Built this client server setup as a proof of concept for a friend.
+
+MedzRandom/MediaIntegrityTester - Abandoned
+This was meant to be an application that searches though the movies and series folders and tests each video file to make sure they are not corrupt in anyway. I don't think I started on this project.
+
+MedzRandom/Websites/Dota2TeamInvestigator - Abandoned
+A website that was meant to display the information I had gathered with the Dota2DataMinerApp.
+
+MedzRandom/Websites/Dota2TeamInvestigatorV0.1 - Backup
+A Backup of Dota2TeamInvestigator
+
+MedzRandom/Websites/MVCFun - Learning
+Just a silly project I created to test the waters in MVC.
+
+MedzRandom/Websites/WarpAssessment - Complete
+A simple Asp.Net MVC website I built as an entrance exam for Warp Development.
