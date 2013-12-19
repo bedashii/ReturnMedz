@@ -1,3 +1,5 @@
+Read Me:
+
 MedzRandom/AutoClicker (C# WinForms) - Incomplete project
 Very stupid and simple little app that clicks once every 200ms, once it starts, good luck stopping it =P
 
@@ -32,7 +34,10 @@ This is an application I built for myself in order to speed up the sorting proce
 MedzRandom/FTP Test - Complete
 Simple application that accepts ftp details and a filename and returns the file size of the filename if it can access the file.
 
-MedzRandom/Gaming/UnityBlox - In Progress
+MedzRandom/Gaming/Unity/.gitignore
+A standard .gitignore file that MUST be added to all Unity3d projects.
+
+MedzRandom/Gaming/Unity/UnityBlox - In Progress
 A version of my first game I ever made, this time created using Unity3d
 
 MedzRandom/Gaming/Windows/Blox - Complete
