@@ -22,10 +22,13 @@ public class scriptSceneManager : MonoBehaviour
     public float iceIntervalStop = 5.0f;
 
     public GameObject prefabBonuxBox;
+    public GameObject player;
 
     // Use this for initialization
     void Start()
     {
+        player = GameObject.Find("player");
+
         startGameTime = gameTime;
         InvokeRepeating("countDown", 1.0f, 1.0f);
     }
@@ -35,6 +38,16 @@ public class scriptSceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var vertExtent = Camera.main.camera.orthographicSize;
+        var horzExtent = vertExtent * Screen.width / Screen.height;
+        Debug.Log(vertExtent);
+        Debug.Log(horzExtent);
+
+        BorderTop = vertExtent - (player.gameObject.renderer.bounds.size.z / 2);
+        BorderBottom = (-vertExtent) + (player.gameObject.renderer.bounds.size.z / 2);
+        BorderLeft = (-horzExtent) + (player.gameObject.renderer.bounds.size.x / 2);
+        BorderRight = horzExtent - (player.gameObject.renderer.bounds.size.x / 2);
+
         //PlayerPrefs.SetInt ("PlayerScore", score);
 
         if (!paused)
