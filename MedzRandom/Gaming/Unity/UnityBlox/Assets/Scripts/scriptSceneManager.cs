@@ -7,10 +7,7 @@ public class scriptSceneManager : MonoBehaviour
     public int score = 0;
     public int lives = 3;
     public int startLives = 3;
-    public float BorderTop = 3.0f;
-    public float BorderBottom = -3.0f;
-    public float BorderLeft = -4.15f;
-    public float BorderRight = 4.15f;
+
     private float startGameTime;
     public GUISkin mySkin;
     public Transform Level;
@@ -23,6 +20,63 @@ public class scriptSceneManager : MonoBehaviour
 
     public GameObject prefabBonuxBox;
     public GameObject player;
+
+    public float borderTop = 0.0f;
+    public float BorderTop
+    {
+        get
+        {
+            if (borderTop == 0.0f)
+                borderTop = Camera.main.camera.orthographicSize - (player.gameObject.renderer.bounds.size.z / 2);
+            return borderTop;
+        }
+        set
+        {
+            borderTop = value;
+        }
+    }
+    public float borderBottom = 0.0f;
+    public float BorderBottom
+    {
+        get
+        {
+            if (borderBottom == 0.0f)
+                borderBottom = (-Camera.main.camera.orthographicSize) + (player.gameObject.renderer.bounds.size.z / 2);
+            return borderBottom;
+        }
+        set
+        {
+            borderBottom = value;
+        }
+    }
+    public float borderLeft = 0.0f;
+    public float BorderLeft
+    {
+        get
+        {
+            if (borderLeft == 0.0f)
+                borderLeft = (-(Camera.main.camera.orthographicSize * Screen.width / Screen.height)) + (player.gameObject.renderer.bounds.size.x / 2);
+            return borderLeft;
+        }
+        set
+        {
+            borderLeft = value;
+        }
+    }
+    public float borderRight = 0.0f;
+    public float BorderRight
+    {
+        get
+        {
+            if (borderRight == 0.0f)
+                borderRight = Camera.main.camera.orthographicSize * Screen.width / Screen.height - (player.gameObject.renderer.bounds.size.x / 2);
+            return borderRight;
+        }
+        set
+        {
+            borderRight = value;
+        }
+    }
 
     // Use this for initialization
     void Start()
@@ -38,16 +92,6 @@ public class scriptSceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var vertExtent = Camera.main.camera.orthographicSize;
-        var horzExtent = vertExtent * Screen.width / Screen.height;
-        Debug.Log(vertExtent);
-        Debug.Log(horzExtent);
-
-        BorderTop = vertExtent - (player.gameObject.renderer.bounds.size.z / 2);
-        BorderBottom = (-vertExtent) + (player.gameObject.renderer.bounds.size.z / 2);
-        BorderLeft = (-horzExtent) + (player.gameObject.renderer.bounds.size.x / 2);
-        BorderRight = horzExtent - (player.gameObject.renderer.bounds.size.x / 2);
-
         //PlayerPrefs.SetInt ("PlayerScore", score);
 
         if (!paused)
