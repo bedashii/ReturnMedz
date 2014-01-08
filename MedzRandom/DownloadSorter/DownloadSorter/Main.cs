@@ -197,7 +197,7 @@ namespace DownloadSorter
                     path += "\\";
                 //path += treeNode.FullPath.ToString().Substring(treeNode.FullPath.ToString().IndexOf('\\') + 1);
                 if (treeNode.FullPath.Substring(0, treeNode.FullPath.IndexOf('\\')) != treeNode.TreeView.Nodes[0].Text)
-                    path += treeNode.FullPath.Substring(treeNode.FullPath.IndexOf('\\')+1);
+                    path += treeNode.FullPath.Substring(treeNode.FullPath.IndexOf('\\') + 1);
                 else
                     path += treeNode.FullPath;
 
@@ -506,7 +506,8 @@ namespace DownloadSorter
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message + Environment.NewLine + "Debug Info:" + Environment.NewLine + ex.StackTrace);
+                        if (!ex.Message.Contains("The directory is not empty"))
+                            MessageBox.Show(ex.Message + Environment.NewLine + "Debug Info:" + Environment.NewLine + ex.StackTrace);
                     }
                 else
                     Directory.GetDirectories(path).ToList().ForEach(x =>
