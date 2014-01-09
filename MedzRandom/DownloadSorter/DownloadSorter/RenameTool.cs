@@ -242,7 +242,8 @@ namespace DownloadSorter
         {
             if (!File.Exists("RenameRemovalWords.txt"))
             {
-                File.Create("RenameRemovalWords.txt");
+                FileStream fs = File.Create("RenameRemovalWords.txt");
+				fs.Close();
                 FileInfo fi = new FileInfo("RenameRemovalWords.txt");
                 MessageBox.Show(fi.FullName + " created.");
                 fi = null;
