@@ -1,0 +1,2 @@
+﻿UIPicturePanel: Incorrect amount of items are imported, Count() - 1 is always imported unless select all is selected
+UIPicturePanel: Crashes when 1 file of a new gallery is imported

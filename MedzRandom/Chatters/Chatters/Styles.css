@@ -1,0 +1,112 @@
+﻿/* 
+   The below CSS file was built using samples + techniques described by Rachel Andrew in her book:
+   The CSS Anthology: 101 Essential Tips, Tricks & Hacks
+*/
+
+/* Overall Page */
+
+body {
+    margin: 0;
+    padding-bottom: 2em;
+    background-color: lightgreen;
+    color: #000000;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    border-top: 3px solid darkgreen;
+    /*border-top: 2px solid purple;*/
+}
+
+/* Header Section */
+
+#header {
+    /*padding-bottom: 2px;
+    border-bottom: 1px solid darkgreen;*/
+    height: 6em;
+}
+
+    #header .title {
+        font: 190% Arial, Helvetica, Georgia, "Times New Roman", Times, serif;
+        color: black;
+        background-color: lawngreen;
+        float: left;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        margin-right: 20px;
+        margin-top: 0.3em;
+        width: 250px;
+    }
+
+/* Navigation */
+
+#navigation {
+    /*width: 20%;*/
+    top: 8em;
+    left: 1em;
+    width: 13em;
+    position: absolute;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 90%;
+}
+
+    #navigation ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+        #navigation li a {
+            display: block;
+            padding: 5px 5px 5px 0.5em;
+            border-left: 12px solid lightgreen;
+            border-right: 1px solid lightgreen;
+            background-color: lightgreen;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+
+            #navigation li a:hover {
+                background-color: lawngreen;
+                color: #FFFFFF;
+            }
+
+    #navigation ul ul {
+        margin-left: 12px;
+    }
+
+        #navigation ul ul li {
+            border-bottom: 1px solid lightgreen;
+            margin: 0;
+            background-color: lightgreen;
+            color: white;
+        }
+
+        #navigation ul ul a:link, #navigation ul ul a:visited {
+            background-color: lightgreen;
+            color: white;
+        }
+
+        #navigation ul ul a:hover {
+            background-color: lawngreen;
+            color: white;
+        }
+
+/* Main Content */
+
+#content {
+    margin-top: 1em;
+    margin-left: 16em;
+    margin-right: 2em;
+}
+
+h1 {
+    font: 150% Arial, Helvetica, Georgia, "Times New Roman", Times, serif;
+}
+
+#content p {
+    font-size: 80%;
+    line-height: 1.6em;
+}
+
+#content ul {
+    font-size: 80%;
+    line-height: 1.6em;
+}

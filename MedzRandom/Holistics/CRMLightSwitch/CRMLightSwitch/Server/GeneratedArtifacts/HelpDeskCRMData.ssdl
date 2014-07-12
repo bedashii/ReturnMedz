@@ -1,0 +1,829 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="HelpDeskCRMDataStore" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="HelpDeskCRMDataStore">
+    <EntitySet Name="Addresses" EntityType="HelpDeskCRMDataStore.Address" store:Type="Tables" Schema="dbo" Table="Address" />
+    <EntitySet Name="categories" EntityType="HelpDeskCRMDataStore.category" store:Type="Tables" Schema="dbo" Table="categories" />
+    <EntitySet Name="Companies" EntityType="HelpDeskCRMDataStore.Company" store:Type="Tables" Schema="dbo" Table="Company" />
+    <EntitySet Name="Contacts" EntityType="HelpDeskCRMDataStore.Contact" store:Type="Tables" Schema="dbo" Table="Contact" />
+    <EntitySet Name="db_keys" EntityType="HelpDeskCRMDataStore.db_key" store:Type="Tables" Schema="dbo" Table="db_keys" />
+    <EntitySet Name="Dealings" EntityType="HelpDeskCRMDataStore.Dealing" store:Type="Tables" Schema="dbo" Table="Dealing" />
+    <EntitySet Name="departments" EntityType="HelpDeskCRMDataStore.department" store:Type="Tables" Schema="dbo" Table="departments" />
+    <EntitySet Name="Items" EntityType="HelpDeskCRMDataStore.Item" store:Type="Tables" Schema="dbo" Table="Item" />
+    <EntitySet Name="ItemLinks" EntityType="HelpDeskCRMDataStore.ItemLink" store:Type="Tables" Schema="dbo" Table="ItemLinks" />
+    <EntitySet Name="priorities" EntityType="HelpDeskCRMDataStore.priority" store:Type="Tables" Schema="dbo" Table="priority" />
+    <EntitySet Name="problems" EntityType="HelpDeskCRMDataStore.problem" store:Type="Tables" Schema="dbo" Table="problems" />
+    <EntitySet Name="ProblemsRelateds" EntityType="HelpDeskCRMDataStore.ProblemsRelated" store:Type="Tables" Schema="dbo" Table="ProblemsRelated" />
+    <EntitySet Name="Sectors" EntityType="HelpDeskCRMDataStore.Sector" store:Type="Tables" Schema="dbo" Table="Sector" />
+    <EntitySet Name="SectorGroups" EntityType="HelpDeskCRMDataStore.SectorGroup" store:Type="Tables" Schema="dbo" Table="SectorGroup" />
+    <EntitySet Name="States" EntityType="HelpDeskCRMDataStore.State" store:Type="Tables" Schema="dbo" Table="States" />
+    <EntitySet Name="status" EntityType="HelpDeskCRMDataStore.status" store:Type="Tables" Schema="dbo" Table="status" />
+    <EntitySet Name="tblConfigs" EntityType="HelpDeskCRMDataStore.tblConfig" store:Type="Tables" Schema="dbo" Table="tblConfig" />
+    <EntitySet Name="tblConfig_Auths" EntityType="HelpDeskCRMDataStore.tblConfig_Auth" store:Type="Tables" Schema="dbo" Table="tblConfig_Auth" />
+    <EntitySet Name="tblConfig_Emails" EntityType="HelpDeskCRMDataStore.tblConfig_Email" store:Type="Tables" Schema="dbo" Table="tblConfig_Email" />
+    <EntitySet Name="tblEmailMsgs" EntityType="HelpDeskCRMDataStore.tblEmailMsg" store:Type="Tables" Schema="dbo" Table="tblEmailMsg" />
+    <EntitySet Name="tblLangStrings" EntityType="HelpDeskCRMDataStore.tblLangString" store:Type="Tables" Schema="dbo" Table="tblLangStrings" />
+    <EntitySet Name="tblLanguages" EntityType="HelpDeskCRMDataStore.tblLanguage" store:Type="Tables" Schema="dbo" Table="tblLanguage" />
+    <EntitySet Name="tblNotes" EntityType="HelpDeskCRMDataStore.tblNote" store:Type="Tables" Schema="dbo" Table="tblNotes" />
+    <EntitySet Name="tblUsers" EntityType="HelpDeskCRMDataStore.tblUser" store:Type="Tables" Schema="dbo" Table="tblUsers" />
+    <EntitySet Name="vwProblems" EntityType="HelpDeskCRMDataStore.vwProblem" store:Type="Tables" Schema="dbo" Table="vwProblems" />
+    <AssociationSet Name="FK_Company_Contact" Association="HelpDeskCRMDataStore.FK_Company_Contact">
+      <End Role="Contact" EntitySet="Contacts" />
+      <End Role="Company" EntitySet="Companies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Company_Sector" Association="HelpDeskCRMDataStore.FK_Company_Sector">
+      <End Role="Sector" EntitySet="Sectors" />
+      <End Role="Company" EntitySet="Companies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Company_SectorGroup" Association="HelpDeskCRMDataStore.FK_Company_SectorGroup">
+      <End Role="SectorGroup" EntitySet="SectorGroups" />
+      <End Role="Company" EntitySet="Companies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Contact_Sector" Association="HelpDeskCRMDataStore.FK_Contact_Sector">
+      <End Role="Sector" EntitySet="Sectors" />
+      <End Role="Contact" EntitySet="Contacts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Contact_SectorGroup" Association="HelpDeskCRMDataStore.FK_Contact_SectorGroup">
+      <End Role="SectorGroup" EntitySet="SectorGroups" />
+      <End Role="Contact" EntitySet="Contacts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Dealing_Company" Association="HelpDeskCRMDataStore.FK_Dealing_Company">
+      <End Role="Company" EntitySet="Companies" />
+      <End Role="Dealing" EntitySet="Dealings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Dealing_Contact" Association="HelpDeskCRMDataStore.FK_Dealing_Contact">
+      <End Role="Contact" EntitySet="Contacts" />
+      <End Role="Dealing" EntitySet="Dealings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Dealing_Sector" Association="HelpDeskCRMDataStore.FK_Dealing_Sector">
+      <End Role="Sector" EntitySet="Sectors" />
+      <End Role="Dealing" EntitySet="Dealings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Dealing_SectorGroup" Association="HelpDeskCRMDataStore.FK_Dealing_SectorGroup">
+      <End Role="SectorGroup" EntitySet="SectorGroups" />
+      <End Role="Dealing" EntitySet="Dealings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Dealing_tblUsers" Association="HelpDeskCRMDataStore.FK_Dealing_tblUsers">
+      <End Role="tblUsers" EntitySet="tblUsers" />
+      <End Role="Dealing" EntitySet="Dealings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_problems_categories" Association="HelpDeskCRMDataStore.FK_problems_categories">
+      <End Role="categories" EntitySet="categories" />
+      <End Role="problems" EntitySet="problems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_problems_Dealing" Association="HelpDeskCRMDataStore.FK_problems_Dealing">
+      <End Role="Dealing" EntitySet="Dealings" />
+      <End Role="problems" EntitySet="problems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_problems_departments" Association="HelpDeskCRMDataStore.FK_problems_departments">
+      <End Role="departments" EntitySet="departments" />
+      <End Role="problems" EntitySet="problems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_problems_priority" Association="HelpDeskCRMDataStore.FK_problems_priority">
+      <End Role="priority" EntitySet="priorities" />
+      <End Role="problems" EntitySet="problems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_problems_Sector" Association="HelpDeskCRMDataStore.FK_problems_Sector">
+      <End Role="Sector" EntitySet="Sectors" />
+      <End Role="problems" EntitySet="problems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_problems_SectorGroup" Association="HelpDeskCRMDataStore.FK_problems_SectorGroup">
+      <End Role="SectorGroup" EntitySet="SectorGroups" />
+      <End Role="problems" EntitySet="problems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_problems_status" Association="HelpDeskCRMDataStore.FK_problems_status">
+      <End Role="status" EntitySet="status" />
+      <End Role="problems" EntitySet="problems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_problems_tblUsers" Association="HelpDeskCRMDataStore.FK_problems_tblUsers">
+      <End Role="tblUsers" EntitySet="tblUsers" />
+      <End Role="problems" EntitySet="problems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProblemsRelated_problems" Association="HelpDeskCRMDataStore.FK_ProblemsRelated_problems">
+      <End Role="problems" EntitySet="problems" />
+      <End Role="ProblemsRelated" EntitySet="ProblemsRelateds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProblemsRelated_problems1" Association="HelpDeskCRMDataStore.FK_ProblemsRelated_problems1">
+      <End Role="problems" EntitySet="problems" />
+      <End Role="ProblemsRelated" EntitySet="ProblemsRelateds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SectorGroup_Sector" Association="HelpDeskCRMDataStore.FK_SectorGroup_Sector">
+      <End Role="Sector" EntitySet="Sectors" />
+      <End Role="SectorGroup" EntitySet="SectorGroups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblLangStrings_ID" Association="HelpDeskCRMDataStore.FK_tblLangStrings_ID">
+      <End Role="tblLanguage" EntitySet="tblLanguages" />
+      <End Role="tblLangStrings" EntitySet="tblLangStrings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblNotes_problems" Association="HelpDeskCRMDataStore.FK_tblNotes_problems">
+      <End Role="problems" EntitySet="problems" />
+      <End Role="tblNotes" EntitySet="tblNotes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblNotes_States" Association="HelpDeskCRMDataStore.FK_tblNotes_States">
+      <End Role="States" EntitySet="States" />
+      <End Role="tblNotes" EntitySet="tblNotes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblNotes_tblUsers" Association="HelpDeskCRMDataStore.FK_tblNotes_tblUsers">
+      <End Role="tblUsers" EntitySet="tblUsers" />
+      <End Role="tblNotes" EntitySet="tblNotes" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Address">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="TableName" Type="nvarchar" MaxLength="50" />
+    <Property Name="TableReference" Type="int" />
+    <Property Name="AddressType" Type="int" />
+    <Property Name="IsActive" Type="int" />
+    <Property Name="IsDefault" Type="int" />
+    <Property Name="AddressTitle" Type="nvarchar" MaxLength="50" />
+    <Property Name="AddressLine1" Type="nvarchar" MaxLength="50" />
+    <Property Name="AddressLine2" Type="nvarchar" MaxLength="50" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" />
+    <Property Name="State" Type="nvarchar" MaxLength="50" />
+    <Property Name="Zip" Type="nvarchar" MaxLength="50" />
+    <Property Name="Country" Type="nvarchar" MaxLength="50" />
+    <Property Name="DateAdded" Type="date" />
+  </EntityType>
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="category_id" />
+    </Key>
+    <Property Name="category_id" Type="int" Nullable="false" />
+    <Property Name="cname" Type="varchar" MaxLength="50" />
+    <Property Name="rep_id" Type="int" />
+  </EntityType>
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyName" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsActive" Type="int" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="2000" />
+    <Property Name="Stage" Type="int" />
+    <Property Name="Industry" Type="int" />
+    <Property Name="IsInstallerElectrical" Type="int" />
+    <Property Name="IsInstallerWater" Type="int" />
+    <Property Name="IsInstallerGas" Type="int" />
+    <Property Name="Priority" Type="int" />
+    <Property Name="TaxNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="Tel" Type="nvarchar" MaxLength="50" />
+    <Property Name="Fax" Type="nvarchar" MaxLength="50" />
+    <Property Name="Website" Type="nvarchar" MaxLength="50" />
+    <Property Name="email" Type="nvarchar" MaxLength="50" />
+    <Property Name="ParentCompany" Type="int" />
+    <Property Name="Rep" Type="int" />
+    <Property Name="Tags" Type="nvarchar" MaxLength="50" />
+    <Property Name="PrimaryContact" Type="int" />
+    <Property Name="SectorID" Type="int" />
+    <Property Name="SectorGroupID" Type="int" />
+  </EntityType>
+  <EntityType Name="Contact">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="eMail" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="eMailAlternates" Type="nvarchar" MaxLength="50" />
+    <Property Name="Title" Type="nvarchar" MaxLength="50" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+    <Property Name="KnownName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="2000" />
+    <Property Name="TelMobile" Type="varchar" MaxLength="50" />
+    <Property Name="TelHome" Type="varchar" MaxLength="50" />
+    <Property Name="TelWork" Type="varchar" MaxLength="50" />
+    <Property Name="TelFax" Type="varchar" MaxLength="50" />
+    <Property Name="IsActive" Type="int" />
+    <Property Name="Stage" Type="int" />
+    <Property Name="CompanyID" Type="int" />
+    <Property Name="Position" Type="nvarchar" MaxLength="50" />
+    <Property Name="Referredby" Type="int" />
+    <Property Name="Rep" Type="int" />
+    <Property Name="ContactType" Type="int" />
+    <Property Name="ReceiveEmail" Type="int" />
+    <Property Name="ReceiveSMS" Type="int" />
+    <Property Name="MessengerNetwork" Type="int" />
+    <Property Name="MessengerName" Type="varchar" MaxLength="50" />
+    <Property Name="Source" Type="int" />
+    <Property Name="TimeZone" Type="varchar" MaxLength="50" />
+    <Property Name="BirthDate" Type="date" />
+    <Property Name="IsInstallerElectrical" Type="int" />
+    <Property Name="IsInstallerWater" Type="int" />
+    <Property Name="IsInstallerGas" Type="int" />
+    <Property Name="Tags" Type="nvarchar" MaxLength="500" />
+    <Property Name="SectorID" Type="int" />
+    <Property Name="SectorGroupID" Type="int" />
+  </EntityType>
+  <EntityType Name="db_key">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="problems" Type="int" />
+    <Property Name="departments" Type="int" />
+    <Property Name="categories" Type="int" />
+    <Property Name="users" Type="int" />
+    <Property Name="Lang" Type="int" />
+  </EntityType>
+  <EntityType Name="Dealing">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="nvarchar" MaxLength="50" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="2000" />
+    <Property Name="Prospect" Type="int" />
+    <Property Name="Product" Type="int" />
+    <Property Name="ProjectedQty" Type="nchar" MaxLength="10" />
+    <Property Name="ProjectedRevenue" Type="int" />
+    <Property Name="ProjectedActualiztion" Type="date" />
+    <Property Name="Stage" Type="int" />
+    <Property Name="Actualized" Type="int" />
+    <Property Name="ActualizedQty" Type="int" />
+    <Property Name="ActualizedDate" Type="date" />
+    <Property Name="ExcludeFromReports" Type="int" />
+    <Property Name="Company" Type="int" />
+    <Property Name="Contact" Type="int" />
+    <Property Name="SectorID" Type="int" />
+    <Property Name="SectorGroupID" Type="int" />
+    <Property Name="Rep" Type="int" />
+  </EntityType>
+  <EntityType Name="department">
+    <Key>
+      <PropertyRef Name="department_id" />
+    </Key>
+    <Property Name="department_id" Type="int" Nullable="false" />
+    <Property Name="dname" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="ItemID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ItemType" Type="int" />
+    <Property Name="ItemNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="ItemSerial" Type="nvarchar" MaxLength="50" />
+    <Property Name="ItemName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+    <Property Name="DateCreated" Type="date" />
+    <Property Name="DateModified" Type="date" />
+  </EntityType>
+  <EntityType Name="ItemLink">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ItemID" Type="int" />
+    <Property Name="LinkTableName" Type="varchar" MaxLength="50" />
+    <Property Name="LinkTableID" Type="int" />
+    <Property Name="IsActive" Type="int" />
+  </EntityType>
+  <EntityType Name="priority">
+    <Key>
+      <PropertyRef Name="priority_id" />
+    </Key>
+    <Property Name="priority_id" Type="int" Nullable="false" />
+    <Property Name="pname" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="problem">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ContactID" Type="int" />
+    <Property Name="CallerName" Type="varchar" MaxLength="50" />
+    <Property Name="CallerEmail" Type="varchar" MaxLength="50" />
+    <Property Name="CallerLocation" Type="varchar" MaxLength="50" />
+    <Property Name="CallerPhone" Type="varchar" MaxLength="50" />
+    <Property Name="rep" Type="int" />
+    <Property Name="time_spent" Type="int" />
+    <Property Name="title" Type="varchar" MaxLength="50" />
+    <Property Name="description" Type="text" />
+    <Property Name="solution" Type="text" />
+    <Property Name="start_date" Type="datetime" />
+    <Property Name="close_date" Type="datetime" />
+    <Property Name="kb" Type="int" />
+    <Property Name="Referer" Type="nvarchar" MaxLength="500" />
+    <Property Name="MeterNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="ClientNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="category" Type="int" />
+    <Property Name="DealingID" Type="int" />
+    <Property Name="department" Type="int" />
+    <Property Name="priority" Type="int" />
+    <Property Name="SectorID" Type="int" />
+    <Property Name="SectorGroupID" Type="int" />
+    <Property Name="status" Type="int" />
+    <Property Name="entered_by" Type="int" />
+  </EntityType>
+  <EntityType Name="ProblemsRelated">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IsActive" Type="int" />
+    <Property Name="ProblemsAID" Type="int" />
+    <Property Name="ProblemsBID" Type="int" />
+  </EntityType>
+  <EntityType Name="Sector">
+    <Key>
+      <PropertyRef Name="SectorID" />
+    </Key>
+    <Property Name="SectorID" Type="int" Nullable="false" />
+    <Property Name="SectorName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="SectorGroup">
+    <Key>
+      <PropertyRef Name="SectorGroupID" />
+    </Key>
+    <Property Name="SectorGroupID" Type="int" Nullable="false" />
+    <Property Name="SectorGroupName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Description" Type="nvarchar" MaxLength="50" />
+    <Property Name="SectorID" Type="int" />
+  </EntityType>
+  <EntityType Name="State">
+    <Key>
+      <PropertyRef Name="StateID" />
+    </Key>
+    <Property Name="StateID" Type="int" Nullable="false" />
+    <Property Name="StateTable" Type="nvarchar" MaxLength="50" />
+    <Property Name="StateColumn" Type="nvarchar" MaxLength="50" />
+    <Property Name="StateField" Type="nvarchar" MaxLength="50" />
+    <Property Name="StateDescription" Type="nvarchar" MaxLength="500" />
+    <Property Name="IsActive" Type="int" />
+    <Property Name="DisplayOrder" Type="int" />
+    <Property Name="Schedule" Type="int" />
+  </EntityType>
+  <EntityType Name="status">
+    <Key>
+      <PropertyRef Name="status_id" />
+    </Key>
+    <Property Name="status_id" Type="int" Nullable="false" />
+    <Property Name="sname" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblConfig">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="SiteName" Type="varchar" MaxLength="50" />
+    <Property Name="BaseURL" Type="varchar" MaxLength="50" />
+    <Property Name="AdminPass" Type="varchar" MaxLength="50" />
+    <Property Name="EmailType" Type="int" />
+    <Property Name="SMTPServer" Type="varchar" MaxLength="50" />
+    <Property Name="HDName" Type="varchar" MaxLength="50" />
+    <Property Name="HDReply" Type="varchar" MaxLength="50" />
+    <Property Name="BaseEmail" Type="varchar" MaxLength="50" />
+    <Property Name="EnablePager" Type="int" />
+    <Property Name="NotifyUser" Type="int" />
+    <Property Name="EnableKB" Type="int" />
+    <Property Name="DefaultPriority" Type="int" />
+    <Property Name="DefaultStatus" Type="int" />
+    <Property Name="CloseStatus" Type="int" />
+    <Property Name="AuthType" Type="int" />
+    <Property Name="Version" Type="varchar" MaxLength="6" />
+    <Property Name="UseSelectUser" Type="int" />
+    <Property Name="UseInoutBoard" Type="int" />
+    <Property Name="KBFreeText" Type="int" />
+    <Property Name="DefaultLanguage" Type="int" />
+    <Property Name="AllowImageUpload" Type="int" />
+    <Property Name="MaxImageSize" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="tblConfig_Auth">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Type" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblConfig_Email">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Type" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblEmailMsg">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="type" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="subject" Type="varchar" MaxLength="50" />
+    <Property Name="body" Type="text" />
+  </EntityType>
+  <EntityType Name="tblLangString">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="variable" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="LangText" Type="text" Nullable="false" />
+    <Property Name="Language" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblLanguage">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="LangName" Type="varchar" MaxLength="50" />
+    <Property Name="Localized" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblNote">
+    <Key>
+      <PropertyRef Name="NoteID" />
+    </Key>
+    <Property Name="NoteID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="note" Type="text" />
+    <Property Name="addDate" Type="datetime" />
+    <Property Name="uid" Type="varchar" MaxLength="50" />
+    <Property Name="IsPrivate" Type="int" />
+    <Property Name="IsFuture" Type="int" />
+    <Property Name="FutureDate" Type="date" />
+    <Property Name="NoteType" Type="int" />
+    <Property Name="Time" Type="int" />
+    <Property Name="DateModified" Type="datetime" />
+    <Property Name="RelatedTo" Type="int" />
+    <Property Name="RelatedFrom" Type="int" />
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="Status" Type="int" />
+    <Property Name="entered_by" Type="int" />
+  </EntityType>
+  <EntityType Name="tblUser">
+    <Key>
+      <PropertyRef Name="sid" />
+    </Key>
+    <Property Name="sid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="uid" Type="varchar" MaxLength="50" />
+    <Property Name="password" Type="varchar" MaxLength="50" />
+    <Property Name="fname" Type="varchar" MaxLength="50" />
+    <Property Name="email1" Type="varchar" MaxLength="50" />
+    <Property Name="email2" Type="varchar" MaxLength="50" />
+    <Property Name="phone" Type="varchar" MaxLength="50" />
+    <Property Name="location1" Type="varchar" MaxLength="50" />
+    <Property Name="location2" Type="varchar" MaxLength="50" />
+    <Property Name="department" Type="int" />
+    <Property Name="IsRep" Type="int" />
+    <Property Name="dtCreated" Type="datetime" />
+    <Property Name="dtLastAccess" Type="datetime" />
+    <Property Name="ListOnInoutBoard" Type="int" Nullable="false" />
+    <Property Name="firstname" Type="varchar" MaxLength="50" />
+    <Property Name="lastname" Type="varchar" MaxLength="50" />
+    <Property Name="inoutadmin" Type="int" Nullable="false" />
+    <Property Name="phone_home" Type="varchar" MaxLength="50" />
+    <Property Name="phone_mobile" Type="varchar" MaxLength="50" />
+    <Property Name="jobfunction" Type="text" />
+    <Property Name="userresume" Type="text" />
+    <Property Name="statustext" Type="varchar" MaxLength="255" />
+    <Property Name="statuscode" Type="int" Nullable="false" />
+    <Property Name="statusdate" Type="datetime" />
+    <Property Name="Language" Type="int" />
+    <Property Name="RepAccess" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vwProblem">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="uid" Type="varchar" MaxLength="50" />
+    <Property Name="uemail" Type="varchar" MaxLength="50" />
+    <Property Name="ulocation" Type="varchar" MaxLength="50" />
+    <Property Name="uphone" Type="varchar" MaxLength="50" />
+    <Property Name="rep" Type="int" />
+    <Property Name="status" Type="int" />
+    <Property Name="time_spent" Type="int" />
+    <Property Name="category" Type="int" />
+    <Property Name="priority" Type="int" />
+    <Property Name="department" Type="int" />
+    <Property Name="title" Type="varchar" MaxLength="50" />
+    <Property Name="description" Type="text" />
+    <Property Name="solution" Type="text" />
+    <Property Name="Start_Date" Type="datetime" />
+    <Property Name="close_date" Type="datetime" />
+    <Property Name="entered_by" Type="int" />
+    <Property Name="kb" Type="int" />
+    <Property Name="enteredBy" Type="varchar" MaxLength="50" />
+    <Property Name="enteredBy_eMail1" Type="varchar" MaxLength="50" />
+    <Property Name="enteredBy_eMail2" Type="varchar" MaxLength="50" />
+    <Property Name="enteredBy_Phone" Type="varchar" MaxLength="50" />
+    <Property Name="enteredBy_IsRep" Type="int" />
+    <Property Name="enteredBy_phone_mobile" Type="varchar" MaxLength="50" />
+    <Property Name="enteredBy_RepAccess" Type="int" Nullable="false" />
+    <Property Name="assignedTo" Type="varchar" MaxLength="50" />
+    <Property Name="assignedTo_eMail1" Type="varchar" MaxLength="50" />
+    <Property Name="assignedTo_eMail2" Type="varchar" MaxLength="50" />
+    <Property Name="assignedTo_Phone" Type="varchar" MaxLength="50" />
+    <Property Name="assignedTo_IsRep" Type="int" />
+    <Property Name="assignedTo_phone_mobile" Type="varchar" MaxLength="50" />
+    <Property Name="assignedTo_RepAccess" Type="int" Nullable="false" />
+    <Property Name="StatusName" Type="varchar" MaxLength="50" />
+    <Property Name="CategoryName" Type="varchar" MaxLength="50" />
+    <Property Name="Category_RepID" Type="int" />
+    <Property Name="PriorityName" Type="varchar" MaxLength="50" />
+    <Property Name="DepartmentName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Company_Contact">
+    <End Role="Contact" Type="HelpDeskCRMDataStore.Contact" Multiplicity="0..1" />
+    <End Role="Company" Type="HelpDeskCRMDataStore.Company" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contact">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Company">
+        <PropertyRef Name="PrimaryContact" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Company_Sector">
+    <End Role="Sector" Type="HelpDeskCRMDataStore.Sector" Multiplicity="0..1" />
+    <End Role="Company" Type="HelpDeskCRMDataStore.Company" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sector">
+        <PropertyRef Name="SectorID" />
+      </Principal>
+      <Dependent Role="Company">
+        <PropertyRef Name="SectorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Company_SectorGroup">
+    <End Role="SectorGroup" Type="HelpDeskCRMDataStore.SectorGroup" Multiplicity="0..1" />
+    <End Role="Company" Type="HelpDeskCRMDataStore.Company" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SectorGroup">
+        <PropertyRef Name="SectorGroupID" />
+      </Principal>
+      <Dependent Role="Company">
+        <PropertyRef Name="SectorGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Contact_Sector">
+    <End Role="Sector" Type="HelpDeskCRMDataStore.Sector" Multiplicity="0..1" />
+    <End Role="Contact" Type="HelpDeskCRMDataStore.Contact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sector">
+        <PropertyRef Name="SectorID" />
+      </Principal>
+      <Dependent Role="Contact">
+        <PropertyRef Name="SectorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Contact_SectorGroup">
+    <End Role="SectorGroup" Type="HelpDeskCRMDataStore.SectorGroup" Multiplicity="0..1" />
+    <End Role="Contact" Type="HelpDeskCRMDataStore.Contact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SectorGroup">
+        <PropertyRef Name="SectorGroupID" />
+      </Principal>
+      <Dependent Role="Contact">
+        <PropertyRef Name="SectorGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Dealing_Company">
+    <End Role="Company" Type="HelpDeskCRMDataStore.Company" Multiplicity="0..1" />
+    <End Role="Dealing" Type="HelpDeskCRMDataStore.Dealing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Dealing">
+        <PropertyRef Name="Company" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Dealing_Contact">
+    <End Role="Contact" Type="HelpDeskCRMDataStore.Contact" Multiplicity="0..1" />
+    <End Role="Dealing" Type="HelpDeskCRMDataStore.Dealing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contact">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Dealing">
+        <PropertyRef Name="Contact" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Dealing_Sector">
+    <End Role="Sector" Type="HelpDeskCRMDataStore.Sector" Multiplicity="0..1" />
+    <End Role="Dealing" Type="HelpDeskCRMDataStore.Dealing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sector">
+        <PropertyRef Name="SectorID" />
+      </Principal>
+      <Dependent Role="Dealing">
+        <PropertyRef Name="SectorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Dealing_SectorGroup">
+    <End Role="SectorGroup" Type="HelpDeskCRMDataStore.SectorGroup" Multiplicity="0..1" />
+    <End Role="Dealing" Type="HelpDeskCRMDataStore.Dealing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SectorGroup">
+        <PropertyRef Name="SectorGroupID" />
+      </Principal>
+      <Dependent Role="Dealing">
+        <PropertyRef Name="SectorGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Dealing_tblUsers">
+    <End Role="tblUsers" Type="HelpDeskCRMDataStore.tblUser" Multiplicity="0..1" />
+    <End Role="Dealing" Type="HelpDeskCRMDataStore.Dealing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUsers">
+        <PropertyRef Name="sid" />
+      </Principal>
+      <Dependent Role="Dealing">
+        <PropertyRef Name="Rep" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_problems_categories">
+    <End Role="categories" Type="HelpDeskCRMDataStore.category" Multiplicity="0..1" />
+    <End Role="problems" Type="HelpDeskCRMDataStore.problem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categories">
+        <PropertyRef Name="category_id" />
+      </Principal>
+      <Dependent Role="problems">
+        <PropertyRef Name="category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_problems_Dealing">
+    <End Role="Dealing" Type="HelpDeskCRMDataStore.Dealing" Multiplicity="0..1" />
+    <End Role="problems" Type="HelpDeskCRMDataStore.problem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dealing">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="problems">
+        <PropertyRef Name="DealingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_problems_departments">
+    <End Role="departments" Type="HelpDeskCRMDataStore.department" Multiplicity="0..1" />
+    <End Role="problems" Type="HelpDeskCRMDataStore.problem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="departments">
+        <PropertyRef Name="department_id" />
+      </Principal>
+      <Dependent Role="problems">
+        <PropertyRef Name="department" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_problems_priority">
+    <End Role="priority" Type="HelpDeskCRMDataStore.priority" Multiplicity="0..1" />
+    <End Role="problems" Type="HelpDeskCRMDataStore.problem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="priority">
+        <PropertyRef Name="priority_id" />
+      </Principal>
+      <Dependent Role="problems">
+        <PropertyRef Name="priority" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_problems_Sector">
+    <End Role="Sector" Type="HelpDeskCRMDataStore.Sector" Multiplicity="0..1" />
+    <End Role="problems" Type="HelpDeskCRMDataStore.problem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sector">
+        <PropertyRef Name="SectorID" />
+      </Principal>
+      <Dependent Role="problems">
+        <PropertyRef Name="SectorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_problems_SectorGroup">
+    <End Role="SectorGroup" Type="HelpDeskCRMDataStore.SectorGroup" Multiplicity="0..1" />
+    <End Role="problems" Type="HelpDeskCRMDataStore.problem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SectorGroup">
+        <PropertyRef Name="SectorGroupID" />
+      </Principal>
+      <Dependent Role="problems">
+        <PropertyRef Name="SectorGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_problems_status">
+    <End Role="status" Type="HelpDeskCRMDataStore.status" Multiplicity="0..1" />
+    <End Role="problems" Type="HelpDeskCRMDataStore.problem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="status">
+        <PropertyRef Name="status_id" />
+      </Principal>
+      <Dependent Role="problems">
+        <PropertyRef Name="status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_problems_tblUsers">
+    <End Role="tblUsers" Type="HelpDeskCRMDataStore.tblUser" Multiplicity="0..1" />
+    <End Role="problems" Type="HelpDeskCRMDataStore.problem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUsers">
+        <PropertyRef Name="sid" />
+      </Principal>
+      <Dependent Role="problems">
+        <PropertyRef Name="entered_by" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProblemsRelated_problems">
+    <End Role="problems" Type="HelpDeskCRMDataStore.problem" Multiplicity="0..1" />
+    <End Role="ProblemsRelated" Type="HelpDeskCRMDataStore.ProblemsRelated" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="problems">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ProblemsRelated">
+        <PropertyRef Name="ProblemsAID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProblemsRelated_problems1">
+    <End Role="problems" Type="HelpDeskCRMDataStore.problem" Multiplicity="0..1" />
+    <End Role="ProblemsRelated" Type="HelpDeskCRMDataStore.ProblemsRelated" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="problems">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ProblemsRelated">
+        <PropertyRef Name="ProblemsBID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SectorGroup_Sector">
+    <End Role="Sector" Type="HelpDeskCRMDataStore.Sector" Multiplicity="0..1" />
+    <End Role="SectorGroup" Type="HelpDeskCRMDataStore.SectorGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sector">
+        <PropertyRef Name="SectorID" />
+      </Principal>
+      <Dependent Role="SectorGroup">
+        <PropertyRef Name="SectorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblLangStrings_ID">
+    <End Role="tblLanguage" Type="HelpDeskCRMDataStore.tblLanguage" Multiplicity="1" />
+    <End Role="tblLangStrings" Type="HelpDeskCRMDataStore.tblLangString" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLanguage">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tblLangStrings">
+        <PropertyRef Name="Language" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblNotes_problems">
+    <End Role="problems" Type="HelpDeskCRMDataStore.problem" Multiplicity="1" />
+    <End Role="tblNotes" Type="HelpDeskCRMDataStore.tblNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="problems">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tblNotes">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblNotes_States">
+    <End Role="States" Type="HelpDeskCRMDataStore.State" Multiplicity="0..1" />
+    <End Role="tblNotes" Type="HelpDeskCRMDataStore.tblNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="States">
+        <PropertyRef Name="StateID" />
+      </Principal>
+      <Dependent Role="tblNotes">
+        <PropertyRef Name="Status" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblNotes_tblUsers">
+    <End Role="tblUsers" Type="HelpDeskCRMDataStore.tblUser" Multiplicity="0..1" />
+    <End Role="tblNotes" Type="HelpDeskCRMDataStore.tblNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUsers">
+        <PropertyRef Name="sid" />
+      </Principal>
+      <Dependent Role="tblNotes">
+        <PropertyRef Name="entered_by" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

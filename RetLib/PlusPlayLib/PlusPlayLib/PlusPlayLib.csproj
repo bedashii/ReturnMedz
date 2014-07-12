@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B1F60181-442B-46D6-92F5-25F68AAEF545}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PlusPlayLib</RootNamespace>
+    <AssemblyName>PlusPlayLib</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="PlusPlayDBBusiness\Galleries.cs" />
+    <Compile Include="PlusPlayDBBusiness\Galleries.generated.cs">
+      <DependentUpon>Galleries.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlusPlayDBBusiness\Models.cs" />
+    <Compile Include="PlusPlayDBBusiness\Models.generated.cs">
+      <DependentUpon>Models.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlusPlayDBBusiness\Photos.cs" />
+    <Compile Include="PlusPlayDBBusiness\Photos.generated.cs">
+      <DependentUpon>Photos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlusPlayDBData\DataHelper.cs" />
+    <Compile Include="PlusPlayDBData\DataProcessHelper.cs" />
+    <Compile Include="PlusPlayDBData\GalleriesData.cs" />
+    <Compile Include="PlusPlayDBData\GalleriesData.generated.cs">
+      <DependentUpon>GalleriesData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlusPlayDBData\ModelsData.cs" />
+    <Compile Include="PlusPlayDBData\ModelsData.generated.cs">
+      <DependentUpon>ModelsData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlusPlayDBData\PhotosData.cs" />
+    <Compile Include="PlusPlayDBData\PhotosData.generated.cs">
+      <DependentUpon>PhotosData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlusPlayDBLists\GalleriesList.cs" />
+    <Compile Include="PlusPlayDBLists\GalleriesList.generated.cs">
+      <DependentUpon>GalleriesList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlusPlayDBLists\ModelsList.cs" />
+    <Compile Include="PlusPlayDBLists\ModelsList.generated.cs">
+      <DependentUpon>ModelsList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlusPlayDBLists\PhotosList.cs" />
+    <Compile Include="PlusPlayDBLists\PhotosList.generated.cs">
+      <DependentUpon>PhotosList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlusPlayDBProperties\GalleriesProperties.cs" />
+    <Compile Include="PlusPlayDBProperties\GalleriesProperties.generated.cs">
+      <DependentUpon>GalleriesProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlusPlayDBProperties\ModelsProperties.cs" />
+    <Compile Include="PlusPlayDBProperties\ModelsProperties.generated.cs">
+      <DependentUpon>ModelsProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlusPlayDBProperties\PhotosProperties.cs" />
+    <Compile Include="PlusPlayDBProperties\PhotosProperties.generated.cs">
+      <DependentUpon>PhotosProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlusPlayDBProperties\PropertiesBase.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="PlusPlayGenerator.csp" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PlusPlayDB.sdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.SQL.Server.Compact.4.0">
+      <Visible>False</Visible>
+      <ProductName>SQL Server Compact 4.0 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

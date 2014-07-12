@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DropBoxLinker", "DropBoxLinker\DropBoxLinker.csproj", "{B52CEEE7-9A03-4F81-AA2D-589987360F40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DropBoxLinkerLib", "DropBoxLinkerLib\DropBoxLinkerLib.csproj", "{0DA77DD0-13D3-4CD5-B995-073E5F169BB2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B52CEEE7-9A03-4F81-AA2D-589987360F40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B52CEEE7-9A03-4F81-AA2D-589987360F40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B52CEEE7-9A03-4F81-AA2D-589987360F40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B52CEEE7-9A03-4F81-AA2D-589987360F40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DA77DD0-13D3-4CD5-B995-073E5F169BB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DA77DD0-13D3-4CD5-B995-073E5F169BB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DA77DD0-13D3-4CD5-B995-073E5F169BB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DA77DD0-13D3-4CD5-B995-073E5F169BB2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

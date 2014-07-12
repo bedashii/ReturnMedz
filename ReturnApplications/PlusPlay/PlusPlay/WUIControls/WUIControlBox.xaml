@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="PlusPlay.WUIControls.WUIControlBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="24" d:DesignWidth="72">
+    <Grid>
+        <Grid Name="GridMin"  Width="24" Margin="0,0,48,0">
+            <Image Name="ControlMin"   Source="..\\Resources\Icons\Control_Min.png" 
+                   MouseEnter="ControlMin_MouseEnter" MouseLeave="ControlMin_MouseLeave" MouseLeftButtonDown="ControlMin_MouseLeftButtonDown" MouseLeftButtonUp="ControlMin_MouseLeftButtonUp" />
+        </Grid>
+        <Grid Name="GridMax" Width="24" Margin="24,0,24,0">
+            <Image Name="ControlMax" Source="..\\Resources\Icons\Control_Max.png" 
+                   MouseEnter="ControlMin_MouseEnter" MouseLeave="ControlMin_MouseLeave" MouseLeftButtonDown="ControlMin_MouseLeftButtonDown" MouseLeftButtonUp="ControlMin_MouseLeftButtonUp" />
+        </Grid>
+        <Grid Width="24" Margin="48,0,0,0" >
+            <Image Name="ControlClose" Source="..\\Resources\Icons\Control_Close.png"
+                   MouseEnter="ControlMin_MouseEnter" MouseLeave="ControlMin_MouseLeave" MouseLeftButtonDown="ControlMin_MouseLeftButtonDown" MouseLeftButtonUp="ControlMin_MouseLeftButtonUp" />
+        </Grid>
+    </Grid>
+</UserControl>

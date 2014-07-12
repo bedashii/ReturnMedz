@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<codeSmith xmlns="http://www.codesmithtools.com/schema/csp.xsd">
+  <variables>
+    <add key="ConnectionString" value="Data Source =.; Initial Catalog =PlusPlayDB; User ID =Operator; Password =Operator" />
+    <add key="ConnectionString1" value="$(ConnectionString1)" />
+    <add key="ConnectionString2" value="Data Source=.;Initial Catalog=PlusPlayDB;User ID=Operator;Password=Operator" />
+  </variables>
+  <propertySets>
+    <propertySet name="Generate Properties" template="..\..\..\Git-Dev\Utilities\CodeSmith\HolFrame\GenAllTableProperties.cst">
+      <property name="SourceDatabase">
+        <connectionString>$(ConnectionString2)</connectionString>
+        <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
+      </property>
+    </propertySet>
+    <propertySet name="Generate Data Access" template="..\..\..\Git-Dev\Utilities\CodeSmith\HolFrame\GenAllTableAccess.cst">
+      <property name="SourceDatabase">
+        <connectionString>$(ConnectionString2)</connectionString>
+        <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
+      </property>
+    </propertySet>
+    <propertySet name="Generate Business" template="..\..\..\Git-Dev\Utilities\CodeSmith\HolFrame\Business\GenAllBusinessClasses.cst">
+      <property name="SourceDatabase">
+        <connectionString>$(ConnectionString2)</connectionString>
+        <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
+      </property>
+    </propertySet>
+    <propertySet name="Generate Lists" template="..\..\..\Git-Dev\Utilities\CodeSmith\HolFrame\Lists\GenAllTableLists.cst">
+      <property name="SourceDatabase">
+        <connectionString>$(ConnectionString2)</connectionString>
+        <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
+      </property>
+    </propertySet>
+  </propertySets>
+</codeSmith>

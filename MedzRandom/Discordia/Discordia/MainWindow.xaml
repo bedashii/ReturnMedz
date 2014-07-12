@@ -1,0 +1,30 @@
+﻿<Window x:Class="Discordia.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Discordia" Loaded="Window_Loaded" WindowState="Maximized">
+    <Grid Name="gridMain">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="2" />
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+
+            <Button Name="buttonScan" Grid.Row="0" Content ="Scan" Height="30" Margin="0,0,0,0" Click="ButtonScan_Click"></Button>
+            <Button Name="buttonSettings" Grid.Row="2" Content="Settings" Height="30" Margin=" 0,-30,0,0" Click="ButtonSettings_Click" ></Button>
+            <Button Name="buttonExit" Grid.Row="2" Content="Exit" Height="30" Margin=" 0,30,0,0" ></Button>
+
+        </Grid>
+        <GridSplitter Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Stretch"
+                    Background="LightGray" 
+                    ShowsPreview="True"
+                    Width="3"/>
+    </Grid>
+</Window>

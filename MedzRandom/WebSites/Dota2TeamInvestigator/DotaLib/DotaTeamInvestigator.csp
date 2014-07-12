@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<codeSmith xmlns="http://www.codesmithtools.com/schema/csp.xsd">
+  <variables>
+    <add key="ConnectionString1" value="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Git-Dev\ReturnMedz\MedzRandom\WebSites\Dota2TeamInvestigator\DotaDB.accdb" />
+    <add key="ConnectionString2" value="Data Source=.;Initial Catalog=DotaDb;Integrated Security=True" />
+  </variables>
+  <propertySets>
+    <propertySet name="GenAllTableAccess" template="C:\Git-Dev\Utilities\CodeSmith\HolFrame\GenAllTableAccess.cst">
+      <property name="SourceDatabase">
+        <connectionString>$(ConnectionString2)</connectionString>
+        <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
+      </property>
+    </propertySet>
+    <propertySet name="GenAllTableProperties" template="C:\Git-Dev\Utilities\CodeSmith\HolFrame\GenAllTableProperties.cst">
+      <property name="SourceDatabase">
+        <connectionString>$(ConnectionString2)</connectionString>
+        <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
+      </property>
+    </propertySet>
+    <propertySet name="GenAllBusinessClasses" template="C:\Git-Dev\Utilities\CodeSmith\HolFrame\Business\GenAllBusinessClasses.cst">
+      <property name="SourceDatabase">
+        <connectionString>$(ConnectionString2)</connectionString>
+        <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
+      </property>
+    </propertySet>
+    <propertySet name="GenAllTableLists" template="C:\Git-Dev\Utilities\CodeSmith\HolFrame\Lists\GenAllTableLists.cst">
+      <property name="SourceDatabase">
+        <connectionString>$(ConnectionString2)</connectionString>
+        <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
+      </property>
+    </propertySet>
+  </propertySets>
+</codeSmith>

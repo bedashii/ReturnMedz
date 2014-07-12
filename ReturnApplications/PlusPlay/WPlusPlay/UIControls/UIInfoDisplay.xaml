@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="WPlusPlay.UIControls.UIInfoDisplay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Height="48.314" Width="525" >
+    <WrapPanel FlowDirection="RightToLeft">
+        <TextBlock Margin="20,0,0,0" Name="TextBlockGallery" Visibility="Visible" FontSize="36" HorizontalAlignment="Right" Foreground="White" VerticalAlignment="Top" FontWeight="Light" 
+                   Text="{Binding Path=GalleryName}" MouseLeftButtonDown="TextBlockGallery_MouseLeftButtonDown"/>
+        <TextBlock Margin="20,0,0,0" Name="TextBlockModel" FontSize="36" Visibility="Visible" VerticalAlignment="Top" FontWeight="SemiBold" Foreground="#FFFAFAFA" />
+        <TextBox Name="TextBoxGallery" FontSize="36" HorizontalAlignment="Right" VerticalAlignment="Top" 
+                 Margin="20,0,0,0"  Visibility="Hidden" Background="White" Foreground="Black" FontWeight="Normal" KeyDown="TextBox_KeyDown"/>
+        <TextBox Name="TextBoxModel" FontSize="36" Background="White" 
+                 Margin="20,0,0,0" Visibility="Hidden" VerticalAlignment="Top" FontWeight="SemiBold" Foreground="Black" Text="{Binding Path=ModelName}" />
+        
+    </WrapPanel>
+</UserControl>

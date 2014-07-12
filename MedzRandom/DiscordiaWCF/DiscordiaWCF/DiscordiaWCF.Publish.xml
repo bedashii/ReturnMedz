@@ -1,0 +1,9 @@
+<publishData>
+  <publishTarget publishUrl="http://localhost/DiscordiaService">
+    <file relUrl="bin/DiscordiaWCF.dll" publishTime="06/06/2013 17:24:29" />
+    <file relUrl="bin/DiscordiaWCF.pdb" publishTime="06/06/2013 17:24:29" />
+    <file relUrl="DiscordiaWCF.Service1.svc" publishTime="06/06/2013 17:24:31" />
+    <file relUrl="Web.config" publishTime="06/06/2013 15:41:34" />
+    <file relUrl="bin/DiscordiaWCF.dll.config" publishTime="06/06/2013 15:41:34" />
+  </publishTarget>
+</publishData>

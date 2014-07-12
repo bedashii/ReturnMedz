@@ -1,0 +1,64 @@
+﻿<Controls:MetroWindow
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:UIControls="clr-namespace:WPlusPlay.UIControls" 
+        ShowIconOnTitleBar="false"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" 
+    x:Class="WPlusPlay.PlusPlayForm"
+        Title="Plus Play" Height="617" Width="1224.38" WindowStartupLocation="CenterScreen" WindowState="Maximized" Closing="MetroWindow_Closing_1" Background="#FFFE9728" BorderBrush="#00000000" Icon="C:\Git-Dev\ReturnMedz\Icons\playboy.ico">
+    <Controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Orange.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Storyboard x:Key="UINotificationDisplayAnimation">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="uINotificationDisplay">
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="-118.862">
+                        <EasingDoubleKeyFrame.EasingFunction>
+                            <ExponentialEase EasingMode="EaseIn"/>
+                        </EasingDoubleKeyFrame.EasingFunction>
+                    </EasingDoubleKeyFrame>
+                    <EasingDoubleKeyFrame KeyTime="0:0:4.5" Value="-117.708"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:4.6" Value="-117.708"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:4.7" Value="0.292"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="uINotificationDisplay">
+                    <EasingDoubleKeyFrame KeyTime="0:0:4.5" Value="0"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:4.6" Value="-324.274">
+                        <EasingDoubleKeyFrame.EasingFunction>
+                            <BackEase EasingMode="EaseOut"/>
+                        </EasingDoubleKeyFrame.EasingFunction>
+                    </EasingDoubleKeyFrame>
+                    <EasingDoubleKeyFrame KeyTime="0:0:4.7" Value="-324.274"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:5" Value="-10.274"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+        </ResourceDictionary>
+    </Controls:MetroWindow.Resources>
+    <Grid x:Name="GridMain">
+        <Border BorderBrush="White" BorderThickness="3,3,3,3" Margin="0,99,0,117"  Background="White">
+            <Grid Background="White" Margin="4,3,3,4">
+                <UIControls:UIPicturePanel x:Name="PicturePanelMain" Margin="234,20,10,10" SelectedItemsChanged="PicturePanelMain_SelectedItemsChanged"/>
+            </Grid>
+        </Border>
+        <UIControls:UIInfoDisplay x:Name="InfoDisplayControl" Margin="266,34,30,0" Width="Auto" VerticalAlignment="Top" Height="60" NameChangeRequest="InfoDisplayControl_NameChangeRequest"/>
+        <WrapPanel x:Name="WrapPanelButtonContainer" HorizontalAlignment="Right" Height="103" Margin="0,0,1,7" VerticalAlignment="Bottom" Width="945" RenderTransformOrigin="0.5,0.5" FlowDirection="RightToLeft"/>
+        <UIControls:UIListBoxDouble x:Name="ListBoxModelGallerySelection" HorizontalAlignment="Left" Width="225" Margin="10,10,0,108" ListBoxMain_Set="ListBoxModelGallerySelection_ListBoxMain_Set" ListBoxSub_Set="ListBoxModelGallerySelection_ListBoxSub_Set" SubListBox_SelectedValueChanged="ListBoxModelGallerySelection_SubListBox_SelectedValueChanged" BorderBrush="Black" BorderThickness="0" MainListBox_SelectedValueChanged="ListBoxModelGallerySelection_MainListBox_SelectedValueChanged"/>
+        <UIControls:UINotificationDisplay x:Name="uINotificationDisplay" HorizontalAlignment="Left" Margin="20,0,0,-113" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5">
+            <UIControls:UINotificationDisplay.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </UIControls:UINotificationDisplay.RenderTransform>
+        </UIControls:UINotificationDisplay>
+    </Grid>
+
+</Controls:MetroWindow>
