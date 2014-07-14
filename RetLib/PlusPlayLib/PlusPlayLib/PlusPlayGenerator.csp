@@ -1,4 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+
+<?xml version="1.0" encoding="utf-8"?>
 <codeSmith xmlns="http://www.codesmithtools.com/schema/csp.xsd">
   <variables>
     <add key="ConnectionString" value="Data Source =.; Initial Catalog =PlusPlayDB; User ID =Operator; Password =Operator" />

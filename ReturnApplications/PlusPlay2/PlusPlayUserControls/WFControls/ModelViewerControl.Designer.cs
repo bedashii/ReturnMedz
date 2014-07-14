@@ -1,4 +1,5 @@
-﻿namespace PlusPlayUserControls.WFControls
+
+namespace PlusPlayUserControls.WFControls
 {
     partial class ModelViewerControl
     {

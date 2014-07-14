@@ -1,4 +1,5 @@
-﻿namespace DropBoxLinker
+
+namespace DropBoxLinker
 {
     partial class DropBoxLinker
     {

@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+
+using System.Reflection;
 using System.Security;
 using System.Runtime.CompilerServices;
 

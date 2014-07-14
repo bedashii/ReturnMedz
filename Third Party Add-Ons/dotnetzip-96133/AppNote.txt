@@ -1,3 +1,4 @@
+
 File:    APPNOTE.TXT - .ZIP File Format Specification
 Version: 6.3.2
 Revised: September 28, 2007

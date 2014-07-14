@@ -1,4 +1,5 @@
-﻿
+
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DropBoxLinker", "DropBoxLinker\DropBoxLinker.csproj", "{B52CEEE7-9A03-4F81-AA2D-589987360F40}"

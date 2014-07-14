@@ -1,4 +1,5 @@
-﻿namespace PlusPlayWF
+
+namespace PlusPlayWF
 {
     partial class MainForm
     {

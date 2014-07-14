@@ -1,4 +1,5 @@
-﻿namespace SmartDeviceProject3
+
+namespace SmartDeviceProject3
 {
     partial class Form1
     {

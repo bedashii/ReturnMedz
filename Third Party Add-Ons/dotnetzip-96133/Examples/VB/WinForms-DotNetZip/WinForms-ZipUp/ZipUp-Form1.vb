@@ -1,4 +1,5 @@
-﻿Imports System.IO
+
+Imports System.IO
 Imports Ionic.Zip
 Imports System.Threading
 Imports System.ComponentModel

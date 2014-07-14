@@ -1,4 +1,5 @@
-﻿namespace R3_Zipper
+
+namespace R3_Zipper
 {
     partial class Form1
     {
