@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<codeSmith xmlns="http://www.codesmithtools.com/schema/csp.xsd">
+  <variables>
+    <add key="ConnectionString1" value="Data Source=CAPS;Initial Catalog=TempData;Persist Security Info=True;User ID=Operator;Password=Operator" />
+  </variables>
+  <propertySets>
+    <propertySet name="GenAllTableAccess" template="..\..\..\..\..\..\..\Git-Dev\Utilities\CodeSmith\HolFrame\GenAllTableAccess.cst">
+      <property name="SourceDatabase">
+        <connectionString>$(ConnectionString1)</connectionString>
+        <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
+      </property>
+    </propertySet>
+    <propertySet name="GenAllTableProperties" template="..\..\..\..\..\..\..\Git-Dev\Utilities\CodeSmith\HolFrame\GenAllTableProperties.cst">
+      <property name="SourceDatabase">
+        <connectionString>$(ConnectionString1)</connectionString>
+        <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
+      </property>
+    </propertySet>
+    <propertySet name="GenAllBusinessClasses" template="..\..\..\..\..\..\..\Git-Dev\Utilities\CodeSmith\HolFrame\Business\GenAllBusinessClasses.cst">
+      <property name="SourceDatabase">
+        <connectionString>$(ConnectionString1)</connectionString>
+        <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
+      </property>
+    </propertySet>
+    <propertySet name="GenAllTableLists" template="..\..\..\..\..\..\..\Git-Dev\Utilities\CodeSmith\HolFrame\Lists\GenAllTableLists.cst">
+      <property name="SourceDatabase">
+        <connectionString>$(ConnectionString1)</connectionString>
+        <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
+      </property>
+    </propertySet>
+  </propertySets>
+</codeSmith>
