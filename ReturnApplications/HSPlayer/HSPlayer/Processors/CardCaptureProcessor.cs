@@ -51,7 +51,7 @@ namespace HSPlayer.Processors
 
         internal void DeleteCard(TempDataGenLib.Business.Cards cards)
         {
-            _cardsList.Delete(cards);
+            //_cardsList.Delete(cards);
         }
     }
 }

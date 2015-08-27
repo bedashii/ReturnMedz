@@ -12,5 +12,10 @@ namespace TempDataGenLib.Lists
         {
 
         }
+
+        public void GetAllInOrder()
+        {
+            _data.LoadAllInOrder(this);
+        }
     }
 }

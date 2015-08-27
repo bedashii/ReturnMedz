@@ -17,6 +17,12 @@ namespace HSPlayer.Processors
             set { _cardsList = value; }
         }
 
+        private HeroesList _heroesList = new HeroesList();
+        public HeroesList HeroesList
+        {
+            get { return _heroesList; }
+            set { _heroesList = value; }
+        }
 
         public CardsProcessor()
         {
@@ -25,7 +31,26 @@ namespace HSPlayer.Processors
 
         public void Refresh()
         {
+            RefreshCardsList();
+            RefreshHeroesList();
+        }
+
+        private void RefreshCardsList()
+        {
+            CardsList.Clear();
             CardsList.GetAllInOrder();
+        }
+
+        private void RefreshHeroesList()
+        {
+            HeroesList.Clear();
+            HeroesList.GetAll();
+            HeroesList.Insert(0, new Heroes() { ID = 0, Name = "All" });
+        }
+
+        internal void Save()
+        {
+            _cardsList.UpdateAll();
         }
     }
 }

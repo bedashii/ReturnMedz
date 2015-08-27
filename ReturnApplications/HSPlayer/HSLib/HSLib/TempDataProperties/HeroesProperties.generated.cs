@@ -41,5 +41,20 @@ namespace TempDataGenLib.Properties
 			}
 		}
 
+		partial void OnClassChanging();
+		partial void OnClassChanged();
+		protected string _class;
+		public virtual string Class
+		{
+			get { return _class; }
+			set
+			{
+				OnClassChanging();
+				_class = value;
+				base.AnyPropertyChanged = true;
+				OnClassChanged();
+			}
+		}
+
     }
 }

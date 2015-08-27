@@ -34,6 +34,15 @@ namespace TempDataGenLib.Business
             FinishAfterConstruction();
         }
        
+        public Heroes(string name, string @class)
+        {
+            PrepareBeforeConstruction();
+            
+			this.Name = name;
+			this.Class = @class;
+			
+            FinishAfterConstruction();
+        }
         
         public void LoadItem(int iD)
         {
@@ -52,6 +61,7 @@ namespace TempDataGenLib.Business
         {
             this.ID = properties.ID;
 			this.Name = properties.Name;
+			this.Class = properties.Class;
 			this.RecordExists = properties.RecordExists;
 
         }

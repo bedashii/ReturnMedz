@@ -21,7 +21,7 @@ namespace TempDataGenLib.Data
     {
         private DataProcessHelper dataHelper = new DataProcessHelper();
 
-        private string _selectColumnNames = "C.[ID], C.[Name], C.[Cost], C.[Attack], C.[Duration], C.[MinAdditionalDamage], C.[MaxExtraDamage], C.[AdditionalCost]";
+        private string _selectColumnNames = "C.[ID], C.[Hero], C.[Name], C.[Cost], C.[Attack], C.[Duration], C.[MinAdditionalDamage], C.[MaxExtraDamage], C.[AdditionalCost]";
 
         public CardsData()
         {
@@ -78,6 +78,7 @@ namespace TempDataGenLib.Data
             try
             {
 				row.ID = Convert.ToInt32(dr["ID"]);
+				row.Hero = Convert.ToInt32(dr["Hero"]);
 				row.Name = Convert.ToString(dr["Name"]);
 				row.Cost = Convert.ToInt16(dr["Cost"]);
 				row.Attack = Convert.ToInt16(dr["Attack"]);
@@ -111,13 +112,14 @@ namespace TempDataGenLib.Data
         private UpdateProperties UpdateData()
         {
 
-            string q = "UPDATE dbo.Cards SET [Name] = @Name, [Cost] = @Cost, [Attack] = @Attack, [Duration] = @Duration, [MinAdditionalDamage] = @MinAdditionalDamage, [MaxExtraDamage] = @MaxExtraDamage, [AdditionalCost] = @AdditionalCost\n";
+            string q = "UPDATE dbo.Cards SET [Hero] = @Hero, [Name] = @Name, [Cost] = @Cost, [Attack] = @Attack, [Duration] = @Duration, [MinAdditionalDamage] = @MinAdditionalDamage, [MaxExtraDamage] = @MaxExtraDamage, [AdditionalCost] = @AdditionalCost\n";
             q += "WHERE ID = @ID\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
 
             SqlCommand cmd = dataHelper.CreateCommand(q);
 
             cmd.Parameters.Add("@ID", SqlDbType.Int, 4).Value = ID;
+			cmd.Parameters.Add("@Hero", SqlDbType.Int, 4).Value = Hero;
 			cmd.Parameters.Add("@Name", SqlDbType.VarChar, 100).Value = Name;
 			cmd.Parameters.Add("@Cost", SqlDbType.SmallInt, 2).Value = Cost;
 			cmd.Parameters.Add("@Attack", SqlDbType.SmallInt, 2).Value = Attack;
@@ -133,12 +135,13 @@ namespace TempDataGenLib.Data
 
         private UpdateProperties InsertData()
         {
-            string q = "INSERT INTO dbo.Cards ( [Name], [Cost], [Attack], [Duration], [MinAdditionalDamage], [MaxExtraDamage], [AdditionalCost] )\n";
-            q += "VALUES  ( @Name, @Cost, @Attack, @Duration, @MinAdditionalDamage, @MaxExtraDamage, @AdditionalCost )\n";
+            string q = "INSERT INTO dbo.Cards ( [Hero], [Name], [Cost], [Attack], [Duration], [MinAdditionalDamage], [MaxExtraDamage], [AdditionalCost] )\n";
+            q += "VALUES  ( @Hero, @Name, @Cost, @Attack, @Duration, @MinAdditionalDamage, @MaxExtraDamage, @AdditionalCost )\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
             SqlCommand cmd = dataHelper.CreateCommand(q);
             
-            cmd.Parameters.Add("@Name", SqlDbType.VarChar, 100).Value = Name;
+            cmd.Parameters.Add("@Hero", SqlDbType.Int, 4).Value = Hero;
+			cmd.Parameters.Add("@Name", SqlDbType.VarChar, 100).Value = Name;
 			cmd.Parameters.Add("@Cost", SqlDbType.SmallInt, 2).Value = Cost;
 			cmd.Parameters.Add("@Attack", SqlDbType.SmallInt, 2).Value = Attack;
 			cmd.Parameters.Add("@Duration", SqlDbType.SmallInt, 2).Value = Duration;

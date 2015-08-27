@@ -33,6 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -56,8 +57,22 @@
     <Compile Include="CardsForm.Designer.cs">
       <DependentUpon>CardsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DeckBuilderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeckBuilderForm.Designer.cs">
+      <DependentUpon>DeckBuilderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DecksForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DecksForm.Designer.cs">
+      <DependentUpon>DecksForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Processors\CardCaptureProcessor.cs" />
     <Compile Include="Processors\CardsProcessor.cs" />
+    <Compile Include="Processors\DeckBuilderProcessor.cs" />
+    <Compile Include="Processors\DecksProcessor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CardCaptureForm.resx">
@@ -65,6 +80,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CardsForm.resx">
       <DependentUpon>CardsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeckBuilderForm.resx">
+      <DependentUpon>DeckBuilderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DecksForm.resx">
+      <DependentUpon>DecksForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -75,8 +96,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="App.config" />
     <None Include="Properties\DataSources\TempDataGenLib.Business.Cards.datasource" />
+    <None Include="Properties\DataSources\TempDataGenLib.Business.DeckCards.datasource" />
     <None Include="Properties\DataSources\TempDataGenLib.Lists.CardsList.datasource" />
+    <None Include="Properties\DataSources\TempDataGenLib.Lists.DecksList.datasource" />
+    <None Include="Properties\DataSources\TempDataGenLib.Lists.HeroesList.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -88,15 +113,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\HSLib\HSLib\HSLib.csproj">
       <Project>{7f7ebccc-f178-429c-b869-00d0c7aecd12}</Project>
       <Name>HSLib</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

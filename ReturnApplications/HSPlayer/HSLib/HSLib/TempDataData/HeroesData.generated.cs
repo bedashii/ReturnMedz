@@ -21,7 +21,7 @@ namespace TempDataGenLib.Data
     {
         private DataProcessHelper dataHelper = new DataProcessHelper();
 
-        private string _selectColumnNames = "H.[ID], H.[Name]";
+        private string _selectColumnNames = "H.[ID], H.[Name], H.[Class]";
 
         public HeroesData()
         {
@@ -80,6 +80,11 @@ namespace TempDataGenLib.Data
 				row.ID = Convert.ToInt32(dr["ID"]);
 				row.Name = Convert.ToString(dr["Name"]);
 
+				if ((dr["Class"]) == DBNull.Value)
+					row.Class = null;
+				else
+					row.Class = Convert.ToString(dr["Class"]);
+
                 row.RecordExists = true;
                 row.AnyPropertyChanged = false;
             }
@@ -105,7 +110,7 @@ namespace TempDataGenLib.Data
         private UpdateProperties UpdateData()
         {
 
-            string q = "UPDATE dbo.Heroes SET [Name] = @Name\n";
+            string q = "UPDATE dbo.Heroes SET [Name] = @Name, [Class] = @Class\n";
             q += "WHERE ID = @ID\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
 
@@ -114,6 +119,12 @@ namespace TempDataGenLib.Data
             cmd.Parameters.Add("@ID", SqlDbType.Int, 4).Value = ID;
 			cmd.Parameters.Add("@Name", SqlDbType.VarChar, 20).Value = Name;
 			
+			if (Class == null)
+				cmd.Parameters.Add("@Class", SqlDbType.VarChar, 20).Value = DBNull.Value;
+			else
+				cmd.Parameters.Add("@Class", SqlDbType.VarChar, 20).Value = Class;
+			
+			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             base.AnyPropertyChanged = false; //After update Change is false since it's changes have been applied to the database
             return up;
@@ -121,12 +132,18 @@ namespace TempDataGenLib.Data
 
         private UpdateProperties InsertData()
         {
-            string q = "INSERT INTO dbo.Heroes ( [Name] )\n";
-            q += "VALUES  ( @Name )\n";
+            string q = "INSERT INTO dbo.Heroes ( [Name], [Class] )\n";
+            q += "VALUES  ( @Name, @Class )\n";
             q += "SELECT SCOPE_IDENTITY() 'ID', @@ROWCOUNT 'RowCount'";
             SqlCommand cmd = dataHelper.CreateCommand(q);
             
             cmd.Parameters.Add("@Name", SqlDbType.VarChar, 20).Value = Name;
+			
+			if (Class == null)
+				cmd.Parameters.Add("@Class", SqlDbType.VarChar, 20).Value = DBNull.Value;
+			else
+				cmd.Parameters.Add("@Class", SqlDbType.VarChar, 20).Value = Class;
+			
 			
             UpdateProperties up = dataHelper.ExecuteAndReturn(cmd);
             ID = Convert.ToInt32(up.Identity);

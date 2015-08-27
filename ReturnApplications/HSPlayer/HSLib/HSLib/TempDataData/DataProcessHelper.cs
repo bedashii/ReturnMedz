@@ -95,8 +95,6 @@ namespace TempDataGenLib.Data
 
         public object ExecuteCommand(ExecuteTypes returnType, SqlCommand cmd)
         {
-            ConnectionReset();
-            
             switch (returnType)
             {
                 case ExecuteTypes.NonQuery:
@@ -117,8 +115,6 @@ namespace TempDataGenLib.Data
             {
                 try
                 {
-                    ConnectionReset();
-                
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
@@ -244,12 +240,6 @@ namespace TempDataGenLib.Data
         {
             var cmd = CreateCommand("SELECT GETDATE()");
             return Convert.ToDateTime(ExecuteScalar(cmd));
-        }
-        
-        void ConnectionReset()
-        {
-            if (_connectionString != Conn.ConnectionString)
-                Conn.ConnectionString = _connectionString;
         }
     }
 }

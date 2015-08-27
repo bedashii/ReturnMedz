@@ -17,7 +17,19 @@ namespace TempDataGenLib.Business
     public partial class Cards : Data.CardsData
     {
         #region ALL FOREIGN TABLE MEMBERS
-                
+		private static HeroesList _heroMemberList = new HeroesList();
+		private Heroes _heroMember;
+		[System.Xml.Serialization.XmlIgnore]
+		public Heroes HeroMember
+		{
+		    get
+		    {
+		        if (_heroMember == null || _heroMember.ID != this.Hero)
+		            _heroMember = _heroMemberList.GetByPrimaryKey(this.Hero);
+		        return _heroMember;
+		    }
+		    set { _heroMember = value; }
+		}
         #endregion
 
         public Cards(int iD)
@@ -34,10 +46,11 @@ namespace TempDataGenLib.Business
             FinishAfterConstruction();
         }
        
-        public Cards(string name, short cost, short attack, short duration, short minAdditionalDamage, short maxExtraDamage, short additionalCost)
+        public Cards(int hero, string name, short cost, short attack, short duration, short minAdditionalDamage, short maxExtraDamage, short additionalCost)
         {
             PrepareBeforeConstruction();
             
+			this.Hero = hero;
 			this.Name = name;
 			this.Cost = cost;
 			this.Attack = attack;
@@ -65,6 +78,7 @@ namespace TempDataGenLib.Business
         private void SetProperties(Properties.CardsProperties properties)
         {
             this.ID = properties.ID;
+			this.Hero = properties.Hero;
 			this.Name = properties.Name;
 			this.Cost = properties.Cost;
 			this.Attack = properties.Attack;

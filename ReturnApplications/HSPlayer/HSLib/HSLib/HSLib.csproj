@@ -1,71 +1,167 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{7F7EBCCC-F178-429C-B869-00D0C7AECD12}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HSLib</RootNamespace>
-    <AssemblyName>HSLib</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TempDataBusiness\Cards.cs" />
-    <Compile Include="TempDataBusiness\Cards.generated.cs">
-      <DependentUpon>Cards.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TempDataData\CardsData.cs" />
-    <Compile Include="TempDataData\CardsData.generated.cs">
-      <DependentUpon>CardsData.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TempDataData\DataProcessHelper.cs" />
-    <Compile Include="TempDataLists\CardsList.cs" />
-    <Compile Include="TempDataLists\CardsList.generated.cs">
-      <DependentUpon>CardsList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TempDataProperties\CardsProperties.cs" />
-    <Compile Include="TempDataProperties\CardsProperties.generated.cs">
-      <DependentUpon>CardsProperties.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TempDataProperties\PropertiesBase.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="HSLibGenerator.csp" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+	<PropertyGroup>
+		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+		<ProductVersion>8.0.30703</ProductVersion>
+		<SchemaVersion>2.0</SchemaVersion>
+		<ProjectGuid>{7F7EBCCC-F178-429C-B869-00D0C7AECD12}</ProjectGuid>
+		<OutputType>Library</OutputType>
+		<AppDesignerFolder>Properties</AppDesignerFolder>
+		<RootNamespace>HSLib</RootNamespace>
+		<AssemblyName>HSLib</AssemblyName>
+		<TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+		<FileAlignment>512</FileAlignment>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>full</DebugType>
+		<Optimize>false</Optimize>
+		<OutputPath>bin\Debug\</OutputPath>
+		<DefineConstants>DEBUG;TRACE</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<DebugType>pdbonly</DebugType>
+		<Optimize>true</Optimize>
+		<OutputPath>bin\Release\</OutputPath>
+		<DefineConstants>TRACE</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	<ItemGroup>
+		<Reference Include="System" />
+		<Reference Include="System.configuration" />
+		<Reference Include="System.Core" />
+		<Reference Include="System.Xml.Linq" />
+		<Reference Include="System.Data.DataSetExtensions" />
+		<Reference Include="Microsoft.CSharp" />
+		<Reference Include="System.Data" />
+		<Reference Include="System.Xml" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Include="Properties\AssemblyInfo.cs" />
+		<Compile Include="TempDataBusiness\AttributeTypes.cs" />
+		<Compile Include="TempDataBusiness\AttributeTypes.generated.cs">
+			<DependentUpon>AttributeTypes.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataBusiness\CardAttributes.cs" />
+		<Compile Include="TempDataBusiness\CardAttributes.generated.cs">
+			<DependentUpon>CardAttributes.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataBusiness\Cards.cs" />
+		<Compile Include="TempDataBusiness\Cards.generated.cs">
+			<DependentUpon>Cards.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataBusiness\DeckCards.cs" />
+		<Compile Include="TempDataBusiness\DeckCards.generated.cs">
+			<DependentUpon>DeckCards.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataBusiness\Decks.cs" />
+		<Compile Include="TempDataBusiness\Decks.generated.cs">
+			<DependentUpon>Decks.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataBusiness\GameAreas.cs" />
+		<Compile Include="TempDataBusiness\GameAreas.generated.cs">
+			<DependentUpon>GameAreas.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataBusiness\Heroes.cs" />
+		<Compile Include="TempDataBusiness\Heroes.generated.cs">
+			<DependentUpon>Heroes.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataData\DataProcessHelper.cs" />
+		<Compile Include="TempDataData\AttributeTypesData.cs" />
+		<Compile Include="TempDataData\AttributeTypesData.generated.cs">
+			<DependentUpon>AttributeTypesData.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataData\CardAttributesData.cs" />
+		<Compile Include="TempDataData\CardAttributesData.generated.cs">
+			<DependentUpon>CardAttributesData.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataData\CardsData.cs" />
+		<Compile Include="TempDataData\CardsData.generated.cs">
+			<DependentUpon>CardsData.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataData\DeckCardsData.cs" />
+		<Compile Include="TempDataData\DeckCardsData.generated.cs">
+			<DependentUpon>DeckCardsData.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataData\DecksData.cs" />
+		<Compile Include="TempDataData\DecksData.generated.cs">
+			<DependentUpon>DecksData.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataData\GameAreasData.cs" />
+		<Compile Include="TempDataData\GameAreasData.generated.cs">
+			<DependentUpon>GameAreasData.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataData\HeroesData.cs" />
+		<Compile Include="TempDataData\HeroesData.generated.cs">
+			<DependentUpon>HeroesData.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataLists\AttributeTypesList.cs" />
+		<Compile Include="TempDataLists\AttributeTypesList.generated.cs">
+			<DependentUpon>AttributeTypesList.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataLists\CardAttributesList.cs" />
+		<Compile Include="TempDataLists\CardAttributesList.generated.cs">
+			<DependentUpon>CardAttributesList.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataLists\CardsList.cs" />
+		<Compile Include="TempDataLists\CardsList.generated.cs">
+			<DependentUpon>CardsList.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataLists\DeckCardsList.cs" />
+		<Compile Include="TempDataLists\DeckCardsList.generated.cs">
+			<DependentUpon>DeckCardsList.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataLists\DecksList.cs" />
+		<Compile Include="TempDataLists\DecksList.generated.cs">
+			<DependentUpon>DecksList.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataLists\GameAreasList.cs" />
+		<Compile Include="TempDataLists\GameAreasList.generated.cs">
+			<DependentUpon>GameAreasList.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataLists\HeroesList.cs" />
+		<Compile Include="TempDataLists\HeroesList.generated.cs">
+			<DependentUpon>HeroesList.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataProperties\AttributeTypesProperties.cs" />
+		<Compile Include="TempDataProperties\AttributeTypesProperties.generated.cs">
+			<DependentUpon>AttributeTypesProperties.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataProperties\CardAttributesProperties.cs" />
+		<Compile Include="TempDataProperties\CardAttributesProperties.generated.cs">
+			<DependentUpon>CardAttributesProperties.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataProperties\CardsProperties.cs" />
+		<Compile Include="TempDataProperties\CardsProperties.generated.cs">
+			<DependentUpon>CardsProperties.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataProperties\DeckCardsProperties.cs" />
+		<Compile Include="TempDataProperties\DeckCardsProperties.generated.cs">
+			<DependentUpon>DeckCardsProperties.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataProperties\DecksProperties.cs" />
+		<Compile Include="TempDataProperties\DecksProperties.generated.cs">
+			<DependentUpon>DecksProperties.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataProperties\GameAreasProperties.cs" />
+		<Compile Include="TempDataProperties\GameAreasProperties.generated.cs">
+			<DependentUpon>GameAreasProperties.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataProperties\HeroesProperties.cs" />
+		<Compile Include="TempDataProperties\HeroesProperties.generated.cs">
+			<DependentUpon>HeroesProperties.cs</DependentUpon>
+		</Compile>
+		<Compile Include="TempDataProperties\PropertiesBase.cs" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="HSLibGenerator.csp" />
+	</ItemGroup>
+	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+	<!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

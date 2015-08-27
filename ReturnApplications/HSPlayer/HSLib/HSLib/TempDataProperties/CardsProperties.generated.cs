@@ -26,6 +26,21 @@ namespace TempDataGenLib.Properties
 			}
 		}
 
+		partial void OnHeroChanging();
+		partial void OnHeroChanged();
+		protected int _hero;
+		public virtual int Hero
+		{
+			get { return _hero; }
+			set
+			{
+				OnHeroChanging();
+				_hero = value;
+				base.AnyPropertyChanged = true;
+				OnHeroChanged();
+			}
+		}
+
 		partial void OnNameChanging();
 		partial void OnNameChanged();
 		protected string _name = "";
