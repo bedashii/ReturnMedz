@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
+    <Content Include="Resources\TestMap.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

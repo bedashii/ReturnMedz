@@ -13,8 +13,17 @@ namespace Mapper.Tests.DBContextTests
         const string MAP_NAME_KINGSROW = "King's Row";
         const string MAP_NAME_ILLIOS = "Illios";
 
+        [SetUp]
+        public void Setup()
+        {
+            using (var db = new MapContext())
+            {
+                db.Database.ExecuteSqlCommand("TRUNCATE TABLE [Maps]");
+            }
+        }
+
         [Test]
-        public Map maps_create_save_delete()
+        public void maps_create_save_delete()
         {
             using (var db = new MapContext())
             {
@@ -26,8 +35,6 @@ namespace Mapper.Tests.DBContextTests
                 var q = QuerySelectAllMaps(db);
 
                 Assert.IsTrue(q.FirstOrDefault().Name.Equals(MAP_NAME_HANAMURA));
-
-                return hanamuraMap;
             }
         }
 
@@ -36,9 +43,8 @@ namespace Mapper.Tests.DBContextTests
         {
             using (var db = new MapContext())
             {
-                var hanamuraMap = maps_create_save_delete();
-
                 var otherMaps = new List<Map> {
+                    CreateMap(1, MAP_NAME_HANAMURA, 1),
                     CreateMap(2, MAP_NAME_KINGSROW, 2),
                     CreateMap(3, MAP_NAME_ILLIOS, 3)
                 };
@@ -53,7 +59,9 @@ namespace Mapper.Tests.DBContextTests
                     Assert.IsTrue(otherMaps.Any(m => m.Name.Equals(map.Name)) || map.Name.Equals(MAP_NAME_HANAMURA));
                 }
 
-                db.Maps.Remove(hanamuraMap);
+                var hanamura = db.Maps.Find(1);
+
+                db.Maps.Remove(hanamura);
                 db.SaveChanges();
 
                 q = QuerySelectAllMaps(db);
