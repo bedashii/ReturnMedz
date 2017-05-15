@@ -1,13 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapper", "Mapper\Mapper.csproj", "{936336FD-D974-4530-BC1C-592D39F5C8DC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapper.Tests", "Mapper.Tests\Mapper.Tests.csproj", "{AC1F05B4-BF66-452E-ACF7-AFE8B0F43606}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapperLibs", "MapperLibs\MapperLibs.csproj", "{3EEA3435-906F-45EA-A417-F07F1E9888FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapper", "Mapper\Mapper.csproj", "{D5280677-A58E-4852-A34F-32C446F40EE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{936336FD-D974-4530-BC1C-592D39F5C8DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{936336FD-D974-4530-BC1C-592D39F5C8DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{936336FD-D974-4530-BC1C-592D39F5C8DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{936336FD-D974-4530-BC1C-592D39F5C8DC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AC1F05B4-BF66-452E-ACF7-AFE8B0F43606}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC1F05B4-BF66-452E-ACF7-AFE8B0F43606}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC1F05B4-BF66-452E-ACF7-AFE8B0F43606}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC1F05B4-BF66-452E-ACF7-AFE8B0F43606}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3EEA3435-906F-45EA-A417-F07F1E9888FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3EEA3435-906F-45EA-A417-F07F1E9888FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3EEA3435-906F-45EA-A417-F07F1E9888FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3EEA3435-906F-45EA-A417-F07F1E9888FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5280677-A58E-4852-A34F-32C446F40EE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5280677-A58E-4852-A34F-32C446F40EE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5280677-A58E-4852-A34F-32C446F40EE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5280677-A58E-4852-A34F-32C446F40EE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
