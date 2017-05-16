@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\ReturnApplications",
+    "\\ReturnApplications\\JIC",
+    "\\ReturnApplications\\JIC\\Mapper",
+    "\\ReturnApplications\\JIC\\Mapper\\Mapper",
+    "\\ReturnApplications\\JIC\\Mapper\\Mapper\\Mapper.Tests"
+  ],
+  "SelectedNode": "\\ReturnApplications\\JIC\\Mapper\\Mapper\\Mapper.Tests\\DBContextTests.cs",
+  "PreviewInSolutionExplorer": false
+}
