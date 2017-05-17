@@ -147,7 +147,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\AerialViewController.cs" />
+    <Compile Include="Controllers\DetailedViewController.cs" />
+    <Compile Include="Controllers\MapSelectionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -175,6 +177,8 @@
     <Content Include="Resources\TestCoverImageDorado.jpg" />
     <Content Include="Resources\TestCoverImageHanamura.jpg" />
     <Content Include="Resources\TestCoverImageKingsRow.jpg" />
+    <Content Include="Resources\TestHanamuraDetailed.png" />
+    <Content Include="Scripts\AppJs\Map.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -202,10 +206,15 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Map.cshtml" />
+    <Content Include="Views\MapSelection\About.cshtml" />
+    <Content Include="Views\MapSelection\Contact.cshtml" />
+    <Content Include="Views\MapSelection\Index.cshtml" />
+    <Content Include="Views\AerialView\Index.cshtml" />
+    <Content Include="Views\DetailedView\Create.cshtml" />
+    <Content Include="Views\DetailedView\Delete.cshtml" />
+    <Content Include="Views\DetailedView\Details.cshtml" />
+    <Content Include="Views\DetailedView\Edit.cshtml" />
+    <Content Include="Views\DetailedView\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
