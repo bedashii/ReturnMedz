@@ -13,7 +13,6 @@ namespace LainsDecryptor.Services
     public class DecryptingService
     {
         ICollection<string> IgnoreList = Configs.IgnoreList;
-        ICollection<string> WatchList = Configs.WatchList;
         ICollection<FriendshipGuideModel> Guides = new List<FriendshipGuideModel>();
         public List<CompletedFriendshipGuideModel> CompletedGuides = new List<CompletedFriendshipGuideModel>();
 
@@ -138,11 +137,22 @@ namespace LainsDecryptor.Services
                 {
                     CompletedGuides.Add(new CompletedFriendshipGuideModel()
                     {
-                        Person = guide.Person
-                    }); 
+                        Person = guide.Person,
+                        PersonSystemName = GetPersonSystemName(guide.Person)
+                    });
                 }
 
                 CompletedGuides.Find(x => x.Person.Equals(guide.Person)).AddGuide(guide);
+            }
+        }
+
+        private string GetPersonSystemName(string person)
+        {
+            if (!person.Contains("&"))
+                return person.Trim();
+            else
+            {
+                return person.Replace("&", "And").Replace(" ", "");
             }
         }
 

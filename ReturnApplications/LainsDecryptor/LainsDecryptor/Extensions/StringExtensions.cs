@@ -12,5 +12,10 @@ namespace LainsDecryptor.Extensions
         {
             return s == null || s == "";
         }
+
+        public static int ToInt32(this string s)
+        {
+            return Convert.ToInt32(s);
+        }
     }
 }

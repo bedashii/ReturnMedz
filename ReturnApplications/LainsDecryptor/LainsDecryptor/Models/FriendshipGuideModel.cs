@@ -16,6 +16,7 @@ namespace LainsDecryptor.Models
     public class CompletedFriendshipGuideModel
     {
         public string Person { get; set; }
+        public string PersonSystemName { get; set; }
         public List<EventsGuide> Events { get; set; } = new List<EventsGuide>();
 
         public void AddGuide(FriendshipGuideModel guide)

@@ -11,27 +11,78 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LainsDecryptor.Models;
+using LainsDecryptor.Extensions;
+using System.Configuration;
 
 namespace LainsDecryptor
 {
     public partial class MainForm : Form
     {
 
-        DecryptingService service;
-        CompletedFriendshipGuideModel selected = new CompletedFriendshipGuideModel();
+        DecryptingService Service;
+        Dictionary<string, string> IndexDictionary = Configs.IndexDictionary;
 
         public MainForm()
         {
             InitializeComponent();
-            service = new DecryptingService();
-            completedFriendshipGuideModelBindingSource.DataSource = service.CompletedGuides;
-            listBox1.SelectedValueChanged += ListBox1_SelectedValueChanged;
+            FormClosing += MainForm_FormClosing;
+            Service = new DecryptingService();
+            completedFriendshipGuideModelBindingSource.DataSource = Service.CompletedGuides;
         }
 
-        private void ListBox1_SelectedValueChanged(object sender, EventArgs e)
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            selected = (CompletedFriendshipGuideModel)listBox1.SelectedItem;
-            CreatePanels();
+            var config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
+            config.AppSettings.Settings["LastIndices"].Value = GetCSVDictionaryString();
+            config.Save();
+        }
+
+        private string GetCSVDictionaryString()
+        {
+            var s = string.Empty;
+
+            foreach (var index in IndexDictionary)
+            {
+                s += index.Value;
+                s += index.Value.Equals(IndexDictionary.Last().Value) ? string.Empty : ",";
+            }
+
+            return s;
+        }
+
+        private void BuildListBoxes()
+        {
+            foreach (var guide in Service.CompletedGuides)
+            {
+                var listbox = new ListBox();
+
+                listbox.Font = new Font("Consolas", 8.25f);
+                listbox.Name = guide.PersonSystemName;
+                listbox.HorizontalScrollbar = true;
+                listbox.Items.Add(string.Empty);
+
+                foreach (var eevent in guide.Events)
+                {
+                    listbox.Items.Add($"Level: {eevent.Level}");
+                    listbox.Items.Add($"Day: {eevent.Day}");
+                    listbox.Items.Add($"Time: {eevent.Time}");
+                    listbox.Items.Add($"Location: {eevent.Location}");
+
+                    eevent.Instructions.ForEach(instruction => listbox.Items.Add(instruction));
+
+                    listbox.Items.Add("===============================================");
+                }
+
+                PanelTableMain.Controls.Find($"Panel{guide.PersonSystemName}", true).FirstOrDefault().Controls.Add(listbox);
+                listbox.Dock = DockStyle.Fill;
+                listbox.SelectedIndex = IndexDictionary[guide.PersonSystemName].ToInt32();
+                listbox.SelectedValueChanged += Listbox_SelectedValueChanged;
+            }
+        }
+
+        private void Listbox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            IndexDictionary[(sender as ListBox).Name] = (sender as ListBox).SelectedIndex.ToString();
         }
 
         private void ButtonOpenFile_Click(object sender, EventArgs e)
@@ -40,37 +91,13 @@ namespace LainsDecryptor
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                service.FriendshipGuides(openFileDialog.FileName);
+                Service.FriendshipGuides(openFileDialog.FileName);
             }
+
+            BuildListBoxes();
 
             completedFriendshipGuideModelBindingSource.ResetBindings(false);
 
-        }
-
-        private void CreatePanels()
-        {
-            PanelFlowGuides.Controls.Clear();
-
-            if (selected != null && selected.Events != null)
-            {
-                selected.Events.ForEach(x =>
-                {
-                    var listbox = new ListBox();
-                    listbox.Width = PanelFlowGuides.Width - 30;
-                    listbox.Font = new Font("Consolas", listBox1.Font.Size);
-                    listbox.Items.Add($"Level: {x.Level}");
-                    listbox.Items.Add($"Day: {x.Day}");
-                    listbox.Items.Add($"Time: {x.Time}");
-                    listbox.Items.Add($"Location: {x.Location}");
-
-                    x.Instructions.ForEach(y =>
-                    {
-                        listbox.Items.Add(y);
-                    });
-
-                    PanelFlowGuides.Controls.Add(listbox);
-                });
-            }
         }
     }
 }
