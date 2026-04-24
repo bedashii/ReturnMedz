@@ -1,0 +1,28 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+
+<div class="editor-container">
+    <div class="text-panel">
+        <div class="input-wrapper">
+            <div id="highlightLayer" class="xml-highlight-layer"></div>
+            <textarea id="inputArea" placeholder="Paste your text containing XML here..."></textarea>
+        </div>
+        <div class="submit-container">
+            <button id="submitBtn" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+    <div class="text-panel">
+        <textarea id="resultArea" readonly placeholder="Results will appear here..."></textarea>
+    </div>
+</div>
+
+<div id="toastNotification" class="toast-notification">Copied to clipboard!</div>
+
+@section Scripts {
+    <script src="~/js/xmlInputComponent.js" asp-append-version="true"></script>
+}

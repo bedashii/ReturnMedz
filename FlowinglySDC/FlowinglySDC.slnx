@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="FlowinglySDC.API.Tests/FlowinglySDC.API.Tests.csproj" />
+  <Project Path="FlowinglySDC.API/FlowinglySDC.API.csproj" />
+  <Project Path="FlowinglySDC.Web.Tests/FlowinglySDC.Web.Tests.csproj" />
+  <Project Path="FlowinglySDC.Web/FlowinglySDC.Web.csproj" />
+</Solution>
