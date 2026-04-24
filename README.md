@@ -10,11 +10,10 @@ This is a no-code solution, everything was written entirely using GitHub CoPilot
 
 AI Prompts:
 
-================================================================================
 Prompt 1: This sets up the project for me. Here I create everything as I would
 without AI. The way this prompt is structured creates a coding pattern that is
 easy read and also ensures best coding practices.
-================================================================================
+=
 
 Overview:
 We're going to create the foundation for an app which allows the user to paste text which contains XML. The text will be sent to an API which will perform calculations and provide a JSON response.
@@ -73,10 +72,9 @@ Always remember and follow SOLID principles, seperate concerns accorrdingly. Do 
 
 
 
-================================================================================
 Prompt 2: The XML was not validating correctly. I identified that there was a
 problem with the regex.
-================================================================================
+=
 Something's wrong with the validation process, this is an example of the text being used:
 
 Hi Patricia, Please create an expense claim for the below. Relevant details are marked up as requested... <expense><cost_centre>DEV632</cost_centre><total>35,000</total><payment_method>personal card</payment_method></expense>
@@ -85,10 +83,10 @@ The  expense and payment_method tags are being highlighted as invalid, however, 
 
 
 
-================================================================================
+
 Prompt 3: The regex was fixed but the overall validation process was not
 accounting for isolated blocks of XML, this prompt fixed that issue.
-================================================================================
+=
 The validation process needs to be updated. It currently handles entire blocks of XML fine, as with my previous example. However, if there are isolated pieces of XML, it does not seem to validate correctly, e.g:
 
 From: William Steele Sent: Friday, 16 June 2022 10:32 AM To: Maria Washington Subject: test Hi Maria, Please create a reservation for 10 at the <vendor>Seaside Steakhouse</vendor> for our <description>development team’s project end celebration</description> on <date>27 April 2022</date> at 7.30pm. Regards, William
@@ -98,9 +96,9 @@ These tags are all valid however, the calculation bit as a whole is invalid beca
 
 
 
-================================================================================
+
 Prompt 4: Here I addressed issues uncovered during testing
-================================================================================
+=
 1.	When a message is submitted and the <cost> tag is missing, the Json should not be displayed. Instead a message (in the read only text area) should be displayed notifying the user of the error.
 
 2.	When a message is submitted and the message contains an invalid tag, the Json should not be displayed. Instead a message (in the read only text area) should be displayed notifying the user of the error.
@@ -111,11 +109,11 @@ Prompt 4: Here I addressed issues uncovered during testing
 
 
 
-================================================================================
+
 Prompt 5: Testing and styling cleanup is always left for the end, this ensures
 that the prompts before this complete faster (instead of updating tests and
 styling for each change made)
-================================================================================
+=
 1.	Create integration tests, one for each Action on the Controller of the web app. For each Action, create a test that handles the following:
 •	Valid data
 •	Data missing total tag (expected error message)
